@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;800&display=swap" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/jquery.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/buttons.dataTables.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/sweetalert2.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/leaflet.css' %}">
+    <link rel="stylesheet" href="{% static 'style/css/general.navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'style/css/general.footer.css' %}">
+    <link rel="stylesheet" href="{% static 'style/css/index.css' %}">
+    {% block stylesheet %}{% endblock %}
+
+    <!-- JavaScript Libraries -->
+    <script src="{% static 'assets/js/sweetalert2.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    {% include 'base/navbar.html' %}
+
+    <!-- Floating "Rate Me" Button -->
+    <button id="rateMeBtn" class="floating-button">
+        <i class="fas fa-star"></i> Rate Me
+    </button>
+
+    {% block content %}{% endblock %}
+    {% include 'base/footer.html' %}
+
+    <!-- Scripts -->
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/select2.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatables.min.js' %}"></script>
+    <script src="{% static 'assets/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'assets/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'assets/js/pdfmake.min.js' %}"></script>
+    <script src="{% static 'assets/js/vfs_fonts.js' %}"></script>
+    <script src="{% static 'assets/js/leaflet.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+    <!-- Custom JavaScript -->
+    <script src="{% static 'style/js/main.js' %}"></script>
+    {% block script %}{% endblock %}
+</body>
+</html>
