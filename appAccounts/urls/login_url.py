@@ -7,7 +7,7 @@ app_name = "appAccounts"
 
 urlpatterns = (
     [
-        path("login/", login_view.login, name="login"),
+        path("", login_view.login, name="login"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
