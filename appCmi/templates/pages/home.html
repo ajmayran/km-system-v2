@@ -1,0 +1,54 @@
+{% extends 'base/cmi-index.html' %}
+
+{% load static %}
+
+{% block title %}
+  Home
+{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'style/css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+  <div class="main-content">
+    <img src="{% static 'assets/images/welcome-image.jpg' %}" alt="welcome" class="welcome-img">
+    <!-- Quote container with search button -->
+    <div class="quote-container">
+        <p class="quote-text">
+            "Harnessing knowledge to sustain Agriculture, Aquatic, and Natural Resources—
+            empowering communities, preserving nature, and driving innovation for a resilient future."
+        </p>
+        <a href="/search">
+            <button class="search-button">Get Started!</button>
+        </a>
+    </div>
+    
+    </div>
+{% endblock %}
+
+{% block script %}
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ message }}'
+          })
+        </script>
+        {% else %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}

@@ -40,20 +40,20 @@
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>Account Activation</h1>
+            <h1>Reset Password</h1>
         </div>
         <div class="content">
-            <p>Hello {{ first_name|capfirst }},</p>
-            <p>This is your new activation code, please click the button below to complete your registration.</p>
+            <p>Hello {{user.first_name|capfirst}},</p>
+            <p>We received a request to reset the password for the account associated with this email address.</p>
+            <p>To proceed with the password reset, please click on the following link:</p>
             <p>
-                <a href="http://{{ domain }}{% url 'appAccounts:activate' uidb64=uid token=token %}" style="display: inline-block; padding: 10px 20px; text-decoration: none; background-color: #28a745; color: white; border-radius: 5px;">Activate</a>
+                <a href="{{ reset_url }}" style="display: inline-block; padding: 10px 20px; text-decoration: none; background-color: #28a745; color: white; border-radius: 5px;">Reset</a>
             </p>
-            <p>Thank you for registering with us!</p>
+            <p>If you did not initiate this password reset request, please ignore this email. No further action is required on your part.</p>
             
-            <p>Please note that this activation link is only valid for a limited time.</p>
+            <p>Thank you.</p>
             
-            <p>If you did not register for an account with us, please disregard this email.</p>
-            <p><br>The Knowledge Management Team</p>
+            <p>Sincerely,<br>The Knowledge Management Team</p>
         </div>
         <div class="footer">
             &copy; 2024 Knowledge Management.

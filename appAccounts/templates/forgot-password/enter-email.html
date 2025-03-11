@@ -1,0 +1,71 @@
+{% extends 'base/account-index.html' %}
+
+{% load static %}
+<title>
+  {% block title %}
+    Email
+  {% endblock %}
+</title>
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block content %}
+  <br />
+  <div class="main-content">
+    <div class="container" style="min-height: 66vh;">
+      <div class="row justify-content-center">
+        <div class="card-email bg-white" style="width: 500px; max-width: 600px; ">
+          <div class="card-title">
+            <div class="card-head text-center" >
+              <br>
+              <h4>Enter your email to reset your password.</h4>
+            </div>
+          </div>
+          <hr>
+          <div class="card-body">
+            <form action="{% url 'appAccounts:email' %}" method="POST" >
+              {% csrf_token %}
+              <div class="form-group">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required />
+              </div>
+             
+              <div class="reset-button text-right" >
+                <div class="reset">
+                  <button type="submit" value="submit" class="btn btn-primary">Submit</button>
+                </div> 
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+{% endblock %}
+
+{% block script %}
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'error' %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '{{ message }}'
+          })
+        </script>
+        {% else %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}

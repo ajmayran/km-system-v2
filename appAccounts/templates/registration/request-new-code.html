@@ -46,7 +46,7 @@
             </div>
             <hr />
             <div class="card-body">
-              <form action="{% url 'new-code' %}" method="POST">
+              <form action="{% url 'appAccounts:new-code' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
                   <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required autocomplete="email" />

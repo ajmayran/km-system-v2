@@ -4,6 +4,9 @@ from .account_activation_url import urlpatterns as account_activation_patterns
 from .logout_url import urlpatterns as logout_patterns
 from .password_reset_url import urlpatterns as password_reset_patterns
 from .enter_email_url import urlpatterns as enter_email_patterns
+from .request_new_activation_code_url import (
+    urlpatterns as request_new_activation_code_patterns,
+)
 
 from appAccounts.views import *
 
@@ -15,6 +18,7 @@ urlpatterns = (
     + logout_patterns
     + password_reset_patterns
     + enter_email_patterns
+    + request_new_activation_code_patterns
 )
 
 # This is the __init__.py file for the appAccounts.urls package.

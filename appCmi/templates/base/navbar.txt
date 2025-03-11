@@ -1,0 +1,132 @@
+<script>
+    // This script will populate the dynamic elements based on user state and data
+    document.addEventListener('DOMContentLoaded', function() {
+      // Sample data (in a real implementation, this would come from an API or similar)
+      const userData = {
+        isAuthenticated: false,
+        userType: null,
+        isCmiUser: false
+      };
+      
+      const siteData = {
+        links: [],
+        commodities: [],
+        resources: []
+      };
+      
+      // Populate dropdown menus
+      populateDropdowns(siteData);
+      
+      // Update user menu based on authentication status
+      updateUserMenu(userData);
+      
+      // Handle mobile menu toggle
+      document.querySelector('.hamburger').addEventListener('click', function() {
+        document.getElementById('mobileView').classList.toggle('hidden');
+      });
+    });
+    
+    function populateDropdowns(data) {
+      // Populate links
+      const linksContainer = document.getElementById('useful-links-container');
+      const mobileLinksContainer = document.getElementById('mobile-useful-links-container');
+      
+      if (data.links.length === 0) {
+        linksContainer.innerHTML = '<a href="#" class="dropdown-item">No Links Yet</a>';
+        mobileLinksContainer.innerHTML = '<a href="#" class="dropdown-item">No Links Yet</a>';
+      } else {
+        data.links.forEach(link => {
+          const linkItem = `<a href="${link.url}" class="dropdown-item" target="_blank" rel="noopener noreferrer">${link.title}</a>`;
+          linksContainer.innerHTML += linkItem;
+          mobileLinksContainer.innerHTML += linkItem;
+        });
+      }
+      
+      // Similar functions for commodities and resources
+      // ...
+    }
+    
+    function updateUserMenu(userData) {
+      const userMenu = document.getElementById('user-menu');
+      const mobileUserMenu = document.getElementById('mobile-user-menu');
+      
+      let menuHTML = '';
+      
+      if (userData.isCmiUser) {
+        menuHTML += `
+          <li>
+            <div class="dropdown">
+              <a class="btn dropdown-fa-toggle-down" id="dropdownRequests" data-toggle="dropdown" aria-haspopup="true">Requests <i class="fa-solid fa-circle-chevron-down"></i></a>
+              <div class="dropdown-menu" aria-labelledby="dropdownRequests">
+                <a href="cmi-requests.html" class="dropdown-item">CMI</a>
+                <a href="commodity-requests.html" class="dropdown-item">Commodity</a>
+                <a href="knowledge-requests.html" class="dropdown-item">Knowledge Resources</a>
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <a class="btn dropdown-fa-toggle-down" id="additional" data-toggle="dropdown" aria-haspopup="true">Additional <i class="fa-solid fa-circle-chevron-down"></i></a>
+              <div class="dropdown-menu" aria-labelledby="additional">
+                <a href="cmi-resources.html" class="dropdown-item">Resources</a>
+                <a href="tech-generated.html" class="dropdown-item">Tech Generated</a>
+                <a href="tech-adaptor.html" class="dropdown-item">Tech Adaptor</a>
+              </div>
+            </div>
+          </li>
+        `;
+      }
+      
+      if (userData.isAuthenticated) {
+        menuHTML += `
+          <li>
+            <div class="dropdown" style="margin-top: 5.8px;">
+              <a href="logout.html" style="padding: 10px;" class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            </div>
+          </li>
+        `;
+        
+        if (userData.userType === 'general') {
+          menuHTML += `
+            <li>
+              <div class="dropdown" style="margin-top: 5.8px;">
+                <a href="settings.html" style="padding: 10px;" class="settings"><i class="fa-solid fa-user"></i></a>
+              </div>
+            </li>
+          `;
+        } else if (userData.userType === 'admin') {
+          menuHTML += `
+            <li>
+              <div class="dropdown" style="margin-top: 5.8px;">
+                <a href="admin-dashboard.html" style="padding: 10px;" class="admin-dashboard">Admin Dashboard</a>
+              </div>
+            </li>
+          `;
+        }
+      } else {
+        menuHTML += `
+          <li>
+            <div class="dropdown" style="margin-top: 5.8px;">
+              <a href="signup.html" style="padding: 10px;" class="register">Register</a>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown" style="margin-top: 5.8px;">
+              <a href="login.html" style="padding: 10px;" class="login">Login</a>
+            </div>
+          </li>
+        `;
+      }
+      
+      userMenu.innerHTML = menuHTML;
+      
+      // Similar code for mobile menu, with slightly different formatting
+      // ...
+    }
+    
+    function handleDropdownClick(type) {
+      // Handle dropdown click logic
+      console.log(`${type} dropdown clicked`);
+      // Additional logic as needed
+    }
+  </script>
