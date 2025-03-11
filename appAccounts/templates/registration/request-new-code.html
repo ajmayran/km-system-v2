@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New Activation Code</title>
+
+    <!-- links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;800&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+
+    <!-- SweetAlert -->
+    <script src="{% static 'assets/js/sweetalert2.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'assets/css/sweetalert2.min.css' %}" />
+
+    {% block stylesheet %}
+
+    {% endblock %}
+
+    <style>
+      .main-content {
+        width: 100%; /* Set the initial width */
+        transition: width 0.3s ease;
+      }
+    </style>
+  </head>
+  <body>
+    <br />
+    <div class="main-content">
+      <div class="container" style="min-height: 66vh;">
+        <div class="row justify-content-center">
+          <div class="card-email bg-white" style="width: 500px; max-width: 600px; ">
+            <div class="card-title">
+              <div class="card-head text-center">
+                <br />
+                <h3>Request Activation Code</h3>
+              </div>
+            </div>
+            <hr />
+            <div class="card-body">
+              <form action="{% url 'new-code' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required autocomplete="email" />
+                </div>
+
+                <div class="activation-button text-right">
+                  <div class="activation">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+    <script src="{% static 'assets/js/select2.min.js' %}"></script>
+    <script src="{% static 'assets/js/popper.js' %}"></script>
+    <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'assets/js/datatables.min.js' %}"></script>
+    <script src="{% static 'assets/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'assets/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'assets/js/pdfmake.min.js' %}"></script>
+    <script src="{% static 'assets/js/vfs_fonts.js' %}"></script>
+    <script src="{% static 'assets/js/leaflet.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+
+    {% if messages %}
+      {% for message in messages %}
+        {% if message.tags == 'error' %}
+          <script>
+            // Display SweetAlert success message
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: '{{ message }}'
+            })
+          </script>
+        {% else %}
+          <script>
+            // Display SweetAlert success message
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: '{{ message }}'
+            })
+          </script>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  </body>
+</html>

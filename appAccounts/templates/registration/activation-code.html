@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Inline CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        .email-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+        }
+
+        .header {
+            background-color: #0C356A;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .content {
+            padding: 20px;
+        }
+
+        .image {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .footer {
+            background-color: #f0f0f0;
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="email-container">
+        <div class="header">
+            <h1>Account Activation</h1>
+        </div>
+        <div class="content">
+            <p>Hello {{ first_name|capfirst }},</p>
+            <p>Thank you for registering with us!</p>
+            <p>To complete the registration process and gain access to your account, please click the link below:</p>
+            <p>
+                <a href="http://{{ domain }}{% url 'app_accounts:activate' uidb64=uid token=token %}" style="display: inline-block; padding: 10px 20px; text-decoration: none; background-color: #28a745; color: white; border-radius: 5px;">Activate</a>
+            </p>
+            <p>Please note that this activation link is only valid for a limited time.</p>
+            <p>If your activation code has expired, you can request a new one by clicking the button below:</p>
+            <p>
+                <a href="{{ protocol }}://{{ domain }}{% url 'app_accounts:new-code' %}" class="button" style="display: inline-block; padding: 10px 20px; text-decoration: none; background-color: #dc3545; color: white; border-radius: 5px;">Request</a>
+            </p>
+            <p>If you did not register for an account with us, please disregard this email.</p>
+            <p>Thank you,<br>The Knowledge Management Team</p>
+        </div>
+        <div class="footer">
+            &copy; 2024 Knowledge Management.
+        </div>
+    </div>
+</body>
+</html>

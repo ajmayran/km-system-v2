@@ -1,11 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    testing
-</body>
-</html>
+{% comment %} {% extends 'base/index.html' %} {% endcomment %}
+{% load static %}
+<title>
+  {% block title %}
+    Login
+  {% endblock %}
+</title>
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'style/css/login.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <div class="main-content">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-branding">
+          <img src="{% static 'assets/images/RAISELogoBlack.png' %}" alt="TheCubeFactory Logo" class="logo" />
+        </div>
+        
+        <form action="" method="POST" class="login-form" id="loginForm">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" required autocomplete="username"/>
+          </div>
+          
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password" />
+          </div>
+          
+          <div class="form-options">
+            <div class="remember-me">
+              <input type="checkbox" id="remember" name="remember" />
+              <label for="remember">Remember for 30 days</label>
+            </div>
+            <div class="forgot-password">
+              <a href="">Forgot password?</a>
+            </div>
+          </div>
+          
+          <div class="login-buttons">
+            <button type="submit" class="btn btn-primary btn-sign-in">Sign in</button>
+          </div>
+          
+          <div class="signup-prompt">
+            <span>Don't have an account?</span>
+            <a href="{% url 'appAccounts:registration' %}">Sign up</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("loginForm").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();  // Prevent default form submission
+        document.getElementById("loginForm").submit();  // Submit the form
+      }
+    });
+  });
+</script>
+
+{% comment %} {% if messages %}
+{% for message in messages %}
+  <script>
+    Swal.fire({
+      icon: '{% if message.tags == "success" %}success{% elif message.tags == "error" %}error{% elif message.tags == "info" %}info{% endif %}',
+      title: '{% if message.tags == "success" %}Success!{% elif message.tags == "error" %}Error!{% elif message.tags == "info" %}Info!{% endif %}',
+      text: '{{ message }}'
+    });
+  </script>
+{% endfor %}
+{% endif %} {% endcomment %}
+{% endblock %}
