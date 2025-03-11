@@ -21,13 +21,13 @@ def enter_email(request):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             messages.error(request, "Email does not exist. Try registering an account!")
-            return redirect("app_accounts:login")
+            return redirect("appAccounts:login")
 
         if not user.is_active:
             messages.error(
                 request, "Your account is not active. Please contact support."
             )
-            return redirect("app_accounts:login")
+            return redirect("appAccounts:login")
 
         # Generate password reset token
         token_generator = default_token_generator
@@ -38,7 +38,7 @@ def enter_email(request):
         current_site = get_current_site(request)
         protocol = "https" if request.is_secure() else "http"
         reset_url = reverse_lazy(
-            "app_accounts:reset-pass-confirm", kwargs={"uidb64": uid, "token": token}
+            "appAccounts:reset-pass-confirm", kwargs={"uidb64": uid, "token": token}
         )
         reset_url = f"{protocol}://{current_site.domain}{reset_url}"
 
@@ -69,6 +69,6 @@ def enter_email(request):
         else:
             messages.error(request, "No internet connection.")
 
-        return redirect("app_accounts:login")
+        return redirect("appAccounts:login")
 
     return render(request, "forgot-password/enter-email.html")

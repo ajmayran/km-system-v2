@@ -1,59 +1,96 @@
-{% load static %}
+  {% extends "base/account-index.html" %}
+  {% load static %}
 
-{% block stylesheet %}
-<link rel="stylesheet" href="{% static 'style/css/registration.css' %}">
-{% endblock %}
+  {% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'style/css/registration.css' %}">
+  {% endblock %}
 
-{% block content %}
-<div class="main-content">
-  <div class="auth-container">
-    <div class="auth-card ">
-      <div class="auth-branding">
-        <img src="{% static 'assets/images/RAISELogoBlack.png' %}" alt="Register" class="logo"/>
+  {% block content %}
+  <div class="main-content">
+    <div class="auth-container">
+      <div class="auth-card ">
+        <div class="auth-branding">
+          <img src="{% static 'assets/images/RAISELogoBlack.png' %}" alt="Register" class="logo"/>
+        </div>
+
+          <form action="{% url 'appAccounts:registration' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class="form-group" style="flex: 1;">
+                <input type="text" class="form-control" name="first_name" placeholder="First Name" required />
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <input type="text" class="form-control" name="last_name" placeholder="Last Name" required />
+              </div>
+            </div>
+    
+            <div class="form-group">
+              <input type="email" class="form-control" name="email" placeholder="Email" required />
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="institution" placeholder="Institution or Academe" required />
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="position" placeholder="Position" required />
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="password1" id="password1" placeholder="Password" required />
+            </div>
+            <div class="form-group">
+              <input type="password" class="form-control" name="password2" id="password2" placeholder="Confirm Password" required />
+            </div>
+            <input type="text" name="user_type" value="cmi" hidden />
+            <button type="submit" class="btn btn-auth">Register</button>
+            <div class="signup-prompt">
+              <span>Already have an account?</span>
+              <a href="{% url 'appAccounts:login' %}" class="text-link">Click here!</a>
+            </div>
+          </form>
       </div>
-
-        <form action="{% url 'appAccounts:registration' %}" method="POST">
-          {% csrf_token %}
-          <div class="form-group">
-            <input type="text" class="form-control" name="first_name" placeholder="First Name" required />
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="last_name" placeholder="Last Name" required />
-          </div>
-          <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email" required />
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="institution" placeholder="Institution or Academe" required />
-          </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="position" placeholder="Position" required />
-          </div>
-          <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" required autocomplete="current-password"/>
-          </div>
-          <input type="text" name="user_type" value="general" hidden />
-          <button type="submit" class="btn btn-auth">Register</button>
-          <div class="signup-prompt">
-            <span>Already have an account?</span>
-            <a href="{% url 'appAccounts:login' %}" class="text-link">Click here!</a>
-          </div>
-        </form>
     </div>
   </div>
-</div>
-{% endblock %}
+  {% endblock %}
 
-{% block script %}
-  {% if messages %}
-    {% for message in messages %}
-      <script>
-        Swal.fire({
-          icon: '{{ message.tags }}' === 'error' ? 'error' : 'success',
-          title: '{{ message.tags|title }}!',
-          text: '{{ message }}'
-        });
-      </script>
-    {% endfor %}
-  {% endif %}
-{% endblock %}
+  {% block script %}
+    {% if messages %}
+      {% for message in messages %}
+        <script>
+          Swal.fire({
+            icon: '{{ message.tags }}' === 'error' ? 'error' : 'success',
+            title: '{{ message.tags|title }}!',
+            text: '{{ message }}'
+          });
+        </script>
+      {% endfor %}
+    {% endif %}
+
+    <script>
+      // Password matching validation script
+      document.addEventListener('DOMContentLoaded', function() {
+        const password1 = document.getElementById('password1');
+        const password2 = document.getElementById('password2');
+        
+        function checkPasswordMatch() {
+          if (password2.value === '') {
+            // If confirm password field is empty, reset styling
+            password2.style.borderColor = '';
+            return;
+          }
+          
+          if (password1.value === password2.value) {
+            // Passwords match - green border
+            password1.style.borderColor = '#28a745';
+            password2.style.borderColor = '#28a745';
+          } else {
+            // Passwords don't match - red border
+            password1.style.borderColor = '#dc3545';
+            password2.style.borderColor = '#dc3545';
+          }
+        }
+        
+        // Add event listeners for both password fields
+        password1.addEventListener('input', checkPasswordMatch);
+        password2.addEventListener('input', checkPasswordMatch);
+      });
+    </script>
+  {% endblock %}

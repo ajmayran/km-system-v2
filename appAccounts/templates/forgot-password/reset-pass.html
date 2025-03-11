@@ -1,0 +1,156 @@
+{% extends 'base/account-index.html' %}
+
+{% load static %}
+<title>
+  {% block title %}
+    Reset Password
+  {% endblock %}
+</title>
+
+{% block stylesheet %}
+
+{% endblock %}
+
+{% block content %}
+  <br />
+  <div class="main-content">
+    <div class="container" style="min-height: 66vh;">
+      <div class="row justify-content-center">
+        <div class="card-email bg-white" style="width: 500px; max-width: 600px; ">
+          <div class="card-title">
+            <div class="card-head text-center">
+              <br />
+              <h3>Reset Password</h3>
+            </div>
+          </div>
+          <hr />
+          <div class="card-body">
+            <form id="resetPassword">
+              <div class="form-group">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required autocomplete="email" />
+              </div>
+
+              <div class="form-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" required autocomplete="new-password" />
+              </div>
+
+              <div class="form-group">
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm password" required autocomplete="new-password" />
+              </div>
+
+              <div class="reset-button text-right">
+                <div class="reset">
+                  <button type="button" onclick="validatePassword()" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'error' %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% else %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  <script>
+    function validatePassword() {
+        // Get references to the password and confirm password fields
+        const pass = document.getElementById("password");
+        const con_pass = document.getElementById("confirm_password");
+        const email = document.getElementById("email");
+
+        // Get the values of the password and confirm password fields
+        const passValue = pass.value;
+        const conPassValue = con_pass.value;
+        const emailValue = email.value;
+
+        // Add your validation logic here
+        if (passValue !== conPassValue) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'Passwords do not match!'
+              })
+        } else {
+            // If passwords match, proceed with the POST request
+            const csrftoken = getCookie('csrftoken'); // Retrieve the CSRF token
+            const formData = new FormData(); // Create a new FormData object
+            formData.append('password', passValue); // Append password value to the FormData object
+            formData.append('email', emailValue);
+
+            // Send a POST request to your Django view
+            fetch({% url 'appAccounts:new-password' %}, {
+              method: 'POST',
+              headers: {
+                'X-CSRFToken': csrftoken // Set the CSRF token in the request header
+              },
+              body: formData
+            })
+            .then(response => {
+              if (response.ok) {
+                  // Handle success response
+                  return response.json(); // Return JSON data from the response
+              } else {
+                  // Handle error response
+                  alert("Password reset failed. Please try again later.");
+              }
+            })
+            .then(data => {
+                // Redirect to the login page as per the data returned by the server
+                if (data && data.redirect_url) {
+                    window.location.href = data.redirect_url;
+                }
+            })
+            .catch(error => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'There is an error changing your password, please make sure your email exists or activated!'
+              })
+            });
+        }
+    }
+
+    // Function to retrieve CSRF token from cookies
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Check if the cookie name matches the desired name
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    // Retrieve and decode the cookie value
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+  </script>
+{% endblock %}

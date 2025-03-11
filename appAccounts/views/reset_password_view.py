@@ -16,16 +16,16 @@ def reset_password(request):
             user = user_model.objects.get(email=email)
         except user_model.DoesNotExist:
             messages.error(request, "Email does not exist. Try registering an account!")
-            return redirect("app_accounts:login")
+            return redirect("appAccounts:login")
 
         if not user.is_active:
             messages.error(
                 request, "Your account is not active. Please contact support."
             )
-            return redirect("app_accounts:login")
+            return redirect("appAccounts:login")
 
         # hash the password
         user.set_password(confirm_password)
         user.save()
         messages.success(request, "Password updated successfully.")
-        return JsonResponse({"redirect_url": reverse("app_accounts:login")})
+        return JsonResponse({"redirect_url": reverse("appAccounts:login")})

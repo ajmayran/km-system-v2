@@ -1,16 +1,14 @@
 {% load static %}
-
 <header>
   <nav class="navbar navbar-expand-sm">
-    <div class="inner_navbar">
+    <div class="inner_navbar justify-content-center">
       <div class="logo-container">
-        <a href="#">
-          <img
+        <a href="{% url 'appCmi:home' %}"
+          ><img
             src="{% static 'assets/images/RAISE-Logo.png' %}"
             alt="RAISE Logo"
             class="navbar-logo-raise"
-          />
-        </a>
+        /></a>
         <div class="text-container">
           <h1 class="t1">km4aanr</h1>
           <h3 class="t2">in WESTERN MINDANAO</h3>
@@ -18,85 +16,374 @@
       </div>
       <div class="navbar-left" id="navbarLeft">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li class="dropdown">
-            <a
-              class="dropdown-toggle"
-              id="dropdownLinks"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-            >
-              Useful Links <i class="fa-solid fa-circle-chevron-down"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdownLinks">
-              <a
-                href="#"
-                class="dropdown-item"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Testing</a
-              >
-              <a
-                href="#"
-                class="dropdown-item"
-                target="_blank"
-                rel="noopener noreferrer"
-                >Testing</a
-              >
+          <li>
+            <div class="dropdown" style="margin-top: 5.8px">
+              <a href="{% url 'appCmi:home' %}" style="padding: 20px">Home</a>
             </div>
           </li>
-          <li><a href="#">Forum</a></li>
+          <li>
+            <div class="dropdown" style="margin-top: 5.8px">
+              <a href="about.html" style="padding: 20px">About</a>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <a
+                class="btn dropdown-fa-toggle-down"
+                id="dropdownLinks"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+              >
+                Useful Links <i class="fa-solid fa-circle-chevron-down"></i>
+              </a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="dropdownLinks"
+                id="useful-links-container"
+              >
+                <!-- Links will be populated dynamically -->
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <a
+                class="btn dropdown-fa-toggle-down"
+                id="dropdownCommodities"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                href="all-commodities.html"
+                onclick="handleDropdownClick('commodity')"
+                >Commodities <i class="fa-solid fa-circle-chevron-down"></i
+              ></a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="dropdownCommodities"
+                id="commodities-container"
+              >
+                <!-- Commodities will be populated dynamically -->
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown" style="margin-top: 5.8px">
+              <a href="forum.html" style="padding: 20px">Forum</a>
+            </div>
+          </li>
+          <li>
+            <div class="dropdown">
+              <a
+                class="btn dropdown-fa-toggle-down"
+                id="dropdownResources"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                href="resources.html"
+                onclick="handleDropdownClick('knowledge')"
+                >Knowledge Resources
+                <i class="fa-solid fa-circle-chevron-down"></i
+              ></a>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="dropdownResources"
+                id="resources-container"
+              >
+                <!-- Resources will be populated dynamically -->
+              </div>
+            </div>
+          </li>
         </ul>
       </div>
       <div class="navbar-right" id="navbarRight">
-        <ul>
-          <li>
-            <a href="#" class="logout"
-              ><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a
-            >
-          </li>
-          <li>
-            <a href="#" class="settings"
-              ><i class="fa-solid fa-user"></i> Account Settings</a
-            >
-          </li>
-
-          <li><a href="#" class="register">Register</a></li>
-          <li><a href="#" class="login">Login</a></li>
+        <ul id="user-menu">
+          <!-- User menu items will be populated dynamically based on user type -->
         </ul>
       </div>
-      <div class="hamburger" onclick="toggleMobileView()">
+      <div class="hamburger">
         <i class="fas fa-bars"></i>
       </div>
     </div>
     <div class="mobileView hidden" id="mobileView">
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li class="dropdown">
-          <a
-            class="dropdown-toggle"
-            id="dropdownLinksMobile"
-            data-toggle="dropdown"
-            aria-haspopup="true"
-          >
-            Useful Links <i class="fa-solid fa-circle-chevron-down"></i>
-          </a>
-          <div class="dropdown-menu" aria-labelledby="dropdownLinksMobile">
-            <a href="" class="dropdown-item">Testing</a>
-            <a href="" class="dropdown-item">Testing</a>
+        <li>
+          <div class="dropdown">
+            <a href="index.html">Home</a>
           </div>
         </li>
-        <li><a href="#">Forum</a></li>
+        <li>
+          <div class="dropdown">
+            <a href="about.html">About</a>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown">
+            <a
+              class="dropdown-fa-toggle-down"
+              id="mobileDropdownLinks"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              >Useful Links
+              <i
+                class="fa-solid fa-circle-chevron-down"
+                style="float: right; padding-right: 40px"
+              ></i
+            ></a>
+            <div
+              class="dropdown-menu"
+              aria-labelledby="mobileDropdownLinks"
+              id="mobile-useful-links-container"
+            >
+              <!-- Links will be populated dynamically -->
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown">
+            <a
+              class="dropdown-fa-toggle-down"
+              id="mobileDropdownCommodities"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              href="all-commodities.html"
+              onclick="handleDropdownClick('commodity')"
+              >Commodities
+              <i
+                class="fa-solid fa-circle-chevron-down"
+                style="float: right; padding-right: 40px"
+              ></i
+            ></a>
+            <div
+              class="dropdown-menu"
+              aria-labelledby="mobileDropdownCommodities"
+              id="mobile-commodities-container"
+            >
+              <!-- Commodities will be populated dynamically -->
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown">
+            <a href="forum.html">Forum</a>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown">
+            <a
+              class="dropdown-fa-toggle-down"
+              id="mobileDropdownResources"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              href="resources.html"
+              onclick="handleDropdownClick('knowledge')"
+              >Knowledge Resources
+              <i
+                class="fa-solid fa-circle-chevron-down"
+                style="float: right; padding-right: 40px"
+              ></i
+            ></a>
+            <div
+              class="dropdown-menu"
+              aria-labelledby="mobileDropdownResources"
+              id="mobile-resources-container"
+            >
+              <!-- Resources will be populated dynamically -->
+            </div>
+          </div>
+        </li>
+      </ul>
+      <ul id="mobile-user-menu">
+        <!-- Mobile user menu items will be populated dynamically -->
       </ul>
     </div>
   </nav>
 </header>
 
 <script>
-  function toggleMobileView() {
-    const mobileView = document.getElementById("mobileView");
-    mobileView.classList.toggle("hidden");
+  // This script will populate the dynamic elements based on user state and data
+  document.addEventListener("DOMContentLoaded", function () {
+    // Sample data (in a real implementation, this would come from an API or similar)
+    const userData = {
+      isAuthenticated: false,
+      userType: null,
+      isCmiUser: false,
+    };
+
+    const siteData = {
+      links: [],
+      commodities: [],
+      resources: [],
+    };
+
+    // Populate dropdown menus
+    populateDropdowns(siteData);
+
+    // Update user menu based on authentication status
+    updateUserMenu(userData);
+
+    // Handle mobile menu toggle
+    document.querySelector(".hamburger").addEventListener("click", function () {
+      document.getElementById("mobileView").classList.toggle("hidden");
+    });
+  });
+
+  function populateDropdowns(data) {
+    // Populate links
+    const linksContainer = document.getElementById("useful-links-container");
+    const mobileLinksContainer = document.getElementById(
+      "mobile-useful-links-container"
+    );
+
+    if (data.links.length === 0) {
+      linksContainer.innerHTML =
+        '<a href="#" class="dropdown-item">No Links Yet</a>';
+      mobileLinksContainer.innerHTML =
+        '<a href="#" class="dropdown-item">No Links Yet</a>';
+    } else {
+      data.links.forEach((link) => {
+        const linkItem = `<a href="${link.url}" class="dropdown-item" target="_blank" rel="noopener noreferrer">${link.title}</a>`;
+        linksContainer.innerHTML += linkItem;
+        mobileLinksContainer.innerHTML += linkItem;
+      });
+    }
+
+    // Populate commodities
+    const commoditiesContainer = document.getElementById(
+      "commodities-container"
+    );
+    const mobileCommoditiesContainer = document.getElementById(
+      "mobile-commodities-container"
+    );
+
+    if (data.commodities.length === 0) {
+      commoditiesContainer.innerHTML =
+        '<a href="#" class="dropdown-item">No Commodities Yet</a>';
+      mobileCommoditiesContainer.innerHTML =
+        '<a href="#" class="dropdown-item">No Commodities Yet</a>';
+    } else {
+      data.commodities.forEach((commodity) => {
+        if (commodity.status === "Approved") {
+          const commodityItem = `<a href="commodity-details.html?id=${
+            commodity.id
+          }" class="dropdown-item">${capitalizeFirstLetter(
+            commodity.name
+          )}</a>`;
+          commoditiesContainer.innerHTML += commodityItem;
+          mobileCommoditiesContainer.innerHTML += commodityItem;
+        }
+      });
+    }
+
+    // Populate knowledge resources
+    const resourcesContainer = document.getElementById("resources-container");
+    const mobileResourcesContainer = document.getElementById(
+      "mobile-resources-container"
+    );
+
+    if (data.resources.length === 0) {
+      resourcesContainer.innerHTML =
+        '<a href="#" class="dropdown-item">No Knowledge Resources Yet</a>';
+      mobileResourcesContainer.innerHTML =
+        '<a href="#" class="dropdown-item">No Knowledge Resources Yet</a>';
+    } else {
+      data.resources.forEach((resource) => {
+        if (resource.status === "Approved") {
+          const resourceItem = `<a href="knowledge-details.html?id=${
+            resource.knowledge_id
+          }" class="dropdown-item">${capitalizeFirstLetter(
+            resource.knowledge_title
+          )}</a>`;
+          resourcesContainer.innerHTML += resourceItem;
+          mobileResourcesContainer.innerHTML += resourceItem;
+        }
+      });
+    }
+  }
+
+  // Helper function to capitalize the first letter of a string
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  function updateUserMenu(userData) {
+    const userMenu = document.getElementById("user-menu");
+    const mobileUserMenu = document.getElementById("mobile-user-menu");
+
+    let menuHTML = "";
+
+    if (userData.isCmiUser) {
+      menuHTML += `
+        <li>
+          <div class="dropdown">
+            <a class="btn dropdown-fa-toggle-down" id="dropdownRequests" data-toggle="dropdown" aria-haspopup="true">Requests <i class="fa-solid fa-circle-chevron-down"></i></a>
+            <div class="dropdown-menu" aria-labelledby="dropdownRequests">
+              <a href="cmi-requests.html" class="dropdown-item">CMI</a>
+              <a href="commodity-requests.html" class="dropdown-item">Commodity</a>
+              <a href="knowledge-requests.html" class="dropdown-item">Knowledge Resources</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown">
+            <a class="btn dropdown-fa-toggle-down" id="additional" data-toggle="dropdown" aria-haspopup="true">Additional <i class="fa-solid fa-circle-chevron-down"></i></a>
+            <div class="dropdown-menu" aria-labelledby="additional">
+              <a href="cmi-resources.html" class="dropdown-item">Resources</a>
+              <a href="tech-generated.html" class="dropdown-item">Tech Generated</a>
+              <a href="tech-adaptor.html" class="dropdown-item">Tech Adaptor</a>
+            </div>
+          </div>
+        </li>
+      `;
+    }
+
+    if (userData.isAuthenticated) {
+      menuHTML += `
+        <li>
+          <div class="dropdown" style="margin-top: 5.8px;">
+            <a href="logout.html" style="padding: 10px;" class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+          </div>
+        </li>
+      `;
+
+      if (userData.userType === "general") {
+        menuHTML += `
+          <li>
+            <div class="dropdown" style="margin-top: 5.8px;">
+              <a href="settings.html" style="padding: 10px;" class="settings"><i class="fa-solid fa-user"></i></a>
+            </div>
+          </li>
+        `;
+      } else if (userData.userType === "admin") {
+        menuHTML += `
+          <li>
+            <div class="dropdown" style="margin-top: 5.8px;">
+              <a href="admin-dashboard.html" style="padding: 10px;" class="admin-dashboard">Admin Dashboard</a>
+            </div>
+          </li>
+        `;
+      }
+    } else {
+      menuHTML += `
+        <li>
+          <div class="dropdown" style="margin-top: 5.8px;">
+            <a href="signup.html" style="padding: 10px;" class="register">Register</a>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown" style="margin-top: 5.8px;">
+            <a href="login.html" style="padding: 10px;" class="login">Login</a>
+          </div>
+        </li>
+      `;
+    }
+
+    userMenu.innerHTML = menuHTML;
+
+    // Similar code for mobile menu, with slightly different formatting
+    // ...
+  }
+
+  function handleDropdownClick(type) {
+    // Handle dropdown click logic
+    console.log(`${type} dropdown clicked`);
+    // Additional logic as needed
   }
 </script>

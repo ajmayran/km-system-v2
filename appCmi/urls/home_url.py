@@ -7,7 +7,7 @@ app_name = "appCmi"
 
 urlpatterns = (
     [
-        path("home", home_view.home, name="home"),
+        path("home/", home_view.home, name="home"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
