@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("", include(("appAccounts.urls", "appAccounts"))),
     path("cmis/", include(("appCmi.urls", "appCmi"))),
+    path("admin/", include(("appAdmin.urls", "appAdmin"))),
 ]
 
 # Serve static files during development

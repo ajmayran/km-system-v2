@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="{% static 'assets/css/buttons.dataTables.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/sweetalert2.min.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/leaflet.css' %}">
-    <link rel="stylesheet" href="{% static 'style/css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'style/css/cmi-navbar.css' %}">
     <link rel="stylesheet" href="{% static 'style/css/footer.css' %}">
-    <link rel="stylesheet" href="{% static 'style/css/index.css' %}">
+    <link rel="stylesheet" href="{% static 'style/css/cmi-index.css' %}">
     {% block stylesheet %}{% endblock %}
 
     <!-- JavaScript Libraries -->
@@ -28,7 +28,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    {% include 'base/navbar.html' %}
+    {% include 'base/cmi-navbar.html' %}
 
     <!-- Floating "Rate Me" Button -->
     <button id="rateMeBtn" class="floating-button">

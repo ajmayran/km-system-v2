@@ -1,0 +1,29 @@
+.main-content {
+    width: 100%; /* Set the initial width */
+    transition: width 0.3s ease;
+  }
+
+  .admin-dashboard:hover {
+    text-decoration: none;
+  }
+
+  /* Floating "Rate Me" Button */
+  .floating-button {
+    z-index: 1000;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 16px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .floating-button:hover {
+    background-color: #0056b3;
+  }

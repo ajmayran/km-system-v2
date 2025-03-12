@@ -1,0 +1,551 @@
+{% extends "base/admin-index.html" %} 
+{% load static %} 
+{% block title%}Dashboard{% endblock title %} 
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'style/css/dashboard.css' %}" />
+{%endblock stylesheet %} 
+
+{% block content %}
+<!-- Dashboard Content -->
+<div class="dashboard">
+  <!-- First row of cards -->
+  <div class="card-row">
+    <div class="card">
+      <div class="card-header">
+        <h3>User Accounts</h3>
+        <span class="card-indicator">1</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="userAccountsChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Commodities</h3>
+        <span class="card-indicator">2</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="commoditiesChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Silos</h3>
+        <span class="card-indicator">3</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="silosChart"></canvas>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        <h3>Other Major Resources</h3>
+        <span class="card-indicator">4</span>
+      </div>
+      <div class="chart-container">
+        <canvas id="resourcesChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Map and Commodity Progress -->
+  <div class="card-row">
+    <div class="card" style="flex: 3">
+      <div class="card-header">
+        <h3>Geolocation Specific Commodity (CMS) Map</h3>
+      </div>
+      <div class="map-container" id="worldMap">
+        <!-- World map will be rendered here by JS -->
+      </div>
+    </div>
+    <div class="card" style="flex: 2">
+      <div class="card-header">
+        <h3>Top 10 Tagged Commodities</h3>
+      </div>
+      <div class="progress-container">
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 1</span>
+            <span>92%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 92%; background-color: #9c27b0"
+            ></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 2</span>
+            <span>85%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 85%; background-color: #2196f3"
+            ></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 3</span>
+            <span>78%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 78%; background-color: #4caf50"
+            ></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 4</span>
+            <span>72%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 72%; background-color: #ff9800"
+            ></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 5</span>
+            <span>65%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 65%; background-color: #f44336"
+            ></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 6</span>
+            <span>58%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 58%; background-color: #673ab7"
+            ></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 7</span>
+            <span>52%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 52%; background-color: #009688"
+            ></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 8</span>
+            <span>48%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 48%; background-color: #cddc39"
+            ></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 9</span>
+            <span>42%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 42%; background-color: #795548"
+            ></div>
+          </div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-header">
+            <span>Commodity 10</span>
+            <span>35%</span>
+          </div>
+          <div class="progress-bar">
+            <div
+              class="progress-value"
+              style="width: 35%; background-color: #607d8b"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts and Rating -->
+  <div class="card-row">
+    <div class="card" style="flex: 3">
+      <div class="card-header">
+        <h3>Forum Posts Growth Chart</h3>
+      </div>
+      <div class="chart-container">
+        <canvas id="forumPostsChart"></canvas>
+      </div>
+    </div>
+    <div class="card" style="flex: 2">
+      <div class="card-header">
+        <h3>System Rating</h3>
+      </div>
+      <div class="rating-container">
+        <div class="rating-item">
+          <div class="rating-circle good">87.5%</div>
+          <div class="rating-label">Good Rating</div>
+        </div>
+        <div class="rating-item">
+          <div class="rating-circle bad">12.5%</div>
+          <div class="rating-label">Bad Rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Table and Weather -->
+  <div class="card-row">
+    <div class="card" style="flex: 3">
+      <div class="card-header">
+        <h3>Latest Account Category Credit</h3>
+        <button class="todo-btn">TODO</button>
+      </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Institution</th>
+              <th>Account Type</th>
+              <th>Date Joined</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>User #1 Name</td>
+              <td>HSBC/LLOYDS/LC</td>
+              <td>Annual</td>
+              <td>Nov 18</td>
+            </tr>
+            <tr>
+              <td>User #2 Name</td>
+              <td>CITI/FX</td>
+              <td>Pro</td>
+              <td>Nov 19</td>
+            </tr>
+            <tr>
+              <td>User #3 Name</td>
+              <td>JP/MS</td>
+              <td>Enterprise</td>
+              <td>Nov 20</td>
+            </tr>
+            <tr>
+              <td>User #4 Name</td>
+              <td>COF/AJ</td>
+              <td>Annual</td>
+              <td>Nov 20</td>
+            </tr>
+            <tr>
+              <td>User #5 Name</td>
+              <td>HSBC/LLOYDS/LC</td>
+              <td>Enterprise</td>
+              <td>Nov 20</td>
+            </tr>
+            <tr>
+              <td>User #6 Name</td>
+              <td>WFG</td>
+              <td>Pro</td>
+              <td>Nov 22</td>
+            </tr>
+            <tr>
+              <td>User #7 Name</td>
+              <td>PYPL</td>
+              <td>Pro</td>
+              <td>Nov 25</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card" style="flex: 1">
+      <div class="weather-widget">
+        <div>Orlando</div>
+        <div class="weather-temp">32°C</div>
+        <div>Partly Cloudy</div>
+        <div class="weather-details">
+          <div>Wind: 5mph</div>
+          <div>Humidity: 65%</div>
+          <div>Pressure: 1014 mb</div>
+        </div>
+        <div class="weather-forecast">
+          <div class="forecast-day">
+            <div>MON</div>
+            <div class="icon"><i class="fas fa-sun"></i></div>
+            <div class="temp">34°</div>
+          </div>
+          <div class="forecast-day">
+            <div>TUE</div>
+            <div class="icon"><i class="fas fa-sun"></i></div>
+            <div class="temp">35°</div>
+          </div>
+          <div class="forecast-day">
+            <div>WED</div>
+            <div class="icon"><i class="fas fa-cloud-sun"></i></div>
+            <div class="temp">32°</div>
+          </div>
+          <div class="forecast-day">
+            <div>THU</div>
+            <div class="icon"><i class="fas fa-cloud"></i></div>
+            <div class="temp">30°</div>
+          </div>
+          <div class="forecast-day">
+            <div>FRI</div>
+            <div class="icon"><i class="fas fa-cloud-sun"></i></div>
+            <div class="temp">32°</div>
+          </div>
+          <div class="forecast-day">
+            <div>SAT</div>
+            <div class="icon"><i class="fas fa-sun"></i></div>
+            <div class="temp">31°</div>
+          </div>
+          <div class="forecast-day">
+            <div>SUN</div>
+            <div class="icon"><i class="fas fa-cloud-sun"></i></div>
+            <div class="temp">33°</div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock content %} 
+  
+  {% block script %}
+  <script>
+    // Initialize charts when DOM is loaded
+    document.addEventListener("DOMContentLoaded", function () {
+      // Small chart in User Accounts card
+      const userAccountsCtx = document
+        .getElementById("userAccountsChart")
+        .getContext("2d");
+      const userAccountsChart = new Chart(userAccountsCtx, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "User Accounts",
+              data: [30, 45, 60, 75, 65, 80],
+              borderColor: "#4285f4",
+              backgroundColor: "rgba(66, 133, 244, 0.1)",
+              tension: 0.3,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          elements: {
+            point: {
+              radius: 0,
+            },
+          },
+        },
+      });
+
+      // Small chart in Commodities card
+      const commoditiesCtx = document
+        .getElementById("commoditiesChart")
+        .getContext("2d");
+      const commoditiesChart = new Chart(commoditiesCtx, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "Commodities",
+              data: [40, 55, 45, 70, 60, 75],
+              borderColor: "#0f9d58",
+              backgroundColor: "rgba(15, 157, 88, 0.1)",
+              tension: 0.3,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          elements: {
+            point: {
+              radius: 0,
+            },
+          },
+        },
+      });
+
+      // Small chart in Silos card
+      const silosCtx = document.getElementById("silosChart").getContext("2d");
+      const silosChart = new Chart(silosCtx, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "Silos",
+              data: [35, 50, 65, 55, 70, 60],
+              borderColor: "#f4b400",
+              backgroundColor: "rgba(244, 180, 0, 0.1)",
+              tension: 0.3,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          elements: {
+            point: {
+              radius: 0,
+            },
+          },
+        },
+      });
+
+      // Small chart in Resources card
+      const resourcesCtx = document
+        .getElementById("resourcesChart")
+        .getContext("2d");
+      const resourcesChart = new Chart(resourcesCtx, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "Resources",
+              data: [45, 60, 50, 75, 65, 80],
+              borderColor: "#db4437",
+              backgroundColor: "rgba(219, 68, 55, 0.1)",
+              tension: 0.3,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          elements: {
+            point: {
+              radius: 0,
+            },
+          },
+        },
+      });
+
+      // Forum Posts Growth Chart
+      const forumPostsCtx = document
+        .getElementById("forumPostsChart")
+        .getContext("2d");
+      const forumPostsChart = new Chart(forumPostsCtx, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "Forum Posts",
+              data: [50, 65, 55, 80, 70, 85],
+              borderColor: "#9c27b0",
+              backgroundColor: "rgba(156, 39, 176, 0.1)",
+              tension: 0.3,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+          scales: {
+            x: {
+              display: false,
+            },
+            y: {
+              display: false,
+            },
+          },
+          elements: {
+            point: {
+              radius: 0,
+            },
+          },
+        },
+      });
+    });
+  </script>
+{% endblock script %}

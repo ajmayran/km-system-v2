@@ -26,7 +26,7 @@ def login(request):
             messages.success(request, success_message)
 
             if user.user_type.lower() == "admin":
-                return redirect("appCmi:home")
+                return redirect("appAdmin:dashboard")
             elif user.user_type.lower() == "secretariat":
                 return redirect("appCmi:home")
             elif user.user_type.lower() == "cmi":
