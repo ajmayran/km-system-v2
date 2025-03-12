@@ -1,0 +1,35 @@
+
+/* Style for expanded main-content */
+#main-content.expanded {
+    width: calc(80% - 240px);
+    transition: all 0.3s;
+    position: relative;
+    
+}
+
+/* Style for retracted main-content */
+#main-content.retracted {
+    width: calc(100% - 80px);
+    transition: all 0.3s;
+    position: relative;
+
+}
+
+/* CSS to position the search text within the input field */
+.dataTables_filter input[type="search"]::placeholder {
+    /* Your custom styles here */
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #aaa;
+    /* Adjust the color as needed */
+}
+
+/* image modal */
+#viewCommodityImg {
+    max-width: 100%;
+    max-height: 300px; /* Adjust the maximum height as needed */
+    display: block;
+    margin: 0 auto;
+  }

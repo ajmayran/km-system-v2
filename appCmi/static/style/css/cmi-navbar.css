@@ -1,0 +1,308 @@
+/* Set background color */
+body {
+    background-color: #FFF0CE;
+    font-family: 'Source Sans 3', sans-serif;
+}
+
+.logo-container {
+    display: flex;
+    color: #fff;
+}
+
+.t1,
+.t2 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.t1 {
+    font-size: 40px;
+}
+
+.t2 {
+    font-size: 15px;
+}
+
+.navbar-logo-raise {
+    width: 100px;
+    height: auto;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+
+/* Style the navigation bar */
+.navbar {
+    background-color: #0C356A;
+    height: auto;
+    width: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* Style the inner navigation bar */
+.inner_navbar {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-left ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-left ul li {
+    margin-right: 0;
+}
+
+.navbar-left ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.navbar-left ul li a:hover {
+    color: #FFC436;
+}
+
+.navbar-left ul li .dropdown a {
+    color: white;
+}
+
+.navbar-left ul li .dropdown a:hover {
+    color: #FFC436;
+}
+
+.navbar-left ul li .dropdown-menu a {
+    color: black;
+    text-decoration: none;
+}
+
+.navbar-left ul li .dropdown-menu a:hover {
+    color: #FFC436;
+}
+
+.navbar-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar-right ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-right ul li {
+    margin-right: 20px;
+}
+
+.navbar-right ul li .dropdown a {
+    color: white;
+}
+
+.navbar-right ul li .dropdown a:hover {
+    color: #FFC436;
+}
+
+.navbar-right ul li .dropdown-menu a {
+    color: black;
+    text-decoration: none;
+}
+
+.navbar-right ul li .dropdown-menu a:hover {
+    color: #FFC436;
+}
+
+/* Highlighted buttons */
+.navbar-right ul li .login {
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.navbar-right ul li .logout {
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.navbar-right ul li .add_resources {
+    color: #fff;
+    text-decoration: none;
+    font-size: 15px;
+    border-radius: 5px;
+}
+
+.add:hover {
+    color: #fff;
+}
+
+.login,
+.logout {
+    color: #fff;
+}
+
+.settings {
+    color: #fff;
+    background-color: #0C356A;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.settings:hover {
+    background-color: #0174BE;
+    text-decoration: none;
+}
+
+.fa-solid:hover {
+    color: white;
+}
+
+.dropdown .register {
+    /* color: #0C356A;
+    background-color: #FFC436;
+    border-radius: 5px;
+    padding: 20px;
+    text-decoration: none; */
+    font-size: 15px;
+    color: #FFC436;
+    text-decoration: none;
+}
+
+.register:hover {
+    color: #fff;
+    /* background-color: #0174BE;
+    text-decoration: none; */
+}
+
+.fa:hover {
+    color: white;
+}
+
+/* Ensures the hamburger menu is only visible in mobile view */
+.hamburger {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Mobile view styling */
+.mobileView {
+    display: none;
+    position: absolute;
+    top: 100%; /* Position below the navbar */
+    width: 100%;
+    background-color: #0C356A;
+    z-index: 1000;
+}
+
+.mobileView ul {
+    display: block;
+    list-style-type: none;
+    padding-left: 20;
+    margin: 0px;
+}
+
+.mobileView ul li .dropdown a {
+    color: white;
+}
+
+.mobileView ul li .dropdown a:hover {
+    color: #FFC436;
+    text-decoration: none;
+}
+
+.mobileView ul li .dropdown-menu a {
+    color: black;
+    text-decoration: none;
+}
+
+.mobileView ul li .dropdown-menu a:hover {
+    color: #FFC436;
+    text-decoration: none;
+}
+
+.mobileView ul li .dropdown .register {
+    color: #FFC436;
+}
+
+.mobileView ul li .dropdown .register:hover {
+    color: #fff;
+    text-decoration: none;
+}
+/* Media query for responsive design */
+@media screen and (max-width: 1340px) {
+    .navbar {
+        background-color: #0C356A;
+        height: auto;
+        width: auto;
+        z-index: 1000; /* High z-index to place it above other elements */
+    }
+
+    .logo-container {
+        flex: 1;
+        float: left;
+    }
+
+    .navbar-right,
+    .navbar-left {
+        display: none;
+    }
+
+    .navbar-logo-raise {
+        width: 80px;
+        height: auto;
+        aspect-ratio: 3/2;
+    }
+
+    .t1 {
+        font-size: 27px;
+    }
+
+    .t2 {
+        font-size: 10px;
+    }
+
+    .hamburger {
+        float: right;
+        margin-right: 25px;
+        display: flex;
+        color: white;
+    }
+
+    .mobileView {
+        display: none; /* Initially hidden */
+        position: absolute;
+        top: 100%; /* Position below the navbar */
+        left: 0;
+        width: 100%;
+        background-color: #0C356A;
+        z-index: 2000;
+    }
+
+    .register {
+        font-size: 15px;
+        color: #fff;
+        padding: 0px;
+    }
+}
