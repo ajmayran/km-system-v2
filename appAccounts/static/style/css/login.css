@@ -52,7 +52,6 @@ body, html {
   margin-bottom: 2rem;
   text-align: center;
   position: relative;
-  padding-bottom: 1rem;
 }
 
 .login-branding::after {
@@ -66,9 +65,9 @@ body, html {
 }
 
 .logo {
-  height: 100px;
-  margin-bottom: 2rem;
-  max-width: 100%;
+  max-width: 70%;
+  max-height: 110px;
+  height: auto;
 }
 
 .login-form {
