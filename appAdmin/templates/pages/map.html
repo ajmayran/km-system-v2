@@ -1,0 +1,400 @@
+{% extends 'base/admin-index.html' %}
+{% load static %}
+{% block title %}
+  Admin Map
+{% endblock %}
+{% block stylesheet %}
+  <style>
+    {% comment %} .search-box {
+      width: 100%;
+      max-width: 1150px;
+      margin: 0 auto 10px 0;
+      position: relative;
+    } {% endcomment %}
+    
+    .search-input {
+      width: 100%;
+      padding: 10px 50px 10px 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    
+    .search-button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 40px;
+      background: none;
+      border: none;
+      outline: none;
+      color: #333;
+      padding: 0;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .search-button i {
+      font-size: 18px;
+    }
+    
+    /* Legend styles */
+    
+    .legend-container {
+      position: absolute;
+      background-color: #0c356a;
+      padding: 5px;
+      border-radius: 3px;
+      font-size: 12px;
+      z-index: 1000;
+      width: auto;
+      text-align: center;
+      color: white;
+      height: 100%;
+      max-height: 45px;
+    }
+    
+    .legend-item {
+      display: flex;
+      /* Use flexbox */
+      align-items: center;
+      /* Center align items vertically */
+      margin-right: 10px;
+      /* Add some spacing between legend items */
+    }
+    
+    .legend-color {
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      border-radius: 50%;
+      margin-right: 5px;
+      /* Adjust the margin for spacing between color and text */
+    }
+    
+    .legend-color.cmi {
+      background-color: #4294cf;
+    }
+    
+    .legend-color.commodity {
+      background-color: #24ac20;
+    }
+    
+    .legend-color:hover {
+      /* You can add a border or a shadow to create a hover effect */
+      border: 2px solid white;
+      /* Change to your preferred border style */
+      /* or */
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      /* Change to your preferred shadow style */
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+ 
+<div class="masonry-item col-12">
+  <div class="bd bgc-white">
+    <div class="peers fxw-nw@lg+ ai-s">
+      <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
+        <div class="layers">
+          <div class="layer w-100 mB-10">
+            <h5 class="lh-1">Map</h5>
+          </div>
+          <div class="layer w-100">
+            <div class="table-container">
+              <div class="map" id="display-map" style="width: 100%; height: 700px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+  <!-- cmi -->
+   {% comment %} {% include "content/mod-cmi/modal/cmi/add-cmi.html" %}
+   {% include "content/mod-cmi/modal/cmi/view-cmi.html" %}
+
+
+  <!-- commodity -->
+   {% include "content/mod-commodities/modal/add-commodity.html" %}
+   {% include "content/mod-commodities/modal/view-commodity.html" %} {% endcomment %}
+{% endblock %}
+
+{% block script %}
+  <script src="https://unpkg.com/leaflet-control-geocoder@1.13.0/dist/Control.Geocoder.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var map = L.map('display-map', { zoomControl: false }).setView([7.371375, 124.50273], 8);
+  
+      // OpenStreetMap tile layer
+      var tileLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors'
+      }).addTo(map);
+  
+      // Google Streets and Hybrid layers
+      const createGoogleLayer = (type) => {
+          return L.tileLayer(`https://{s}.google.com/vt/lyrs=${type}&x={x}&y={y}&z={z}`, {
+              maxZoom: 20,
+              subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+          })
+      }
+  
+      const googleStreets = createGoogleLayer('m')
+      const googleHybrid = createGoogleLayer('s,h')
+  
+      // Add base maps to a control
+      var baseMaps = {
+          OpenStreetMap: tileLayer,
+          'Google Streets': googleStreets,
+          'Google Hybrid': googleHybrid
+      }
+
+      // Define a new control class for your legend
+      var LegendControl = L.Control.extend({
+        options: {
+          position: 'bottomright' // Define the position of the legend
+        },
+
+        onAdd: function (map) {
+          // Create a div with a class "legend"
+          var container = L.DomUtil.create('div', 'legend');
+          container.style.padding = '6px 8px';
+          container.style.background = 'white';
+          container.style.boxShadow = '0 0 15px rgba(0,0,0,0.2)';
+          container.style.borderRadius = '5px';
+          container.style.color = '#555';
+
+          // Populate your legend
+          var legendHtml = [
+            '<h4 style="margin: 0px 2px 5px 2px" >Map Legend</h4>',
+            '<i style="background: #4294cf; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; "></i><span>CMI</span><br>',
+            '<i style="background: #24ac20; width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; margin-top: 3px;"></i><span>COMMODITY</span>'
+          ];
+
+          // Join all our HTML pieces
+          container.innerHTML = legendHtml.join('');
+
+          return container;
+        }
+      });
+
+      // Create an instance of the control
+      var legendControl = new LegendControl();
+
+      // Add it to the map
+      map.addControl(legendControl);
+  
+      L.control.layers(baseMaps).addTo(map);
+      L.control.browserPrint({position: 'topright'}).addTo(map);
+      L.control.bigImage({position: 'topright'}).addTo(map);
+  
+      // Create a control with custom icons for zoom in and zoom out
+      var zoomControl = L.control.zoom({
+          position: 'topright',
+          zoomInText: '+',
+          zoomOutText: '-'
+      });
+  
+      // Add the zoom control to the map
+      map.addControl(zoomControl);
+  
+      // Define green icon
+      var greenIcon = L.icon({
+          iconUrl: '{% static "assets/css/images/marker-icon-green.png" %}',
+          shadowUrl: '{% static "assets/css/images/marker-shadow.png" %}',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41]
+      });
+
+      
+      // Define arrays to hold markers for CMIs and commodities
+      const cmiMarkers = [];
+      const commodityMarkers = [];
+
+      // Add markers for CMIs
+      {% for cmi in get_cmi %}
+      var cmiMarker = L.marker([{{ cmi.latitude }}, {{ cmi.longitude }}]).addTo(map);
+      cmiMarkers.push(cmiMarker); // Add the marker to the cmiMarkers array
+
+      cmiMarker.on('click', function () {
+          console.log("CMI Marker clicked");
+
+          // Fill the modal with cmi data
+          document.getElementById('viewCmiImg').src = '{{ cmi.cmi_image.url }}'; 
+          document.getElementById('viewCmiName').innerText = '{{ cmi.cmi_name|upper }}';
+          document.getElementById('viewCmiMeaning').innerText = '{{ cmi.cmi_meaning|capfirst }}';
+          document.getElementById('viewCmiDescription').innerText = '{{ cmi.cmi_description|capfirst }}';
+          document.getElementById('viewAddress').innerText = '{{ cmi.address }}'; 
+          document.getElementById('viewEmail').innerText = '{{ cmi.email }}';
+          document.getElementById('viewContactNumber').innerText = '{{ cmi.contact_num }}';
+          document.getElementById('viewCoordinates').innerText = '{{ cmi.latitude }},{{ cmi.longitude }}';
+
+          //open modal
+          $('#viewCmiModal').modal('show');
+      });
+      {% endfor %}
+
+      // Add green markers for commodities
+      {% for commodity in get_commodity %}
+      var commodityMarker = L.marker([{{ commodity.latitude }}, {{ commodity.longitude }}], {icon: greenIcon}).addTo(map);
+      commodityMarkers.push(commodityMarker); // Add the marker to the commodityMarkers array
+
+      commodityMarker.on('click', function() {
+          console.log("Commodity Marker clicked");
+          // Fill the modal with commodity data
+          document.getElementById('viewCommodityImg').src = '{{ commodity.commodity_img.url }}'; // Assuming commodity.image_url contains the image URL
+          document.getElementById('viewCommodityName').innerText = '{{ commodity.commodity_name|capfirst }}';
+          document.getElementById('viewResourcesType').innerText = '{{ commodity.resources_type|capfirst }}';
+          document.getElementById('viewCommodityDescription').innerText = '{{ commodity.description|capfirst }}';
+
+          // Open the modal
+          $('#viewCommodityModal').modal('show');
+      });
+      {% endfor %}
+
+
+      // Remove the geocoder control
+      var btn_search = document.getElementById("search-button");
+      var search_input = document.getElementById("search-input"); // Assuming the ID of the input field is "search-input"
+
+       // Function to handle geocoding
+       function searchAction() {
+        var search_input_val = search_input.value;
+
+        // Perform geocoding using Nominatim (part of OpenStreetMap)
+        fetch('https://nominatim.openstreetmap.org/search?format=json&q=' + search_input_val)
+            .then(response => response.json())
+            .then(data => {
+                if (data.length > 0) {
+                    var latlng = [data[0].lat, data[0].lon];
+                    var address = data[0].display_name;
+
+                    // Log the address and coordinates
+                    console.log("Address:", address);
+                    console.log("Coordinates:", latlng);
+
+                    // Add marker to the map
+                    var marker = L.marker(latlng).addTo(map).bindPopup(address).openPopup();
+
+                    // Optionally, zoom the map to the location and open the popup
+                    map.setView(latlng, 14);
+                    marker.openPopup();
+                } else {
+                    // If address not found, display a Swal alert
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Address not found',
+                        text: 'Please try again with a different address.',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Event listener for the search button click
+        btn_search.addEventListener('click', function() {
+            searchAction();
+        });
+
+        // Event listener for pressing the Enter key in the input field
+        search_input.addEventListener('keypress', function(event) {
+            if (event.key === "Enter") {
+                searchAction();
+            }
+        });
+
+        // Track the previously selected marker color
+        let previousMarkerColor = null;
+
+        // Add a click event listener to legend items for filtering markers
+        const legends = ['blue', 'green'];
+
+        legends.forEach(function(legend) {
+            const legendElement = document.getElementById(legend);
+
+            if (legendElement) {
+                legendElement.addEventListener('click', function() {
+                    console.log(`Clicked ${legend} Legend`);
+
+                    if (legend === previousMarkerColor) {
+                        // If the same color is clicked again, display all markers
+                        updateMarkers('all');
+                        previousMarkerColor = null; // Reset the previous marker color
+                    } else {
+                        updateMarkers(legend);
+                        previousMarkerColor = legend;
+                    }
+                });
+            }
+        });
+
+        // Function to update the markers based on the selected legend color
+        function updateMarkers(markerColor) {
+          // Clear the map of existing markers
+          map.eachLayer(function(layer) {
+              if (layer instanceof L.Marker) {
+                  map.removeLayer(layer);
+              }
+          });
+
+          // Add markers based on the selected color
+          if (markerColor === 'blue') {
+              // Display only CMI markers
+              cmiMarkers.forEach(marker => {
+                  map.addLayer(marker);
+              });
+          } else if (markerColor === 'green') {
+              // Display only commodity markers
+              commodityMarkers.forEach(marker => {
+                  map.addLayer(marker);
+              });
+          } else if (markerColor === 'all') {
+              // Display all markers
+              cmiMarkers.forEach(marker => {
+                  map.addLayer(marker);
+              });
+              commodityMarkers.forEach(marker => {
+                  map.addLayer(marker);
+              });
+          }
+        }
+    });
+  
+  </script>
+
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% else %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}
