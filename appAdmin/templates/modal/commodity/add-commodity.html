@@ -1,0 +1,59 @@
+<!-- add commodity modal -->
+<div id="addCommodityModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addCommodityModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0C356A;">
+          <h5 class="modal-title text-white" id="addCommodityModalLabel" style="font-weight: bolder;">Add New Commodity</h5>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <form action="{% url 'appAdmin:add-commodity' %}" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="latitude" style="font-weight: bold;">Latitude</label>
+                  <input type="text" step="any" class="form-control" id="latitude_com" name="latitude" placeholder="Enter Latitude" min="-90" max="90"/>
+                </div>
+              </div>
+  
+              <div class="col">
+                <div class="form-group">
+                  <label for="longitude" style="font-weight: bold;">Longitude</label>
+                  <input type="text" step="any" class="form-control" id="longitude_com" name="longitude" placeholder="Enter Longitude" min="-180" max="180"/>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="commodity_name" style="font-weight: bold;" >Commodity Name:</label>
+              <input type="text" class="form-control" id="commodity_name" name="commodity_name" required />
+            </div>
+            <div class="form-group">
+              <label for="description" style="font-weight: bold;">Description:</label>
+              <textarea class="form-control" id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+              <label for="resources_type" style="font-weight: bold;">Resource Type:</label>
+              <select id="resources_type" name="resources_type" class="form-control">
+                  <option value="" disabled selected>Select Resources Type</option>
+                  <option value="agriculture">Agriculture</option>
+                  <option value="aquatic">Aquatic</option>
+                  <option value="natural resources">Natural Resources</option>
+              </select>
+            </div>
+            <hr>
+            <div class="form-group">
+              <label for="commodity_img" style="font-weight: bold;">Image:</label>
+              <input type="file" class="form-control-file" id="commodity_img" name="commodity_img" required />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  

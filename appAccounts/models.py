@@ -39,6 +39,15 @@ class CustomUserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
+import random
+import string
+from django.utils.text import slugify
+
+
+def generate_random_slug():
+    return "".join(random.choices(string.ascii_letters + string.digits, k=12))
+
+
 class CustomUser(AbstractUser):
     """Custom User model with additional fields and email-based authentication."""
 
@@ -73,6 +82,11 @@ class CustomUser(AbstractUser):
     )
     date_created = models.DateField(default=timezone.now, null=True, blank=True)
 
+    # Unique random slug
+    slug = models.CharField(
+        max_length=12, unique=True, default=generate_random_slug, editable=False
+    )
+
     # Override default username handling
     username = models.CharField(max_length=150, unique=True, blank=True, null=True)
 
@@ -82,9 +96,18 @@ class CustomUser(AbstractUser):
     REQUIRED_FIELDS = []
 
     def save(self, *args, **kwargs):
-        """Ensure username is None if left blank."""
+        """Ensure username is None if left blank and ensure a unique slug."""
         if self.username == "":
             self.username = None
+
+        # Ensure slug is unique when creating a new instance
+        if not self.slug:
+            while True:
+                new_slug = generate_random_slug()
+                if not CustomUser.objects.filter(slug=new_slug).exists():
+                    self.slug = new_slug
+                    break
+
         super().save(*args, **kwargs)
 
     def generate_unique_username(self):

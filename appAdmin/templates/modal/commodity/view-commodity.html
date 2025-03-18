@@ -1,0 +1,48 @@
+<div class="modal fade" id="viewCommodityModal" tabindex="-1" role="dialog" aria-labelledby="viewCommodityModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header" style="background-color: #0C356A;">
+        <h5 class="modal-title text-white" id="viewCommodityModalLabel" style="font-weight: bolder;">Commodity Details</h5>
+      </div>
+      
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <!-- Commodity Image -->
+        <div class="text-center mb-4">
+          <img 
+            src="" 
+            id="viewCommodityImg" 
+            alt="Commodity Image" 
+            class="img-fluid" 
+            style="max-height: 300px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);"
+          />
+        </div>
+        
+        <!-- Commodity Details -->
+        <div class="text-center mb-4">
+          <h4 id="viewCommodityName" style="font-weight: bold; color: #0C356A;"></h4>
+          <span id="viewResourcesType" class="badge badge-info" style="font-size: 1rem; padding: 0.5rem 1rem;"></span>
+        </div>
+
+        <div class="text-center mb-4">
+          <span id="viewLat"></span>
+          <span>,</span>
+          <span id="viewLong"></span>
+        </div>
+        <hr style="border-top: 2px solid #0C356A; margin: 1rem 0;" />
+
+        <!-- Commodity Description -->
+        <div>
+          <h6 style="font-weight: bold; color: #0C356A;">Description:</h6>
+          <p id="viewCommodityDescription" style="text-align: justify; line-height: 1.6; color: #333;"></p>
+        </div>
+      </div>
+      
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
