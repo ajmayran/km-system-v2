@@ -1,0 +1,99 @@
+<!-- CMI Registration Modal -->
+<div id="cmiRegistrationModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="cmiRegistrationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color: #0C356A;">
+          <h2 style="font-weight: bolder; text-align: center; color: white;" >CMI Registration</h2>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="latitude" style="font-weight: bold;">Latitude</label>
+                  <input type="text" step="any" class="form-control" id="latitude" name="latitude" placeholder="Enter Latitude" min="-90" max="90"/>
+                </div>
+              </div>
+  
+              <div class="col">
+                <div class="form-group">
+                  <label for="longitude" style="font-weight: bold;">Longitude</label>
+                  <input type="text" step="any" class="form-control" id="longitude" name="longitude" placeholder="Enter Longitude" min="-180" max="180"/>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="cmi_name" style="font-weight: bold;">CMI Name <span style="color: green;">*</span></label>
+                  <input type="text" class="form-control" id="cmi_name" name="cmi_name" placeholder="Enter CMI Name" required />
+                </div>
+              </div>
+  
+              <div class="col">
+                <div class="form-group">
+                  <label for="cmi_meaning" style="font-weight: bold;">CMI Meaning <span style="color: green;">*</span></label>
+                  <input type="text" class="form-control" id="cmi_meaning" name="cmi_meaning" placeholder="Enter CMI Meaning" required />
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="cmi_description" style="font-weight: bold;">CMI Description <span style="color: green;">*</span></label>
+              <textarea class="form-control" id="cmi_description" name="cmi_description" placeholder="Enter CMI Description" required></textarea>
+            </div>
+  
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="contact_num" style="font-weight: bold;">Contact Number</label>
+                  <input type="text" class="form-control" id="contact_num" name="contact_num" placeholder="Enter Contact Number" />
+                </div>
+              </div>
+  
+              <div class="col">
+                <div class="form-group">
+                  <label for="email" style="font-weight: bold;">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email" />
+                </div>
+              </div>
+  
+              <div class="col">
+                <div class="form-group">
+                  <label for="date_joined" style="font-weight: bold;">Date Joined</label>
+                  <input type="date" class="form-control" id="date_joined" name="date_joined" placeholder="Enter Date Joined" />
+                </div>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col">
+                <div class="form-group">
+                  <label for="address" style="font-weight: bold;">Address</label>
+                  <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address" />
+                </div>
+              </div>
+  
+              <div class="col">
+                <div class="form-group">
+                  <label for="url" style="font-weight: bold;">Link</label>
+                  <input type="url" class="form-control" id="url" name="url" placeholder="Enter Link" />
+                </div>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="cmi_image" style="font-weight: bold;">CMI Image</label>
+              <input type="file" class="form-control-file" id="cmi_image" name="cmi_image" accept="image/*" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Register</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

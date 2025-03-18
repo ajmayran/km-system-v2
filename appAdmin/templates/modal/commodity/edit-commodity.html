@@ -1,0 +1,51 @@
+<div class="modal fade" id="editCommodityModal" tabindex="-1" role="dialog" aria-labelledby="editCommodityModalLabel" aria-hidden="true" 
+     data-edit-url-template="{% url 'appAdmin:edit-commodity' 0 %}">
+    <div class="modal-dialog " role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0C356A;">
+                <h5 class="modal-title text-white" id="editCommodityModalLabel" style="font-weight: bolder;">Edit Commodity</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form id="editCommodityForm" action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="commodity_name" class="form-label">Commodity Name:</label>
+                        <input type="text" class="form-control" id="commodity_name" name="commodity_name" value="" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <span id="text_resources" name="text_resources" style="font-weight: bold;">
+                            Resources Type: 
+                        <span id="defaultResources" style="color: green;"></span>  
+                    </div>
+                   
+                    <div class="form-group">
+                        <label for="resources_type">Select New Resources Type:</label>
+                        <select class="form-control" id="resources_type" name="resources_type" required>
+                          {% if default_resources %}
+                            <option value="{{ default_resources }}" disabled>{{ default_resources|capfirst }}</option>
+                          {% endif %}
+                          <!-- List other commodities -->
+                          <option value="agriculture">Agriculture</option>
+                          <option value="aquatic">Aquatic</option>
+                          <option value="natural_resources">Natural Resources</option>
+                        </select>
+                      </div>
+
+                    {% comment %} <div class="mb-3">
+                        <label for="commodity_img" class="form-label">Image:</label>
+                        <input type="file" class="form-control-file" id="commodity_img" name="commodity_img" />
+                    </div> {% endcomment %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

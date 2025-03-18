@@ -1,11 +1,14 @@
 from django.db import models
 from django.utils import timezone
-
+from utils.slug_generator import generate_random_slug
 from embed_video.fields import EmbedVideoField
 
 
 class Commodity(models.Model):
     commodity_id = models.AutoField(primary_key=True)
+    slug = models.CharField(
+        max_length=12, unique=True, default=generate_random_slug, editable=False
+    )
     commodity_name = models.CharField(max_length=100)
     description = models.TextField()
     resources_type = models.CharField(max_length=100)
@@ -21,6 +24,8 @@ class Commodity(models.Model):
     )
 
     def save(self, *args, **kwargs):
+        if not self.slug:  # Ensure the slug is only set once
+            self.slug = generate_random_slug()
         if self.pk:
             self.date_edited = timezone.now().date()
         super(Commodity, self).save(*args, **kwargs)
@@ -34,6 +39,9 @@ class Commodity(models.Model):
 
 class KnowledgeResources(models.Model):
     knowledge_id = models.AutoField(primary_key=True)
+    slug = models.CharField(
+        max_length=12, unique=True, default=generate_random_slug, editable=False
+    )
     knowledge_title = models.CharField(max_length=255)
     knowledge_description = models.TextField()
     status = models.CharField(max_length=255, default="Approved")
@@ -63,14 +71,15 @@ class AboutFooter(models.Model):
 
 class CMI(models.Model):
     cmi_id = models.AutoField(primary_key=True)
+    slug = models.CharField(
+        max_length=12, unique=True, default=generate_random_slug, editable=False
+    )
     cmi_name = models.CharField(max_length=255)  # acronym
     cmi_meaning = models.CharField(max_length=255)  # meaning of the cmi name acronym
     cmi_description = models.TextField()
     address = models.CharField(max_length=255, null=True)
-    contact_num = models.CharField(
-        max_length=20, null=True
-    )  # Assuming a reasonable maximum length for a contact number
-    email = models.EmailField(null=True)  # Using EmailField for email
+    contact_num = models.CharField(max_length=20, null=True)
+    email = models.EmailField(null=True)
     cmi_image = models.ImageField(upload_to="cmi/", null=True)
     status = models.CharField(max_length=255, default="Approved")
     latitude = models.DecimalField(

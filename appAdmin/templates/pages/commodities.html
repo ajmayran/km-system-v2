@@ -1,0 +1,401 @@
+{% extends 'base/admin-index.html' %}
+{% load static %}
+{% block title %}
+  Admin Commodities
+{% endblock %}
+{% block stylesheet %}
+  <style>
+    /* Ensure the length menu and the dropdown are displayed inline */
+    .dataTables_length {
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Adjust the margin and padding for better alignment */
+    .dataTables_length label {
+      display: flex;
+      align-items: center;
+    }
+    
+    /* Adjust the width and margin of the select box */
+    .dataTables_length select {
+      margin-left: 5px;
+      margin-right: 5px;
+      width: 50px; /* Adjust the width as needed */
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+  <div class="masonry-item w-100">
+    <div class="row gap-20">
+      <div class="col-md-3">
+        <div class="layers bd bgc-white p-20">
+          <div class="layer w-100 mB-10">
+            <h6 class="lh-1"><a href="#" style="color: gray;">Approved Commodities</a></h6>
+          </div>
+          <div class="layer w-100">
+            <div class="peers ai-sb fxw-nw">
+              <div class="peer peer-greed">
+                <span id="sparklinedash"></span>
+              </div>
+              <div class="peer">
+                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">
+                  {% if total_approved_commodities %}
+                    {{ total_approved_commodities }}
+                  {% else %}
+                    0
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="layers bd bgc-white p-20">
+          <div class="layer w-100 mB-10">
+            <h6 class="lh-1"><a href="#" style="color: gray;">Requests Additional Commodities</a></h6>
+          </div>
+          <div class="layer w-100">
+            <div class="peers ai-sb fxw-nw">
+              <div class="peer peer-greed">
+                <span id="sparklinedash2"></span>
+              </div>
+              <div class="peer">
+                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">
+                  {% if total_pending_commodities %}
+                    {{ total_pending_commodities }}
+                  {% else %}
+                    0
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="layers bd bgc-white p-20">
+          <div class="layer w-100 mB-10">
+            <h6 class="lh-1"><a href="#" style="color: gray;">Total Commodities</a></h6>
+          </div>
+          <div class="layer w-100">
+            <div class="peers ai-sb fxw-nw">
+              <div class="peer peer-greed">
+                <span id="sparklinedash3"></span>
+              </div>
+              <div class="peer">
+                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500">
+                  {% if total_commodities %}
+                    {{ total_commodities }}
+                  {% else %}
+                    0
+                  {% endif %}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="masonry-item col-12">
+    <div class="bd bgc-white">
+      <div class="peers fxw-nw@lg+ ai-s">
+        <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
+          <div class="layers">
+            <div class="layer w-100 mB-10">
+              <h5 class="lh-1">Admin Commodities</h5>
+            </div>
+            <div class="layer w-100">
+              <ul class="nav nav-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" id="approvedCommodities-tab" data-toggle="tab" href="#approvedCommodities">Approved Commodities Overview</a>
+                </li>
+              </ul>
+            </div>
+            <div class="layer w-100">
+              <!-- Tab Content -->
+              <div class="tab-content">
+                <br />
+                <!-- Resource Hub Tab -->
+                <div class="tab-pane fade show active" id="approvedCommodities">
+                  <div class="d-flex">
+                    <!-- Left side: Table -->
+                    <div class="flex-grow-1 p-20">
+                      <div class="table-container" style="max-height: 500px; overflow-y: auto;">
+                        <table id="commoditiesTable" class="commodities-table table table-bordered">
+                          <thead style="font-size: 13px; font-weight: bolder;">
+                            <tr>
+                              <th style="width: 8px;">ID</th>
+                              <th>Commodity Name</th>
+                              <th>Resources Type</th>
+                              <th>Total Filter</th>
+                              <th style="width: 100px;">Total Posts (Tagged)</th>
+                              <th>Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody style="font-size: 12px;">
+                            {% for commodity in approvedcommodities %}
+                            {% if commodity.status == 'Approved' %}
+                              <tr>
+                                <td style="border-bottom: 1px solid #ddd;">{{ commodity.commodity_id }}</td>
+                                <td style="border-bottom: 1px solid #ddd;">{{ commodity.commodity_name|capfirst }}</td>
+                                <td style="border-bottom: 1px solid #ddd;">{{ commodity.resources_type|capfirst }}</td>
+                                <td style="border-bottom: 1px solid #ddd;">
+                                  {% if frequency_sum %}
+                                    {% for freq in frequency_sum %}
+                                      {% if freq.commodity_id == commodity.commodity_id %}
+                                        {{ freq.total_frequency }}
+                                      {% endif %}
+                                    {% endfor %}
+                                  {% else %}
+                                    Not Filtered Yet
+                                  {% endif %}
+                                </td>
+                                <td style="border-bottom: 1px solid #ddd;">
+                                  {% if tagged_counts %}
+                                    {% for tag_count in tagged_counts %}
+                                      {% if tag_count.commodity_id == commodity.commodity_id %}
+                                        {{ tag_count.total_tags }}
+                                      {% endif %}
+                                    {% endfor %}
+                                  {% else %}
+                                    Not Tagged Yet
+                                  {% endif %}
+                                </td>
+                                <td style="border-bottom: 1px solid #ddd; width: 100px;">
+                                  <div style="display: flex; gap: 5px;">
+                                    <button type="button" style="background-color: #FF8F00; color: #FEFBF6;" class="btn  btn-sm edit-btn" data-toggle="modal" data-target="#editCommodityModal" data-commodityid="{{ commodity.commodity_id }}" data-commodityname="{{ commodity.commodity_name|upper }}" data-commoditydescription="{{ commodity.description }}" data-resourcestype="{{ commodity.resources_type|capfirst }}">Update</button>
+                                    <button type="button" style="background-color: #0C356A; color: #FEFBF6;"class="btn  btn-sm view-btn" data-toggle="modal" data-target="#viewCommodityModal" data-commodityid="{{ commodity.commodity_id }}" data-commodityname="{{ commodity.commodity_name }}" data-commoditydescription="{{ commodity.description }}" data-commodityImg="{{ commodity.commodity_img.url }}" data-resourcestype="{{ commodity.resources_type|capfirst }}" data-lat="{{commodity.latitude}}" data-long="{{commodity.longitude}}">View</button>
+                                    <a data-placement="top" style="background-color: #D71313; color: #FEFBF6;" data-toggle="tooltip" title="delete" data-url="" class="btn btn-sm delete-btn">Delete</a>
+                                </div>
+                                </td>
+                              </tr>
+                              {% endif %}
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    <!-- Right side: Progress bars -->
+                    <div class="p-20 peer bdL p-20 w-30p@lg+ w-100p@lg-" style="width: 300px;">
+                      <h5 class="mb-4">Resources Analytics</h5>
+                      <div class="mb-4">
+                        <span>it should be pie chart</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    {% include 'modal/commodity/add-commodity.html' %}
+    {% include 'modal/commodity/edit-commodity.html' %}
+    {% include 'modal/commodity/view-commodity.html' %}
+{% endblock %}
+
+{% block script %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Attach click event listener to all delete buttons
+      document.querySelectorAll('.delete-btn').forEach(button => {
+        button.addEventListener('click', function (event) {
+          event.preventDefault(); // Prevent default link behavior
+    
+          const deleteUrl = this.getAttribute('data-url'); // Get the URL from the data-url attribute
+    
+          // Show SweetAlert confirmation dialog
+          Swal.fire({
+            title: 'Are you sure?',
+            text: "This action cannot be undone!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Redirect to the delete URL if confirmed
+              window.location.href = deleteUrl;
+            }
+          });
+        });
+      });
+    });
+    
+    
+    //view commodity modal
+    $(document).ready(function () {
+      $('.view-btn').on('click', function () {
+        var commodityId = $(this).data('commodityid')
+        var commodityName = $(this).data('commodityname')
+        var commodityDescription = $(this).data('commoditydescription')
+        var commodityImg = $(this).data('commodityimg')
+        var resourcesType = $(this).data('resourcestype')
+        var lat = $(this).data('lat')
+        var long = $(this).data('long')
+    
+        $('#viewCommodityModal').find('#viewCommodityId').text(commodityId)
+        $('#viewCommodityModal').find('#viewCommodityName').text(commodityName)
+        $('#viewCommodityModal').find('#viewResourcesType').text(resourcesType)
+        $('#viewCommodityModal').find('#viewCommodityDescription').text(commodityDescription)
+        $('#viewCommodityModal').find('#viewCommodityImg').attr('src', commodityImg)
+        $('#viewCommodityModal').find('#viewLat').text(lat)
+        $('#viewCommodityModal').find('#viewLong').text(long)
+      })
+    })
+    
+    //edit commodity modal
+    $(document).ready(function () {
+      // Event listener for the edit button
+      $('.edit-btn').on('click', function () {
+        var commodityId = $(this).data('commodityid');
+        var commodityName = $(this).data('commodityname');
+        var commodityDescription = $(this).data('commoditydescription');
+        var resourcesType = $(this).data('resourcestype');
+    
+        // Populate modal fields with commodity-specific data
+        $('#editCommodityModal').find('#commodity_name').val(commodityName);
+        $('#editCommodityModal').find('#description').val(commodityDescription);
+        $('#editCommodityModal').find('#defaultResources').text(resourcesType);
+    
+        // Dynamically set the form action URL
+        const editUrl = $('#editCommodityModal').data('editUrlTemplate').replace('0', commodityId);
+        $('#editCommodityForm').attr('action', editUrl);
+      });
+    });
+    
+    
+    
+    //add commodity modal
+    function addCommodity() {
+      // Logic to handle adding data goes here
+      console.log('Add Data button clicked')
+      // Add your logic here for adding data
+      Swal.fire({
+        title: 'Do you want to add new commodity?',
+        showCancelButton: true,
+        confirmButtonText: 'Yes',
+        cancelButtonText: 'No',
+        icon: 'question',
+        preConfirm: () => {
+          // Logic to handle "Yes" goes here
+          // For example, redirecting the user
+          console.log('User confirm the operation so redirect!!!')
+          window.location.href = '{% url "appAdmin:map" name="commodity" %}' // Adjust the URL as needed
+        }
+      }).then((result) => {
+        if (result.isDismissed) {
+          // Logic to handle "No" goes here
+          console.log('User cancelled the operation')
+        }
+      })
+    }
+    
+    $(document).ready(function () {
+      let table = $('#commoditiesTable').DataTable({
+        language: {
+          lengthMenu: '_MENU_',
+          search: '',
+          searchPlaceholder: 'Search...'
+        },
+        lengthMenu: [
+          [7, 10, 25, -1],
+          [7, 10, 25, 'All']
+        ],
+        paging: true,
+        lengthChange: true,
+        autoWidth: false,
+        bInfo: true,
+        bSort: true,
+        responsive: true,
+        buttons: [
+          {
+            text: 'CSV',
+            extend: 'csv'
+          },
+          {
+            text: 'PDF',
+            extend: 'pdf'
+          },
+          {
+            text: 'ADD',
+            className: 'btn btn-primary',
+            action: function () {
+              addCommodity()
+            }
+          }
+        ],
+        dom: '<"row"<"col-md-1"l><"col-md-8"B><"col-md-3"f>>' + '<"row"<"col-md-12"tr>>' + '<"row"<"col-md-5"i><"col-md-7"p>>'
+      })
+    })
+    
+    $(document).ready(function () {
+      let table = $('#pendingcommoditiesTable').DataTable({
+        language: {
+          lengthMenu: '_MENU_',
+          search: '',
+          searchPlaceholder: 'Search...'
+        },
+        lengthMenu: [
+          [7, 10, 25, -1],
+          [7, 10, 25, 'All']
+        ],
+        paging: true,
+        lengthChange: true,
+        autoWidth: false,
+        bInfo: true,
+        bSort: true,
+        responsive: true,
+        buttons: [
+          {
+            text: 'CSV',
+            extend: 'csv'
+          },
+          {
+            text: 'PDF',
+            extend: 'pdf'
+          },
+        ],
+        dom: '<"row"<"col-md-1"l><"col-md-8"B><"col-md-3"f>>' + '<"row"<"col-md-12"tr>>' + '<"row"<"col-md-5"i><"col-md-7"p>>'
+      })
+    })
+  
+  </script>
+
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% else %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}
