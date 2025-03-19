@@ -8,6 +8,7 @@ from .commodities_view import (
     admin_commodities,
     admin_add_commodity,
     admin_edit_commodity,
+    admin_delete_commodity,
 )
 from .forum_view import manage_forum
 from .cmi_view import (
@@ -15,4 +16,10 @@ from .cmi_view import (
     admin_add_cmi,
     admin_edit_cmi,
     admin_delete_cmi,
+)
+from .knowledge_resources_view import (
+    admin_knowledge_resources,
+    admin_add_knowledge_resource,
+    admin_edit_knowledge_resource,
+    admin_delete_knowledge_resource,
 )

@@ -22,6 +22,11 @@ urlpatterns = (
             commodities_view.admin_edit_commodity,
             name="edit-commodity",
         ),
+        path(
+            "delete-commodity/<str:slug>/",
+            commodities_view.admin_delete_commodity,
+            name="delete-commodity",
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
