@@ -44,11 +44,11 @@ class KnowledgeResources(models.Model):
     )
     knowledge_title = models.CharField(max_length=255)
     knowledge_description = models.TextField()
-    status = models.CharField(max_length=255, default="Approved")
+    status = models.CharField(max_length=255, default="active")
     date_created = models.DateTimeField(default=timezone.now, null=True)
 
     class Meta:
-        db_table = "tbl_knowledge"
+        db_table = "tbl_knowledge_resources"
 
 
 class About(models.Model):

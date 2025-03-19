@@ -1,0 +1,34 @@
+<div id="editKnowledgeModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editKnowledgeModalLabel" aria-hidden="true" data-edit-url-template="{% url 'appAdmin:update-knowledge-resources' 'SLUG_PLACEHOLDER' %}">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #0C356A;">
+        <h5 class="modal-title text-white" id="editKnowledgeModalLabel" style="font-weight: bolder;">Edit Knowledge Resources</h5>
+        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <form id="editKnowledgeForm" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="modal-body">
+          <!-- Knowledge Title -->
+          <div class="form-group">
+            <label for="knowledge_title" class="font-weight-bold">Knowledge Title:</label>
+            <input type="text" class="form-control" id="knowledge_title" name="knowledge_title" placeholder="Enter knowledge title" />
+          </div>
+          <!-- Knowledge Description -->
+          <div class="form-group">
+            <label for="knowledge_description" class="font-weight-bold">Knowledge Description:</label>
+            <textarea class="form-control" id="knowledge_description" name="knowledge_description" placeholder="Enter knowledge description"></textarea>
+          </div>
+          <!-- Commodity Selection -->
+          <div class="form-group">
+            <label for="commodity" class="font-weight-bold">Commodity:</label>
+            <span id="default_commodity" class="form-control text-muted"></span>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
