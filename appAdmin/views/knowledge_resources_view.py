@@ -3,6 +3,8 @@ from appAdmin.models import KnowledgeResources
 from appAdmin.forms import KnowledgeForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.http import HttpResponseNotAllowed
+from django.urls import reverse
 
 
 def admin_knowledge_resources(request):
@@ -33,8 +35,35 @@ def admin_add_knowledge_resource(request):
 
 
 def admin_edit_knowledge_resource(request, slug):
-    return render(request, "pages/knowledge-resources.html")
+    # Get the knowledge resource or return 404
+    knowledge = get_object_or_404(KnowledgeResources, slug=slug)
+
+    if request.method == "POST":
+        form = KnowledgeForm(request.POST, instance=knowledge)
+        if form.is_valid():
+            knowledge = form.save(commit=False)  # Update instance
+            knowledge.save()  # Save to the database
+
+            # Success message
+            messages.success(request, "Knowledge Resource edited successfully!")
+            return redirect("appAdmin:display-knowledge-resources")
+        else:
+            print(form.errors)  # Debugging (remove in production)
+    else:
+        form = KnowledgeForm(instance=knowledge)
+
+    return render(
+        request,
+        "pages/knowledge-resources.html",
+        {"form": form, "knowledge": knowledge},
+    )
 
 
 def admin_delete_knowledge_resource(request, slug):
-    return render(request, "pages/knowledge-resources.html")
+    knowledge = get_object_or_404(
+        KnowledgeResources, slug=slug
+    )  # Fetch object by slug instead of ID
+    knowledge.delete()
+
+    messages.success(request, "Deleted successfully!")
+    return redirect(reverse("appAdmin:display-knowledge-resources"))

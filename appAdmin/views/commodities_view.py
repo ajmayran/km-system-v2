@@ -11,6 +11,7 @@ from appCmi.models import (
 from appAdmin.forms import CommodityForm
 from django.contrib import messages
 import logging
+from django.urls import reverse
 
 logger = logging.getLogger(__name__)  # Set up logging
 
@@ -104,3 +105,13 @@ def admin_edit_commodity(request, slug):
         form = CommodityForm(instance=commodity)
 
     return render(request, "pages/commodities.html", {"form": form})
+
+
+def admin_delete_commodity(request, slug):
+    commodity = get_object_or_404(
+        Commodity, slug=slug
+    )  # Fetch object by slug instead of ID
+    commodity.delete()
+
+    messages.success(request, "Deleted successfully!")
+    return redirect(reverse("appAdmin:display-commodity"))

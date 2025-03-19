@@ -172,7 +172,7 @@
                                   <div style="display: flex; gap: 5px;">
                                     <button type="button" style="background-color: #FF8F00; color: #FEFBF6;" class="btn  btn-sm edit-btn" data-toggle="modal" data-target="#editCommodityModal" data-commodityid="{{ commodity.commodity_id }}" data-commodityname="{{ commodity.commodity_name|upper }}" data-commoditydescription="{{ commodity.description }}" data-resourcestype="{{ commodity.resources_type|capfirst }}">Update</button>
                                     <button type="button" style="background-color: #0C356A; color: #FEFBF6;"class="btn  btn-sm view-btn" data-toggle="modal" data-target="#viewCommodityModal" data-commodityid="{{ commodity.commodity_id }}" data-commodityname="{{ commodity.commodity_name }}" data-commoditydescription="{{ commodity.description }}" data-commodityImg="{{ commodity.commodity_img.url }}" data-resourcestype="{{ commodity.resources_type|capfirst }}" data-lat="{{commodity.latitude}}" data-long="{{commodity.longitude}}">View</button>
-                                    <a data-placement="top" style="background-color: #D71313; color: #FEFBF6;" data-toggle="tooltip" title="delete" data-url="" class="btn btn-sm delete-btn">Delete</a>
+                                    <a data-placement="top" style="background-color: #D71313; color: #FEFBF6;" data-toggle="tooltip" title="delete" data-url="{% url 'appAdmin:delete-commodity' commodity.slug  %}" class="btn btn-sm delete-btn">Delete</a>
                                 </div>
                                 </td>
                               </tr>

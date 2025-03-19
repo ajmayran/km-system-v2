@@ -58,10 +58,6 @@ def admin_edit_cmi(request, slug):
 
 
 def admin_delete_cmi(request, slug):
-    # Ensure deletion is only performed via POST to prevent accidental deletion
-    if request.method != "POST":
-        return HttpResponseNotAllowed(["POST"])
-
     cmi = get_object_or_404(CMI, slug=slug)  # Fetch object by slug instead of ID
     cmi.delete()
 
