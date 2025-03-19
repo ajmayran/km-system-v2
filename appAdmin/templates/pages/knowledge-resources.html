@@ -1,0 +1,255 @@
+{% extends 'base/admin-index.html' %}
+{% load static %}
+{% block title %}
+  Admin Knowledge Management
+{% endblock %}
+{% block stylesheet %}
+<style>
+   /* Ensure the length menu and the dropdown are displayed inline */
+   .dataTables_length {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Adjust the margin and padding for better alignment */
+  .dataTables_length label {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Adjust the width and margin of the select box */
+  .dataTables_length select {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 50px; /* Adjust the width as needed */
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="masonry-item w-100">
+  <div class="row gap-20">
+    <div class="col-md-3">
+      <div class="layers bd bgc-white p-20">
+        <div class="layer w-100 mB-10">
+          <h6 class="lh-1"><a href="#" style="color: gray;">Knowledge Resources Request</a></h6>
+        </div>
+        <div class="layer w-100">
+          <div class="peers ai-sb fxw-nw">
+            <div class="peer peer-greed">
+              <span id="sparklinedash"></span>
+            </div>
+            <div class="peer">
+              <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">
+                {% if total_knowledge_resources %}
+                            {{ total_knowledge_resources }}
+                          {% else %}
+                            0
+                          {% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="masonry-item col-12">
+  <div class="bd bgc-white">
+    <div class="peers fxw-nw@lg+ ai-s">
+      <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
+        <div class="layers">
+          <div class="layer w-100 mB-10">
+            <h5 class="lh-1">Admin Knowledge Resources</h5>
+          </div>
+          <div class="layer w-100">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" id="KnowledgeResources-tab" data-toggle="tab" href="#KnowledgeResources">Knowledge Resources Overview</a>
+              </li>
+            </ul>
+          </div>
+          <div class="layer w-100">
+            <!-- Tab Content -->
+            <div class="tab-content">
+              <br />
+              <!-- Resource Hub Tab -->
+              <div class="tab-pane fade show active" id="KnowledgeResources">
+                <div class="d-flex">
+                  <!-- Left side: Table -->
+                  <div class="flex-grow-1 p-20">
+                    <div class="table-container table-responsive" style="max-height: 500px; overflow-y: auto;">
+                      <table id="approvedknowledgeTable" class="knowledge-table table table-bordered table-striped">
+                        <thead style="color: #fff; font-size: 13px; background-color: #0C356A; font-weight: bolder;">
+                          <tr>
+                            <th style="width: 8px;">ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                            <th>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody style="font-size: 12px;">
+                          {% for resource in knowledge_resources %}
+                          <tr>
+                              <td style="border-bottom: 1px solid #ddd;">{{ resource.knowledge_id }}</td>
+                              <td style="border-bottom: 1px solid #ddd;">{{ resource.knowledge_title|capfirst }}</td>
+                              <td style="border-bottom: 1px solid #ddd;">{{ resource.knowledge_description|capfirst }}</td>
+                              <td style="border-bottom: 1px solid #ddd;">{{ resource.date_created }}</td>
+                              <td style="border-bottom: 1px solid #ddd; width: 100px;">
+                                <div style="display: flex; gap: 5px;">
+                                  <!-- Modify data attributes to include commodity_name -->
+                                  <button type="button" style="background-color: #FF8F00; color: #FEFBF6;" class="btn btn-sm edit-btn"
+                                    data-toggle="modal"
+                                    data-target="#editKnowledgeModal"
+                                    data-slug="{{ resource.slug }}"
+                                    data-knowledgetitle="{{ resource.knowledge_title }}"
+                                    data-knowledgedescription="{{ resource.knowledge_description }}"
+                                    data-commodityid="{% for commodity in resource.commodity.all %}{{ commodity.commodity_id }}{% endfor %}"
+                                    data-defaultcommodityid="{{ resource.commodity.first.commodity_id }}"
+                                    data-defaultcommodityname="{{ resource.commodity.first.commodity_name }}">
+                                    Update
+                                  </button>
+                                  <a data-placement="top" style="background-color: #D71313; color: #FEFBF6;" data-toggle="tooltip" title="delete" href="{% url 'appAdmin:delete-knowledge-resources' resource.slug %}" onclick="return confirmDeletion(this);" class="btn btn-sm">Delete</a>
+                                </div>
+                              </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+  {% include 'modal/knowledge-resources/add-knowledge-resources.html' %}
+  {% include 'modal/knowledge-resources/edit-resources-resources.html' %}
+{% endblock %}
+
+{% block script %}
+{% if messages %}
+{% for message in messages %}
+  {% if message.tags == 'success' %}
+    <script>
+      // Display SweetAlert success message
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: '{{ message }}'
+      })
+    </script>
+    {% else %}
+    <script>
+      // Display SweetAlert success message
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: '{{ message }}'
+      })
+    </script>
+  {% endif %}
+{% endfor %}
+{% endif %}
+  <script>
+    // Function to edit knowledge resources modal
+    function editKnowledgeResourcesModal(knowledsluggeId, knowledgeTitle, knowledgeDescription, defaultCommodityName) {
+      // Populate modal fields with knowledge-specific data
+      $('#editKnowledgeModal').find('#knowledge_title').val(knowledgeTitle);
+      $('#editKnowledgeModal').find('#knowledge_description').val(knowledgeDescription);
+      $('#editKnowledgeModal').find('#default_commodity').text(defaultCommodityName);
+    
+      // Update form action attribute with the knowledge ID
+      const editUrl = $('#editKnowledgeModal').data('edit-url-template').replace('SLUG_PLACEHOLDER', slug);
+      $('#editKnowledgeForm').attr('action', editUrl);
+    
+      // Show the modal
+      $('#editKnowledgeModal').modal('show');
+    }
+    
+    $(document).ready(function () {
+      // Event listener for the edit button
+      $('.edit-btn').on('click', function () {
+        const slug = $(this).data('slug');
+        const knowledgeTitle = $(this).data('knowledgetitle');
+        const knowledgeDescription = $(this).data('knowledgedescription');
+        const defaultCommodityName = $(this).data('defaultcommodityname');
+    
+        // Call the function to show the edit knowledge modal
+        editKnowledgeResourcesModal(slug, knowledgeTitle, knowledgeDescription, defaultCommodityName);
+      });
+    });
+
+    function confirmDeletion(element) {
+      Swal.fire({
+        title: 'Are you sure?',
+        text: 'This action cannot be undone!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirect to the URL if confirmed
+          window.location.href = element.getAttribute('href');
+        }
+      });
+      return false; // Prevent default link behavior until confirmed
+    }
+    
+    //add commodity modal
+    function addResources() {
+      // Logic to handle adding data goes here
+      console.log('Add Data button clicked')
+      // Add your logic here for adding data
+      $('#addKnowledgeModal').modal('show')
+    }
+    $(document).ready(function () {
+      let table = $('#approvedknowledgeTable').DataTable({
+        language: {
+          lengthMenu: '_MENU_',
+          search: '',
+          searchPlaceholder: 'Search...'
+        },
+        lengthMenu: [
+          [7, 10, 25, -1],
+          [7, 10, 25, 'All']
+        ],
+        paging: true,
+        lengthChange: true,
+        autoWidth: false,
+        bInfo: true,
+        bSort: true,
+        responsive: true,
+        buttons: [
+          {
+            text: 'CSV',
+            extend: 'csv'
+          },
+          {
+            text: 'PDF',
+            extend: 'pdf'
+          },
+          {
+            text: 'ADD',
+            className: 'btn btn-primary',
+            action: function () {
+              //call the add function
+              addResources()
+            }
+          }
+        ],
+        dom: '<"row"<"col-md-1"l><"col-md-8"B><"col-md-3"f>>' + '<"row"<"col-md-12"tr>>' + '<"row"<"col-md-5"i><"col-md-7"p>>'
+      })
+    })
+  </script>
+{% endblock %}

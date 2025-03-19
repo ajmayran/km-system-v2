@@ -50,10 +50,9 @@ class CMIForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        super(CMIForm, self).__init__(*args, **kwargs)
-
-        # Make specific fields not required
-        for field_name in [
+        super().__init__(*args, **kwargs)
+        # Making some fields optional
+        for field in [
             "cmi_name",
             "cmi_meaning",
             "cmi_description",
@@ -65,4 +64,4 @@ class CMIForm(forms.ModelForm):
             "url",
             "date_joined",
         ]:
-            self.fields[field_name].required = False
+            self.fields[field].required = False
