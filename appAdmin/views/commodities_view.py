@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)  # Set up logging
 def admin_commodities(request):
     # Fetch all commodities with status categorization
     commodities = Commodity.objects.all()
-    approvedcommodities = commodities.filter(status="Approved")
+    approvedcommodities = commodities.filter(status="active")
     pendingcommodities = commodities.filter(status="Pending")
 
     # Total commodity counts

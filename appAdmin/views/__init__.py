@@ -23,3 +23,17 @@ from .knowledge_resources_view import (
     admin_edit_knowledge_resource,
     admin_delete_knowledge_resource,
 )
+from .about_view import (
+    admin_about_page,
+    admin_about_footer,
+    admin_about_page_edit,
+    admin_about_footer_edit,
+    admin_upload_video,
+)
+
+from .useful_link_view import (
+    admin_useful_links,
+    admin_add_useful_link,
+    admin_edit_useful_link,
+    admin_delete_useful_link,
+)

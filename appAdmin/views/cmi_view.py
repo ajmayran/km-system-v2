@@ -7,7 +7,7 @@ from appAdmin.forms import CMIForm
 
 
 def admin_cmi(request):
-    cmis = CMI.objects.filter(status="Approved")
+    cmis = CMI.objects.filter(status="active")
     latest_resource = cmis.order_by("-date_created").first()
     pending_cmis = CMI.objects.filter(status="Pending")
     total_request_cmi = pending_cmis.count()
