@@ -1,0 +1,144 @@
+{% extends 'base/admin-index.html' %}
+{% load static %}
+{% block title %}
+  Admin Useful Links Management
+{% endblock %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'style/css/admin.commodities.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <br />
+ 
+  <div class="masonry-item col-12">
+    <div class="bd bgc-white">
+      <div class="peers fxw-nw@lg+ ai-s">
+        <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
+          <h3 style="font-weight:bold;">ADMIN USEFUL LINKS MANAGEMENT</h3>
+          <hr style="color: black;" />
+
+          <div class="table-container">
+            <table id="usefulLinksTable" class="links-table table table-bordered">
+              <thead style="color: #fff; font-size: 13px; background-color: #0C356A; font-weight: bolder;">
+                <tr>
+                  <th>ID</th>
+                  <th>Link</th>
+                  <th>Link Title</th>
+                  <th>Date Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody style="font-size: 12px;">
+                {% for link in latest_links %}
+                  <tr>
+                    <td>{{ link.link_id }}</td>
+                    <td>{{ link.link }}</td>
+                    <td>{{ link.link_title }}</td>
+                    <td>{{ link.date_created }}</td>
+                    <td>
+                      <div style="display: flex;">
+                        <button type="button" title="Edit" style="background-color: #FFC436; color: #fff; margin-right: 4px;" class="btn btn-sm edit-btn" data-toggle="modal" data-target="#editLinksModal{{link.link_id}}"><i class="fa-solid fa-pen-to-square"></i></button> 
+                        <a data-placement="top" data-toggle="tooltip" title="Delete" href="/delete-useful-link/{{ link.link_id }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  {% include 'modal/useful-link/edit-link.html' %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+      
+ 
+  {% include 'modal/useful-link/add-link.html' %}
+{% endblock %}
+
+{% block script %}
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  <script>
+    //add link modal
+    function addLink() {
+      // Logic to handle adding data goes here
+      console.log('Add Data button clicked')
+      // Add your logic here for adding data
+      $('#usefulLinksModal').modal('show')
+    }
+    $(document).ready(function () {
+      let table = $('#usefulLinksTable').DataTable({
+        language: {
+          lengthMenu: '_MENU_',
+          search: '',
+          searchPlaceholder: 'Search...'
+        },
+        lengthMenu: [
+          [7, 10, 25, -1],
+          [7, 10, 25, 'All']
+        ],
+        paging: true,
+        lengthChange: true,
+        autoWidth: false,
+        bInfo: true,
+        bSort: true,
+        responsive: true,
+        buttons: [
+          {
+            text: 'CSV',
+            extend: 'csv'
+          },
+          {
+            text: 'PDF',
+            extend: 'pdf'
+          },
+          {
+            text: 'ADD',
+            className: 'btn btn-primary',
+            action: function () {
+              addLink()
+            }
+          }
+        ],
+        dom: '<"row"<"col-md-1"l><"col-md-8"B><"col-md-3"f>>' + '<"row"<"col-md-12"tr>>' + '<"row"<"col-md-5"i><"col-md-7"p>>'
+      })
+    })
+  </script>
+
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ message }}'
+          })
+        </script>
+        {% else %}
+        <script>
+          // Display SweetAlert success message
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '{{ message }}'
+          })
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock %}

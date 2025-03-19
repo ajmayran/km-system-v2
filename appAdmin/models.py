@@ -15,7 +15,7 @@ class Commodity(models.Model):
     commodity_img = models.ImageField(upload_to="commodities/", null=True)
     date_created = models.DateTimeField(default=timezone.now, null=True)
     date_edited = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=255, default="Approved")
+    status = models.CharField(max_length=255, default="active")
     latitude = models.DecimalField(
         max_digits=11, decimal_places=8, null=True, blank=True
     )
@@ -81,7 +81,7 @@ class CMI(models.Model):
     contact_num = models.CharField(max_length=20, null=True)
     email = models.EmailField(null=True)
     cmi_image = models.ImageField(upload_to="cmi/", null=True)
-    status = models.CharField(max_length=255, default="Approved")
+    status = models.CharField(max_length=255, default="active")
     latitude = models.DecimalField(
         max_digits=11, decimal_places=8, null=True, blank=True
     )
@@ -100,11 +100,20 @@ class UsefulLinks(models.Model):
     link_id = models.AutoField(primary_key=True)
     link_title = models.CharField(max_length=255, null=True)
     link = models.URLField(null=True, blank=True)
-    status = models.CharField(max_length=255, default="Approved")
+    status = models.CharField(max_length=255, default="active")
     date_created = models.DateField(auto_now_add=True, null=True)
 
     class Meta:
         db_table = "tbl_useful_links"
+
+
+class UploadVideo(models.Model):
+    video_id = models.AutoField(primary_key=True)
+    video_title = models.CharField(max_length=255)
+    url = EmbedVideoField()
+
+    class Meta:
+        db_table = "tbl_about_video"
 
 
 # class Carousel(models.Model):
@@ -115,16 +124,6 @@ class UsefulLinks(models.Model):
 
 #     class Meta:
 #         db_table = "tbl_carousel"
-
-
-# class UploadVideo(models.Model):
-#     video_id = models.AutoField(primary_key=True)
-#     video_title = models.CharField(max_length=255)
-#     url = EmbedVideoField()
-
-#     class Meta:
-#         db_table = "tbl_video"
-
 
 # class Events(models.Model):
 #     event_id = models.AutoField(primary_key=True)

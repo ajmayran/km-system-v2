@@ -1,0 +1,249 @@
+{% extends 'base/admin-index.html' %} {% load embed_video_tags %} {% load static %}
+{% block title %} Admin About {% endblock %} {% block stylesheet %}
+<link rel="stylesheet" href="{% static 'style/css/admin.about.css' %}" />
+<!-- CSS -->
+<link
+  href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
+  rel="stylesheet"
+/>
+{% endblock %} {% block content %}
+<br />
+<div class="masonry-item col-12">
+  <div class="bd bgc-white">
+    <div class="peers fxw-nw@lg+ ai-s">
+      <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="button-container-head">
+              <button type="button" id="about-page-btn" style="background-color: #0C356A; color: #fff; border: 0; border-radius: 3px; padding: 5px; font-weight: bold;">About Page Component</button>
+              <button type="button" id="about-footer-btn" style="background-color: #0C356A; color: #fff; border: 0; border-radius: 3px; padding: 5px; font-weight: bold;">About Footer Component</button>
+              <button type="button" id="video-btn" style="background-color: #0C356A; color: #fff; border: 0; border-radius: 3px; padding: 5px; font-weight: bold;">"How To Use (Video)" Component</button>
+            </div>
+          </div>
+        </div>
+        <hr style="color: black;" />
+  
+        <div class="about-page" id="about-page">
+          <h3 style="font-weight:bold;">ADMIN 'ABOUT PAGE'</h3>
+  
+          <div class="row">
+            <div class="col-lg-12" style="margin-top:20px; width: 100%;">
+              <form action="{{ form_action }}" method="post">
+                {% csrf_token %}
+                <textarea name="content" id="about-page-textarea">
+                  {% if about_content %}
+                    {{ about_content.0.content }}
+                  {% else %}
+                    <span>No content</span>
+                  {% endif %}
+                </textarea>
+                <button type="submit" class="btn btn-success" style="float:right; margin-top:20px;">Update</button>
+              </form>
+            </div>
+          </div>
+        </div>
+  
+        <div class="about-footer" id="about-footer">
+          <h3 style="font-weight:bold;">ADMIN 'ABOUT FOOTER'</h3>
+  
+          <div class="row">
+            <div class="col-lg-12" style="margin-top:20px; width: 100%;">
+              <form action="{{ form_action_footer }}" method="post">
+                {% csrf_token %}
+                <textarea name="content_footer" id="about-footer-textarea">
+                  {% if footer_content %}
+                    {{ footer_content.0.content_footer }}
+                  {% else %}
+                    <span>No content</span>
+                  {% endif %}
+                </textarea>
+                <button type="submit" class="btn btn-success" style="float:right; margin-top:20px;">Update</button>
+              </form>
+            </div>
+          </div>
+        </div>
+  
+        <div class="video-component" id="video-component">
+          <div class="header d-flex justify-content-between align-items-center">
+            <h3 style="font-weight:bold;">ADMIN 'HOW TO USE' VIDEO</h3>
+            <button type="button" title="Upload" style="background-color: #0C356A; color: #fff; border: 0; border-radius: 3px; padding: 5px; font-weight: bold;" data-toggle="modal" data-target="#uploadvideoModal">Upload Video</button>
+          </div>
+  
+          <div class="row">
+            <div class="col-lg-12" style="margin-top:20px; width: 100%;">
+              {% video videos.url '1000x700' %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'modal/about/upload-video.html' %} {% endblock %} {%block script %}
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+{% if messages %} {% for message in messages %} {% if message.tags == 'success'%}
+<script>
+  // Display SweetAlert success message
+  Swal.fire({
+    icon: "success",
+    title: "Success!",
+    text: "{{ message }}",
+  });
+</script>
+{% endif %} {% endfor %} {% endif %}
+
+<script>
+  $(document).ready(function () {
+    $("#about-page textarea").summernote({
+      height: 300,
+      placeholder: "Write here...",
+      toolbar: [
+        ["style", ["style", "bold", "italic", "underline", "clear"]],
+        ["font", ["strikethrough", "superscript", "subscript"]],
+        ["fontsize", ["fontsize"]],
+        ["color", ["color"]],
+        ["para", ["ul", "ol", "paragraph"]],
+        ["insert", ["link", "picture", "video"]],
+        ["insert", ["hr"]],
+        ["insert", ["table"]],
+        ["misc", ["undo", "redo"]],
+        ["mybutton", ["codeview"]],
+        ["mybutton", ["spellchecker"]],
+        ["mybutton", ["cut", "copy", "paste", "plainpaste", "wordpaste"]],
+        ["mybutton", ["link", "unlink", "anchor"]],
+      ],
+      buttons: {
+        spellchecker: function (context) {
+          var ui = $.summernote.ui;
+          // create button
+          var button = ui.button({
+            contents: '<i class="fa fa-magic"/>',
+            tooltip: "Spell Checker",
+            click: function () {
+              context.invoke("editor.spellCheck");
+            },
+          });
+          return button.render();
+        },
+      },
+      styleTags: ["p", "h1", "h2", "h3", "h4", "h5", "h6"], // Include more styles as needed
+      fontSizes: ["8", "9", "10", "11", "12", "14", "18", "24", "36"], // Add your desired font sizes
+      colors: [
+        [
+          "#000000",
+          "#ffffff",
+          "#e0e0e0",
+          "#b0b0b0",
+          "#808080",
+          "#404040",
+          "#ff0000",
+          "#ff9900",
+          "#ffff00",
+          "#00ff00",
+          "#00ffff",
+          "#0000ff",
+          "#9900ff",
+          "#ff00ff",
+          "#f7f7f7",
+          "#ccc",
+        ],
+      ], // Add your desired color palette
+    });
+  });
+
+  $(document).ready(function () {
+    $("#about-footer textarea").summernote({
+      height: 300,
+      placeholder: "Write here...",
+      toolbar: [
+        ["style", ["style", "bold", "italic", "underline", "clear"]],
+        ["font", ["strikethrough", "superscript", "subscript"]],
+        ["fontsize", ["fontsize"]],
+        ["color", ["color"]],
+        ["para", ["ul", "ol", "paragraph"]],
+        ["insert", ["link", "picture", "video"]],
+        ["insert", ["hr"]],
+        ["insert", ["table"]],
+        ["misc", ["undo", "redo"]],
+        ["mybutton", ["codeview"]],
+        ["mybutton", ["spellchecker"]],
+        ["mybutton", ["cut", "copy", "paste", "plainpaste", "wordpaste"]],
+        ["mybutton", ["link", "unlink", "anchor"]],
+      ],
+      buttons: {
+        spellchecker: function (context) {
+          var ui = $.summernote.ui;
+          // create button
+          var button = ui.button({
+            contents: '<i class="fa fa-magic"/>',
+            tooltip: "Spell Checker",
+            click: function () {
+              context.invoke("editor.spellCheck");
+            },
+          });
+          return button.render();
+        },
+      },
+      styleTags: ["p", "h1", "h2", "h3", "h4", "h5", "h6"], // Include more styles as needed
+      fontSizes: ["8", "9", "10", "11", "12", "14", "18", "24", "36"], // Add your desired font sizes
+      colors: [
+        [
+          "#000000",
+          "#ffffff",
+          "#e0e0e0",
+          "#b0b0b0",
+          "#808080",
+          "#404040",
+          "#ff0000",
+          "#ff9900",
+          "#ffff00",
+          "#00ff00",
+          "#00ffff",
+          "#0000ff",
+          "#9900ff",
+          "#ff00ff",
+          "#f7f7f7",
+          "#ccc",
+        ],
+      ], // Add your desired color palette
+    });
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    var aboutPage = document.getElementById("about-page");
+    var aboutFooter = document.getElementById("about-footer");
+    var videoComponent = document.getElementById("video-component");
+
+    var pageBtn = document.getElementById("about-page-btn");
+    var footerBtn = document.getElementById("about-footer-btn");
+    var videoBtn = document.getElementById("video-btn");
+
+    hideAllTablesExcept(aboutPage);
+
+    pageBtn.addEventListener("click", function () {
+      aboutPage.style.display = "block";
+      hideAllTablesExcept(aboutPage);
+    });
+
+    footerBtn.addEventListener("click", function () {
+      aboutFooter.style.display = "block";
+      hideAllTablesExcept(aboutFooter);
+    });
+
+    videoBtn.addEventListener("click", function () {
+      videoComponent.style.display = "block";
+      hideAllTablesExcept(videoComponent);
+    });
+
+    function hideAllTablesExcept(exceptTable) {
+      var tables = [aboutPage, aboutFooter, videoComponent];
+      tables.forEach(function (table) {
+        if (table !== exceptTable) {
+          table.style.display = "none";
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

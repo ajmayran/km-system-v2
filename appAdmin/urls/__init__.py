@@ -5,6 +5,8 @@ from .commodities_url import urlpatterns as commodities_urlpatterns
 from .forum_url import urlpatterns as forum_urlpatterns
 from .cmi_url import urlpatterns as cmi_urlpatterns
 from .knowledge_resources_url import urlpatterns as knowledge_resources_urlpatterns
+from .about_url import urlpatterns as about_urlpatterns
+from .useful_links_url import urlpatterns as useful_links_urlpatterns
 
 urlpatterns = (
     dashboard_urlpatterns
@@ -14,4 +16,6 @@ urlpatterns = (
     + commodities_urlpatterns
     + cmi_urlpatterns
     + knowledge_resources_urlpatterns
+    + about_urlpatterns
+    + useful_links_urlpatterns
 )

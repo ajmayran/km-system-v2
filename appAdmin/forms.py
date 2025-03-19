@@ -1,4 +1,12 @@
-from .models import Commodity, KnowledgeResources, About, AboutFooter, CMI
+from .models import (
+    Commodity,
+    KnowledgeResources,
+    About,
+    AboutFooter,
+    CMI,
+    UploadVideo,
+    UsefulLinks,
+)
 from django import forms
 
 
@@ -65,3 +73,23 @@ class CMIForm(forms.ModelForm):
             "date_joined",
         ]:
             self.fields[field].required = False
+
+
+class UploadForm(forms.ModelForm):
+    class Meta:
+        model = UploadVideo
+        fields = "__all__"
+
+
+class UsefulLinksForm(forms.ModelForm):
+    class Meta:
+        model = UsefulLinks
+        fields = [
+            "link_title",
+            "link",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(UsefulLinksForm, self).__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.required = False
