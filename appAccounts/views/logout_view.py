@@ -2,6 +2,6 @@ from django.shortcuts import redirect
 from django.contrib.auth import logout
 
 
-def logout(request):
+def logout_user(request):
     logout(request)
     return redirect("appAccounts:login")

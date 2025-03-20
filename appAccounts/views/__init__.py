@@ -6,7 +6,7 @@ from .activation_code_view import (
 from .request_new_activation_code_view import (
     request_new_activation_code,
 )  # ✅ Import the request_new_activation_code function
-from .logout_view import logout  # ✅ Import the logout_view function
+from .logout_view import logout_user  # ✅ Import the logout_view function
 from .reset_pass_email_view import (
     reset_pass_email,
 )  # ✅ Import the reset_pass_email function
