@@ -1,14 +1,13 @@
-# Description: URL configuration for the registration view and account activations
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from appAccounts.views import logout_view
+from appCmi.views import cmi_about_view
 
-app_name = "appAccounts"
+app_name = "appCmi"
 
 urlpatterns = (
     [
-        path("logout/", logout_view.logout_user, name="logout"),
+        path("about-km/", cmi_about_view.about, name="cmi-about"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

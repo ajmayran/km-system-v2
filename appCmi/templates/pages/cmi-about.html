@@ -1,0 +1,90 @@
+{% extends 'base/cmi-index.html' %}
+
+{% load embed_video_tags %}
+{% load static %}
+{% block title %}
+About
+      {% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'style/css/general.about.css' %}" />
+
+{% endblock %}
+
+{% block content %}
+  <br />
+  <div class="main-content">
+    <div class="container" style="min-height: 50vh;">
+      <h2 style="font-weight: bolder;">ABOUT KNOWLEDGE MANAGEMENT SYSTEM HUB</h2>
+      <hr>
+      <div class="about-container" id="summernote-content">
+        {% for content in contents %}
+            {% autoescape off %}
+                {{ content.content|safe }}
+            {% endautoescape %}
+        {% endfor %}
+      </div>
+      <hr>
+      <h3 style="font-family: Segoe, &quot;Segoe UI&quot;, &quot;DejaVu Sans&quot;, &quot;Trebuchet MS&quot;, Verdana, sans-serif; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 24px;"><span style="font-weight: bolder;">
+        How KMS Hub Works
+      </h3>
+      <p>
+        KM4AANR is an online database dedicated to Agriculture, Aquatic and Natural Resources news, updates, and content from different platforms. This project is funded by DOST-PCAARRD. This is a short walkthrough of the system.
+      </p>
+      <br>
+      <div class="video-container">
+        {% video videos.url '1000x700'%}
+      </div>
+      <hr>
+      <div class="cmi-container">
+        <h3 style="font-family: Segoe, &quot;Segoe UI&quot;, &quot;DejaVu Sans&quot;, &quot;Trebuchet MS&quot;, Verdana, sans-serif; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 24px;"><span style="font-weight: bolder;">Consortium Member Institutions</h3>
+            <p>These institutions are considered organic and/or regular members of the consortium. However, when appropriate, WESMAARRDEC may allow qualified research and development institutions, local government units, non-government organizations and private sectors in the region to become members as approved by the Regional Research and Development Coordinating Committee (RRDCC). The private sectors includes the companies and profit-organizations that may be willing to fund R&D activities.</p>
+        </div>
+        <!--CMI Images-->
+        <div class="cmi-images">
+          {% for img in cmis %}
+              <div class="cmi-item">
+                  <img src="{{ img.cmi_image.url }}" alt="{{ img.cmi_name }} Logo" id="img" class="img">
+                  <div class="cmi-details">
+                      <span class="cmi-name" >{{ img.cmi_name }}</span>
+                  </div>
+              </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+ <!-- JavaScript -->
+ <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+<script>
+  $(document).ready(function () {
+      // Wait for Summernote to be fully initialized
+      $('textarea[name="content"]').on('summernote.init', function () {
+          // Apply styles after Summernote is initialized
+          applyCustomStyles();
+      });
+  
+      // Initialize Summernote
+      $('textarea[name="content"]').summernote({
+          height: 300,
+          placeholder: 'Write here...',
+          toolbar: [
+              // Your toolbar configuration here
+          ],
+          // Other Summernote options
+      });
+  
+      // Function to apply custom styles
+      function applyCustomStyles() {
+        // Use a more specific selector for the Summernote content
+        $('#summernote-content .note-editable').css({
+            'color': 'black'
+        });
+        console.log("Black");
+      }
+  });
+  </script>
+{% endblock script %}

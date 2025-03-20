@@ -20,9 +20,3 @@ urlpatterns = (
     + enter_email_patterns
     + request_new_activation_code_patterns
 )
-
-# This is the __init__.py file for the appAccounts.urls package.
-# It can be used to initialize the package and import necessary modules.
-
-# Example import statement (uncomment if needed)
-# from .some_module import some_function

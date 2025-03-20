@@ -1,5 +1,8 @@
 from .home_url import (
     urlpatterns as home_url_urlpatterns,
-)  # ✅ Import the urlpatterns from login_url.py
+)
+from .cmi_about_url import (
+    urlpatterns as cmi_about_url_urlpatterns,
+)
 
-urlpatterns = home_url_urlpatterns
+urlpatterns = home_url_urlpatterns + cmi_about_url_urlpatterns

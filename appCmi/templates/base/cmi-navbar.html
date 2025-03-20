@@ -23,7 +23,7 @@
           </li>
           <li>
             <div class="dropdown" style="margin-top: 5.8px">
-              <a href="about.html" style="padding: 20px">About</a>
+              <a href="{% url 'appCmi:cmi-about' %}" style="padding: 20px">About</a>
             </div>
           </li>
           <li>
@@ -41,7 +41,13 @@
                 aria-labelledby="dropdownLinks"
                 id="useful-links-container"
               >
-                <!-- Links will be populated dynamically -->
+                {% if useful_links %}
+                {% for link in useful_links %}
+                <a href="#" class="dropdown-item">{{link.link_title}}</a>
+                {% endfor %}
+                {% else %}
+                  <a href="#" class="dropdown-item">No Links Yet</a>
+                {% endif %}
               </div>
             </div>
           </li>
@@ -61,7 +67,13 @@
                 aria-labelledby="dropdownCommodities"
                 id="commodities-container"
               >
-                <!-- Commodities will be populated dynamically -->
+              {% if commodities %}
+              {% for commodity in commodities %}
+              <a href="#" class="dropdown-item">{{commodity.commodity_name}}</a>
+              {% endfor %}
+              {% else %}
+                <a href="#" class="dropdown-item">No Commodities Yet</a>
+              {% endif %}
               </div>
             </div>
           </li>
@@ -84,10 +96,16 @@
               ></a>
               <div
                 class="dropdown-menu"
-                aria-labelledby="dropdownResources"
+                aria-labelledby="F"
                 id="resources-container"
               >
-                <!-- Resources will be populated dynamically -->
+                {% if knowledge_resources %}
+                {% for knowledge in knowledge_resources %}
+                <a href="#" class="dropdown-item">{{knowledge.knowledge_title}}</a>
+                {% endfor %}
+                {% else %}
+                  <a href="#" class="dropdown-item">No Knowledge Resources Yet</a>
+                {% endif %}
               </div>
             </div>
           </li>
@@ -96,6 +114,11 @@
       <div class="navbar-right" id="navbarRight">
         <ul id="user-menu">
           <!-- User menu items will be populated dynamically based on user type -->
+          <li>
+            <div class="dropdown" style="margin-top: 5.8px;">
+              <a href="{% url 'appAccounts:logout' %}" style="padding: 10px;" class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
+            </div>
+          </li>
         </ul>
       </div>
       <div class="hamburger">
@@ -156,7 +179,7 @@
               aria-labelledby="mobileDropdownCommodities"
               id="mobile-commodities-container"
             >
-              <!-- Commodities will be populated dynamically -->
+            
             </div>
           </div>
         </li>
@@ -224,79 +247,6 @@
       document.getElementById("mobileView").classList.toggle("hidden");
     });
   });
-
-  function populateDropdowns(data) {
-    // Populate links
-    const linksContainer = document.getElementById("useful-links-container");
-    const mobileLinksContainer = document.getElementById(
-      "mobile-useful-links-container"
-    );
-
-    if (data.links.length === 0) {
-      linksContainer.innerHTML =
-        '<a href="#" class="dropdown-item">No Links Yet</a>';
-      mobileLinksContainer.innerHTML =
-        '<a href="#" class="dropdown-item">No Links Yet</a>';
-    } else {
-      data.links.forEach((link) => {
-        const linkItem = `<a href="${link.url}" class="dropdown-item" target="_blank" rel="noopener noreferrer">${link.title}</a>`;
-        linksContainer.innerHTML += linkItem;
-        mobileLinksContainer.innerHTML += linkItem;
-      });
-    }
-
-    // Populate commodities
-    const commoditiesContainer = document.getElementById(
-      "commodities-container"
-    );
-    const mobileCommoditiesContainer = document.getElementById(
-      "mobile-commodities-container"
-    );
-
-    if (data.commodities.length === 0) {
-      commoditiesContainer.innerHTML =
-        '<a href="#" class="dropdown-item">No Commodities Yet</a>';
-      mobileCommoditiesContainer.innerHTML =
-        '<a href="#" class="dropdown-item">No Commodities Yet</a>';
-    } else {
-      data.commodities.forEach((commodity) => {
-        if (commodity.status === "Approved") {
-          const commodityItem = `<a href="commodity-details.html?id=${
-            commodity.id
-          }" class="dropdown-item">${capitalizeFirstLetter(
-            commodity.name
-          )}</a>`;
-          commoditiesContainer.innerHTML += commodityItem;
-          mobileCommoditiesContainer.innerHTML += commodityItem;
-        }
-      });
-    }
-
-    // Populate knowledge resources
-    const resourcesContainer = document.getElementById("resources-container");
-    const mobileResourcesContainer = document.getElementById(
-      "mobile-resources-container"
-    );
-
-    if (data.resources.length === 0) {
-      resourcesContainer.innerHTML =
-        '<a href="#" class="dropdown-item">No Knowledge Resources Yet</a>';
-      mobileResourcesContainer.innerHTML =
-        '<a href="#" class="dropdown-item">No Knowledge Resources Yet</a>';
-    } else {
-      data.resources.forEach((resource) => {
-        if (resource.status === "Approved") {
-          const resourceItem = `<a href="knowledge-details.html?id=${
-            resource.knowledge_id
-          }" class="dropdown-item">${capitalizeFirstLetter(
-            resource.knowledge_title
-          )}</a>`;
-          resourcesContainer.innerHTML += resourceItem;
-          mobileResourcesContainer.innerHTML += resourceItem;
-        }
-      });
-    }
-  }
 
   // Helper function to capitalize the first letter of a string
   function capitalizeFirstLetter(string) {
