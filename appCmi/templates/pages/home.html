@@ -3,28 +3,177 @@
 {% load static %}
 
 {% block title %}
-  Home
+  AANR Knowledge Hub | Home
 {% endblock %}
 
 {% block stylesheet %}
 <link rel="stylesheet" href="{% static 'style/css/home.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 {% endblock %}
 
 {% block content %}
   <div class="main-content">
-    <img src="{% static 'assets/images/welcome-image.jpg' %}" alt="welcome" class="welcome-img">
-    <!-- Quote container with search button -->
-    <div class="quote-container">
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <img src="{% static 'assets/images/welcome-image.jpg' %}" alt="AANR Knowledge Hub" class="hero-bg">
+      <div class="hero-overlay"></div>
+      <div class="hero-content" data-aos="fade-up">
+        <h1 class="hero-title">AANR Knowledge Hub</h1>
+        <p class="hero-subtitle">Empowering communities through knowledge sharing and technological advancement in Agriculture, Aquatic, and Natural Resources sectors.</p>
+        <div class="search-box">
+          <form action="/search" method="get">
+            <input type="text" name="q" placeholder="Search for resources, articles, technologies..." class="search-input">
+            <button type="submit" class="search-button">Get Started <i class="fas fa-arrow-right"></i></button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote Section -->
+    <section class="quote-section">
+      <div class="quote-container" data-aos="fade-up">
         <p class="quote-text">
-            "Harnessing knowledge to sustain Agriculture, Aquatic, and Natural Resources—
-            empowering communities, preserving nature, and driving innovation for a resilient future."
+          "Harnessing knowledge to sustain Agriculture, Aquatic, and Natural Resources—
+          empowering communities, preserving nature, and driving innovation for a resilient future."
         </p>
-        <a href="/search">
-            <button class="search-button">Get Started!</button>
-        </a>
-    </div>
-    
-    </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+      <h2 class="section-title" data-aos="fade-up">Knowledge Hub Features</h2>
+      <p class="section-subtitle" data-aos="fade-up">Discover the powerful tools and resources available to help you advance your work in the AANR sector</p>
+      
+      <div class="features-container">
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="feature-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">Resource Library</h3>
+            <p class="feature-description">Access a comprehensive collection of research papers, case studies, and technical guides on AANR technologies.</p>
+            <a href="/resources" class="feature-link">Browse Library <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="feature-icon">
+            <i class="fas fa-comments"></i>
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">Community Forum</h3>
+            <p class="feature-description">Connect with experts and practitioners to discuss challenges, share insights, and collaborate on solutions.</p>
+            <a href="/forum" class="feature-link">Join Discussion <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="feature-content">
+            <h3 class="feature-title">Market Insights</h3>
+            <p class="feature-description">Stay updated with the latest market trends, commodity prices, and economic analyses for informed decision-making.</p>
+            <a href="/commodities" class="feature-link">View Insights <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section class="resources-section">
+      <h2 class="section-title" data-aos="fade-up">Latest Knowledge Resources</h2>
+      <p class="section-subtitle" data-aos="fade-up">Explore the most recent additions to our knowledge repository</p>
+      
+      <div class="resources-container">
+        <div class="resource-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="resource-image">
+            <img src="{% static 'assets/images/resource-agriculture.jpg' %}" alt="Agriculture Resource" onerror="this.src='https://via.placeholder.com/400x200?text=Agriculture'">
+          </div>
+          <div class="resource-content">
+            <span class="resource-category">Agriculture</span>
+            <h3 class="resource-title">Sustainable Farming Practices for Tropical Regions</h3>
+            <p class="resource-description">Comprehensive guide on implementing eco-friendly farming techniques suitable for tropical climates.</p>
+            <div class="resource-meta">
+              <span><i class="far fa-calendar"></i> Recent Update</span>
+              <span><i class="far fa-eye"></i> 1,245 views</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="resource-image">
+            <img src="{% static 'assets/images/resource-aquatic.jpg' %}" alt="Aquatic Resource" onerror="this.src='https://via.placeholder.com/400x200?text=Aquatic'">
+          </div>
+          <div class="resource-content">
+            <span class="resource-category">Aquatic</span>
+            <h3 class="resource-title">Advanced Aquaculture Systems for Small-Scale Producers</h3>
+            <p class="resource-description">Innovative approaches to fish farming that maximize yield while minimizing environmental impact.</p>
+            <div class="resource-meta">
+              <span><i class="far fa-calendar"></i> Recent Update</span>
+              <span><i class="far fa-eye"></i> 982 views</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="resource-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="resource-image">
+            <img src="{% static 'assets/images/resource-natural.jpg' %}" alt="Natural Resources" onerror="this.src='https://via.placeholder.com/400x200?text=Natural+Resources'">
+          </div>
+          <div class="resource-content">
+            <span class="resource-category">Natural Resources</span>
+            <h3 class="resource-title">Ecosystem Restoration Techniques for Degraded Lands</h3>
+            <p class="resource-description">Methods and case studies on successful land rehabilitation projects across different ecosystems.</p>
+            <div class="resource-meta">
+              <span><i class="far fa-calendar"></i> Recent Update</span>
+              <span><i class="far fa-eye"></i> 756 views</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <h2 class="section-title" data-aos="fade-up">Our Impact</h2>
+      <p class="section-subtitle" data-aos="fade-up">See how our community is making a difference</p>
+      
+      <div class="stats-container">
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
+          <div class="stat-icon">
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="stat-number counter-animation" data-count="5000">0</div>
+          <div class="stat-label">Resources Available</div>
+        </div>
+
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="stat-number counter-animation" data-count="10000">0</div>
+          <div class="stat-label">Community Members</div>
+        </div>
+
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
+          <div class="stat-icon">
+            <i class="fas fa-download"></i>
+          </div>
+          <div class="stat-number counter-animation" data-count="25000">0</div>
+          <div class="stat-label">Resource Downloads</div>
+        </div>
+
+        <div class="stat-item" data-aos="fade-up" data-aos-delay="400">
+          <div class="stat-icon">
+            <i class="fas fa-globe-asia"></i>
+          </div>
+          <div class="stat-number counter-animation" data-count="75">0</div>
+          <div class="stat-label">Countries Reached</div>
+        </div>
+      </div>
+    </section>
+  </div>
 {% endblock %}
 
 {% block script %}
@@ -51,4 +200,53 @@
       {% endif %}
     {% endfor %}
   {% endif %}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="{% static 'style/js/home.js' %}"></script>
+  <script>
+    // Initialize AOS (Animate On Scroll)
+    document.addEventListener('DOMContentLoaded', function() {
+      AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+      });
+
+      // Counter Animation
+      const counters = document.querySelectorAll('.counter-animation');
+      
+      counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000; // 2 seconds
+        const step = Math.ceil(target / (duration / 16)); // 60fps
+        let current = 0;
+        
+        const updateCounter = () => {
+          current += step;
+          if (current > target) {
+            current = target;
+          }
+          counter.textContent = current.toLocaleString();
+          
+          if (current < target) {
+            requestAnimationFrame(updateCounter);
+          }
+        };
+        
+        // Start animation when element is in viewport
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              updateCounter();
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.5 });
+        
+        observer.observe(counter);
+      });
+    });
+
+    
+  </script>
 {% endblock %}

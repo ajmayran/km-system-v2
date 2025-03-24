@@ -1,339 +1,159 @@
 {% load static %}
 <header>
-  <nav class="navbar navbar-expand-sm">
-    <div class="inner_navbar justify-content-center">
+  <nav class="navbar">
+    <div class="inner_navbar">
+      <!-- Logo Section -->
       <div class="logo-container">
-        <a href="{% url 'appCmi:home' %}"
-          ><img
-            src="{% static 'assets/images/RAISE-Logo.png' %}"
-            alt="RAISE Logo"
-            class="navbar-logo-raise"
-        /></a>
+        <a href="{% url 'appCmi:home' %}">
+          <img src="{% static 'assets/images/RAISE-Logo.png' %}" alt="RAISE Logo" class="navbar-logo-raise" />
+        </a>
         <div class="text-container">
           <h1 class="t1">km4aanr</h1>
           <h3 class="t2">in WESTERN MINDANAO</h3>
         </div>
       </div>
-      <div class="navbar-left" id="navbarLeft">
+
+      <!-- Center Navigation -->
+      <div class="navbar-center">
         <ul>
           <li>
-            <div class="dropdown" style="margin-top: 5.8px">
-              <a href="{% url 'appCmi:home' %}" style="padding: 20px">Home</a>
-            </div>
+            <a href="{% url 'appCmi:home' %}">Home</a>
           </li>
           <li>
-            <div class="dropdown" style="margin-top: 5.8px">
-              <a href="{% url 'appCmi:cmi-about' %}" style="padding: 20px">About</a>
-            </div>
+            <a href="{% url 'appCmi:cmi-about' %}">About</a>
           </li>
           <li>
             <div class="dropdown">
-              <a
-                class="btn dropdown-fa-toggle-down"
-                id="dropdownLinks"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-              >
+              <a class="dropdown-fa-toggle-down" id="dropdownLinks" data-toggle="dropdown" aria-haspopup="true">
                 Useful Links <i class="fa-solid fa-circle-chevron-down"></i>
               </a>
-              <div
-                class="dropdown-menu"
-                aria-labelledby="dropdownLinks"
-                id="useful-links-container"
-              >
+              <div class="dropdown-menu" aria-labelledby="dropdownLinks" id="useful-links-container">
                 {% if useful_links %}
                 {% for link in useful_links %}
                 <a href="#" class="dropdown-item">{{link.link_title}}</a>
                 {% endfor %}
                 {% else %}
-                  <a href="#" class="dropdown-item">No Links Yet</a>
+                <a href="#" class="dropdown-item">No Links Yet</a>
                 {% endif %}
               </div>
             </div>
           </li>
           <li>
             <div class="dropdown">
-              <a
-                class="btn dropdown-fa-toggle-down"
-                id="dropdownCommodities"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                href="all-commodities.html"
-                onclick="handleDropdownClick('commodity')"
-                >Commodities <i class="fa-solid fa-circle-chevron-down"></i
-              ></a>
-              <div
-                class="dropdown-menu"
-                aria-labelledby="dropdownCommodities"
-                id="commodities-container"
-              >
-              {% if commodities %}
-              {% for commodity in commodities %}
-              <a href="#" class="dropdown-item">{{commodity.commodity_name}}</a>
-              {% endfor %}
-              {% else %}
+              <a class="dropdown-fa-toggle-down" id="dropdownCommodities" data-toggle="dropdown" aria-haspopup="true">
+                Commodities <i class="fa-solid fa-circle-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownCommodities" id="commodities-container">
+                {% if commodities %}
+                {% for commodity in commodities %}
+                <a href="#" class="dropdown-item">{{commodity.commodity_name}}</a>
+                {% endfor %}
+                {% else %}
                 <a href="#" class="dropdown-item">No Commodities Yet</a>
-              {% endif %}
+                {% endif %}
               </div>
             </div>
           </li>
           <li>
-            <div class="dropdown" style="margin-top: 5.8px">
-              <a href="forum.html" style="padding: 20px">Forum</a>
-            </div>
+            <a href="{% url "appCmi:cmi-forum" %}">Forum</a>
           </li>
           <li>
             <div class="dropdown">
-              <a
-                class="btn dropdown-fa-toggle-down"
-                id="dropdownResources"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                href="resources.html"
-                onclick="handleDropdownClick('knowledge')"
-                >Knowledge Resources
-                <i class="fa-solid fa-circle-chevron-down"></i
-              ></a>
-              <div
-                class="dropdown-menu"
-                aria-labelledby="F"
-                id="resources-container"
-              >
+              <a class="dropdown-fa-toggle-down" id="dropdownResources" data-toggle="dropdown" aria-haspopup="true">
+                Knowledge Resources <i class="fa-solid fa-circle-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownResources" id="resources-container">
                 {% if knowledge_resources %}
                 {% for knowledge in knowledge_resources %}
                 <a href="#" class="dropdown-item">{{knowledge.knowledge_title}}</a>
                 {% endfor %}
                 {% else %}
-                  <a href="#" class="dropdown-item">No Knowledge Resources Yet</a>
+                <a href="#" class="dropdown-item">No Knowledge Resources Yet</a>
                 {% endif %}
               </div>
             </div>
           </li>
         </ul>
       </div>
-      <div class="navbar-right" id="navbarRight">
-        <ul id="user-menu">
-          <!-- User menu items will be populated dynamically based on user type -->
+
+      <!-- Right Section (Logout) -->
+      <div class="navbar-right">
+        <ul>
           <li>
-            <div class="dropdown" style="margin-top: 5.8px;">
-              <a href="{% url 'appAccounts:logout' %}" style="padding: 10px;" class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
-            </div>
+            <a href="{% url 'appAccounts:logout' %}" class="logout">
+              <i class="fa fa-sign-out" aria-hidden="true"></i>
+            </a>
           </li>
         </ul>
       </div>
-      <div class="hamburger">
+
+      <!-- Hamburger Menu -->
+      <button class="hamburger">
         <i class="fas fa-bars"></i>
-      </div>
+      </button>
     </div>
-    <div class="mobileView hidden" id="mobileView">
+
+    <!-- Mobile Menu -->
+    <div class="mobileView" id="mobileView">
       <ul>
+        <li><a href="{% url 'appCmi:home' %}">Home</a></li>
+        <li><a href="{% url 'appCmi:cmi-about' %}">About</a></li>
         <li>
           <div class="dropdown">
-            <a href="index.html">Home</a>
-          </div>
-        </li>
-        <li>
-          <div class="dropdown">
-            <a href="about.html">About</a>
-          </div>
-        </li>
-        <li>
-          <div class="dropdown">
-            <a
-              class="dropdown-fa-toggle-down"
-              id="mobileDropdownLinks"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              >Useful Links
-              <i
-                class="fa-solid fa-circle-chevron-down"
-                style="float: right; padding-right: 40px"
-              ></i
-            ></a>
-            <div
-              class="dropdown-menu"
-              aria-labelledby="mobileDropdownLinks"
-              id="mobile-useful-links-container"
-            >
-              <!-- Links will be populated dynamically -->
+            <a class="dropdown-fa-toggle-down" id="mobileDropdownLinks" data-toggle="dropdown" aria-haspopup="true">
+              Useful Links <i class="fa-solid fa-circle-chevron-down"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="mobileDropdownLinks">
+              {% if useful_links %}
+              {% for link in useful_links %}
+              <a href="#" class="dropdown-item">{{link.link_title}}</a>
+              {% endfor %}
+              {% else %}
+              <a href="#" class="dropdown-item">No Links Yet</a>
+              {% endif %}
             </div>
           </div>
         </li>
         <li>
           <div class="dropdown">
-            <a
-              class="dropdown-fa-toggle-down"
-              id="mobileDropdownCommodities"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              href="all-commodities.html"
-              onclick="handleDropdownClick('commodity')"
-              >Commodities
-              <i
-                class="fa-solid fa-circle-chevron-down"
-                style="float: right; padding-right: 40px"
-              ></i
-            ></a>
-            <div
-              class="dropdown-menu"
-              aria-labelledby="mobileDropdownCommodities"
-              id="mobile-commodities-container"
-            >
-            
+            <a class="dropdown-fa-toggle-down" id="mobileDropdownCommodities" data-toggle="dropdown" aria-haspopup="true">
+              Commodities <i class="fa-solid fa-circle-chevron-down"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="mobileDropdownCommodities">
+              {% if commodities %}
+              {% for commodity in commodities %}
+              <a href="#" class="dropdown-item">{{commodity.commodity_name}}</a>
+              {% endfor %}
+              {% else %}
+              <a href="#" class="dropdown-item">No Commodities Yet</a>
+              {% endif %}
             </div>
           </div>
         </li>
+        <li><a href="forum.html">Forum</a></li>
         <li>
           <div class="dropdown">
-            <a href="forum.html">Forum</a>
-          </div>
-        </li>
-        <li>
-          <div class="dropdown">
-            <a
-              class="dropdown-fa-toggle-down"
-              id="mobileDropdownResources"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              href="resources.html"
-              onclick="handleDropdownClick('knowledge')"
-              >Knowledge Resources
-              <i
-                class="fa-solid fa-circle-chevron-down"
-                style="float: right; padding-right: 40px"
-              ></i
-            ></a>
-            <div
-              class="dropdown-menu"
-              aria-labelledby="mobileDropdownResources"
-              id="mobile-resources-container"
-            >
-              <!-- Resources will be populated dynamically -->
+            <a class="dropdown-fa-toggle-down" id="mobileDropdownResources" data-toggle="dropdown" aria-haspopup="true">
+              Knowledge Resources <i class="fa-solid fa-circle-chevron-down"></i>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="mobileDropdownResources">
+              {% if knowledge_resources %}
+              {% for knowledge in knowledge_resources %}
+              <a href="#" class="dropdown-item">{{knowledge.knowledge_title}}</a>
+              {% endfor %}
+              {% else %}
+              <a href="#" class="dropdown-item">No Knowledge Resources Yet</a>
+              {% endif %}
             </div>
           </div>
         </li>
-      </ul>
-      <ul id="mobile-user-menu">
-        <!-- Mobile user menu items will be populated dynamically -->
+        <li class="logout-mobile">
+          <a href="{% url 'appAccounts:logout' %}">
+            <i class="fa fa-sign-out" aria-hidden="true"></i>
+            Logout
+          </a>
+        </li>
       </ul>
     </div>
   </nav>
 </header>
-
-<script>
-  // This script will populate the dynamic elements based on user state and data
-  document.addEventListener("DOMContentLoaded", function () {
-    // Sample data (in a real implementation, this would come from an API or similar)
-    const userData = {
-      isAuthenticated: false,
-      userType: null,
-      isCmiUser: false,
-    };
-
-    const siteData = {
-      links: [],
-      commodities: [],
-      resources: [],
-    };
-
-    // Populate dropdown menus
-    populateDropdowns(siteData);
-
-    // Update user menu based on authentication status
-    updateUserMenu(userData);
-
-    // Handle mobile menu toggle
-    document.querySelector(".hamburger").addEventListener("click", function () {
-      document.getElementById("mobileView").classList.toggle("hidden");
-    });
-  });
-
-  // Helper function to capitalize the first letter of a string
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  function updateUserMenu(userData) {
-    const userMenu = document.getElementById("user-menu");
-    const mobileUserMenu = document.getElementById("mobile-user-menu");
-
-    let menuHTML = "";
-
-    if (userData.isCmiUser) {
-      menuHTML += `
-        <li>
-          <div class="dropdown">
-            <a class="btn dropdown-fa-toggle-down" id="dropdownRequests" data-toggle="dropdown" aria-haspopup="true">Requests <i class="fa-solid fa-circle-chevron-down"></i></a>
-            <div class="dropdown-menu" aria-labelledby="dropdownRequests">
-              <a href="cmi-requests.html" class="dropdown-item">CMI</a>
-              <a href="commodity-requests.html" class="dropdown-item">Commodity</a>
-              <a href="knowledge-requests.html" class="dropdown-item">Knowledge Resources</a>
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="dropdown">
-            <a class="btn dropdown-fa-toggle-down" id="additional" data-toggle="dropdown" aria-haspopup="true">Additional <i class="fa-solid fa-circle-chevron-down"></i></a>
-            <div class="dropdown-menu" aria-labelledby="additional">
-              <a href="cmi-resources.html" class="dropdown-item">Resources</a>
-              <a href="tech-generated.html" class="dropdown-item">Tech Generated</a>
-              <a href="tech-adaptor.html" class="dropdown-item">Tech Adaptor</a>
-            </div>
-          </div>
-        </li>
-      `;
-    }
-
-    if (userData.isAuthenticated) {
-      menuHTML += `
-        <li>
-          <div class="dropdown" style="margin-top: 5.8px;">
-            <a href="logout.html" style="padding: 10px;" class="logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
-          </div>
-        </li>
-      `;
-
-      if (userData.userType === "general") {
-        menuHTML += `
-          <li>
-            <div class="dropdown" style="margin-top: 5.8px;">
-              <a href="settings.html" style="padding: 10px;" class="settings"><i class="fa-solid fa-user"></i></a>
-            </div>
-          </li>
-        `;
-      } else if (userData.userType === "admin") {
-        menuHTML += `
-          <li>
-            <div class="dropdown" style="margin-top: 5.8px;">
-              <a href="admin-dashboard.html" style="padding: 10px;" class="admin-dashboard">Admin Dashboard</a>
-            </div>
-          </li>
-        `;
-      }
-    } else {
-      menuHTML += `
-        <li>
-          <div class="dropdown" style="margin-top: 5.8px;">
-            <a href="signup.html" style="padding: 10px;" class="register">Register</a>
-          </div>
-        </li>
-        <li>
-          <div class="dropdown" style="margin-top: 5.8px;">
-            <a href="{% url 'appAccounts:login' %}" style="padding: 10px;" class="login">Login</a>
-          </div>
-        </li>
-      `;
-    }
-
-    userMenu.innerHTML = menuHTML;
-
-    // Similar code for mobile menu, with slightly different formatting
-    // ...
-  }
-
-  function handleDropdownClick(type) {
-    // Handle dropdown click logic
-    console.log(`${type} dropdown clicked`);
-    // Additional logic as needed
-  }
-</script>

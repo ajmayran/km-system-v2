@@ -1,90 +1,438 @@
 {% extends 'base/cmi-index.html' %}
-
 {% load embed_video_tags %}
 {% load static %}
-{% block title %}
-About
-      {% endblock %}
-{% block stylesheet %}
-<link rel="stylesheet" href="{% static 'style/css/general.about.css' %}" />
 
+{% block title %}About | AANR Knowledge Hub{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<style>
+  :root {
+    --primary: #2c6e49;
+    --secondary: #4c956c;
+    --accent: #90e0c9;
+    --light: #f8f9fa;
+    --dark: #212529;
+    --navbar-bg: #2c6e49;
+    --text-color: #333;
+    --section-padding: 4rem 0;
+    --transition: all 0.3s ease;
+  }
+
+  .main-content {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* Page Header */
+  .page-header {
+    padding: 4rem 0;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+  }
+
+  .header-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .page-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    color: var(--primary);
+
+  }
+
+  .page-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--accent);
+  }
+
+  .page-subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 1.5rem auto 0;
+  }
+
+  /* Section Styling */
+  .section {
+    padding: var(--section-padding);
+  }
+
+  .section-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-bottom: 0.8rem;
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent);
+  }
+
+  .section-subtitle {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  /* About Content */
+  .about-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 3rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    line-height: 1.8;
+    color: var(--text-color);
+  }
+
+  .about-container h1, 
+  .about-container h2, 
+  .about-container h3, 
+  .about-container h4 {
+    color: var(--primary);
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-container p {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+
+  .about-container ul, 
+  .about-container ol {
+    margin-bottom: 1.5rem;
+    padding-left: 2rem;
+  }
+
+  .about-container li {
+    margin-bottom: 0.5rem;
+  }
+
+  .about-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1.5rem 0;
+  }
+
+  .about-container a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+
+  .about-container a:hover {
+    color: var(--secondary);
+    text-decoration: underline;
+  }
+
+  /* Video Section */
+  .video-section {
+    padding: var(--section-padding);
+    margin: 3rem 0;
+    border-radius: 10px;
+  }
+
+  .video-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .video-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+  }
+
+  .video-description {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+  }
+
+  /* CMI Section */
+  .cmi-section {
+    padding: var(--section-padding);
+  }
+
+  .cmi-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .cmi-description {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #555;
+  }
+
+  .cmi-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .cmi-item {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: var(--transition);
+    text-align: center;
+    padding: 1.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cmi-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .cmi-item img {
+    max-width: 120px;
+    height: auto;
+    margin-bottom: 1rem;
+    transition: var(--transition);
+  }
+
+  .cmi-item:hover img {
+    transform: scale(1.05);
+  }
+
+  .cmi-details {
+    padding: 1rem 0;
+  }
+
+  .cmi-name {
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--primary);
+    display: block;
+    margin-top: 0.5rem;
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .page-title {
+      font-size: 2.2rem;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+    }
+    
+    .about-container,
+    .cmi-container {
+      padding: 1.5rem;
+    }
+    
+    .cmi-images {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1.5rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .page-title {
+      font-size: 1.8rem;
+    }
+    
+    .page-subtitle {
+      font-size: 1rem;
+    }
+    
+    .section-title {
+      font-size: 1.5rem;
+    }
+    
+    .cmi-images {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 1rem;
+    }
+  }
+
+  /* Animation Classes */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-up.animated {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 {% endblock %}
 
 {% block content %}
-  <br />
-  <div class="main-content">
-    <div class="container" style="min-height: 50vh;">
-      <h2 style="font-weight: bolder;">ABOUT KNOWLEDGE MANAGEMENT SYSTEM HUB</h2>
-      <hr>
-      <div class="about-container" id="summernote-content">
+<div class="main-content">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-content" data-aos="fade-up">
+      <h1 class="page-title">About AANR Knowledge Hub</h1>
+      <p class="page-subtitle">Empowering communities through knowledge sharing and technological advancement in Agriculture, Aquatic, and Natural Resources sectors.</p>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- About Section -->
+    <section class="section">
+      <h2 class="section-title" data-aos="fade-up">KNOWLEDGE MANAGEMENT SYSTEM HUB</h2>
+      <div class="about-container" id="summernote-content" data-aos="fade-up" data-aos-delay="100">
         {% for content in contents %}
-            {% autoescape off %}
-                {{ content.content|safe }}
-            {% endautoescape %}
+          {% autoescape off %}
+            {{ content.content|safe }}
+          {% endautoescape %}
         {% endfor %}
       </div>
-      <hr>
-      <h3 style="font-family: Segoe, &quot;Segoe UI&quot;, &quot;DejaVu Sans&quot;, &quot;Trebuchet MS&quot;, Verdana, sans-serif; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 24px;"><span style="font-weight: bolder;">
-        How KMS Hub Works
-      </h3>
-      <p>
-        KM4AANR is an online database dedicated to Agriculture, Aquatic and Natural Resources news, updates, and content from different platforms. This project is funded by DOST-PCAARRD. This is a short walkthrough of the system.
-      </p>
-      <br>
-      <div class="video-container">
-        {% video videos.url '1000x700'%}
-      </div>
-      <hr>
-      <div class="cmi-container">
-        <h3 style="font-family: Segoe, &quot;Segoe UI&quot;, &quot;DejaVu Sans&quot;, &quot;Trebuchet MS&quot;, Verdana, sans-serif; line-height: 1.1; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 24px;"><span style="font-weight: bolder;">Consortium Member Institutions</h3>
-            <p>These institutions are considered organic and/or regular members of the consortium. However, when appropriate, WESMAARRDEC may allow qualified research and development institutions, local government units, non-government organizations and private sectors in the region to become members as approved by the Regional Research and Development Coordinating Committee (RRDCC). The private sectors includes the companies and profit-organizations that may be willing to fund R&D activities.</p>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section" data-aos="fade-up">
+      <div class="video-content">
+        <h2 class="section-title">How KMS Hub Works</h2>
+        <p class="video-description">
+          KM4AANR is an online database dedicated to Agriculture, Aquatic and Natural Resources news, updates, and content from different platforms. This project is funded by DOST-PCAARRD. This is a short walkthrough of the system.
+        </p>
+        <div class="video-container" data-aos="fade-up" data-aos-delay="100">
+          {% video videos.url '1000x700'%}
         </div>
+      </div>
+    </section>
+
+    <!-- CMI Section -->
+    <section class="cmi-section" data-aos="fade-up">
+      <div class="cmi-container">
+        <h2 class="section-title">Consortium Member Institutions</h2>
+        <p class="cmi-description">
+          These institutions are considered organic and/or regular members of the consortium. However, when appropriate, WESMAARRDEC may allow qualified research and development institutions, local government units, non-government organizations and private sectors in the region to become members as approved by the Regional Research and Development Coordinating Committee (RRDCC). The private sectors includes the companies and profit-organizations that may be willing to fund R&D activities.
+        </p>
+        
         <!--CMI Images-->
         <div class="cmi-images">
           {% for img in cmis %}
-              <div class="cmi-item">
-                  <img src="{{ img.cmi_image.url }}" alt="{{ img.cmi_name }} Logo" id="img" class="img">
-                  <div class="cmi-details">
-                      <span class="cmi-name" >{{ img.cmi_name }}</span>
-                  </div>
+            <div class="cmi-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:'50' }}">
+              <img src="{{ img.cmi_image.url }}" alt="{{ img.cmi_name }} Logo">
+              <div class="cmi-details">
+                <span class="cmi-name">{{ img.cmi_name }}</span>
               </div>
+            </div>
           {% endfor %}
         </div>
       </div>
-    </div>
+    </section>
   </div>
+</div>
 {% endblock %}
 
 {% block script %}
- <!-- JavaScript -->
- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
+<!-- JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
-  $(document).ready(function () {
-      // Wait for Summernote to be fully initialized
-      $('textarea[name="content"]').on('summernote.init', function () {
-          // Apply styles after Summernote is initialized
-          applyCustomStyles();
-      });
-  
-      // Initialize Summernote
-      $('textarea[name="content"]').summernote({
-          height: 300,
-          placeholder: 'Write here...',
-          toolbar: [
-              // Your toolbar configuration here
-          ],
-          // Other Summernote options
-      });
-  
-      // Function to apply custom styles
-      function applyCustomStyles() {
-        // Use a more specific selector for the Summernote content
-        $('#summernote-content .note-editable').css({
-            'color': 'black'
-        });
-        console.log("Black");
-      }
+$(document).ready(function () {
+  // Initialize AOS (Animate On Scroll)
+  AOS.init({
+    duration: 800,
+    easing: 'ease-in-out',
+    once: true,
+    offset: 100
   });
-  </script>
+
+  // Wait for Summernote to be fully initialized
+  $('textarea[name="content"]').on('summernote.init', function () {
+    // Apply styles after Summernote is initialized
+    applyCustomStyles();
+  });
+  
+  // Initialize Summernote
+  $('textarea[name="content"]').summernote({
+    height: 300,
+    placeholder: 'Write here...',
+    toolbar: [
+      // Your toolbar configuration here
+    ],
+    // Other Summernote options
+  });
+  
+  // Function to apply custom styles
+  function applyCustomStyles() {
+    $('#summernote-content .note-editable').css({
+      'color': '#333',
+      'line-height': '1.8'
+    });
+  }
+
+  // Simple animation for elements
+  function animateElements() {
+    $('.fade-up').each(function() {
+      const elementTop = $(this).offset().top;
+      const viewportBottom = $(window).scrollTop() + $(window).height();
+      
+      if (elementTop < viewportBottom - 100) {
+        $(this).addClass('animated');
+      }
+    });
+  }
+  
+  // Run once on page load
+  animateElements();
+  
+  // Run on scroll
+  $(window).on('scroll', animateElements);
+});
+</script>
 {% endblock script %}
