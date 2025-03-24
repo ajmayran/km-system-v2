@@ -1,16 +1,22 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate
-from django.contrib.auth import login as auth_login
+from django.contrib.auth import authenticate, login as auth_login
 from appAccounts.forms import CustomUserCreationForm
 
 
-# Create your views here.
 def login(request):
+    # If the user is already authenticated, redirect them accordingly
+    if request.user.is_authenticated:
+        if request.user.user_type.lower() == "admin":
+            return redirect("appAdmin:dashboard")
+        elif request.user.user_type.lower() == "secretariat":
+            return redirect("appCmi:home")
+        elif request.user.user_type.lower() == "cmi":
+            return redirect("appCmi:home")
+
     if request.method == "POST":
-        email = request.POST["email"]
-        password = request.POST["password"]
+        email = request.POST.get("email")
+        password = request.POST.get("password")
         user = authenticate(request, username=email, password=password)
 
         if user is not None:
