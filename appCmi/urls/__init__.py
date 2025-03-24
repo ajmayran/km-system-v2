@@ -4,7 +4,7 @@ from .home_url import (
 from .cmi_about_url import (
     urlpatterns as cmi_about_url_urlpatterns,
 )
-from .forum_url import (
+from .cmi_forum_url import (
     urlpatterns as forum_url_urlpatterns,
 )
 

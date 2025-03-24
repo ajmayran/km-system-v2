@@ -7,7 +7,7 @@ app_name = "appAdmin"
 
 urlpatterns = (
     [
-        path("forum/", forum_view.manage_forum, name="manage-forum"),
+        path("admin-forum/", forum_view.manage_forum, name="manage-forum"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
