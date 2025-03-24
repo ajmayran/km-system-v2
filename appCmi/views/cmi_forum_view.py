@@ -20,4 +20,4 @@ def cmi_forum(request):
         "knowledge_resources": knowledge_resources,
     }
 
-    return render(request, "pages/forum.html", context)
+    return render(request, "pages/cmi-forum.html", context)
