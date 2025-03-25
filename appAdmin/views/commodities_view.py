@@ -69,7 +69,6 @@ def admin_commodities(request):
             "latest_commodity": latest_commodity,
             "frequency_sum": frequency_data,
             "tagged_counts": tagged_data,
-            "commodities": commodities,
             "approvedcommodities": approvedcommodities,
             "pendingcommodities": pendingcommodities,
             "commodity_data_json": commodity_data_json,
