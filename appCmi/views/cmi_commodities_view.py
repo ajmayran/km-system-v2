@@ -32,4 +32,4 @@ def all_commodities(request):
         "commodities": paginated_commodities,
         "knowledge_resources": knowledge_resources,
     }
-    return render(request, "pages/commodities/all-commodities.html", context)
+    return render(request, "pages/cmi-commodities.html", context)

@@ -39,7 +39,7 @@
   /* Page Header */
   .page-header {
     padding: 3rem 0;
-    margin-bottom: 3rem;
+    margin: 3rem 0 3rem 0;
     position: relative;
     overflow: hidden;
     background-color: rgba(44, 110, 73, 0.05);
@@ -92,6 +92,7 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 1rem;
+    justify-content: center;
     padding-bottom: 1rem;
     margin-bottom: 2rem;
     scrollbar-width: thin;
@@ -571,11 +572,9 @@
     <div class="categories-section" data-aos="fade-up" data-aos-delay="100">
       <div class="categories-wrapper">
         <div class="category-pill active" data-filter="all">All Commodities</div>
-        <div class="category-pill" data-filter="agriculture">Agriculture</div>
-        <div class="category-pill" data-filter="aquatic">Aquatic</div>
-        <div class="category-pill" data-filter="livestock">Livestock</div>
-        <div class="category-pill" data-filter="forestry">Forestry</div>
-        <div class="category-pill" data-filter="natural-resources">Natural Resources</div>
+        <div class="category-pill" data-filter="Agriculture">Agriculture</div>
+        <div class="category-pill" data-filter="Aquatic">Aquatic</div>
+        <div class="category-pill" data-filter="Natural Resources">Natural Resources</div>
       </div>
       
       <div class="search-wrapper">
@@ -588,14 +587,14 @@
     <div class="commodities-grid" data-aos="fade-up" data-aos-delay="200">
       {% if commodities %}
         {% for commodity in commodities %}
-          <div class="commodity-card" data-category="{{ commodity.category|default:'agriculture' }}" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:200 }}">
+          <div class="commodity-card" data-category="{{ commodity.resources_type|title }}" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:200 }}">
             <div class="commodity-image">
-              <span class="commodity-category">{{ commodity.category|default:'Agriculture' }}</span>
+              <span class="commodity-category">{{ commodity.resources_type|title }}</span>
               <img src="{{ commodity.commodity_img.url }}" alt="{{ commodity.commodity_name }} Image">
             </div>
             <div class="commodity-content">
               <h3 class="commodity-title">{{ commodity.commodity_name }}</h3>
-              <p class="commodity-description">{{ commodity.commodity_description|default:'Information about this commodity including production techniques, market demand, and valuable resources.'|truncatechars:100 }}</p>
+              <p class="commodity-description">{{ commodity.description|truncatechars:100 }}</p>
               <div class="commodity-stats">
                 <div class="stat-item">
                   <i class="far fa-file-alt"></i>
@@ -703,17 +702,23 @@ document.addEventListener('DOMContentLoaded', function() {
       
       // Filter items
       const filter = this.getAttribute('data-filter');
+      let hasVisibleCards = false;
       
       commodityCards.forEach(card => {
-        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+        if (filter === 'all' || card.getAttribute('data-category').trim() === filter) {
           card.style.display = 'flex';
+          hasVisibleCards = true;
         } else {
           card.style.display = 'none';
         }
       });
       
-      // Check if no results
-      checkEmptyResults();
+      // If no cards are visible after filtering, show empty state
+      if (!hasVisibleCards && filter !== 'all') {
+        showEmptyState();
+      } else {
+        removeEmptyState();
+      }
     });
   });
   
@@ -722,6 +727,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   searchInput.addEventListener('input', function() {
     const searchTerm = this.value.toLowerCase();
+    let hasVisibleCards = false;
     
     commodityCards.forEach(card => {
       const title = card.querySelector('.commodity-title').textContent.toLowerCase();
@@ -730,23 +736,26 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (title.includes(searchTerm) || description.includes(searchTerm) || category.includes(searchTerm)) {
         card.style.display = 'flex';
+        hasVisibleCards = true;
       } else {
         card.style.display = 'none';
       }
     });
     
-    // Check if no results
-    checkEmptyResults();
+    // If no cards are visible after searching, show empty state
+    if (!hasVisibleCards && searchTerm) {
+      showEmptyState();
+    } else {
+      removeEmptyState();
+    }
   });
   
-  // Function to check if no results and show empty state if needed
-  function checkEmptyResults() {
-    const visibleCards = document.querySelectorAll('.commodity-card[style="display: flex"]');
-    const emptyState = document.querySelector('.empty-state');
+  // Function to show empty state
+  function showEmptyState() {
+    const existingEmptyState = document.querySelector('.empty-state');
     const commoditiesGrid = document.querySelector('.commodities-grid');
     
-    if (visibleCards.length === 0 && !emptyState) {
-      // Create and append empty state
+    if (!existingEmptyState) {
       const emptyHTML = `
         <div class="empty-state" data-aos="fade-up">
           <div class="empty-icon">
@@ -760,7 +769,9 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
       `;
       
-      commoditiesGrid.innerHTML += emptyHTML;
+      const emptyDiv = document.createElement('div');
+      emptyDiv.innerHTML = emptyHTML;
+      commoditiesGrid.appendChild(emptyDiv.firstElementChild);
       
       // Add event listener to reset button
       document.getElementById('resetFilters').addEventListener('click', function() {
@@ -777,11 +788,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         
         // Remove empty state
-        this.closest('.empty-state').remove();
+        removeEmptyState();
       });
-    } else if (visibleCards.length > 0 && emptyState) {
-      // Remove empty state if results are found
-      emptyState.remove();
+    }
+  }
+  
+  // Function to remove empty state
+  function removeEmptyState() {
+    const existingEmptyState = document.querySelector('.empty-state');
+    if (existingEmptyState) {
+      existingEmptyState.remove();
     }
   }
 });
