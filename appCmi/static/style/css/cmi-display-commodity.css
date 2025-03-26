@@ -1,0 +1,132 @@
+/* Custom styling */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.main-content {
+    padding: 2rem 0;
+}
+
+#commodityImg {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+#commodityImg:hover {
+    transform: scale(1.02);
+}
+
+.commodity-info {
+    padding: 1rem;
+}
+
+.commodityName {
+    color: #2e7d32;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.description {
+    color: #333;
+    line-height: 1.6;
+    font-size: 1.1rem;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+.header a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.header a:hover {
+    text-decoration: underline;
+}
+
+.related_resources, .related_forum {
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.card {
+    margin-bottom: 1rem;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.card ul {
+    list-style: none;
+    padding: 0.8rem;
+    margin: 0;
+}
+
+.card li {
+    padding: 0.3rem 0;
+}
+
+.card a {
+    color: #555;
+    text-decoration: none;
+    display: block;
+    transition: color 0.2s ease;
+}
+
+.card a:hover {
+    color: #2e7d32;
+}
+
+.commodity-not-tagged {
+    display: block;
+    color: #888;
+    font-style: italic;
+    padding: 1rem 0;
+}
+
+hr {
+    border-top: 1px solid #e0e0e0;
+    margin: 1.5rem 0;
+}
+
+
+
+.hero-section {
+    background-color: #4F8A6F;  /* Matching the green theme */
+    color: white;
+    text-align: center;
+    padding: 6rem 2rem;
+    height: 280px;
+}
+
+.hero-section h1 {
+    font-size: 2.5rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .col-md {
+        margin-bottom: 2rem;
+    }
+}
