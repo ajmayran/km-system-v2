@@ -1,0 +1,78 @@
+<!-- Question Modal -->
+<div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="questionModalLabel">Ask a Question</h5>
+          <button type="button" class="close modal-close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="questionForm" action="{% url 'appCmi:forum-post-question' %}" method="post">
+            {% csrf_token %}
+        <!-- Modal Body -->
+        <div class="modal-body">
+          
+            
+            <!-- Question Title -->
+            <div class="form-group">
+              <label for="questionTitle" class="form-label">Question Title</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="questionTitle" 
+                name="forum_title"
+                placeholder="Enter a clear, specific title for your question" 
+              />
+            </div>
+  
+            <!-- Question Details -->
+            <div class="form-group">
+              <label for="questionDetails" class="form-label">Question Details</label>
+              <textarea 
+                class="form-control" 
+                id="questionDetails" 
+                rows="6" 
+                name="forum_question"
+                placeholder="Describe your question in detail. Include relevant information like location, current practices, and specific challenges."
+              ></textarea>
+            </div>
+  
+            <!-- Commodity Selection -->
+            <div class="form-group">
+              <label for="commoditySelect" class="form-label">Related Commodities</label>
+              <select class="form-control" id="commoditySelect" name="commodity_id">
+                <option value="">Select a commodity</option>
+                {% if commodities %}
+                  {% for commodity in commodities %}
+                    <option value="{{ commodity.commodity_id }}">{{ commodity.commodity_name|title }}</option>
+                  {% endfor %}
+                {% else %}
+                  <option value="">No commodities found</option>
+                {% endif %}
+              </select>
+              <small class="form-text text-muted">You can select multiple commodities, one at a time</small>
+            </div>
+  
+            <!-- Selected Commodities -->
+            <div class="selected-commodities">
+              <p class="mb-2">Selected Commodities:</p>
+              <ul id="selected-commodity" class="selected-tags"></ul>
+              <input type="hidden" id="commodity_ids" name="commodity_ids" />
+            </div>
+  
+        </div>
+  
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary btn-primary-custom" id="submitQuestion">
+            Post Question
+          </button>
+        </div>
+      </form>
+      </div>
+    </div>
+</div>

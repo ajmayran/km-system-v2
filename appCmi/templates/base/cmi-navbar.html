@@ -48,7 +48,7 @@
 
                 {% if commodities %}
                 {% for commodity in commodities %}
-                <a href="#" class="dropdown-item">{{commodity.commodity_name}}</a>
+                <a href="{% url "appCmi:display-commodity" commodity.slug %}" class="dropdown-item">{{commodity.commodity_name}}</a>
                 {% endfor %}
                 {% else %}
                 <a href="#" class="dropdown-item">No Commodities Yet</a>
