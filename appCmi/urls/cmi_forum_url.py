@@ -8,6 +8,11 @@ app_name = "appCmi"
 urlpatterns = (
     [
         path("forum/", cmi_forum_view.cmi_forum, name="cmi-forum"),
+        path(
+            "forum/post-question/",
+            cmi_forum_view.forum_post_question,
+            name="forum-post-question",
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

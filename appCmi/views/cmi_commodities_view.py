@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from utils.get_models import get_active_models
+from appCmi.models import Forum
 
 
 def all_commodities(request):
@@ -33,3 +34,24 @@ def all_commodities(request):
         "knowledge_resources": knowledge_resources,
     }
     return render(request, "pages/cmi-commodities.html", context)
+
+
+def display_commodity(request, slug):
+    models = get_active_models()  # Fetch active models
+    useful_links = models.get("useful_links", [])
+    commodities = models.get("commodities", [])  # List of active commodities
+    knowledge_resources = models.get("knowledge_resources", [])
+
+    # Find the specific commodity in the list
+    display_commodity = next((c for c in commodities if c.slug == slug), None)
+
+    if not display_commodity:
+        return render(request, "404.html", status=404)  # Return a 404 page if not found
+
+    context = {
+        "display_commodity": display_commodity,
+        "useful_links": useful_links,
+        "commodities": commodities,
+        "knowledge_resources": knowledge_resources,
+    }
+    return render(request, "pages/cmi-display-commodity.html", context)
