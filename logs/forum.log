@@ -126,3 +126,218 @@
 [2025-03-27 12:13:21] Processing commodity IDs: ['5']
 [2025-03-27 12:14:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
 [2025-03-27 12:14:12] Watching for file changes with StatReloader
+[2025-03-27 14:06:28] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 14:06:29] Watching for file changes with StatReloader
+[2025-03-27 14:11:04] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 14:11:05] Watching for file changes with StatReloader
+[2025-03-27 14:34:44] Processing commodity IDs: ['2', '6']
+[2025-03-27 14:41:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 14:41:12] Watching for file changes with StatReloader
+[2025-03-27 14:41:14] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 14:41:15] Watching for file changes with StatReloader
+[2025-03-27 14:42:43] Processing commodity IDs: ['4']
+[2025-03-27 14:47:03] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 14:47:04] Watching for file changes with StatReloader
+[2025-03-27 14:47:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-03-27 14:47:41] Watching for file changes with StatReloader
+[2025-03-27 14:47:53] Watching for file changes with StatReloader
+[2025-03-27 14:48:27] Processing commodity IDs: ['3']
+[2025-03-27 15:11:34] Not Found: /favicon.ico
+[2025-03-27 15:12:36] Importing BlpImagePlugin
+[2025-03-27 15:12:36] Importing BmpImagePlugin
+[2025-03-27 15:12:36] Importing BufrStubImagePlugin
+[2025-03-27 15:12:36] Importing CurImagePlugin
+[2025-03-27 15:12:36] Importing DcxImagePlugin
+[2025-03-27 15:12:36] Importing DdsImagePlugin
+[2025-03-27 15:12:36] Importing EpsImagePlugin
+[2025-03-27 15:12:36] Importing FitsImagePlugin
+[2025-03-27 15:12:36] Importing FliImagePlugin
+[2025-03-27 15:12:36] Importing FpxImagePlugin
+[2025-03-27 15:12:36] Image: failed to import FpxImagePlugin: No module named 'olefile'
+[2025-03-27 15:12:36] Importing FtexImagePlugin
+[2025-03-27 15:12:36] Importing GbrImagePlugin
+[2025-03-27 15:12:36] Importing GifImagePlugin
+[2025-03-27 15:12:36] Importing GribStubImagePlugin
+[2025-03-27 15:12:36] Importing Hdf5StubImagePlugin
+[2025-03-27 15:12:36] Importing IcnsImagePlugin
+[2025-03-27 15:12:36] Importing IcoImagePlugin
+[2025-03-27 15:12:36] Importing ImImagePlugin
+[2025-03-27 15:12:36] Importing ImtImagePlugin
+[2025-03-27 15:12:36] Importing IptcImagePlugin
+[2025-03-27 15:12:36] Importing JpegImagePlugin
+[2025-03-27 15:12:36] Importing Jpeg2KImagePlugin
+[2025-03-27 15:12:36] Importing McIdasImagePlugin
+[2025-03-27 15:12:36] Importing MicImagePlugin
+[2025-03-27 15:12:36] Image: failed to import MicImagePlugin: No module named 'olefile'
+[2025-03-27 15:12:36] Importing MpegImagePlugin
+[2025-03-27 15:12:36] Importing MpoImagePlugin
+[2025-03-27 15:12:36] Importing MspImagePlugin
+[2025-03-27 15:12:36] Importing PalmImagePlugin
+[2025-03-27 15:12:36] Importing PcdImagePlugin
+[2025-03-27 15:12:36] Importing PcxImagePlugin
+[2025-03-27 15:12:36] Importing PdfImagePlugin
+[2025-03-27 15:12:36] Importing PixarImagePlugin
+[2025-03-27 15:12:36] Importing PngImagePlugin
+[2025-03-27 15:12:36] Importing PpmImagePlugin
+[2025-03-27 15:12:36] Importing PsdImagePlugin
+[2025-03-27 15:12:37] Importing QoiImagePlugin
+[2025-03-27 15:12:37] Importing SgiImagePlugin
+[2025-03-27 15:12:37] Importing SpiderImagePlugin
+[2025-03-27 15:12:37] Importing SunImagePlugin
+[2025-03-27 15:12:37] Importing TgaImagePlugin
+[2025-03-27 15:12:37] Importing TiffImagePlugin
+[2025-03-27 15:12:37] Importing WebPImagePlugin
+[2025-03-27 15:12:37] Importing WmfImagePlugin
+[2025-03-27 15:12:37] Importing XbmImagePlugin
+[2025-03-27 15:12:37] Importing XpmImagePlugin
+[2025-03-27 15:12:37] Importing XVThumbImagePlugin
+[2025-03-27 15:13:22] Processing commodity IDs: ['7']
+[2025-03-27 15:36:39] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 15:36:40] Watching for file changes with StatReloader
+[2025-03-27 15:36:49] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\__init__.py changed, reloading.
+[2025-03-27 15:36:50] Watching for file changes with StatReloader
+[2025-03-27 15:37:18] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_forum_url.py changed, reloading.
+[2025-03-27 15:37:19] Watching for file changes with StatReloader
+[2025-03-27 15:38:02] Internal Server Error: /cmis/forum/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py", line 33, in cmi_forum
+    return render(request, "pages/cmi-forum.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'display-forum' not found. 'display-forum' is not a valid view function or pattern name.
+[2025-03-27 15:38:23] Not Found: /api/placeholder/100/100
+[2025-03-27 15:38:23] Not Found: /api/placeholder/100/100
+[2025-03-27 15:41:04] Not Found: /api/placeholder/100/100
+[2025-03-27 15:41:04] Not Found: /api/placeholder/100/100
+[2025-03-27 15:41:20] Not Found: /api/placeholder/100/100
+[2025-03-27 15:41:20] Not Found: /api/placeholder/100/100
+[2025-03-27 15:45:20] Not Found: /api/placeholder/100/100
+[2025-03-27 15:45:21] Not Found: /api/placeholder/100/100
+[2025-03-27 15:45:45] Not Found: /api/placeholder/100/100
+[2025-03-27 15:45:45] Not Found: /api/placeholder/100/100
+[2025-03-27 15:45:48] Not Found: /api/placeholder/100/100
+[2025-03-27 15:45:48] Not Found: /api/placeholder/100/100
+[2025-03-27 15:45:55] Not Found: /api/placeholder/100/100
+[2025-03-27 15:45:55] Not Found: /api/placeholder/100/100
+[2025-03-27 15:46:11] Not Found: /api/placeholder/100/100
+[2025-03-27 15:46:11] Not Found: /api/placeholder/100/100
+[2025-03-27 15:47:35] Not Found: /api/placeholder/100/100
+[2025-03-27 15:47:35] Not Found: /api/placeholder/100/100
+[2025-03-27 15:47:36] Not Found: /api/placeholder/100/100
+[2025-03-27 15:47:36] Not Found: /api/placeholder/100/100
+[2025-03-27 15:47:37] Not Found: /api/placeholder/100/100
+[2025-03-27 15:47:37] Not Found: /api/placeholder/100/100
+[2025-03-27 15:48:15] Not Found: /api/placeholder/100/100
+[2025-03-27 15:48:15] Not Found: /api/placeholder/100/100
+[2025-03-27 15:51:32] Not Found: /api/placeholder/100/100
+[2025-03-27 15:51:33] Not Found: /api/placeholder/100/100
+[2025-03-27 15:51:33] Not Found: /api/placeholder/100/100
+[2025-03-27 15:51:39] Not Found: /api/placeholder/100/100
+[2025-03-27 15:51:40] Not Found: /api/placeholder/100/100
+[2025-03-27 15:51:59] Not Found: /api/placeholder/100/100
+[2025-03-27 15:51:59] Not Found: /api/placeholder/100/100
+[2025-03-27 15:52:07] Not Found: /api/placeholder/100/100
+[2025-03-27 15:52:07] Not Found: /api/placeholder/100/100
+[2025-03-27 15:55:43] Not Found: /api/placeholder/100/100
+[2025-03-27 15:55:43] Not Found: /api/placeholder/100/100
+[2025-03-27 15:55:52] Not Found: /api/placeholder/100/100
+[2025-03-27 15:55:52] Not Found: /api/placeholder/100/100
+[2025-03-27 15:56:14] Not Found: /api/placeholder/100/100
+[2025-03-27 15:56:14] Not Found: /api/placeholder/100/100
+[2025-03-27 15:56:33] Not Found: /api/placeholder/100/100
+[2025-03-27 15:56:34] Not Found: /api/placeholder/100/100
+[2025-03-27 15:56:41] Not Found: /api/placeholder/100/100
+[2025-03-27 15:56:41] Not Found: /api/placeholder/100/100
+[2025-03-27 15:57:40] Not Found: /api/placeholder/100/100
+[2025-03-27 15:57:40] Not Found: /api/placeholder/100/100
+[2025-03-27 15:58:49] Not Found: /api/placeholder/100/100
+[2025-03-27 15:58:49] Not Found: /api/placeholder/100/100
+[2025-03-27 15:58:50] Not Found: /api/placeholder/100/100
+[2025-03-27 15:58:51] Not Found: /api/placeholder/100/100
+[2025-03-27 15:58:57] Not Found: /api/placeholder/100/100
+[2025-03-27 15:58:57] Not Found: /api/placeholder/100/100
+[2025-03-27 16:00:36] Not Found: /api/placeholder/100/100
+[2025-03-27 16:00:36] Not Found: /api/placeholder/100/100
+[2025-03-27 16:00:53] Not Found: /api/placeholder/100/100
+[2025-03-27 16:00:53] Not Found: /api/placeholder/100/100
+[2025-03-27 16:06:59] Not Found: /api/placeholder/100/100
+[2025-03-27 16:06:59] Not Found: /api/placeholder/100/100
+[2025-03-27 16:07:07] Not Found: /api/placeholder/100/100
+[2025-03-27 16:07:07] Not Found: /api/placeholder/100/100
+[2025-03-27 16:07:17] Not Found: /api/placeholder/100/100
+[2025-03-27 16:07:17] Not Found: /api/placeholder/100/100
+[2025-03-27 16:07:31] Not Found: /api/placeholder/100/100
+[2025-03-27 16:07:32] Not Found: /api/placeholder/100/100
+[2025-03-27 16:08:16] Not Found: /api/placeholder/100/100
+[2025-03-27 16:08:17] Not Found: /api/placeholder/100/100
+[2025-03-27 16:08:34] Not Found: /api/placeholder/100/100
+[2025-03-27 16:08:34] Not Found: /api/placeholder/100/100
+[2025-03-27 16:08:56] Not Found: /api/placeholder/100/100
+[2025-03-27 16:08:56] Not Found: /api/placeholder/100/100
+[2025-03-27 16:08:58] Not Found: /api/placeholder/100/100
+[2025-03-27 16:08:58] Not Found: /api/placeholder/100/100
+[2025-03-27 16:09:27] Not Found: /api/placeholder/100/100
+[2025-03-27 16:09:28] Not Found: /api/placeholder/100/100
+[2025-03-27 16:11:20] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-03-27 16:11:22] Watching for file changes with StatReloader
+[2025-03-27 16:33:29] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-03-27 16:33:30] Watching for file changes with StatReloader
+[2025-03-27 16:33:48] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-03-27 16:33:49] Watching for file changes with StatReloader
+[2025-03-27 16:34:02] Watching for file changes with StatReloader
+[2025-03-27 16:36:50] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\forms.py changed, reloading.
+[2025-03-27 16:36:51] Watching for file changes with StatReloader
