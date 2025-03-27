@@ -341,3 +341,82 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'display-forum' not found. 'd
 [2025-03-27 16:34:02] Watching for file changes with StatReloader
 [2025-03-27 16:36:50] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\forms.py changed, reloading.
 [2025-03-27 16:36:51] Watching for file changes with StatReloader
+[2025-03-27 16:38:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 16:38:41] Watching for file changes with StatReloader
+[2025-03-27 16:39:04] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_forum_url.py changed, reloading.
+[2025-03-27 16:39:05] Watching for file changes with StatReloader
+[2025-03-27 16:39:09] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 16:39:10] Watching for file changes with StatReloader
+[2025-03-27 16:41:02] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 16:41:03] Watching for file changes with StatReloader
+[2025-03-27 16:41:16] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\__init__.py changed, reloading.
+[2025-03-27 16:41:17] Watching for file changes with StatReloader
+[2025-03-27 16:41:38] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_forum_url.py changed, reloading.
+[2025-03-27 16:41:39] Watching for file changes with StatReloader
+[2025-03-27 16:43:55] Internal Server Error: /cmis/forum/nFjYGzD06Ef3/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py", line 119, in display_forum
+    return render(request, "pages/cmi-display-forum.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'add_comment' not found. 'add_comment' is not a valid view function or pattern name.
+[2025-03-27 16:43:56] Not Found: /favicon.ico
+[2025-03-27 16:44:27] Not Found: /api/placeholder/100/100
+[2025-03-27 16:44:27] Not Found: /api/placeholder/100/100
+[2025-03-27 16:45:26] Internal Server Error: /cmis/forum/nFjYGzD06Ef3/add-comment/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py", line 124, in forum_add_comment
+    form = ForumCommentForm(request.POST or None, user=request.user, post=forum)
+NameError: name 'forum' is not defined
+[2025-03-27 16:45:48] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 16:45:49] Watching for file changes with StatReloader
+[2025-03-27 16:46:00] Not Found: /api/placeholder/100/100
+[2025-03-27 16:46:53] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-03-27 16:46:54] Watching for file changes with StatReloader
+[2025-03-27 16:47:05] Watching for file changes with StatReloader
