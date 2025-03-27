@@ -254,47 +254,74 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
 
-    // Commodity selection in question modal
+    // Commodity selection handling
     const commoditySelect = document.getElementById('commoditySelect');
     const selectedCommodityList = document.getElementById('selected-commodity');
     const commodityIdsInput = document.getElementById('commodity_ids');
     
     if (commoditySelect && selectedCommodityList && commodityIdsInput) {
-      const selectedCommodities = new Set();
-      
-      commoditySelect.addEventListener('change', function() {
-        const selectedOption = this.options[this.selectedIndex];
-        if (selectedOption.value && !selectedCommodities.has(selectedOption.value)) {
-          selectedCommodities.add(selectedOption.value);
-          
-          const li = document.createElement('li');
-          li.innerHTML = `
-            ${selectedOption.text}
-            <button type="button" class="remove-tag" data-value="${selectedOption.value}">
-              <i class="fas fa-times"></i>
-            </button>
-          `;
-          
-          selectedCommodityList.appendChild(li);
-          updateCommodityIds();
-          
-          // Reset select
-          this.selectedIndex = 0;
+        let selectedCommodities = [];  // Changed to array from Set
+        
+        // Set data-selected attribute for all options
+        Array.from(commoditySelect.options).forEach(option => {
+            option.dataset.selected = 'false';
+        });
+        
+        commoditySelect.addEventListener('change', function() {
+            const commodityId = this.value;
+            const selectedOption = this.options[this.selectedIndex];
+            
+            if (commodityId && selectedOption.dataset.selected !== 'true') {
+                // Mark option as selected
+                selectedOption.dataset.selected = 'true';
+                selectedCommodities.push(commodityId);
+                
+                // Create list item with remove button
+                const li = document.createElement('li');
+                li.style.position = 'relative';
+                li.innerHTML = `
+                    ${selectedOption.text}
+                    <button class="remove-commodity-btn" data-commodity="${commodityId}" 
+                            style="color: green; background-color: white; border: none; position: absolute; right: 0;">
+                        <i class="fa fa-trash remove-commodity" aria-hidden="true"></i>
+                    </button>
+                `;
+                
+                selectedCommodityList.appendChild(li);
+                updateTextarea();
+                
+                // Reset select
+                this.selectedIndex = 0;
+            }
+        });
+        
+        // Handle remove button clicks
+        selectedCommodityList.addEventListener('click', function(e) {
+            const removeBtn = e.target.closest('.remove-commodity-btn');
+            if (removeBtn) {
+                const commodityId = removeBtn.dataset.commodity;
+                
+                // Remove from selected commodities array
+                selectedCommodities = selectedCommodities.filter(id => id !== commodityId);
+                
+                // Reset option's selected state
+                const option = commoditySelect.querySelector(`option[value="${commodityId}"]`);
+                if (option) {
+                    option.dataset.selected = 'false';
+                }
+                
+                // Remove list item
+                removeBtn.closest('li').remove();
+                
+                // Update textarea
+                updateTextarea();
+            }
+        });
+        
+        // Function to update the textarea value
+        function updateTextarea() {
+            commodityIdsInput.value = selectedCommodities.join(',');
         }
-      });
-      
-      selectedCommodityList.addEventListener('click', function(e) {
-        if (e.target.closest('.remove-tag')) {
-          const value = e.target.closest('.remove-tag').dataset.value;
-          selectedCommodities.delete(value);
-          e.target.closest('li').remove();
-          updateCommodityIds();
-        }
-      });
-      
-      function updateCommodityIds() {
-        commodityIdsInput.value = Array.from(selectedCommodities).join(',');
-      }
     }
 });
             

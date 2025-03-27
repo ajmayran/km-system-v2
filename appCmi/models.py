@@ -5,7 +5,7 @@ from utils.slug_generator import generate_random_slug
 
 class Forum(models.Model):
     forum_id = models.AutoField(primary_key=True)
-    forum_title = models.CharField(max_length=255)
+    forum_title = models.CharField(max_length=255, db_collation="utf8mb4_unicode_ci")
     forum_question = models.TextField()
     commodity_id = models.ManyToManyField(
         "appAdmin.Commodity", related_name="forum_tag_commodity"
