@@ -76,6 +76,7 @@ class ForumComment(models.Model):
 
     class Meta:
         ordering = ["created_at"]
+        db_table = "tbl_forum_comment"
 
     def __str__(self):
         return f"Comment by {self.user.username} on {self.post.title}"

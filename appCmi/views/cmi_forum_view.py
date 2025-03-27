@@ -1,8 +1,8 @@
 from utils.get_models import get_active_models
 from django.shortcuts import render
-from appCmi.forms import ForumForm
+from appCmi.forms import ForumForm, ForumCommentForm
 from appCmi.models import Forum
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 import logging
 from django.contrib import messages
 from appAdmin.models import Commodity
@@ -117,3 +117,20 @@ def display_forum(request, slug):
         "knowledge_resources": knowledge_resources,
     }
     return render(request, "pages/cmi-display-forum.html", context)
+
+
+def forum_add_comment(request, slug):
+    forum_post = get_object_or_404(Forum, slug=slug)
+    form = ForumCommentForm(request.POST or None, user=request.user, post=forum_post)
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect("appCmi:display-forum", slug=slug)
+    else:
+        form = ForumCommentForm()
+
+    context = {
+        "forum_post": forum_post,
+        "form": form,
+    }
+    return render(request, "cmi-display-forum.html", context)

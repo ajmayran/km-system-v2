@@ -4,6 +4,7 @@ from .cmi_forum_view import (
     cmi_forum,
     forum_post_question,
     display_forum,
+    forum_add_comment,
 )  # ✅ Import the forum function
 from .cmi_commodities_view import (
     all_commodities,

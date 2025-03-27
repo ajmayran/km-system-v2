@@ -14,6 +14,11 @@ urlpatterns = (
             name="forum-post-question",
         ),
         path("forum/<slug:slug>/", cmi_forum_view.display_forum, name="display-forum"),
+        path(
+            "forum/<slug:slug>/add-comment/",
+            cmi_forum_view.forum_add_comment,
+            name="forum-add-comment",
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
