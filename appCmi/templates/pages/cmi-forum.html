@@ -1222,6 +1222,16 @@ AANR Knowledge Hub {% endblock %} {% block stylesheet %}
       justify-content: center;
     }
   }
+
+  .forum-question-text {
+    text-align: justify;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    text-indent: 0;        /* Removes any first line indentation */
+    padding-left: 0;       /* Removes left padding */
+    margin-left: 0;        /* Removes left margin */
+    white-space: pre-line; /* Preserves line breaks but collapses whitespace */
+  }
 </style>
 {% endblock %} {% block content %}
 <div class="main-content">
@@ -1397,14 +1407,11 @@ AANR Knowledge Hub {% endblock %} {% block stylesheet %}
         </div>
 
         <!-- Forum Posts -->
-        <div
-          class="forum-posts"
-          id="newQuestions"
-          data-aos="fade-up"
-          data-aos-delay="350"
-        >
+        <div class="forum-posts" id="forum-posts" data-aos="fade-up" data-aos-delay="350">
           <!-- Enhanced Post Card with Interactions -->
-          <div class="post-card discussion-post fade-in" data-tags="1,4">
+           {% if forums %}
+           {% for forum in forums %}
+          <div class="post-card discussion-post fade-in" data-tags="{{ forum.commodity_id.all|join:',' }}">
             <div class="post-header">
               <div class="post-avatar">
                 <img
@@ -1414,41 +1421,26 @@ AANR Knowledge Hub {% endblock %} {% block stylesheet %}
               </div>
               <div class="post-meta">
                 <div class="post-author">
-                  <span class="author-name">Miguel Fernandez</span>
-                  <span class="author-role">Verified Farmer</span>
+                  <span class="author-name">{{forum.author.first_name|capfirst}} {{forum.author.last_name|capfirst}}</span>
                 </div>
-                <a href="#" class="post-title"
-                  >INTEGRATED PEST MANAGEMENT FOR ORGANIC RICE FARMING</a
-                >
-                <span class="thread-status status-resolved">Resolved</span>
+                <a href="{% url "appCmi:display-forum" slug=forum.slug %}" class="post-title">{{forum.forum_title|upper}}</a>
                 <div class="post-tags">
-                  <a href="#" class="post-tag"><i class="fas fa-leaf"></i> Rice</a>
-                  <a href="#" class="post-tag"
-                    ><i class="fas fa-bug"></i> Pest Management</a
-                  >
-                  <a href="#" class="post-tag"
-                    ><i class="fas fa-seedling"></i> Organic</a
-                  >
+                  {% for commodity in forum.commodity_id.all %}
+                      <a href="#" class="post-tag">
+                           {{ commodity }}
+                      </a>
+                  {% endfor %}
                 </div>
                 <div class="post-stats">
                   <span class="post-stat"
-                    ><i class="far fa-calendar-alt"></i> March 5, 2025</span
-                  >
-                  <span class="post-stat"><i class="far fa-eye"></i> 342 views</span>
-                  <span class="post-stat"
-                    ><i class="far fa-comment"></i> 18 replies</span
+                    ><i class="far fa-calendar-alt"></i> {{forum.date_posted|date:"F d, Y"}}</span
                   >
                 </div>
               </div>
             </div>
             <div class="post-content">
-              <p>
-                I'm transitioning my 2-hectare rice farm to organic production and
-                struggling with pest management. Chemical pesticides are no longer an
-                option, but I'm seeing increased damage from stem borers and
-                leafhoppers. I've tried neem oil sprays with limited success. What
-                integrated pest management strategies have worked for other organic
-                rice farmers in similar tropical conditions?
+              <p class="forum-question-text">
+                {{forum.forum_question|linebreaksbr|safe}}
               </p>
             </div>
             <div class="post-interactions">
@@ -1470,194 +1462,8 @@ AANR Knowledge Hub {% endblock %} {% block stylesheet %}
               </div>
             </div>
           </div>
-
-          <!-- Post 1 -->
-          <div class="post-card discussion-post slide-left" data-tags="1,4" data-aos-delay="50">
-            <div class="post-header">
-              <div class="post-avatar">
-                <img
-                  src="{% static 'assets/images/default_profile.png' %}"
-                  alt="User Avatar"
-                />
-              </div>
-              <div class="post-meta">
-                <div class="post-author">
-                  <span class="author-name">Carlos Rivera</span>
-                  <span class="author-role">Agronomist</span>
-                </div>
-                <a href="#" class="post-title"
-                  >BEST PRACTICES FOR SUSTAINABLE RICE FARMING</a
-                >
-                <div class="post-tags">
-                  <a href="#" class="post-tag"><i class="fas fa-leaf"></i> Rice</a>
-                  <a href="#" class="post-tag"><i class="fas fa-tractor"></i> Farming</a>
-                  <a href="#" class="post-tag"><i class="fas fa-seedling"></i> Sustainable</a>
-                </div>
-                <div class="post-stats">
-                  <span class="post-stat"
-                    ><i class="far fa-calendar-alt"></i> March 20, 2025</span
-                  >
-                  <span class="post-stat"><i class="far fa-eye"></i> 156 views</span>
-                  <span class="post-stat"
-                    ><i class="far fa-comment"></i> 7 replies</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="post-content">
-              <p>
-                I've been growing rice for 5 years using traditional methods, but
-                I'm looking to transition to more sustainable practices. What
-                techniques are farmers using to reduce water usage while maintaining
-                good yields? Are there specific varieties that perform better with
-                less environmental impact?
-              </p>
-            </div>
-            <div class="post-interactions">
-              <div class="interaction-item">
-                <i class="far fa-thumbs-up"></i>
-                <span class="interaction-count">12</span>
-              </div>
-              <div class="interaction-item">
-                <i class="far fa-comment-dots"></i>
-                <span class="interaction-count">7</span>
-              </div>
-              <div class="interaction-item">
-                <i class="far fa-bookmark"></i>
-                <span>Save</span>
-              </div>
-              <div class="interaction-item">
-                <i class="fas fa-share-alt"></i>
-                <span>Share</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Post 2 -->
-          <div class="post-card discussion-post slide-right" data-tags="3,5" data-aos-delay="100">
-            <div class="post-header">
-              <div class="post-avatar">
-                <img
-                  src="{% static 'assets/images/default_profile.png' %}"
-                  alt="User Avatar"
-                />
-              </div>
-              <div class="post-meta">
-                <div class="post-author">
-                  <span class="author-name">Maria Santos</span>
-                  <span class="author-role">Coconut Farmer</span>
-                </div>
-                <a href="#" class="post-title"
-                  >COMBATING COCONUT SCALE INSECT INFESTATION</a
-                >
-                <div class="post-tags">
-                  <a href="#" class="post-tag"><i class="fas fa-tree"></i> Coconut</a>
-                  <a href="#" class="post-tag"><i class="fas fa-bug"></i> Pest Management</a>
-                </div>
-                <div class="post-stats">
-                  <span class="post-stat"
-                    ><i class="far fa-calendar-alt"></i> March 18, 2025</span
-                  >
-                  <span class="post-stat"><i class="far fa-eye"></i> 203 views</span>
-                  <span class="post-stat"
-                    ><i class="far fa-comment"></i> 15 replies</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="post-content">
-              <p>
-                My coconut plantation has been showing signs of scale insect
-                infestation. The leaves are turning yellow and productivity is
-                declining. I've tried some common pesticides but they don't seem
-                effective. Has anyone successfully dealt with this issue using
-                organic or integrated pest management approaches?
-              </p>
-            </div>
-            <div class="post-interactions">
-              <div class="interaction-item">
-                <i class="far fa-thumbs-up"></i>
-                <span class="interaction-count">19</span>
-              </div>
-              <div class="interaction-item">
-                <i class="far fa-comment-dots"></i>
-                <span class="interaction-count">15</span>
-              </div>
-              <div class="interaction-item">
-                <i class="far fa-bookmark"></i>
-                <span>Save</span>
-              </div>
-              <div class="interaction-item">
-                <i class="fas fa-share-alt"></i>
-                <span>Share</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Post 3 -->
-          <div class="post-card discussion-post fade-in" data-tags="4" data-aos-delay="150">
-            <div class="post-header">
-              <div class="post-avatar">
-                <img
-                  src="{% static 'assets/images/default_profile.png' %}"
-                  alt="User Avatar"
-                />
-              </div>
-              <div class="post-meta">
-                <div class="post-author">
-                  <span class="author-name">Pedro Aquino</span>
-                  <span class="author-role">Fish Farmer</span>
-                </div>
-                <a href="#" class="post-title"
-                  >OPTIMAL STOCKING DENSITY FOR TILAPIA IN SMALL-SCALE
-                  AQUACULTURE</a
-                >
-                <div class="post-tags">
-                  <a href="#" class="post-tag"><i class="fas fa-fish"></i> Aquaculture</a>
-                  <a href="#" class="post-tag"><i class="fas fa-water"></i> Tilapia</a>
-                </div>
-                <div class="post-stats">
-                  <span class="post-stat"
-                    ><i class="far fa-calendar-alt"></i> March 15, 2025</span
-                  >
-                  <span class="post-stat"><i class="far fa-eye"></i> 189 views</span>
-                  <span class="post-stat"
-                    ><i class="far fa-comment"></i> 11 replies</span
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="post-content">
-              <p>
-                I'm setting up a small-scale tilapia pond (approximately 100 square
-                meters) and I'm trying to determine the optimal stocking density. I
-                want to maximize production without sacrificing fish health or water
-                quality. What density would you recommend for beginners, and what
-                management practices should I implement to maintain good water
-                conditions?
-              </p>
-            </div>
-            <div class="post-interactions">
-              <div class="interaction-item">
-                <i class="far fa-thumbs-up"></i>
-                <span class="interaction-count">16</span>
-              </div>
-              <div class="interaction-item">
-                <i class="far fa-comment-dots"></i>
-                <span class="interaction-count">11</span>
-              </div>
-              <div class="interaction-item">
-                <i class="far fa-bookmark"></i>
-                <span>Save</span>
-              </div>
-              <div class="interaction-item">
-                <i class="fas fa-share-alt"></i>
-                <span>Share</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- More posts... -->
+          {% endfor %}
+          {% endif %}
         </div>
 
         <!-- Popular Questions Tab (Hidden Initially) -->
@@ -1891,6 +1697,23 @@ function initForum() {
           // If submission was successful
           $('#questionModal').modal('hide');
           showNotification('Question posted successfully!', 'success');
+          
+          // Refresh only the forum-posts div
+          setTimeout(async () => {
+            try {
+              const response = await fetch(window.location.href);
+              const text = await response.text();
+              const parser = new DOMParser();
+              const doc = parser.parseFromString(text, 'text/html');
+              const newForumPosts = doc.getElementById('forum-posts');
+              
+              if (newForumPosts) {
+                document.getElementById('forum-posts').innerHTML = newForumPosts.innerHTML;
+              }
+            } catch (error) {
+              console.error('Error refreshing forum posts:', error);
+            }
+          }, 1000); // Wait for 1 second after showing notification before refreshing
         } else {
           // If submission failed
           showNotification(result.message || 'Failed to post question', 'error');

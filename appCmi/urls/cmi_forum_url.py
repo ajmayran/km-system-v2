@@ -13,6 +13,7 @@ urlpatterns = (
             cmi_forum_view.forum_post_question,
             name="forum-post-question",
         ),
+        path("forum/<slug:slug>/", cmi_forum_view.display_forum, name="display-forum"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
