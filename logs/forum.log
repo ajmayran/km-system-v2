@@ -1,0 +1,128 @@
+[2025-03-26 16:46:33] INFO autoreload Watching for file changes with StatReloader
+[2025-03-26 16:46:39] INFO autoreload C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-26 16:46:40] INFO autoreload Watching for file changes with StatReloader
+[2025-03-26 16:48:24] INFO autoreload C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-26 16:51:41] Watching for file changes with StatReloader
+[2025-03-26 16:54:36] ====== FORUM POST STARTED ======
+[2025-03-26 16:54:36] Received POST request
+[2025-03-26 16:54:36] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>�� is not a valid value.</li></ul></li></ul>
+[2025-03-26 16:54:36] ====== FORUM POST ENDED ======
+[2025-03-26 16:55:33] ====== FORUM POST STARTED ======
+[2025-03-26 16:55:33] Received POST request
+[2025-03-26 16:55:33] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>�� is not a valid value.</li></ul></li></ul>
+[2025-03-26 16:55:33] ====== FORUM POST ENDED ======
+[2025-03-26 16:55:53] ====== FORUM POST STARTED ======
+[2025-03-26 16:55:53] Received POST request
+[2025-03-26 16:55:53] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-26 16:55:53] ====== FORUM POST ENDED ======
+[2025-03-26 16:59:01] ====== FORUM POST STARTED ======
+[2025-03-26 16:59:01] Received POST request
+[2025-03-26 16:59:01] Form is valid
+[2025-03-26 16:59:01] Error in forum post: (1366, "Incorrect string value: '\\xF0\\x9F\\x8C\\xBF\\xF0\\x9F...' for column `km_db_v3`.`tbl_forum`.`forum_title` at row 1")
+[2025-03-26 16:59:01] ====== FORUM POST ENDED ======
+[2025-03-26 17:01:21] ====== FORUM POST STARTED ======
+[2025-03-26 17:01:21] Received POST request
+[2025-03-26 17:01:21] Form is valid
+[2025-03-26 17:01:21] Error in forum post: (1366, "Incorrect string value: '\\xF0\\x9F\\x8C\\xBF\\xF0\\x9F...' for column `km_db_v3`.`tbl_forum`.`forum_title` at row 1")
+[2025-03-26 17:01:21] ====== FORUM POST ENDED ======
+[2025-03-26 17:02:01] ====== FORUM POST STARTED ======
+[2025-03-26 17:02:01] Received POST request
+[2025-03-26 17:02:01] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>�� is not a valid value.</li></ul></li></ul>
+[2025-03-26 17:02:01] ====== FORUM POST ENDED ======
+[2025-03-27 11:18:52] Watching for file changes with StatReloader
+[2025-03-27 11:25:33] ====== FORUM POST STARTED ======
+[2025-03-27 11:25:33] Received POST request
+[2025-03-27 11:25:34] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 11:25:34] ====== FORUM POST ENDED ======
+[2025-03-27 11:42:04] ====== FORUM POST STARTED ======
+[2025-03-27 11:42:04] Received POST request
+[2025-03-27 11:42:04] Form invalid: <ul class="errorlist"><li>forum_title<ul class="errorlist"><li>This field is required.</li></ul></li><li>forum_question<ul class="errorlist"><li>This field is required.</li></ul></li><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 11:42:04] ====== FORUM POST ENDED ======
+[2025-03-27 11:42:53] ====== FORUM POST STARTED ======
+[2025-03-27 11:42:53] Received POST request
+[2025-03-27 11:42:53] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 11:42:53] ====== FORUM POST ENDED ======
+[2025-03-27 11:56:11] Watching for file changes with StatReloader
+[2025-03-27 11:56:22] ====== FORUM POST STARTED ======
+[2025-03-27 11:56:22] Received POST request
+[2025-03-27 11:56:22] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 11:56:22] ====== FORUM POST ENDED ======
+[2025-03-27 11:57:30] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 11:57:31] Watching for file changes with StatReloader
+[2025-03-27 11:57:34] ====== FORUM POST STARTED ======
+[2025-03-27 11:57:34] Received POST request
+[2025-03-27 11:57:35] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 11:57:35] ====== FORUM POST ENDED ======
+[2025-03-27 12:00:09] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 12:00:10] Watching for file changes with StatReloader
+[2025-03-27 12:02:00] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 12:02:01] Watching for file changes with StatReloader
+[2025-03-27 12:02:05] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 12:02:06] Watching for file changes with StatReloader
+[2025-03-27 12:03:37] ====== FORUM POST STARTED ======
+[2025-03-27 12:03:37] Received POST request
+[2025-03-27 12:03:37] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 12:03:37] ====== FORUM POST ENDED ======
+[2025-03-27 12:08:09] ====== FORUM POST STARTED ======
+[2025-03-27 12:08:09] Received POST request
+[2025-03-27 12:08:09] ====== FORUM POST STARTED ======
+[2025-03-27 12:08:23] Watching for file changes with StatReloader
+[2025-03-27 12:08:31] ====== FORUM POST STARTED ======
+[2025-03-27 12:08:31] Received POST request
+[2025-03-27 12:08:31] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 12:08:31] ====== FORUM POST ENDED ======
+[2025-03-27 12:08:38] ====== FORUM POST STARTED ======
+[2025-03-27 12:08:38] Received POST request
+[2025-03-27 12:08:38] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 12:08:38] ====== FORUM POST ENDED ======
+[2025-03-27 12:08:38] ====== FORUM POST STARTED ======
+[2025-03-27 12:08:38] Received POST request
+[2025-03-27 12:08:38] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 12:08:38] ====== FORUM POST ENDED ======
+[2025-03-27 12:08:39] ====== FORUM POST STARTED ======
+[2025-03-27 12:08:39] Received POST request
+[2025-03-27 12:08:39] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 12:08:39] ====== FORUM POST ENDED ======
+[2025-03-27 12:08:40] ====== FORUM POST STARTED ======
+[2025-03-27 12:08:40] Received POST request
+[2025-03-27 12:08:40] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 12:08:40] ====== FORUM POST ENDED ======
+[2025-03-27 12:08:40] ====== FORUM POST STARTED ======
+[2025-03-27 12:08:40] Received POST request
+[2025-03-27 12:08:40] Form invalid: <ul class="errorlist"><li>commodity_id<ul class="errorlist"><li>This field is required.</li></ul></li></ul>
+[2025-03-27 12:08:40] ====== FORUM POST ENDED ======
+[2025-03-27 12:08:59] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\forms.py changed, reloading.
+[2025-03-27 12:09:00] Watching for file changes with StatReloader
+[2025-03-27 12:09:12] ====== FORUM POST STARTED ======
+[2025-03-27 12:09:12] Received POST request
+[2025-03-27 12:09:12] Form is valid
+[2025-03-27 12:09:12] Error in forum post: Cannot assign "<SimpleLazyObject: <django.contrib.auth.models.AnonymousUser object at 0x0000022401A098A0>>": "Forum.author" must be a "CustomUser" instance.
+[2025-03-27 12:09:12] ====== FORUM POST ENDED ======
+[2025-03-27 12:10:41] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 12:10:42] Watching for file changes with StatReloader
+[2025-03-27 12:10:50] ====== FORUM POST STARTED ======
+[2025-03-27 12:10:50] User: AnonymousUser (ID: None)
+[2025-03-27 12:10:50] Received POST request
+[2025-03-27 12:10:50] Form is valid
+[2025-03-27 12:10:50] Error in forum post: Cannot assign "<SimpleLazyObject: <django.contrib.auth.models.AnonymousUser object at 0x000001AB6E7AADD0>>": "Forum.author" must be a "CustomUser" instance.
+[2025-03-27 12:10:50] ====== FORUM POST ENDED ======
+[2025-03-27 12:11:13] Not Found: /favicon.ico
+[2025-03-27 12:11:29] ====== FORUM POST STARTED ======
+[2025-03-27 12:11:29] User: raise.wesmin@wmsu.edu.ph (ID: 3)
+[2025-03-27 12:11:29] Received POST request
+[2025-03-27 12:11:29] Form is valid
+[2025-03-27 12:11:29] Error in forum post: (1366, "Incorrect string value: '\\xF0\\x9F\\x8C\\xBF\\xF0\\x9F...' for column `km_db_v3`.`tbl_forum`.`forum_title` at row 1")
+[2025-03-27 12:11:29] ====== FORUM POST ENDED ======
+[2025-03-27 12:12:35] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-03-27 12:12:36] Watching for file changes with StatReloader
+[2025-03-27 12:12:54] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\kmhub\settings.py changed, reloading.
+[2025-03-27 12:12:55] Watching for file changes with StatReloader
+[2025-03-27 12:13:12] Watching for file changes with StatReloader
+[2025-03-27 12:13:21] ====== FORUM POST STARTED ======
+[2025-03-27 12:13:21] User: raise.wesmin@wmsu.edu.ph (ID: 3)
+[2025-03-27 12:13:21] Received POST request
+[2025-03-27 12:13:21] Form is valid
+[2025-03-27 12:13:21] Saved forum post for user: raise.wesmin@wmsu.edu.ph
+[2025-03-27 12:13:21] Processing commodity IDs: ['5']
+[2025-03-27 12:14:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_forum_view.py changed, reloading.
+[2025-03-27 12:14:12] Watching for file changes with StatReloader

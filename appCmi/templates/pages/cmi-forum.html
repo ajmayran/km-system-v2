@@ -980,6 +980,31 @@ AANR Knowledge Hub {% endblock %} {% block stylesheet %}
     background-color: rgba(220, 53, 69, 0.1);
   }
 
+  /* Ensure the commodity select dropdown matches other form elements */
+#commoditySelect {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  transition: var(--transition);
+  color: var(--text-color);
+  background-color: #f5f7fa;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 12px;
+  padding-right: 2.5rem;
+}
+
+#commoditySelect:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(44, 110, 73, 0.2);
+  background-color: white;
+}
+
    /* Select Dropdown Styling */
    .form-control {
     height: auto;
@@ -1701,239 +1726,407 @@ AANR Knowledge Hub {% endblock %} {% block stylesheet %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
 <script>
   // Initialize AOS
-  document.addEventListener('DOMContentLoaded', function() {
-    AOS.init({
-      duration: 800,
-      once: true,
-      offset: 100,
-      easing: 'ease-out-cubic'
-    });
-    
-    // Initialize the forum functionality
-    initForum();
+document.addEventListener('DOMContentLoaded', function() {
+  AOS.init({
+    duration: 800,
+    once: true,
+    offset: 100,
+    easing: 'ease-out-cubic'
   });
   
-  function initForum() {
-    // Filter dropdown toggle
-    const filterButton = document.getElementById('filterButton');
-    const filterMenu = document.getElementById('filterMenu');
-    
-    filterButton.addEventListener('click', function() {
-      filterMenu.classList.toggle('show');
+  // Initialize the forum functionality
+  initForum();
+
+  // Initialize commodity selection handling
+  initCommoditySelection();
+});
+
+function initForum() {
+  // Filter dropdown toggle
+  const filterButton = document.getElementById('filterButton');
+  const filterMenu = document.getElementById('filterMenu');
+  
+  filterButton.addEventListener('click', function() {
+    filterMenu.classList.toggle('show');
+  });
+  
+  // Close the dropdown if clicked outside
+  document.addEventListener('click', function(event) {
+    if (!filterButton.contains(event.target) && !filterMenu.contains(event.target)) {
+      filterMenu.classList.remove('show');
+    }
+  });
+  
+  // Tab functionality
+  const tabButtons = document.querySelectorAll('.forum-tab');
+  const tabContents = document.querySelectorAll('.forum-posts');
+  
+  tabButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Remove active class from all tabs
+      tabButtons.forEach(btn => btn.classList.remove('active'));
+      
+      // Add active class to clicked tab
+      this.classList.add('active');
+      
+      // Get the target content
+      const targetId = this.getAttribute('data-target');
+      
+      // Hide all content
+      tabContents.forEach(content => {
+        content.style.display = 'none';
+      });
+      
+      // Show the target content
+      document.getElementById(targetId).style.display = 'flex';
     });
+  });
+  
+  // Topic pill selection
+  const topicPills = document.querySelectorAll('.topic-pill');
+  
+  topicPills.forEach(pill => {
+    pill.addEventListener('click', function() {
+      // Remove active class from all pills
+      topicPills.forEach(p => p.classList.remove('active'));
+      
+      // Add active class to clicked pill
+      this.classList.add('active');
+    });
+  });
+  
+  // Filter checkbox functionality from Code 2
+  const commodityCheckboxes = document.querySelectorAll('input[name="commodity"]');
+  
+  commodityCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', function() {
+      const isAllCommodity = this.value === 'all';
+      
+      if (isAllCommodity && this.checked) {
+        // If "All Commodities" is checked, uncheck all other options
+        commodityCheckboxes.forEach(cb => {
+          if (cb.value !== 'all') {
+            cb.checked = false;
+          }
+        });
+        // Show all discussion posts
+        const discussionPosts = document.querySelectorAll('.discussion-post');
+        discussionPosts.forEach(post => {
+          post.style.display = 'block';
+        });
+      } else if (!isAllCommodity && this.checked) {
+        // If a specific commodity is checked, uncheck "All Commodities"
+        const allCommodityCheckbox = document.querySelector('input[name="commodity"][value="all"]');
+        if (allCommodityCheckbox) {
+          allCommodityCheckbox.checked = false;
+        }
+        
+        // Filter posts by the selected commodity
+        filterPostsByCommodity();
+      } else if (!isAllCommodity && !this.checked) {
+        // If a specific commodity is unchecked, check if we need to show all again
+        const anyChecked = Array.from(commodityCheckboxes).some(cb => cb.value !== 'all' && cb.checked);
+        if (!anyChecked) {
+          // If no specific commodities are checked, check "All Commodities" again
+          const allCommodityCheckbox = document.querySelector('input[name="commodity"][value="all"]');
+          if (allCommodityCheckbox) {
+            allCommodityCheckbox.checked = true;
+          }
+          // Show all discussion posts
+          const discussionPosts = document.querySelectorAll('.discussion-post');
+          discussionPosts.forEach(post => {
+            post.style.display = 'block';
+          });
+        } else {
+          // Filter posts by the remaining checked commodities
+          filterPostsByCommodity();
+        }
+      }
+    });
+  });
+  
+  function filterPostsByCommodity() {
+    const selectedCommodities = Array.from(
+      document.querySelectorAll('input[name="commodity"]:checked')
+    ).map(cb => cb.value);
     
-    // Close the dropdown if clicked outside
-    document.addEventListener('click', function(event) {
-      if (!filterButton.contains(event.target) && !filterMenu.contains(event.target)) {
-        filterMenu.classList.remove('show');
+    const discussionPosts = document.querySelectorAll('.discussion-post');
+    
+    discussionPosts.forEach(post => {
+      const postTags = post.dataset.tags ? post.dataset.tags.split(',') : [];
+      const shouldShow = selectedCommodities.some(commodity => postTags.includes(commodity));
+      
+      post.style.display = shouldShow ? 'block' : 'none';
+    });
+  }
+  
+  // Submit question button animation
+  const submitQuestionBtn = document.getElementById('submitQuestion');
+  
+  if (submitQuestionBtn) {
+    submitQuestionBtn.addEventListener('click', async function(e) {
+      e.preventDefault();  // Prevent default form submission
+      
+      // Show loading state
+      this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+      this.disabled = true;
+      
+      try {
+        // Get the form data
+        const form = document.getElementById('questionForm');
+        const formData = new FormData(form);
+        
+        // Submit the form
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+          }
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+          // If submission was successful
+          $('#questionModal').modal('hide');
+          showNotification('Question posted successfully!', 'success');
+        } else {
+          // If submission failed
+          showNotification(result.message || 'Failed to post question', 'error');
+        }
+      } catch (error) {
+        showNotification('An error occurred while posting your question', 'error');
+      } finally {
+        // Reset button state
+        this.innerHTML = 'Post Question';
+        this.disabled = false;
+      }
+    });
+  }
+}
+
+// New function to handle commodity selection from Code 2
+function initCommoditySelection() {
+  const commoditySelect = document.getElementById('commoditySelect');
+  const selectedCommodityList = document.getElementById('selected-commodity');
+  const commodityIdsInput = document.getElementById('commodity_ids');
+  
+  if (commoditySelect && selectedCommodityList && commodityIdsInput) {
+    const selectedCommodities = new Set();
+    
+    commoditySelect.addEventListener('change', function() {
+      const value = this.value;
+      if (!value) return; // If no value is selected, exit
+      
+      const text = this.options[this.selectedIndex].text;
+      
+      if (!selectedCommodities.has(value)) {
+        // Add to set
+        selectedCommodities.add(value);
+        
+        // Create list item with Code 1's styling
+        const li = document.createElement('li');
+        li.dataset.value = value;
+        li.className = 'selected-tag-item'; // Add appropriate class for styling
+        li.innerHTML = `
+          ${text}
+          <button type="button" class="remove-tag">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+        
+        // Add remove event
+        li.querySelector('.remove-tag').addEventListener('click', function() {
+          selectedCommodities.delete(value);
+          li.remove();
+          updateCommodityIds();
+        });
+        
+        // Add to list
+        selectedCommodityList.appendChild(li);
+        
+        // Update hidden input
+        updateCommodityIds();
+        
+        // Reset select
+        commoditySelect.selectedIndex = 0;
       }
     });
     
-    // Tab functionality
-    const tabButtons = document.querySelectorAll('.forum-tab');
-    const tabContents = document.querySelectorAll('.forum-posts');
+    function updateCommodityIds() {
+      commodityIdsInput.value = Array.from(selectedCommodities).join(',');
+    }
+  }
+}
+
+// Function to handle pagination
+function movePage(direction) {
+  const backBtn = document.getElementById('backBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  
+  // This is a simplified pagination for demo
+  // In a real app, you would load new content via AJAX
+  
+  if (direction === 'next') {
+    // Disable next button to simulate last page
+    nextBtn.disabled = true;
+    backBtn.disabled = false;
     
-    tabButtons.forEach(button => {
-      button.addEventListener('click', function() {
-        // Remove active class from all tabs
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        
-        // Add active class to clicked tab
-        this.classList.add('active');
-        
-        // Get the target content
-        const targetId = this.getAttribute('data-target');
-        
-        // Hide all content
-        tabContents.forEach(content => {
-          content.style.display = 'none';
-        });
-        
-        // Show the target content
-        document.getElementById(targetId).style.display = 'flex';
-      });
+    // Animate out current posts
+    const posts = document.querySelectorAll('.post-card');
+    posts.forEach((post, index) => {
+      setTimeout(() => {
+        post.style.opacity = '0';
+        post.style.transform = 'translateY(20px)';
+      }, index * 100);
     });
     
-    // Topic pill selection
-    const topicPills = document.querySelectorAll('.topic-pill');
-    
-    topicPills.forEach(pill => {
-      pill.addEventListener('click', function() {
-        // Remove active class from all pills
-        topicPills.forEach(p => p.classList.remove('active'));
-        
-        // Add active class to clicked pill
-        this.classList.add('active');
-      });
-    });
-    
-    // Question form functionality
-    const commoditySelect = document.getElementById('commoditySelect');
-    const selectedCommodityList = document.getElementById('selected-commodity');
-    const commodityIdsInput = document.getElementById('commodity_ids');
-    
-    if (commoditySelect && selectedCommodityList) {
-      const selectedCommodities = new Set();
+    // Simulate loading new posts
+    setTimeout(() => {
+      showNotification('You\'ve reached the end of available posts', 'info');
       
-      commoditySelect.addEventListener('change', function() {
-        const value = this.value;
-        const text = this.options[this.selectedIndex].text;
+      // Restore posts visibility
+      posts.forEach((post, index) => {
+        setTimeout(() => {
+          post.style.opacity = '1';
+          post.style.transform = 'translateY(0)';
+        }, index * 100);
+      });
+    }, 800);
+  } else {
+    // Go back
+    nextBtn.disabled = false;
+    backBtn.disabled = true;
+  }
+}
+
+// Notification function
+function showNotification(message, type = 'info') {
+  // Create notification element if it doesn't exist
+  let notification = document.querySelector('.notification');
+  
+  if (!notification) {
+    notification = document.createElement('div');
+    notification.className = 'notification';
+    document.body.appendChild(notification);
+    
+    // Add styles to the notification element
+    notification.style.position = 'fixed';
+    notification.style.bottom = '20px';
+    notification.style.right = '20px';
+    notification.style.padding = '15px 25px';
+    notification.style.borderRadius = '10px';
+    notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+    notification.style.zIndex = '9999';
+    notification.style.fontWeight = '500';
+    notification.style.transition = 'all 0.3s ease-in-out';
+    notification.style.opacity = '0';
+    notification.style.transform = 'translateY(20px)';
+  }
+  
+  // Set the message
+  notification.textContent = message;
+  
+  // Set the notification type
+  if (type === 'success') {
+    notification.style.backgroundColor = '#2c6e49';
+    notification.style.color = 'white';
+  } else if (type === 'error') {
+    notification.style.backgroundColor = '#dc3545';
+    notification.style.color = 'white';
+  } else {
+    notification.style.backgroundColor = '#f8f9fa';
+    notification.style.color = '#333';
+    notification.style.border = '1px solid #ddd';
+  }
+  
+  // Show the notification
+  setTimeout(() => {
+    notification.style.opacity = '1';
+    notification.style.transform = 'translateY(0)';
+  }, 100);
+  
+  // Hide the notification after 3 seconds
+  setTimeout(() => {
+    notification.style.opacity = '0';
+    notification.style.transform = 'translateY(20px)';
+  }, 3000);
+}
+
+// Function to update the display of posts
+function updateDisplay() {
+  const itemsPerPage = parseInt(document.getElementById('itemCount').value);
+  const currentTab = document.querySelector('.forum-tab.active').getAttribute('data-target');
+  const posts = document.querySelectorAll(`#${currentTab} .post-card`);
+  
+  // Show only the number of posts selected
+  posts.forEach((post, index) => {
+    if (index < itemsPerPage) {
+      post.style.display = 'block';
+    } else {
+      post.style.display = 'none';
+    }
+  });
+  
+  // Update pagination buttons
+  document.getElementById('backBtn').disabled = true;
+  document.getElementById('nextBtn').disabled = posts.length <= itemsPerPage;
+}
+
+// Add the search functionality from Code 2
+function initSearchFunctionality() {
+  const searchButton = document.getElementById('search_button');
+  const searchInput = document.getElementById('search_term');
+  
+  if (searchButton && searchInput) {
+    // Event listener for the Enter key press in the search input field
+    searchInput.addEventListener('keypress', function(event) {
+      if (event.key === 'Enter') {
+        performSearch();
+      }
+    });
+    
+    // Event listener for the search button click
+    searchButton.addEventListener('click', performSearch);
+    
+    function performSearch() {
+      const searchTerm = searchInput.value.trim();
+      if (!searchTerm) return;
+      
+      // Here you would make an AJAX call to the server
+      // For demonstration, we'll implement a simple client-side search
+      filterPostsBySearchTerm(searchTerm);
+    }
+    
+    function filterPostsBySearchTerm(term) {
+      const lowercaseTerm = term.toLowerCase();
+      const posts = document.querySelectorAll('.post-card');
+      let foundPosts = false;
+      
+      posts.forEach(post => {
+        const title = post.querySelector('.post-title').innerText.toLowerCase();
+        const content = post.querySelector('.post-content').innerText.toLowerCase();
         
-        if (value && !selectedCommodities.has(value)) {
-          // Add to set
-          selectedCommodities.add(value);
-          
-          // Create list item
-          const li = document.createElement('li');
-          li.dataset.value = value;
-          li.innerHTML = `
-            ${text}
-            <button type="button" class="remove-tag">
-              <i class="fas fa-times"></i>
-            </button>
-          `;
-          
-          // Add remove event
-          li.querySelector('.remove-tag').addEventListener('click', function() {
-            selectedCommodities.delete(value);
-            li.remove();
-            updateCommodityIds();
-          });
-          
-          // Add to list
-          selectedCommodityList.appendChild(li);
-          
-          // Update hidden input
-          updateCommodityIds();
-          
-          // Reset select
-          commoditySelect.selectedIndex = 0;
+        if (title.includes(lowercaseTerm) || content.includes(lowercaseTerm)) {
+          post.style.display = 'block';
+          foundPosts = true;
+        } else {
+          post.style.display = 'none';
         }
       });
       
-      function updateCommodityIds() {
-        commodityIdsInput.value = Array.from(selectedCommodities).join(',');
+      if (!foundPosts) {
+        showNotification(`No discussions found matching "${term}"`, 'info');
       }
     }
-    
-    // Submit question button animation
-    const submitQuestionBtn = document.getElementById('submitQuestion');
-    
-    if (submitQuestionBtn) {
-      submitQuestionBtn.addEventListener('click', function() {
-        // Add loading state
-        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
-        this.disabled = true;
-        
-        // Simulate form submission delay
-        setTimeout(() => {
-          // Reset button
-          this.innerHTML = 'Post Question';
-          this.disabled = false;
-          
-          // Close modal (in a real app, this would happen after successful submission)
-          $('#questionModal').modal('hide');
-          
-          // Show success notification (you would add this HTML)
-          showNotification('Question posted successfully!', 'success');
-        }, 1500);
-      });
-    }
   }
-  
-  // Function to handle pagination
-  function movePage(direction) {
-    const backBtn = document.getElementById('backBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    
-    // This is a simplified pagination for demo
-    // In a real app, you would load new content via AJAX
-    
-    if (direction === 'next') {
-      // Disable next button to simulate last page
-      nextBtn.disabled = true;
-      backBtn.disabled = false;
-      
-      // Animate out current posts
-      const posts = document.querySelectorAll('.post-card');
-      posts.forEach((post, index) => {
-        setTimeout(() => {
-          post.style.opacity = '0';
-          post.style.transform = 'translateY(20px)';
-        }, index * 100);
-      });
-      
-      // Simulate loading new posts
-      setTimeout(() => {
-        showNotification('You\'ve reached the end of available posts', 'info');
-        
-        // Restore posts visibility
-        posts.forEach((post, index) => {
-          setTimeout(() => {
-            post.style.opacity = '1';
-            post.style.transform = 'translateY(0)';
-          }, index * 100);
-        });
-      }, 800);
-    } else {
-      // Go back
-      nextBtn.disabled = false;
-      backBtn.disabled = true;
-    }
-  }
-  
-  // Notification function
-  function showNotification(message, type = 'info') {
-    // Create notification element if it doesn't exist
-    let notification = document.querySelector('.notification');
-    
-    if (!notification) {
-      notification = document.createElement('div');
-      notification.className = 'notification';
-      document.body.appendChild(notification);
-      
-      // Add styles to the notification element
-      notification.style.position = 'fixed';
-      notification.style.bottom = '20px';
-      notification.style.right = '20px';
-      notification.style.padding = '15px 25px';
-      notification.style.borderRadius = '10px';
-      notification.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
-      notification.style.zIndex = '9999';
-      notification.style.fontWeight = '500';
-      notification.style.transition = 'all 0.3s ease-in-out';
-      notification.style.opacity = '0';
-      notification.style.transform = 'translateY(20px)';
-    }
-    
-    // Set the message
-    notification.textContent = message;
-    
-    // Set the notification type
-    if (type === 'success') {
-      notification.style.backgroundColor = '#2c6e49';
-      notification.style.color = 'white';
-    } else if (type === 'error') {
-      notification.style.backgroundColor = '#dc3545';
-      notification.style.color = 'white';
-    } else {
-      notification.style.backgroundColor = '#f8f9fa';
-      notification.style.color = '#333';
-      notification.style.border = '1px solid #ddd';
-    }
-    
-    // Show the notification
-    setTimeout(() => {
-      notification.style.opacity = '1';
-      notification.style.transform = 'translateY(0)';
-    }, 100);
-    
-    // Hide the notification after 3 seconds
-    setTimeout(() => {
-      notification.style.opacity = '0';
-      notification.style.transform = 'translateY(20px)';
-    }, 3000);
-  }
+}
+
+// Call this to initialize the search functionality
+document.addEventListener('DOMContentLoaded', function() {
+  initSearchFunctionality();
+});
 </script>
 <script src="{% static 'style/js/cmi-forum.js' %}"></script>
 {% endblock %}

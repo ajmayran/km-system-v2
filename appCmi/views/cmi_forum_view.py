@@ -31,30 +31,29 @@ def cmi_forum(request):
 def forum_post_question(request):
     if request.method == "POST":
         form = ForumForm(request.POST)
-
         if form.is_valid():
-            forum = form.save(commit=False)
-            forum.author = request.user
-            forum.save()
+            try:
+                forum = form.save(commit=False)
+                forum.author = request.user
+                forum.save()
 
-            commodity_ids = request.POST.get("commodity_ids", "")
-            if commodity_ids:
+                # Get commodity_ids from either source
+                commodity_ids = request.POST.get(
+                    "commodity_ids", ""
+                ) or request.POST.get("commodity_id", "")
+
+                # Use the helper function to handle commodity associations
                 _associate_commodities_with_forum(forum, commodity_ids)
 
-            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-                return JsonResponse({"success": True})
+                if request.headers.get("X-Requested-With") == "XMLHttpRequest":
+                    return JsonResponse({"success": True})
 
-            messages.success(request, "Your question has been posted successfully.")
-            return redirect("appCmi:cmi-forum")
+                messages.success(request, "Your question has been posted successfully.")
+                return redirect("appCmi:cmi-forum")
+            except Exception as e:
+                logger.error(f"Error in forum post: {str(e)}")
         else:
-            logger.error(f"Form validation failed: {form.errors}")
-
-            if request.headers.get("X-Requested-With") == "XMLHttpRequest":
-                return JsonResponse(
-                    {"success": False, "message": "Invalid form submission."}
-                )
-
-            messages.error(request, "Please correct the errors below.")
+            logger.error(f"Form invalid: {form.errors}")
 
     return render(request, "pages/cmi-forum.html", {"form": ForumForm()})
 
