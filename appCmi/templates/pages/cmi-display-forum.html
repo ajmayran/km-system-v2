@@ -663,134 +663,84 @@
       </form>
 
       <div class="comments-list">
-        <div class="comment">
-          <div class="author-avatar">
-            <img src="/api/placeholder/100/100" alt="Commenter" />
-          </div>
-          <div class="comment-body">
-            <div class="comment-author">Maria Santos</div>
-            <div class="comment-text">
-              I've been growing Dendrocalamus asper (Giant Bamboo) for 5 years
-              now in Bukidnon. It grows extremely well in our climate and has
-              been profitable for construction materials. Happy to share more
-              details about my experience if you're interested!
+        {% for comment in comments %}
+        <div class="comment" data-comment-id="{{ comment.id }}">
+            <div class="author-avatar">
+                <img src="/api/placeholder/100/100" alt="Commenter" />
             </div>
-            <div class="comment-meta">
-              <div class="comment-date">March 27, 2025 · 10:15 AM</div>
-              <div class="comment-reply">
-                <i class="fas fa-reply"></i> Reply
-              </div>
-            </div>
-
-            <div class="reply-form">
-              <div class="comment-input">
-                <textarea
-                  class="comment-textarea"
-                  placeholder="Write a reply..."
-                ></textarea>
-              </div>
-              <div class="comment-actions">
-                <button class="submit-comment reply-button">Reply</button>
-              </div>
-            </div>
-
-            <div class="nested-comment">
-              <div class="comment">
-                <div class="author-avatar">
-                  <img src="/api/placeholder/100/100" alt="Commenter" />
+        
+            <div class="comment-body">
+                <div class="comment-author">{{comment.user.first_name|capfirst}} {{comment.user.last_name|capfirst}}</div>
+                <div class="comment-text">
+                    {{comment.content}}
                 </div>
-                <div class="comment-body">
-                  <div class="comment-author">
-                    Raise WesMin
-                    <span style="color: #777; font-weight: normal"
-                      >(Author)</span
-                    >
-                  </div>
-                  <div class="comment-text">
-                    Thank you, Maria! I'd love to hear more about your
-                    experience with Giant Bamboo. How long did it take before
-                    your first harvest? Did you encounter any pests or diseases?
-                  </div>
-                  <div class="comment-meta">
-                    <div class="comment-date">March 27, 2025 · 10:42 AM</div>
+                <div class="comment-meta">
+                    <div class="comment-date">{{comment.created_at|date:"F d, Y"}}</div>
                     <div class="comment-reply">
-                      <i class="fas fa-reply"></i> Reply
+                        <i class="fas fa-reply"></i> Reply
                     </div>
-                  </div>
                 </div>
-              </div>
+        
+                <div class="reply-form" style="display: none;">
+                    <form method="post" action="{% url 'appCmi:forum-add-comment' display_forum.slug %}">
+                        {% csrf_token %}
+                        <div class="comment-input">
+                            <textarea name="content" class="comment-textarea" placeholder="Write a reply..."></textarea>
+                            <input type="hidden" name="parent" value="">
+                        </div>
+                        <div class="comment-actions">
+                            <button type="submit" class="submit-comment reply-button">Reply</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Display replies -->
+                {% if comment.replies.all %}
+                    <div class="replies">
+                        {% for reply in comment.replies.all %}
+                            <div class="comment reply" data-comment-id="{{ reply.id }}">
+                                <div class="author-avatar">
+                                    <img src="/api/placeholder/100/100" alt="Commenter" />
+                                </div>
+                                <div class="comment-body">
+                                    <div class="comment-author">{{reply.user.first_name|capfirst}} {{reply.user.last_name|capfirst}}</div>
+                                    <div class="comment-text">
+                                        {{reply.content}}
+                                    </div>
+                                    <div class="comment-meta">
+                                        <div class="comment-date">{{reply.created_at|date:"F d, Y"}}</div>
+                                        <div class="comment-reply">
+                                            <i class="fas fa-reply"></i> Reply
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="reply-form" style="display: none;">
+                                        <form method="post" action="{% url 'appCmi:forum-add-comment' display_forum.slug %}">
+                                            {% csrf_token %}
+                                            <div class="comment-input">
+                                                <textarea name="content" class="comment-textarea" placeholder="Write a reply..."></textarea>
+                                                <input type="hidden" name="parent" value="">
+                                            </div>
+                                            <div class="comment-actions">
+                                                <button type="submit" class="submit-comment reply-button">Reply</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    
+                                    <!-- Recursively display nested replies if needed -->
+                                    {% if reply.replies.all %}
+                                        <div class="replies">
+                                            <!-- You could include a template here for recursive rendering -->
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
-          </div>
         </div>
-
-        <div class="comment">
-          <div class="author-avatar">
-            <img src="/api/placeholder/100/100" alt="Commenter" />
-          </div>
-          <div class="comment-body">
-            <div class="comment-author">Juan Reyes</div>
-            <div class="comment-text">
-              For sustainable harvesting, the key is to only harvest culms that
-              are 3-5 years old. Younger ones won't have developed their full
-              strength, and older ones might start deteriorating. I mark each
-              new culm with paint to track its age. Also, never harvest more
-              than 25% of a clump in one year.
-            </div>
-            <div class="comment-meta">
-              <div class="comment-date">March 27, 2025 · 11:32 AM</div>
-              <div class="comment-reply">
-                <i class="fas fa-reply"></i> Reply
-              </div>
-            </div>
-
-            <div class="reply-form">
-              <div class="comment-input">
-                <textarea
-                  class="comment-textarea"
-                  placeholder="Write a reply..."
-                ></textarea>
-              </div>
-              <div class="comment-actions">
-                <button class="submit-comment reply-button">Reply</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="comment">
-          <div class="author-avatar">
-            <img src="/api/placeholder/100/100" alt="Commenter" />
-          </div>
-          <div class="comment-body">
-            <div class="comment-author">Elena Cruz</div>
-            <div class="comment-text">
-              Regarding government support, the Department of Trade and Industry
-              (DTI) has a Bamboo Industry Development Program that provides
-              technical assistance and sometimes financial grants for bamboo
-              farmers. You should check with your local DTI office for more
-              information. The Department of Agriculture sometimes has programs
-              too.
-            </div>
-            <div class="comment-meta">
-              <div class="comment-date">March 27, 2025 · 1:45 PM</div>
-              <div class="comment-reply">
-                <i class="fas fa-reply"></i> Reply
-              </div>
-            </div>
-
-            <div class="reply-form">
-              <div class="comment-input">
-                <textarea
-                  class="comment-textarea"
-                  placeholder="Write a reply..."
-                ></textarea>
-              </div>
-              <div class="comment-actions">
-                <button class="submit-comment reply-button">Reply</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
     </div>
   </div>
@@ -798,235 +748,258 @@
 {% endblock %} 
 {% block script %}
 <script>
-    // Toggle share menu
-    const shareButton = document.getElementById('shareButton');
-    const shareMenu = document.getElementById('shareMenu');
-    const likeButton = document.getElementById('likeButton');
-    const saveButton = document.getElementById('saveButton');
+   // Forum comments and interactions script
+document.addEventListener('DOMContentLoaded', function() {
+  // Toggle share menu
+  const shareButton = document.getElementById('shareButton');
+  const shareMenu = document.getElementById('shareMenu');
+  const likeButton = document.getElementById('likeButton');
+  const saveButton = document.getElementById('saveButton');
 
-    shareButton.addEventListener('click', function() {
-        shareMenu.classList.toggle('active');
-    });
+  if (shareButton && shareMenu) {
+      shareButton.addEventListener('click', function() {
+          shareMenu.classList.toggle('active');
+      });
 
-    // Close the share menu when clicking outside
-    document.addEventListener('click', function(event) {
-        if (!shareButton.contains(event.target) && !shareMenu.contains(event.target)) {
-            shareMenu.classList.remove('active');
-        }
-    });
+      // Close the share menu when clicking outside
+      document.addEventListener('click', function(event) {
+          if (!shareButton.contains(event.target) && !shareMenu.contains(event.target)) {
+              shareMenu.classList.remove('active');
+          }
+      });
+  }
 
-    // Like button functionality
-    likeButton.addEventListener('click', function() {
-        const likeIcon = likeButton.querySelector('i');
-        
-        if (likeIcon.classList.contains('far')) {
-            likeIcon.classList.remove('far');
-            likeIcon.classList.add('fas');
-            likeButton.classList.add('liked');
-            const countElement = likeButton.querySelector('.like-count');
-            const currentCount = parseInt(countElement.textContent.replace(/[()]/g, ''));
-            countElement.textContent = `(${currentCount + 1})`;
-        } else {
-            likeIcon.classList.remove('fas');
-            likeIcon.classList.add('far');
-            likeButton.classList.remove('liked');
-            const countElement = likeButton.querySelector('.like-count');
-            const currentCount = parseInt(countElement.textContent.replace(/[()]/g, ''));
-            countElement.textContent = `(${currentCount - 1})`;
-        }
-    });
+  // Like button functionality
+  if (likeButton) {
+      likeButton.addEventListener('click', function() {
+          const likeIcon = likeButton.querySelector('i');
+          
+          if (likeIcon.classList.contains('far')) {
+              likeIcon.classList.remove('far');
+              likeIcon.classList.add('fas');
+              likeButton.classList.add('liked');
+              const countElement = likeButton.querySelector('.like-count');
+              const currentCount = parseInt(countElement.textContent.replace(/[()]/g, ''));
+              countElement.textContent = `(${currentCount + 1})`;
+          } else {
+              likeIcon.classList.remove('fas');
+              likeIcon.classList.add('far');
+              likeButton.classList.remove('liked');
+              const countElement = likeButton.querySelector('.like-count');
+              const currentCount = parseInt(countElement.textContent.replace(/[()]/g, ''));
+              countElement.textContent = `(${currentCount - 1})`;
+          }
+      });
+  }
 
-    // Save button functionality
-    saveButton.addEventListener('click', function() {
-        const saveIcon = saveButton.querySelector('i');
-        
-        if (saveIcon.classList.contains('far')) {
-            saveIcon.classList.remove('far');
-            saveIcon.classList.add('fas');
-            alert('Post saved successfully!');
-        } else {
-            saveIcon.classList.remove('fas');
-            saveIcon.classList.add('far');
-            alert('Post unsaved!');
-        }
-    });
+  // Save button functionality
+  if (saveButton) {
+      saveButton.addEventListener('click', function() {
+          const saveIcon = saveButton.querySelector('i');
+          
+          if (saveIcon.classList.contains('far')) {
+              saveIcon.classList.remove('far');
+              saveIcon.classList.add('fas');
+              alert('Post saved successfully!');
+          } else {
+              saveIcon.classList.remove('fas');
+              saveIcon.classList.add('far');
+              alert('Post unsaved!');
+          }
+      });
+  }
 
-    // Social media share functionality (dummy for now)
-    const shareLinks = document.querySelectorAll('.share-menu a');
-    shareLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const platform = this.querySelector('span').textContent;
-            alert(`Sharing to ${platform}... 
-            This would typically open a ${platform} sharing dialog in a production environment.`);
-            shareMenu.classList.remove('active');
-        });
-    });
+  // Social media share functionality (dummy for now)
+  const shareLinks = document.querySelectorAll('.share-menu a');
+  shareLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+          e.preventDefault();
+          const platform = this.querySelector('span').textContent;
+          alert(`Sharing to ${platform}... 
+          This would typically open a ${platform} sharing dialog in a production environment.`);
+          shareMenu.classList.remove('active');
+      });
+  });
 
-    // Handle reply button clicks
-    const replyButtons = document.querySelectorAll('.comment-reply');
-    replyButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Close all other open reply forms first
-            document.querySelectorAll('.reply-form.active').forEach(form => {
-                if (form !== this.parentNode.nextElementSibling) {
-                    form.classList.remove('active');
-                }
-            });
-            
-            // Toggle current reply form
-            const replyForm = this.parentNode.nextElementSibling;
-            replyForm.classList.toggle('active');
-            
-            // Focus on the textarea
-            if (replyForm.classList.contains('active')) {
-                replyForm.querySelector('textarea').focus();
-            }
-        });
-    });
-    
-    // Handle reply submissions
-    const replySubmitButtons = document.querySelectorAll('.reply-button');
-    replySubmitButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const replyForm = this.closest('.reply-form');
-            const replyText = replyForm.querySelector('textarea').value.trim();
-            
-            if (replyText) {
-                // Create a new nested comment
-                const commentBody = this.closest('.comment-body');
-                
-                // Check if a nested-comment container already exists
-                let nestedCommentContainer = commentBody.querySelector('.nested-comment');
-                
-                // If not, create one
-                if (!nestedCommentContainer) {
-                    nestedCommentContainer = document.createElement('div');
-                    nestedCommentContainer.className = 'nested-comment';
-                    commentBody.appendChild(nestedCommentContainer);
-                }
-                
-                // Create the new reply comment
-                const newReply = document.createElement('div');
-                newReply.className = 'comment';
-                
-                // Get current date and time
-                const now = new Date();
-                const formattedDate = `${now.toLocaleDateString()} · ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-                
-                newReply.innerHTML = `
-                    <div class="author-avatar">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="comment-body">
-                        <div class="comment-author">You</div>
-                        <div class="comment-text">${replyText}</div>
-                        <div class="comment-meta">
-                            <div class="comment-date">${formattedDate}</div>
-                            <div class="comment-reply"><i class="fas fa-reply"></i> Reply</div>
-                        </div>
-                        <div class="reply-form">
-                            <div class="comment-input">
-                                <textarea class="comment-textarea" placeholder="Write a reply..."></textarea>
-                            </div>
-                            <div class="comment-actions">
-                                <button class="submit-comment reply-button">Reply</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                
-                // Add the new reply to the nested comments
-                nestedCommentContainer.appendChild(newReply);
-                
-                // Clear the textarea and hide the reply form
-                replyForm.querySelector('textarea').value = '';
-                replyForm.classList.remove('active');
-                
-                // Update comment count
-                const commentCount = document.querySelector('.comment-count');
-                const currentCount = parseInt(commentCount.textContent.replace(/[()]/g, ''));
-                commentCount.textContent = `(${currentCount + 1})`;
-                
-                const commentsCount = document.querySelector('.comments-count');
-                commentsCount.textContent = currentCount + 1;
-                
-                // Add event listener to the new reply button
-                const newReplyButton = newReply.querySelector('.comment-reply');
-                newReplyButton.addEventListener('click', function() {
-                    const replyForm = this.parentNode.nextElementSibling;
-                    replyForm.classList.toggle('active');
-                    if (replyForm.classList.contains('active')) {
-                        replyForm.querySelector('textarea').focus();
-                    }
-                });
-                
-                // Add event listener to the new reply submit button
-                const newReplySubmitButton = newReply.querySelector('.reply-button');
-                newReplySubmitButton.addEventListener('click', replySubmitHandler);
-            }
-        });
-    });
-    
-    // Extract the reply submission handler to reuse it
-    function replySubmitHandler() {
-        const replyForm = this.closest('.reply-form');
-        const replyText = replyForm.querySelector('textarea').value.trim();
-        
-        if (replyText) {
-            // Implementation as above, but as a separate function
-            // This is a simplified version for the event delegation
-            alert('Reply submitted: ' + replyText);
-            replyForm.querySelector('textarea').value = '';
-            replyForm.classList.remove('active');
-        }
-    }
-    
-    // Comment submission
-    const submitCommentButton = document.querySelector('.submit-comment:not(.reply-button)');
-    const commentTextarea = document.querySelector('.comments-section > .comment-form .comment-textarea');
+  // Initialize reply buttons for all comments including nested ones
+  initializeReplyButtons();
 
-    submitCommentButton.addEventListener('click', function() {
-        const commentText = commentTextarea.value.trim();
-        
-        if (commentText) {
-            // Create a new comment element
-            const commentsList = document.querySelector('.comments-list');
-            const newComment = document.createElement('div');
-            newComment.className = 'comment';
-            
-            // Get current date and time
-            const now = new Date();
-            const formattedDate = `${now.toLocaleDateString()} · ${now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
-            
-            newComment.innerHTML = `
-                <div class="author-avatar">
-                    <i class="fas fa-user"></i>
-                </div>
-                <div class="comment-body">
-                    <div class="comment-author">You</div>
-                    <div class="comment-text">${commentText}</div>
-                    <div class="comment-meta">
-                        <div class="comment-date">${formattedDate}</div>
-                        <div class="comment-reply">Reply</div>
-                    </div>
-                </div>
-            `;
-            
-            // Add the new comment at the top
-            commentsList.insertBefore(newComment, commentsList.firstChild);
-            
-            // Clear the textarea
-            commentTextarea.value = '';
-            
-            // Update comment count
-            const commentCount = document.querySelector('.comment-count');
-            const currentCount = parseInt(commentCount.textContent.replace(/[()]/g, ''));
-            commentCount.textContent = `(${currentCount + 1})`;
-            
-            const commentsCount = document.querySelector('.comments-count');
-            commentsCount.textContent = currentCount + 1;
-        }
-    });
+  // Function to initialize reply buttons
+  function initializeReplyButtons() {
+      const replyButtons = document.querySelectorAll('.comment-reply');
+      replyButtons.forEach(button => {
+          // Remove any existing event listeners to prevent duplicates
+          const newButton = button.cloneNode(true);
+          button.parentNode.replaceChild(newButton, button);
+          
+          newButton.addEventListener('click', function(e) {
+              e.preventDefault();
+              
+              // Get the parent comment ID
+              const commentContainer = this.closest('.comment');
+              const commentId = commentContainer.dataset.commentId;
+              
+              // Close all other open reply forms first
+              document.querySelectorAll('.reply-form').forEach(form => {
+                  if (form !== this.closest('.comment-body').querySelector('.reply-form')) {
+                      form.style.display = 'none';
+                  }
+              });
+              
+              // Toggle current reply form
+              const replyForm = this.closest('.comment-body').querySelector('.reply-form');
+              if (replyForm.style.display === 'none' || replyForm.style.display === '') {
+                  replyForm.style.display = 'block';
+                  
+                  // Set the parent comment ID in the hidden input
+                  const parentInput = replyForm.querySelector('input[name="parent"]');
+                  if (parentInput) {
+                      parentInput.value = commentId;
+                  }
+                  
+                  // Focus on the textarea
+                  replyForm.querySelector('textarea').focus();
+              } else {
+                  replyForm.style.display = 'none';
+              }
+          });
+      });
+  }
+
+  // Add form submission via AJAX for a smoother experience
+  setupAjaxCommentSubmission();
+});
+
+function setupAjaxCommentSubmission() {
+  const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+  const mainCommentForm = document.getElementById('comment-form');
+  const replyForms = document.querySelectorAll('.reply-form form');
+  
+  if (mainCommentForm) {
+      mainCommentForm.addEventListener('submit', handleFormSubmit);
+  }
+  
+  replyForms.forEach(form => {
+      form.addEventListener('submit', handleFormSubmit);
+  });
+  
+  function handleFormSubmit(e) {
+      e.preventDefault();
+      
+      const form = this;
+      const formData = new FormData(form);
+      const url = form.getAttribute('action');
+      
+      // Check if we have content
+      const content = formData.get('content');
+      if (!content || content.trim() === '') {
+          alert('Please enter a comment before submitting.');
+          return;
+      }
+      
+      // Submit using fetch API
+      fetch(url, {
+          method: 'POST',
+          body: formData,
+          headers: {
+              'X-Requested-With': 'XMLHttpRequest',
+              'X-CSRFToken': csrfToken
+          }
+      })
+      .then(response => {
+          if (response.ok) {
+              // First check if the response is JSON
+              const contentType = response.headers.get('content-type');
+              if (contentType && contentType.includes('application/json')) {
+                  return response.json();
+              } else {
+                  // If not JSON, reload the page to show the changes
+                  window.location.reload();
+                  return { success: true };
+              }
+          } else {
+              throw new Error('Network response was not ok');
+          }
+      })
+      .then(data => {
+          if (data.success) {
+              // Reset the form
+              form.reset();
+              
+              // If this is a reply form, hide it
+              if (form.closest('.reply-form')) {
+                  form.closest('.reply-form').style.display = 'none';
+              }
+              
+              // Update comment count
+              updateCommentsCount(true);
+              
+              // For simplicity, we'll reload the page to show the new comment
+              window.location.reload();
+          } else {
+              console.error('Error response from server:', data);
+              alert('There was an error posting your comment.');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          
+          // Even with an error, it might actually have been saved in the database
+          // So we'll reload to check, but also show the error
+          alert('There may have been an issue with your comment submission. The page will reload to check if it was saved.');
+          window.location.reload();
+      });
+  }
+}
+
+// Helper function to update comments count
+function updateCommentsCount(increment = true) {
+  const commentsCount = document.querySelector('.comments-count');
+  if (commentsCount) {
+      const currentCount = parseInt(commentsCount.textContent);
+      commentsCount.textContent = increment ? (currentCount + 1) : (currentCount - 1);
+  }
+  
+  const commentCount = document.querySelector('.comment-count');
+  if (commentCount) {
+      const currentCount = parseInt(commentCount.textContent.replace(/[()]/g, ''));
+      commentCount.textContent = `(${increment ? (currentCount + 1) : (currentCount - 1)})`;
+  }
+}
+
+// Add observer for dynamically added comments that might need reply functionality
+function setupMutationObserver() {
+  // Create an observer instance linked to a callback function
+  const observer = new MutationObserver((mutations) => {
+      let shouldReinitializeButtons = false;
+      
+      mutations.forEach((mutation) => {
+          if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+              // Check if any of the added nodes are comments or contain comments
+              mutation.addedNodes.forEach((node) => {
+                  if (node.classList && node.classList.contains('comment')) {
+                      shouldReinitializeButtons = true;
+                  } else if (node.querySelector && node.querySelector('.comment')) {
+                      shouldReinitializeButtons = true;
+                  }
+              });
+          }
+      });
+      
+      if (shouldReinitializeButtons) {
+          // Reinitialize reply buttons when new comments are added
+          initializeReplyButtons();
+      }
+  });
+  
+  // Start observing the comments list for changes
+  const commentsList = document.querySelector('.comments-list');
+  if (commentsList) {
+      observer.observe(commentsList, { childList: true, subtree: true });
+  }
+}
+
+// Call this function to set up the observer if needed
+// setupMutationObserver();
 </script>
 {% endblock script %}
