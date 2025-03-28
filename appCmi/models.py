@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from utils.slug_generator import generate_random_slug
+from django.urls import reverse
 
 
 class Forum(models.Model):
@@ -18,9 +19,21 @@ class Forum(models.Model):
         max_length=12, unique=True, default=generate_random_slug, editable=False
     )
     date_posted = models.DateTimeField(default=timezone.now, null=True)
+    likes = models.ManyToManyField(
+        "appAccounts.CustomUser", related_name="liked_forums", blank=True
+    )
 
     class Meta:
         db_table = "tbl_forum"
+
+    def total_likes(self):
+        return self.likes.count()
+
+    def is_liked_by(self, user):
+        return self.likes.filter(id=user.id).exists()
+
+    def is_bookmarked_by(self, user):
+        return self.bookmark.filter(id=user.id).exists()
 
 
 class FilteredCommodityFrequency(models.Model):
@@ -73,6 +86,9 @@ class ForumComment(models.Model):
     like_count = models.PositiveIntegerField(default=0)
     # Optional JSON field for additional metadata
     metadata = models.JSONField(null=True, blank=True)
+    slug = models.CharField(
+        max_length=12, unique=True, default=generate_random_slug, editable=False
+    )
 
     class Meta:
         ordering = ["created_at"]
@@ -88,3 +104,16 @@ class ForumComment(models.Model):
             if orig.content != self.content:
                 self.is_edited = True
         super().save(*args, **kwargs)
+
+    @property
+    def total_likes(self):
+        return self.likes.count()
+
+    def is_liked_by(self, user):
+        return self.likes.filter(user=user).exists()
+
+    def get_absolute_url(self):
+        return reverse(
+            "appCmi:display-forum",
+            kwargs={"forum_slug": self.post.slug, "comment_slug": self.slug},
+        )

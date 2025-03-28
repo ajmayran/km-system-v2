@@ -483,6 +483,9 @@
   .comment-reply {
     color: var(--primary-color);
     cursor: pointer;
+    outline: none;
+    border: none;
+    background: none;
   }
 
   .reply-form {
@@ -590,20 +593,33 @@
       </div>
 
       <div class="post-actions">
-        <button class="action-button" id="likeButton">
-          <i class="far fa-thumbs-up"></i>
+        <button class="action-button {% if display_forum.is_liked_by %}liked{% endif %}" 
+          id="likeButton" 
+          data-forum-slug="{{ display_forum.slug }}" 
+          data-like-url="{% url 'appCmi:toggle-forum-like' 'dummy-slug' %}"
+          {% if display_forum.is_liked_by %}disabled{% endif %}>
+          <i class="fa{% if display_forum.is_liked_by %}s{% else %}r{% endif %} fa-thumbs-up {% if display_forum.is_liked_by %}text-success{% endif %}"></i>
           <span>Like</span>
-          <span class="like-count">(24)</span>
+          <span class="like-count">({{ display_forum.total_likes }})</span>
         </button>
+
+
         <button class="action-button" id="commentButton">
           <i class="far fa-comment-alt"></i>
           <span>Comment</span>
-          <span class="comment-count">(18)</span>
+          <span class="comment-count">({{comment_counts}})</span>
         </button>
-        <button class="action-button" id="saveButton">
-          <i class="far fa-bookmark"></i>
-          <span>Save</span>
+        
+        <button class="action-button {% if display_forum.is_bookmarked_by %}bookmarked{% endif %}" 
+          id="saveButton" 
+          data-forum-slug="{{ display_forum.slug }}" 
+          data-bookmark-url="{% url 'appCmi:toggle-forum-bookmark' 'dummy-slug' %}"
+          {% if display_forum.is_bookmarked_by %}disabled{% endif %}>
+          <i class="fa{% if display_forum.is_bookmarked_by %}s{% else %}r{% endif %} fa-bookmark {% if display_forum.is_bookmarked_by %}text-success{% endif %}"></i>
+          <span>{% if display_forum.is_bookmarked_by %}Saved{% else %}Save{% endif %}</span>
         </button>
+
+
         <div class="share-dropdown">
           <button class="action-button" id="shareButton">
             <i class="fas fa-share-alt"></i>
@@ -664,7 +680,7 @@
 
       <div class="comments-list">
         {% for comment in comments %}
-        <div class="comment" data-comment-id="{{ comment.id }}">
+        <div class="comment" data-comment-slug="{{ comment.slug }}">
             <div class="author-avatar">
                 <img src="/api/placeholder/100/100" alt="Commenter" />
             </div>
@@ -676,8 +692,10 @@
                 </div>
                 <div class="comment-meta">
                     <div class="comment-date">{{comment.created_at|date:"F d, Y"}}</div>
-                    <div class="comment-reply">
-                        <i class="fas fa-reply"></i> Reply
+                    <div class="comment-actions">
+                        <button class="comment-reply" data-comment-slug="{{ comment.slug }}">
+                            <i class="fas fa-reply"></i> Reply
+                        </button>
                     </div>
                 </div>
         
@@ -698,7 +716,7 @@
                 {% if comment.replies.all %}
                     <div class="replies">
                         {% for reply in comment.replies.all %}
-                            <div class="comment reply" data-comment-id="{{ reply.id }}">
+                            <div class="comment reply" data-comment-slug="{{ reply.slug }}">
                                 <div class="author-avatar">
                                     <img src="/api/placeholder/100/100" alt="Commenter" />
                                 </div>
@@ -709,8 +727,15 @@
                                     </div>
                                     <div class="comment-meta">
                                         <div class="comment-date">{{reply.created_at|date:"F d, Y"}}</div>
-                                        <div class="comment-reply">
-                                            <i class="fas fa-reply"></i> Reply
+                                        <div class="comment-actions">
+                                            <button class="like-button {% if reply.is_liked_by|default_if_none:False %}liked{% endif %}" 
+                                                    data-comment-slug="{{ reply.slug }}">
+                                                <i class="fa{% if reply.is_liked_by|default_if_none:False %}s{% else %}r{% endif %} fa-thumbs-up"></i>
+                                                <span class="like-count">{{ reply.total_likes }}</span>
+                                            </button>
+                                            <button class="comment-reply" data-comment-slug="{{ reply.slug }}">
+                                                <i class="fas fa-reply"></i> Reply
+                                            </button>
                                         </div>
                                     </div>
                                     
@@ -771,42 +796,78 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Like button functionality
   if (likeButton) {
-      likeButton.addEventListener('click', function() {
-          const likeIcon = likeButton.querySelector('i');
-          
-          if (likeIcon.classList.contains('far')) {
-              likeIcon.classList.remove('far');
-              likeIcon.classList.add('fas');
-              likeButton.classList.add('liked');
-              const countElement = likeButton.querySelector('.like-count');
-              const currentCount = parseInt(countElement.textContent.replace(/[()]/g, ''));
-              countElement.textContent = `(${currentCount + 1})`;
-          } else {
-              likeIcon.classList.remove('fas');
-              likeIcon.classList.add('far');
-              likeButton.classList.remove('liked');
-              const countElement = likeButton.querySelector('.like-count');
-              const currentCount = parseInt(countElement.textContent.replace(/[()]/g, ''));
-              countElement.textContent = `(${currentCount - 1})`;
-          }
-      });
+    likeButton.addEventListener('click', function () {
+        const forumSlug = this.dataset.forumSlug;
+        let likeUrl = this.dataset.likeUrl.replace('dummy-slug', forumSlug);
+
+        const likeIcon = this.querySelector('i');
+        const likeCount = this.querySelector('.like-count');
+
+        fetch(likeUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update like count
+                likeCount.textContent = `(${data.total_likes})`;
+
+                // Toggle like status
+                if (data.is_liked) {
+                    likeIcon.classList.remove('far');
+                    likeIcon.classList.add('fas');
+                    this.classList.add('liked');
+                } else {
+                    likeIcon.classList.remove('fas');
+                    likeIcon.classList.add('far');
+                    this.classList.remove('liked');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('There was an error processing your like');
+        });
+    });
   }
 
   // Save button functionality
-  if (saveButton) {
-      saveButton.addEventListener('click', function() {
-          const saveIcon = saveButton.querySelector('i');
-          
-          if (saveIcon.classList.contains('far')) {
-              saveIcon.classList.remove('far');
-              saveIcon.classList.add('fas');
-              alert('Post saved successfully!');
-          } else {
-              saveIcon.classList.remove('fas');
-              saveIcon.classList.add('far');
-              alert('Post unsaved!');
-          }
-      });
+  if (saveButton && !saveButton.disabled) { // Attach event only if button is enabled
+    saveButton.addEventListener('click', function () {
+        const forumSlug = this.dataset.forumSlug;
+        let bookmarkUrl = this.dataset.bookmarkUrl.replace('dummy-slug', forumSlug);
+
+        const bookmarkIcon = this.querySelector('i');
+        const buttonText = this.querySelector('span');
+
+        fetch(bookmarkUrl, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                if (data.is_bookmarked) {
+                    bookmarkIcon.classList.remove('far');
+                    bookmarkIcon.classList.add('fas', 'text-success');
+                    buttonText.textContent = 'Saved';
+                    this.disabled = true; // Disable button after bookmarking
+                    showToast('Post saved to bookmarks');
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('Error saving bookmark', 'error');
+        });
+    });
   }
 
   // Social media share functionality (dummy for now)
@@ -835,9 +896,9 @@ document.addEventListener('DOMContentLoaded', function() {
           newButton.addEventListener('click', function(e) {
               e.preventDefault();
               
-              // Get the parent comment ID
+              // Get the parent comment slug
               const commentContainer = this.closest('.comment');
-              const commentId = commentContainer.dataset.commentId;
+              const commentSlug = commentContainer.dataset.commentSlug;
               
               // Close all other open reply forms first
               document.querySelectorAll('.reply-form').forEach(form => {
@@ -851,10 +912,10 @@ document.addEventListener('DOMContentLoaded', function() {
               if (replyForm.style.display === 'none' || replyForm.style.display === '') {
                   replyForm.style.display = 'block';
                   
-                  // Set the parent comment ID in the hidden input
+                  // Set the parent comment slug in the hidden input
                   const parentInput = replyForm.querySelector('input[name="parent"]');
                   if (parentInput) {
-                      parentInput.value = commentId;
+                      parentInput.value = commentSlug;
                   }
                   
                   // Focus on the textarea

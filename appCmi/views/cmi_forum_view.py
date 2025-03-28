@@ -7,6 +7,7 @@ import logging
 from django.contrib import messages
 from appAdmin.models import Commodity
 from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
 
 logger = logging.getLogger(__name__)
 
@@ -106,8 +107,15 @@ def display_forum(request, slug):
     # Get the forum directly from the database using slug
     try:
         display_forum = Forum.objects.get(slug=slug)
+        if request.user.is_authenticated:
+            display_forum.is_liked_by = display_forum.is_liked_by(request.user)
+            display_forum.is_bookmarked_by = display_forum.is_bookmarked_by(
+                request.user
+            )
+
         # Get all active comments for this forum
         comments = ForumComment.objects.filter(post=display_forum, status="active")
+        comment_counts = comments.count()
 
     except Forum.DoesNotExist:
         return render(request, "404.html", status=404)
@@ -115,6 +123,7 @@ def display_forum(request, slug):
     context = {
         "display_forum": display_forum,
         "comments": comments,
+        "comment_counts": comment_counts,
         "useful_links": useful_links,
         "commodities": commodities,
         "knowledge_resources": knowledge_resources,
@@ -144,3 +153,39 @@ def forum_add_comment(request, slug):
         "form": form,
     }
     return render(request, "cmi-display-forum.html", context)
+
+
+@login_required
+def toggle_forum_like(request, slug):
+    try:
+        forum = get_object_or_404(Forum, slug=slug)
+
+        if forum.likes.filter(id=request.user.id).exists():
+            forum.likes.remove(request.user)
+            is_liked = False
+        else:
+            forum.likes.add(request.user)
+            is_liked = True
+
+        return JsonResponse(
+            {"success": True, "is_liked": is_liked, "total_likes": forum.total_likes()}
+        )
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)}, status=400)
+
+
+@login_required
+def toggle_forum_bookmark(request, slug):
+    try:
+        forum = get_object_or_404(Forum, slug=slug)
+
+        if forum.bookmark.filter(id=request.user.id).exists():
+            forum.bookmark.remove(request.user)
+            is_bookmarked = False
+        else:
+            forum.bookmark.add(request.user)
+            is_bookmarked = True
+
+        return JsonResponse({"success": True, "is_bookmarked": is_bookmarked})
+    except Exception as e:
+        return JsonResponse({"success": False, "error": str(e)}, status=400)
