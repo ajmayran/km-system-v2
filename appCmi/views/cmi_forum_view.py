@@ -1,7 +1,7 @@
 from utils.get_models import get_active_models
 from django.shortcuts import render
 from appCmi.forms import ForumForm, ForumCommentForm
-from appCmi.models import Forum
+from appCmi.models import Forum, ForumComment
 from django.shortcuts import redirect, get_object_or_404
 import logging
 from django.contrib import messages
@@ -100,18 +100,21 @@ def _associate_commodities_with_forum(forum, commodity_ids_string):
 def display_forum(request, slug):
     models = get_active_models()  # Fetch active models
     useful_links = models.get("useful_links", [])
-    commodities = models.get("commodities", [])  # List of active commodities
+    commodities = models.get("commodities", [])
     knowledge_resources = models.get("knowledge_resources", [])
-    forums = Forum.objects.all()
 
-    # Find the specific commodity in the list
-    display_forum = next((f for f in forums if f.slug == slug), None)
+    # Get the forum directly from the database using slug
+    try:
+        display_forum = Forum.objects.get(slug=slug)
+        # Get all active comments for this forum
+        comments = ForumComment.objects.filter(post=display_forum, status="active")
 
-    if not display_forum:
-        return render(request, "404.html", status=404)  # Return a 404 page if not found
+    except Forum.DoesNotExist:
+        return render(request, "404.html", status=404)
 
     context = {
         "display_forum": display_forum,
+        "comments": comments,
         "useful_links": useful_links,
         "commodities": commodities,
         "knowledge_resources": knowledge_resources,
@@ -121,16 +124,23 @@ def display_forum(request, slug):
 
 def forum_add_comment(request, slug):
     forum_post = get_object_or_404(Forum, slug=slug)
-    form = ForumCommentForm(request.POST or None, user=request.user, post=forum_post)
 
-    if request.method == "POST" and form.is_valid():
-        form.save()
-        return redirect("appCmi:display-forum", slug=slug)
+    if request.method == "POST":
+        form = ForumCommentForm(request.POST, user=request.user, post=forum_post)
+        if form.is_valid():
+            form.save()
+            return redirect("appCmi:display-forum", slug=slug)
     else:
         form = ForumCommentForm()
 
+    # Get all comments with their replies for display
+    comments = forum_post.post_comments.filter(
+        parent=None
+    )  # Get only top-level comments
+
     context = {
         "forum_post": forum_post,
+        "comments": comments,
         "form": form,
     }
     return render(request, "cmi-display-forum.html", context)
