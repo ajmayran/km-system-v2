@@ -19,6 +19,16 @@ urlpatterns = (
             cmi_forum_view.forum_add_comment,
             name="forum-add-comment",
         ),
+        path(
+            "forum/<slug:slug>/like/",
+            cmi_forum_view.toggle_forum_like,
+            name="toggle-forum-like",
+        ),
+        path(
+            "forum/<slug:slug>/bookmark/",
+            cmi_forum_view.toggle_forum_bookmark,
+            name="toggle-forum-bookmark",
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
