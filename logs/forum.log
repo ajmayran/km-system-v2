@@ -824,3 +824,500 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'toggle-forum-like' with argu
 [2025-03-28 15:00:20] Not Found: /api/placeholder/100/100
 [2025-03-28 15:00:23] Not Found: /api/placeholder/100/100
 [2025-03-28 15:00:23] Not Found: /api/placeholder/100/100
+[2025-03-31 09:48:47] Watching for file changes with StatReloader
+[2025-03-31 09:57:54] Not Found: /favicon.ico
+[2025-03-31 10:19:07] Internal Server Error: /admin/admin-forum/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py", line 5, in manage_forum
+    return render(request, "pages/admin-forum.html")
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'abs'
+[2025-03-31 10:26:14] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\models.py changed, reloading.
+[2025-03-31 10:26:15] Watching for file changes with StatReloader
+[2025-03-31 10:34:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py changed, reloading.
+[2025-03-31 10:34:41] Watching for file changes with StatReloader
+[2025-03-31 10:34:46] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py changed, reloading.
+[2025-03-31 10:34:47] Watching for file changes with StatReloader
+[2025-03-31 10:48:20] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-03-31 10:48:20] Watching for file changes with StatReloader
+[2025-03-31 10:51:00] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py changed, reloading.
+[2025-03-31 10:51:01] Watching for file changes with StatReloader
+[2025-03-31 10:51:13] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py changed, reloading.
+[2025-03-31 10:51:14] Watching for file changes with StatReloader
+[2025-03-31 10:54:25] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py changed, reloading.
+[2025-03-31 10:54:26] Watching for file changes with StatReloader
+[2025-03-31 10:56:21] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py changed, reloading.
+[2025-03-31 10:56:22] Watching for file changes with StatReloader
+[2025-03-31 10:56:30] Internal Server Error: /admin/admin-forum/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py", line 60, in manage_forum
+    return render(request, "pages/admin-forum.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 194, in render
+    len_values = len(values)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 380, in __len__
+    self._fetch_all()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 1549, in execute_sql
+    sql, params = self.as_sql()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 736, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 84, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 73, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 279, in get_select
+    related_klass_infos = self.get_related_selections(select, select_mask)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 1367, in get_related_selections
+    raise FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'commodity'. Choices are: author
+[2025-03-31 10:56:45] Internal Server Error: /admin/admin-forum/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py", line 60, in manage_forum
+    return render(request, "pages/admin-forum.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 194, in render
+    len_values = len(values)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 380, in __len__
+    self._fetch_all()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 1881, in _fetch_all
+    self._result_cache = list(self._iterable_class(self))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 91, in __iter__
+    results = compiler.execute_sql(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 1549, in execute_sql
+    sql, params = self.as_sql()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 736, in as_sql
+    extra_select, order_by, group_by = self.pre_sql_setup(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 84, in pre_sql_setup
+    self.setup_query(with_col_aliases=with_col_aliases)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 73, in setup_query
+    self.select, self.klass_info, self.annotation_col_map = self.get_select(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 279, in get_select
+    related_klass_infos = self.get_related_selections(select, select_mask)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\sql\compiler.py", line 1367, in get_related_selections
+    raise FieldError(
+django.core.exceptions.FieldError: Invalid field name(s) given in select_related: 'commodity'. Choices are: author
+[2025-03-31 10:58:15] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py changed, reloading.
+[2025-03-31 10:58:16] Watching for file changes with StatReloader
+[2025-03-31 10:58:18] Internal Server Error: /admin/admin-forum/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py", line 62, in manage_forum
+    return render(request, "pages/admin-forum.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 194, in render
+    len_values = len(values)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 380, in __len__
+    self._fetch_all()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 1883, in _fetch_all
+    self._prefetch_related_objects()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 1273, in _prefetch_related_objects
+    prefetch_related_objects(self._result_cache, *self._prefetch_related_lookups)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\db\models\query.py", line 2296, in prefetch_related_objects
+    raise AttributeError(
+AttributeError: Cannot find 'forum_tag_commodity' on Forum object, 'forum_tag_commodity' is an invalid parameter to prefetch_related()
+[2025-03-31 10:59:44] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py changed, reloading.
+[2025-03-31 10:59:45] Watching for file changes with StatReloader
+[2025-03-31 11:08:18] Internal Server Error: /admin/admin-forum/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py", line 62, in manage_forum
+    return render(request, "pages/admin-forum.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'abs'
+[2025-03-31 11:08:30] Internal Server Error: /admin/admin-forum/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py", line 62, in manage_forum
+    return render(request, "pages/admin-forum.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'forum-detail' not found. 'forum-detail' is not a valid view function or pattern name.
+[2025-03-31 11:15:54] Internal Server Error: /admin/admin-forum/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py", line 62, in manage_forum
+    return render(request, "pages/admin-forum.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 961, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'abs'
+[2025-03-31 11:16:09] Internal Server Error: /admin/admin-forum/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\forum_view.py", line 62, in manage_forum
+    return render(request, "pages/admin-forum.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'delete-forum' not found. 'delete-forum' is not a valid view function or pattern name.
+[2025-03-31 11:17:51] Watching for file changes with StatReloader
