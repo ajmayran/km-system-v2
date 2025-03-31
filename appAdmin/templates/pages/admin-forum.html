@@ -1,96 +1,392 @@
 {% extends 'base/admin-index.html' %}
 {% load static %}
 {% block title %}
-  Admin Discussion Forum Management
+  Admin Forum Management
 {% endblock %}
 {% block stylesheet %}
-  <link rel="stylesheet" href="{% static 'style/css/admin.commodities.css' %}" />
+  <link rel="stylesheet" href="{% static 'style/css/admin.forum.css' %}" />
+  <style>
+    /* Additional styles for the view modal */
+    .modal-content {
+      border-radius: 8px;
+      border: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .modal-header {
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+      padding: 15px 20px;
+    }
+    
+    .view-forum-title {
+      font-size: 1.5rem;
+      color: #0C356A;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    
+    .forum-meta {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 14px;
+      color: #6c757d;
+      margin-bottom: 15px;
+    }
+    
+    .forum-meta-item {
+      margin-right: 20px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .forum-meta-item i {
+      margin-right: 6px;
+      color: #0C356A;
+    }
+    
+    .forum-commodity {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 15px;
+    }
+    
+    .commodity-tag {
+      background-color: #e8f5e9;
+      color: #2e7d32;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    
+    .forum-content {
+      background-color: #f8f9fa;
+      padding: 20px;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+  </style>
 {% endblock %}
 
 {% block content %}
+<div class="masonry-item w-100">
+  <div class="row gap-20">
+    <div class="col-md-3">
+      <div class="layers bd bgc-white p-20">
+        <div class="layer w-100 mB-10">
+          <h6 class="lh-1"><a href="#" style="color: gray;">Total Forum Posts</a></h6>
+        </div>
+        <div class="layer w-100">
+          <div class="peers ai-sb fxw-nw">
+            <div class="peer peer-greed">
+              <span id="sparklinedash"></span>
+            </div>
+            <div class="peer">
+              <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-green-50 c-green-500">
+                {% if total_discussions %}
+                  {{ total_discussions }}
+                {% else %}
+                  0
+                {% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3">
+      <div class="layers bd bgc-white p-20">
+        <div class="layer w-100 mB-10">
+          <h6 class="lh-1"><a href="#" style="color: gray;">Total Comments</a></h6>
+        </div>
+        <div class="layer w-100">
+          <div class="peers ai-sb fxw-nw">
+            <div class="peer peer-greed">
+              <span id="sparklinedash3"></span>
+            </div>
+            <div class="peer">
+              <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500">
+                {% if total_comments %}
+                  {{ total_comments }}
+                {% else %}
+                  0
+                {% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="masonry-item col-12">
   <div class="bd bgc-white">
     <div class="peers fxw-nw@lg+ ai-s">
       <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
         <div class="layers">
           <div class="layer w-100 mB-10">
-            <h5 class="lh-1">Admin Resources</h5>
+            <h5 class="lh-1">Forum Management</h5>
           </div>
           <div class="layer w-100">
             <ul class="nav nav-tabs">
-                <li class="nav-item">
-                    <a class="nav-link active" id="dash-forum-tab" data-toggle="tab" href="#dash-forum">Forum Analytics (Search, Reaction, Comments)</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " id="forum-tab" data-toggle="tab" href="#forum">Forum</a>
-                </li>
+              <li class="nav-item">
+                <a class="nav-link active" id="dashboard-tab" data-toggle="tab" href="#dashboard">Analytics Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="discussions-tab" data-toggle="tab" href="#discussions">Discussions Forum</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="reports-tab" data-toggle="tab" href="#reports">Reported Content</a>
+              </li>
             </ul>
           </div>
           <div class="layer w-100">
             <div class="tab-content">
               <br />
-              <div class="tab-pane fade show active" id="dash-forum">
-                <div class="d-flex">
-                  <div class="flex-grow-1 p-20">
-                    <div class="analytics-container" style="max-height: 500px; overflow-y: auto;">
-                      <span>should display the Analytics for Search, Reactions, and Comments</span>
+              <!-- Dashboard Tab -->
+              <div class="tab-pane fade show active" id="dashboard">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="bd bgc-white p-20 mb-3">
+                      <h6 class="c-grey-900 mB-20">Forum Activity (Last 30 Days)</h6>
+                      <div id="forumActivityChart" style="height: 250px;"></div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="bd bgc-white p-20 mb-3">
+                      <h6 class="c-grey-900 mB-20">Topic Distribution</h6>
+                      <div id="topicDistributionChart" style="height: 250px;"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="bd bgc-white p-20">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <h6 class="c-grey-900">Top Forum Search Terms</h6>
+                        <div class="dropdown">
+                          <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="timeframeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Last 7 days
+                          </button>
+                          <div class="dropdown-menu" aria-labelledby="timeframeDropdown">
+                            <a class="dropdown-item" href="#">Last 7 days</a>
+                            <a class="dropdown-item" href="#">Last 30 days</a>
+                            <a class="dropdown-item" href="#">Last 90 days</a>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+                        <table class="table table-bordered mt-3">
+                          <thead>
+                            <tr>
+                              <th>Rank</th>
+                              <th>Search Term</th>
+                              <th>Search Count</th>
+                              <th>Trend</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for term in search_terms %}
+                            <tr>
+                              <td>{{ forloop.counter }}</td>
+                              <td>{{ term.term }}</td>
+                              <td>{{ term.count }}</td>
+                              <td>
+                                {% if term.trend > 0 %}
+                                <span class="badge bg-success text-white">↑ {{ term.trend }}%</span>
+                                {% elif term.trend < 0 %}
+                                <span class="badge bg-danger text-white">↓ {{ term.trend }}%</span>
+                                {% else %}
+                                <span class="badge bg-secondary text-white">0%</span>
+                                {% endif %}
+                              </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                              <td colspan="4" class="text-center">No search data available</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-                <div class="tab-pane fade" id="forum">
-                <div class="d-flex">
-                  <div class="flex-grow-1 p-20">
-                    <div class="table-container" style="max-height: 500px; overflow-y: auto;">
-                      <table id="discussionTable" class="discussion-table table table-bordered">
+              <!-- Discussions Tab -->
+              <div class="tab-pane fade" id="discussions">
+                <div class="table-container" style="max-height: 500px; overflow-y: auto;">
+                  <table id="discussionsTable" class="discussion-table table table-bordered">
+                    <thead>
+                      <tr>
+                        <th style="width: 70px;">ID</th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Commodity</th>
+                        <th>Date Created</th>
+                        <th>Comments</th>
+                        <th style="width: 120px;">Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for discussion in all_discussions %}
+                      <tr>
+                        <td>{{ discussion.forum_id }}</td>
+                        <td>{{ discussion.forum_title }}</td>
+                        <td>{{ discussion.author }}</td>
+                        <td>
+                          {% for commodity in discussion.commodity_id.all %}
+                              {{ commodity.commodity_name }}{% if not forloop.last %}, {% endif %}
+                          {% empty %}
+                              No commodity
+                          {% endfor %}
+                        </td>
+                        <td>{{ discussion.date_posted }}</td>
+                        <td>{{ discussion.comment_count }}</td>
+                        <td>
+                          <div class="btn-group">
+                            <button class="btn btn-sm btn-info view-forum-btn" data-toggle="modal" data-target="#viewForumModal" 
+                              data-id="{{ discussion.forum_id }}"
+                              data-title="{{ discussion.forum_title }}"
+                              data-question="{{ discussion.forum_question }}"
+                              data-author="{{ discussion.author.first_name }} {{ discussion.author.last_name }}"
+                              data-date="{{ discussion.date_posted|date:'F d, Y' }}"
+                              data-commodities="{% for commodity in discussion.commodity_id.all %}{{ commodity.commodity_name }}{% if not forloop.last %}|{% endif %}{% endfor %}">
+                              <i class="fa fa-eye"></i>
+                            </button>
+                            <a href="" class="btn btn-sm btn-danger delete-btn" onclick="return confirmDelete(event, this)">
+                              <i class="fa fa-trash"></i>
+                            </a>
+                          </div>
+                        </td>
+                      </tr>
+                      {% empty %}
+                      <tr>
+                        <td colspan="7" class="text-center">No discussions found</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Reported Content Tab -->
+              <div class="tab-pane fade" id="reports">
+                <div class="alert alert-info">
+                  <i class="fa fa-info-circle mr-2"></i>
+                  This section shows content that has been reported by users for review.
+                </div>
+                <ul class="nav nav-pills mb-3" id="reports-tab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="reported-discussions-tab" data-toggle="pill" href="#reported-discussions" role="tab">
+                      Reported Discussions
+                      <span class="badge badge-pill badge-danger ml-2">{{ reported_discussions|length|default:"0" }}</span>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="reported-comments-tab" data-toggle="pill" href="#reported-comments" role="tab">
+                      Reported Comments
+                      <span class="badge badge-pill badge-danger ml-2">{{ reported_comments|length|default:"0" }}</span>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content" id="reports-tabContent">
+                  <!-- Reported Discussions -->
+                  <div class="tab-pane fade show active" id="reported-discussions" role="tabpanel">
+                    <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+                      <table class="table table-bordered">
                         <thead>
                           <tr>
-                            <th>ID</th>
-                            <th>Title</th>
-                            <th>Question</th>
-                            <th>Tagged Commodity</th>
-                            <th>Date</th>
-                            <th>Likes</th>
-                            <th>Dislikes</th>
-                            <th>Comments</th>
+                            <th>Discussion</th>
+                            <th>Reported By</th>
+                            <th>Reason</th>
+                            <th>Date Reported</th>
                             <th>Actions</th>
                           </tr>
                         </thead>
                         <tbody>
+                          {% for report in reported_discussions %}
                           <tr>
-                            <td>1</td>
-                            <td>Best farming techniques</td>
-                            <td>What are the best techniques for organic farming?</td>
-                            <td>Rice</td>
-                            <td>2025-03-18</td>
-                            <td>15</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>Edit | Delete</td>
+                            <td>{{ report.discussion_title }}</td>
+                            <td>{{ report.reported_by }}</td>
+                            <td>{{ report.reason }}</td>
+                            <td>{{ report.date_reported }}</td>
+                            <td>
+                              <div class="btn-group">
+                                <button class="btn btn-sm btn-info view-forum-btn" data-toggle="modal" data-target="#viewForumModal" 
+                                  data-id="{{ report.discussion.forum_id }}"
+                                  data-title="{{ report.discussion.forum_title }}"
+                                  data-question="{{ report.discussion.forum_question }}"
+                                  data-author="{{ report.discussion.author.first_name }} {{ report.discussion.author.last_name }}"
+                                  data-date="{{ report.discussion.date_posted|date:'F d, Y' }}"
+                                  data-commodities="{% for commodity in report.discussion.commodity_id.all %}{{ commodity.commodity_name }}{% if not forloop.last %}|{% endif %}{% endfor %}">
+                                  <i class="fa fa-eye"></i>
+                                </button>
+                                <a href="" class="btn btn-sm btn-success">
+                                  <i class="fa fa-check"></i> Dismiss
+                                </a>
+                                <a href="" class="btn btn-sm btn-danger delete-btn" onclick="return confirmDelete(event, this)">
+                                  <i class="fa fa-trash"></i>
+                                </a>
+                              </div>
+                            </td>
                           </tr>
+                          {% empty %}
                           <tr>
-                            <td>1</td>
-                            <td>Best farming techniques</td>
-                            <td>What are the best techniques for organic farming?</td>
-                            <td>Rice</td>
-                            <td>2025-03-18</td>
-                            <td>15</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>Edit | Delete</td>
+                            <td colspan="5" class="text-center">No reported discussions</td>
                           </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <!-- Reported Comments -->
+                  <div class="tab-pane fade" id="reported-comments" role="tabpanel">
+                    <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+                      <table class="table table-bordered">
+                        <thead>
                           <tr>
-                            <td>1</td>
-                            <td>Best farming techniques</td>
-                            <td>What are the best techniques for organic farming?</td>
-                            <td>Rice</td>
-                            <td>2025-03-18</td>
-                            <td>15</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>Edit | Delete</td>
+                            <th>Comment</th>
+                            <th>Discussion</th>
+                            <th>Reported By</th>
+                            <th>Reason</th>
+                            <th>Date Reported</th>
+                            <th>Actions</th>
                           </tr>
+                        </thead>
+                        <tbody>
+                          {% for report in reported_comments %}
+                          <tr>
+                            <td>{{ report.comment_content|truncatechars:30 }}</td>
+                            <td>{{ report.discussion_title }}</td>
+                            <td>{{ report.reported_by }}</td>
+                            <td>{{ report.reason }}</td>
+                            <td>{{ report.date_reported }}</td>
+                            <td>
+                              <div class="btn-group">
+                                <a href="{% url 'appCmi:forum-detail' slug=report.comment.post.slug %}#comment-{{ report.comment.id }}" class="btn btn-sm btn-info" target="_blank">
+                                  <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="" class="btn btn-sm btn-success">
+                                  <i class="fa fa-check"></i> Dismiss
+                                </a>
+                                <a href="" class="btn btn-sm btn-danger delete-btn" onclick="return confirmDelete(event, this)">
+                                  <i class="fa fa-trash"></i>
+                                </a>
+                              </div>
+                            </td>
+                          </tr>
+                          {% empty %}
+                          <tr>
+                            <td colspan="6" class="text-center">No reported comments</td>
+                          </tr>
+                          {% endfor %}
                         </tbody>
                       </table>
                     </div>
@@ -104,63 +400,171 @@
     </div>
   </div>
 </div>
+
+<!-- View Forum Modal -->
+<div class="modal fade" id="viewForumModal" tabindex="-1" role="dialog" aria-labelledby="viewForumModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewForumModalLabel">View Forum Discussion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2 class="view-forum-title" id="forum-title"></h2>
+        
+        <div class="forum-meta">
+          <div class="forum-meta-item">
+            <i class="fas fa-user"></i>
+            <span id="forum-author"></span>
+          </div>
+          <div class="forum-meta-item">
+            <i class="far fa-calendar-alt"></i>
+            <span id="forum-date"></span>
+          </div>
+        </div>
+        
+        <div class="forum-commodity" id="forum-commodities">
+          <!-- Commodity tags will be added here dynamically -->
+        </div>
+        
+        <div class="forum-content" id="forum-question"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <a href="#" class="btn btn-primary" id="viewOnSiteBtn" target="_blank">View on Site</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Confirm Deletion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p id="confirmationMessage">Are you sure you want to delete this item? This action cannot be undone.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <a href="#" class="btn btn-danger" id="confirmDeleteBtn">Delete</a>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 
-
 {% block script %}
-  <script>
-    $(document).ready(function () {
-      let table = $('#discussionTable').DataTable({
-        language: {
-          lengthMenu: '_MENU_',
-          search: '',
-          searchPlaceholder: 'Search...'
+<script src="{% static 'script/admin.forum.js' %}"></script>
+<script>
+  function confirmDelete(event, element) {
+    event.preventDefault();
+    
+    var deleteUrl = element.getAttribute('href');
+    
+    // Set the confirm button URL
+    document.getElementById('confirmDeleteBtn').href = deleteUrl;
+    
+    // Show the confirmation modal
+    $('#confirmationModal').modal('show');
+    
+    return false;
+  }
+  
+  // Initialize DataTables
+  $(document).ready(function() {
+    $('#discussionsTable').DataTable({
+      language: {
+        lengthMenu: '_MENU_',
+        search: '',
+        searchPlaceholder: 'Search discussions...'
+      },
+      lengthMenu: [
+        [10, 25, 50, -1],
+        [10, 25, 50, 'All']
+      ],
+      paging: true,
+      lengthChange: true,
+      autoWidth: false,
+      bInfo: true,
+      bSort: true,
+      responsive: true,
+      buttons: [
+        {
+          text: 'CSV',
+          extend: 'csv'
         },
-        lengthMenu: [
-          [3, 5, 7, 10, 25, -1],
-          [3, 5, 7, 10, 25, 'All']
-        ],
-        paging: true,
-        lengthChange: true,
-        autoWidth: false,
-        bInfo: true,
-        bSort: true,
-        responsive: true,
-        buttons: [
-          {
-            text: 'CSV',
-            extend: 'csv'
-          },
-          {
-            text: 'PDF',
-            extend: 'pdf'
+        {
+          text: 'PDF',
+          extend: 'pdf'
+        }
+      ],
+      dom: '<"row"<"col-md-1"l><"col-md-8"B><"col-md-3"f>>' + 
+           '<"row"<"col-md-12"tr>>' + 
+           '<"row"<"col-md-5"i><"col-md-7"p>>'
+    });
+    
+    // Handle view forum modal
+    $('.view-forum-btn').on('click', function() {
+      // Get data from data attributes
+      var id = $(this).data('id');
+      var title = $(this).data('title');
+      var question = $(this).data('question');
+      var author = $(this).data('author');
+      var date = $(this).data('date');
+      var commodities = $(this).data('commodities');
+      
+      // Populate modal
+      $('#forum-title').text(title);
+      $('#forum-author').text(author);
+      $('#forum-date').text(date);
+      $('#forum-question').html(question.replace(/\n/g, '<br>'));
+      
+      // Create commodity tags
+      var commoditiesHtml = '';
+      if (commodities) {
+        var commodityArray = commodities.split('|');
+        commodityArray.forEach(function(commodity) {
+          if (commodity.trim() !== '') {
+            commoditiesHtml += '<span class="commodity-tag">' + commodity + '</span>';
           }
-        ],
-        dom: '<"row"<"col-md-1"l><"col-md-8"B><"col-md-3"f>>' + '<"row"<"col-md-12"tr>>' + '<"row"<"col-md-5"i><"col-md-7"p>>'
-      })
-    })
-  </script>
-  {% if messages %}
-    {% for message in messages %}
-      {% if message.tags == 'success' %}
-        <script>
-          // Display SweetAlert success message
-          Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: '{{ message }}'
-          })
-        </script>
-        {% else %}
-        <script>
-          // Display SweetAlert success message
-          Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: '{{ message }}'
-          })
-        </script>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+        });
+      }
+      $('#forum-commodities').html(commoditiesHtml);
+      
+      // Set view on site button URL
+      $('#viewOnSiteBtn').attr('href', '/forum/' + id);
+    });
+  });
+</script>
+{% if messages %}
+  {% for message in messages %}
+    {% if message.tags == 'success' %}
+      <script>
+        // Display SweetAlert success message
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: '{{ message }}'
+        });
+      </script>
+    {% else %}
+      <script>
+        // Display SweetAlert error message
+        Swal.fire({
+          icon: 'error',
+          title: 'Error!',
+          text: '{{ message }}'
+        });
+      </script>
+    {% endif %}
+  {% endfor %}
+{% endif %}
 {% endblock %}
