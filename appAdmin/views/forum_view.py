@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from appCmi.models import Forum, ForumComment, FilteredCommodityFrequency
 from appAdmin.models import Commodity
 from django.db.models import Count, Sum
@@ -60,3 +60,10 @@ def manage_forum(request):
     }
 
     return render(request, "pages/admin-forum.html", context)
+
+
+def get_comments_per_forum_post(request, slug):
+    """Get comments for a specific forum post"""
+    forum_post = get_object_or_404(Forum, slug=slug)
+    comments = ForumComment.objects.filter(post=forum_post)
+    return render(request, "pages/admin-forum.html", {"comments": comments})

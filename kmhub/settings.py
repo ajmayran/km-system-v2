@@ -75,7 +75,7 @@ WSGI_APPLICATION = "kmhub.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "km_db_v3",
+        "NAME": os.getenv("DB_NAME"),
         "USER": os.getenv("DB_USER"),
         "PASSWORD": os.getenv("DB_PASSWORD"),
         "HOST": os.getenv("DB_HOST"),
@@ -176,7 +176,7 @@ LOGGING = {
         "file": {
             "level": "DEBUG",
             "class": "logging.FileHandler",
-            "filename": os.path.join(BASE_DIR, "logs", "forum.log"),
+            "filename": os.path.join(BASE_DIR, "logs", "system.log"),
             "formatter": "simple",
         },
     },

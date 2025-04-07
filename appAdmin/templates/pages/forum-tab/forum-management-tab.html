@@ -1,0 +1,59 @@
+<div class="tab-pane fade" id="discussions">
+    <div class="table-container" style="max-height: 500px; overflow-y: auto;">
+      <table id="discussionsTable" class="discussion-table table table-bordered">
+        <thead style="background-color: #0C356A; color: white; font-size: 13px; font-weight: bold;">
+          <tr>
+            <th style="width: 70px; text-align: center; vertical-align: middle;">ID</th>
+            <th style="text-align: center; vertical-align: middle;">Title</th>
+            <th style="text-align: center; vertical-align: middle;">Author</th>
+            <th style="text-align: center; vertical-align: middle;">Commodity</th>
+            <th style="text-align: center; vertical-align: middle;">Date Created</th>
+            <th style="text-align: center; vertical-align: middle;">Comments</th>
+            <th style="width: 120px; text-align: center; vertical-align: middle;">Actions</th>
+          </tr>
+        </thead>
+        <tbody style="font-size: 12px;">
+          {% for discussion in all_discussions %}
+          <tr>
+            <td style="text-align: center; vertical-align: middle; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;">{{ discussion.forum_id }}</td>
+            <td style="vertical-align: middle; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;">{{ discussion.forum_title }}</td>
+            <td style="vertical-align: middle; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;">{{ discussion.author }}</td>
+            <td style="vertical-align: middle; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;">
+              {% for commodity in discussion.commodity_id.all %}
+                  {{ commodity.commodity_name }}{% if not forloop.last %}, {% endif %}
+              {% empty %}
+                  No commodity
+              {% endfor %}
+            </td>
+            <td style="text-align: center; vertical-align: middle; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;">{{ discussion.date_posted|date:"Y-m-d" }}</td>
+            <td style="text-align: center; vertical-align: middle; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;">{{ discussion.comment_count }}</td>
+            <td style="text-align: center; vertical-align: middle; border-bottom: 1px solid #ddd; border-right: 1px solid #ddd;">
+              <div class="btn-group">
+                <button class="btn btn-sm btn-info view-forum-btn" 
+                  data-toggle="modal" 
+                  data-target="#viewForumModal" 
+                  data-id="{{ discussion.forum_id }}"
+                  data-title="{{ discussion.forum_title }}"
+                  data-question="{{ discussion.forum_question }}"
+                  data-author="{{ discussion.author.first_name }} {{ discussion.author.last_name }}"
+                  data-date="{{ discussion.date_posted|date:'F d, Y' }}"
+                  data-commodities="{% for commodity in discussion.commodity_id.all %}{{ commodity.commodity_name }}{% if not forloop.last %}|{% endif %}{% endfor %}"
+                  data-url="{% url 'appCmi:display-forum' slug=discussion.slug %}"
+                  data-slug="{{ discussion.slug }}">
+                  <i class="fa fa-eye"></i>
+                </button>
+                <a href="" class="btn btn-sm btn-danger delete-btn" onclick="return confirmDelete(event, this)">
+                  <i class="fa fa-trash"></i>
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="7" class="text-center" style="padding: 20px; border-bottom: 1px solid #ddd;">No discussions found</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>

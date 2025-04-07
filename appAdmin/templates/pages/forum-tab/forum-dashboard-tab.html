@@ -1,0 +1,69 @@
+<div class="tab-pane fade show active" id="dashboard">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="bd bgc-white p-20 mb-3">
+          <h6 class="c-grey-900 mB-20">Forum Activity (Last 30 Days)</h6>
+          <div id="forumActivityChart" style="height: 250px;"></div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="bd bgc-white p-20 mb-3">
+          <h6 class="c-grey-900 mB-20">Topic Distribution</h6>
+          <div id="topicDistributionChart" style="height: 250px;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="bd bgc-white p-20">
+          <div class="d-flex justify-content-between align-items-center">
+            <h6 class="c-grey-900">Top Forum Search Terms</h6>
+            <div class="dropdown">
+              <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="timeframeDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Last 7 days
+              </button>
+              <div class="dropdown-menu" aria-labelledby="timeframeDropdown">
+                <a class="dropdown-item" href="#">Last 7 days</a>
+                <a class="dropdown-item" href="#">Last 30 days</a>
+                <a class="dropdown-item" href="#">Last 90 days</a>
+              </div>
+            </div>
+          </div>
+          <div class="table-container" style="max-height: 300px; overflow-y: auto;">
+            <table class="table table-bordered mt-3">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Search Term</th>
+                  <th>Search Count</th>
+                  <th>Trend</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for term in search_terms %}
+                <tr>
+                  <td>{{ forloop.counter }}</td>
+                  <td>{{ term.term }}</td>
+                  <td>{{ term.count }}</td>
+                  <td>
+                    {% if term.trend > 0 %}
+                    <span class="badge bg-success text-white">↑ {{ term.trend }}%</span>
+                    {% elif term.trend < 0 %}
+                    <span class="badge bg-danger text-white">↓ {{ term.trend }}%</span>
+                    {% else %}
+                    <span class="badge bg-secondary text-white">0%</span>
+                    {% endif %}
+                  </td>
+                </tr>
+                {% empty %}
+                <tr>
+                  <td colspan="4" class="text-center">No search data available</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
