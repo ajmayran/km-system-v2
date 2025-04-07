@@ -1,0 +1,116 @@
+<div class="tab-pane fade" id="reports">
+    <div class="alert alert-info">
+      <i class="fa fa-info-circle mr-2"></i>
+      This section shows content that has been reported by users for review.
+    </div>
+    <ul class="nav nav-pills mb-3" id="reports-tab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active" id="reported-discussions-tab" data-toggle="pill" href="#reported-discussions" role="tab">
+          Reported Discussions
+          <span class="badge badge-pill badge-danger ml-2">{{ reported_discussions|length|default:"0" }}</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="reported-comments-tab" data-toggle="pill" href="#reported-comments" role="tab">
+          Reported Comments
+          <span class="badge badge-pill badge-danger ml-2">{{ reported_comments|length|default:"0" }}</span>
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content" id="reports-tabContent">
+      <!-- Reported Discussions -->
+      <div class="tab-pane fade show active" id="reported-discussions" role="tabpanel">
+        <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Discussion</th>
+                <th>Reported By</th>
+                <th>Reason</th>
+                <th>Date Reported</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for report in reported_discussions %}
+              <tr>
+                <td>{{ report.discussion_title }}</td>
+                <td>{{ report.reported_by }}</td>
+                <td>{{ report.reason }}</td>
+                <td>{{ report.date_reported }}</td>
+                <td>
+                  <div class="btn-group">
+                    <button class="btn btn-sm btn-info view-report-forum-btn" data-toggle="modal" data-target="#viewForumModal" 
+                      data-id="{{ report.discussion.forum_id }}"
+                      data-title="{{ report.discussion.forum_title }}"
+                      data-question="{{ report.discussion.forum_question }}"
+                      data-author="{{ report.discussion.author.first_name }} {{ report.discussion.author.last_name }}"
+                      data-date="{{ report.discussion.date_posted|date:'F d, Y' }}"
+                      data-commodities="{% for commodity in report.discussion.commodity_id.all %}{{ commodity.commodity_name }}{% if not forloop.last %}|{% endif %}{% endfor %}">
+                      <i class="fa fa-eye"></i>
+                    </button>
+                    <a href="" class="btn btn-sm btn-success">
+                      <i class="fa fa-check"></i> Dismiss
+                    </a>
+                    <a href="" class="btn btn-sm btn-danger delete-btn" onclick="return confirmDelete(event, this)">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="5" class="text-center">No reported discussions</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Reported Comments -->
+      <div class="tab-pane fade" id="reported-comments" role="tabpanel">
+        <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>Comment</th>
+                <th>Discussion</th>
+                <th>Reported By</th>
+                <th>Reason</th>
+                <th>Date Reported</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for report in reported_comments %}
+              <tr>
+                <td>{{ report.comment_content|truncatechars:30 }}</td>
+                <td>{{ report.discussion_title }}</td>
+                <td>{{ report.reported_by }}</td>
+                <td>{{ report.reason }}</td>
+                <td>{{ report.date_reported }}</td>
+                <td>
+                  <div class="btn-group">
+                    <a href="{% url 'appCmi:forum-detail' slug=report.comment.post.slug %}#comment-{{ report.comment.id }}" class="btn btn-sm btn-info" target="_blank">
+                      <i class="fa fa-eye"></i>
+                    </a>
+                    <a href="" class="btn btn-sm btn-success">
+                      <i class="fa fa-check"></i> Dismiss
+                    </a>
+                    <a href="" class="btn btn-sm btn-danger delete-btn" onclick="return confirmDelete(event, this)">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="6" class="text-center">No reported comments</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>

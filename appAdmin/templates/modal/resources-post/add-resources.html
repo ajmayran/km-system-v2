@@ -1,0 +1,549 @@
+<!-- Create Resource Modal -->
+<div class="modal fade" id="createResourceModal" tabindex="-1" aria-labelledby="createResourceModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="createResourceModalLabel">Add New Knowledge Resource</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="resourceForm" action="{% url "appAdmin:add-resources-post" %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="resourceType" class="form-field-label required-field">Resource Type</label>
+                        <select class="form-select" id="resourceType" name="resourceType" required>
+                            <option value="" selected disabled>Select resource type</option>
+                            {% if knowledge_resources %}
+                            {% for resource in knowledge_resources %}
+                                <option value="{{ resource.slug }}" data-fields-id="{{ resource.machine_name }}Fields">{{ resource.knowledge_title }}</option>
+                            {% endfor %}
+                            {% endif %}
+                        </select>
+                        <div class="form-hint">Select the type of resource you're adding</div>
+                    </div>
+                    
+                    <!-- Common Fields -->
+                    <div class="form-section">
+                        <h6 class="form-section-title">Basic Information</h6>
+                        
+                        <div class="row">
+                            <div class="col-12 form-field-group">
+                                <label for="resourceTitle" class="form-field-label required-field">Title</label>
+                                <input type="text" class="form-control" id="resourceTitle" name="resourceTitle" required>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12 form-field-group">
+                                <label for="resourceDescription" class="form-field-label required-field">Description</label>
+                                <textarea class="form-control" id="resourceDescription" name="resourceDescription" rows="4" required></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12 form-field-group">
+                                <label class="form-field-label">Tags</label>
+                                <div class="tag-input-container">
+                                    <div id="tagContainer" class="selected-tags">
+                                        <!-- Default AANR tags -->
+                                        <div class="tag-badge">Agriculture <span class="remove-tag">&times;</span></div>
+                                        <div class="tag-badge">Aquatic <span class="remove-tag">&times;</span></div>
+                                        <div class="tag-badge">Natural Resources <span class="remove-tag">&times;</span></div>
+                                        <div class="tag-badge">Research <span class="remove-tag">&times;</span></div>
+                                        <div class="tag-badge">Technology <span class="remove-tag">&times;</span></div>
+                                    </div>
+                                    <input type="text" id="tagInput" class="tag-input" placeholder="Add tag...">
+                                </div>
+                                <input type="hidden" name="tags" id="tagValues" value="Agriculture,Aquatic,Natural Resources,Research,Technology">
+                                <div class="form-hint">Press Enter to add a tag</div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 form-field-group">
+                                <label for="resourceCommodities" class="form-field-label">Related Commodities</label>
+                                <div class="commodity-selection">
+                                    <select class="form-control" id="resourceCommodities" name="resourceCommodities">
+                                        <option value="" disabled selected>Select a commodity</option>
+                                        {% for commodity in commodities %}
+                                            <option value="{{ commodity.slug }}">{{ commodity.commodity_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="form-hint">Select multiple commodities, one at a time</div>
+                                    <ul id="selectedCommodities" class="selected-tags mt-2"></ul>
+                                    <input type="hidden" name="commodity_ids" id="commodityIds" value="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 form-field-group">
+                                <label for="resourceStatus" class="form-field-label">Status</label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="is_approved" name="is_approved">
+                                    <label class="form-check-label" for="is_approved">
+                                        Approved for public view
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured">
+                                    <label class="form-check-label" for="is_featured">
+                                        Featured resource
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Event Fields -->
+                    <div id="eventsFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Event Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="eventStartDate" class="form-field-label required-field">Start Date</label>
+                                    <input type="datetime-local" class="form-control" id="eventStartDate" name="eventStartDate" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="eventEndDate" class="form-field-label required-field">End Date</label>
+                                    <input type="datetime-local" class="form-control" id="eventEndDate" name="eventEndDate" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="eventLocation" class="form-field-label required-field">Location</label>
+                                    <input type="text" class="form-control" id="eventLocation" name="eventLocation" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="eventOrganizer" class="form-field-label required-field">Organizer</label>
+                                    <input type="text" class="form-control" id="eventOrganizer" name="eventOrganizer" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="eventIsVirtual" name="eventIsVirtual">
+                                <label class="form-check-label" for="eventIsVirtual">
+                                    This is a virtual event
+                                </label>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 form-field-group">
+                                    <label for="eventFile" class="form-field-label">Event File</label>
+                                    <input type="file" class="form-control" id="eventFile" name="eventFile">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Information System Fields -->
+                    <div id="information_systemswebsitesFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Information System Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="infoSystemUrl" class="form-field-label required-field">Website URL</label>
+                                    <input type="url" class="form-control" id="infoSystemUrl" name="infoSystemUrl" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="infoSystemOwner" class="form-field-label required-field">System Owner</label>
+                                    <input type="text" class="form-control" id="infoSystemOwner" name="infoSystemOwner" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="infoSystemLastUpdated" class="form-field-label">Last Updated</label>
+                                    <input type="date" class="form-control" id="infoSystemLastUpdated" name="infoSystemLastUpdated">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Map Fields -->
+                    <div id="mapsFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Map Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="mapFile" class="form-field-label">Map File</label>
+                                    <input type="file" class="form-control" id="mapFile" name="mapFile">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="mapUrl" class="form-field-label">Map URL</label>
+                                    <input type="url" class="form-control" id="mapUrl" name="mapUrl">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="mapLatitude" class="form-field-label">Latitude</label>
+                                    <input type="number" step="0.00000001" class="form-control" id="mapLatitude" name="mapLatitude">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="mapLongitude" class="form-field-label">Longitude</label>
+                                    <input type="number" step="0.00000001" class="form-control" id="mapLongitude" name="mapLongitude">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Media Fields -->
+                    <div id="mediaFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Media Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="mediaType" class="form-field-label required-field">Media Type</label>
+                                    <select class="form-select" id="mediaType" name="mediaType" required>
+                                        <option value="image">Image</option>
+                                        <option value="video">Video</option>
+                                        <option value="audio">Audio</option>
+                                        <option value="presentation">Presentation</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="mediaAuthor" class="form-field-label">Author/Creator</label>
+                                    <input type="text" class="form-control" id="mediaAuthor" name="mediaAuthor">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="mediaFile" class="form-field-label">Media File</label>
+                                    <input type="file" class="form-control" id="mediaFile" name="mediaFile">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="mediaUrl" class="form-field-label">Media URL</label>
+                                    <input type="url" class="form-control" id="mediaUrl" name="mediaUrl">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- News Fields -->
+                    <div id="newsFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">News Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="newsPublishDate" class="form-field-label required-field">Publication Date</label>
+                                    <input type="date" class="form-control" id="newsPublishDate" name="newsPublishDate" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="newsSource" class="form-field-label required-field">Source</label>
+                                    <input type="text" class="form-control" id="newsSource" name="newsSource" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="newsSourceUrl" class="form-field-label">External URL</label>
+                                    <input type="url" class="form-control" id="newsSourceUrl" name="newsSourceUrl">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="newsFeaturedImage" class="form-field-label">Featured Image</label>
+                                    <input type="file" class="form-control" id="newsFeaturedImage" name="newsFeaturedImage" accept="image/*">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 form-field-group">
+                                    <label for="newsContent" class="form-field-label required-field">Content</label>
+                                    <textarea class="form-control" id="newsContent" name="newsContent" rows="4" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Policy Fields -->
+                    <div id="policiesFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Policy Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="policyNumber" class="form-field-label">Policy Number</label>
+                                    <input type="text" class="form-control" id="policyNumber" name="policyNumber">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="policyEffectiveDate" class="form-field-label required-field">Effective Date</label>
+                                    <input type="date" class="form-control" id="policyEffectiveDate" name="policyEffectiveDate" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="policyIssuingBody" class="form-field-label required-field">Issuing Authority</label>
+                                    <input type="text" class="form-control" id="policyIssuingBody" name="policyIssuingBody" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="policyStatus" class="form-field-label required-field">Status</label>
+                                    <select class="form-select" id="policyStatus" name="policyStatus" required>
+                                        <option value="draft">Draft</option>
+                                        <option value="active">Active</option>
+                                        <option value="superseded">Superseded</option>
+                                        <option value="archived">Archived</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="policyFile" class="form-field-label">Policy File</label>
+                                    <input type="file" class="form-control" id="policyFile" name="policyFile">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="policyUrl" class="form-field-label">Policy URL</label>
+                                    <input type="url" class="form-control" id="policyUrl" name="policyUrl">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project Fields -->
+                    <div id="projectsFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Project Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="projectStartDate" class="form-field-label required-field">Start Date</label>
+                                    <input type="date" class="form-control" id="projectStartDate" name="projectStartDate" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="projectEndDate" class="form-field-label">End Date</label>
+                                    <input type="date" class="form-control" id="projectEndDate" name="projectEndDate">
+                                    <div class="form-hint">Leave blank for ongoing projects</div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="projectBudget" class="form-field-label">Budget</label>
+                                    <input type="number" step="0.01" class="form-control" id="projectBudget" name="projectBudget">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="projectFundingSource" class="form-field-label">Funding Source</label>
+                                    <input type="text" class="form-control" id="projectFundingSource" name="projectFundingSource">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="projectLead" class="form-field-label required-field">Project Lead</label>
+                                    <input type="text" class="form-control" id="projectLead" name="projectLead" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="projectContactEmail" class="form-field-label">Contact Email</label>
+                                    <input type="email" class="form-control" id="projectContactEmail" name="projectContactEmail">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="projectStatus" class="form-field-label required-field">Project Status</label>
+                                    <select class="form-select" id="projectStatus" name="projectStatus" required>
+                                        <option value="ongoing">Ongoing</option>
+                                        <option value="completed">Completed</option>
+                                        <option value="terminated">Terminated</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Publication Fields -->
+                    <div id="publicationsFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Publication Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="publicationAuthors" class="form-field-label required-field">Authors</label>
+                                    <input type="text" class="form-control" id="publicationAuthors" name="publicationAuthors" required>
+                                    <div class="form-hint">Separate multiple authors with commas</div>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="publicationDate" class="form-field-label required-field">Publication Date</label>
+                                    <input type="date" class="form-control" id="publicationDate" name="publicationDate" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="publicationPublisher" class="form-field-label">Publisher</label>
+                                    <input type="text" class="form-control" id="publicationPublisher" name="publicationPublisher">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="publicationType" class="form-field-label required-field">Publication Type</label>
+                                    <select class="form-select" id="publicationType" name="publicationType" required>
+                                        <option value="journal">Journal Article</option>
+                                        <option value="conference">Conference Paper</option>
+                                        <option value="book">Book</option>
+                                        <option value="report">Technical Report</option>
+                                        <option value="thesis">Thesis/Dissertation</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="publicationDOI" class="form-field-label">DOI</label>
+                                    <input type="text" class="form-control" id="publicationDOI" name="publicationDOI">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="publicationISBN" class="form-field-label">ISBN</label>
+                                    <input type="text" class="form-control" id="publicationISBN" name="publicationISBN">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 form-field-group">
+                                    <label for="publicationFile" class="form-field-label">Publication File</label>
+                                    <input type="file" class="form-control" id="publicationFile" name="publicationFile">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Technology Fields -->
+                    <div id="technologiesFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Technology Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="technologyDeveloper" class="form-field-label required-field">Developer</label>
+                                    <input type="text" class="form-control" id="technologyDeveloper" name="technologyDeveloper" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="technologyReleaseDate" class="form-field-label">Release Date</label>
+                                    <input type="date" class="form-control" id="technologyReleaseDate" name="technologyReleaseDate">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="technologyPatentNumber" class="form-field-label">Patent Number</label>
+                                    <input type="text" class="form-control" id="technologyPatentNumber" name="technologyPatentNumber">
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="technologyLicenseType" class="form-field-label">License Type</label>
+                                    <input type="text" class="form-control" id="technologyLicenseType" name="technologyLicenseType">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Training/Seminar Fields -->
+                    <div id="trainingseminarsFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Training/Seminar Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="trainingStartDate" class="form-field-label required-field">Start Date</label>
+                                    <input type="datetime-local" class="form-control" id="trainingStartDate" name="trainingStartDate" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="trainingEndDate" class="form-field-label required-field">End Date</label>
+                                    <input type="datetime-local" class="form-control" id="trainingEndDate" name="trainingEndDate" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="trainingLocation" class="form-field-label required-field">Location</label>
+                                    <input type="text" class="form-control" id="trainingLocation" name="trainingLocation" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="trainingTargetAudience" class="form-field-label">Target Audience</label>
+                                    <input type="text" class="form-control" id="trainingTargetAudience" name="trainingTargetAudience">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 form-field-group">
+                                    <label for="trainers" class="form-field-label">Trainers</label>
+                                    <textarea class="form-control" id="trainers" name="trainers" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Webinar Fields -->
+                    <div id="webinarsFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Webinar Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="webinarDate" class="form-field-label required-field">Date</label>
+                                    <input type="datetime-local" class="form-control" id="webinarDate" name="webinarDate" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="webinarDuration" class="form-field-label required-field">Duration (minutes)</label>
+                                    <input type="number" class="form-control" id="webinarDuration" name="webinarDuration" required value="60">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="webinarPlatform" class="form-field-label required-field">Platform</label>
+                                    <input type="text" class="form-control" id="webinarPlatform" name="webinarPlatform" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="webinarPresenters" class="form-field-label required-field">Presenters</label>
+                                    <textarea class="form-control" id="webinarPresenters" name="webinarPresenters" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product Fields -->
+                    <div id="productsFields" class="resource-specific-fields" style="display: none;">
+                        <div class="form-section">
+                            <h6 class="form-section-title">Product Details</h6>
+                            
+                            <div class="row">
+                                <div class="col-md-6 form-field-group">
+                                    <label for="productManufacturer" class="form-field-label required-field">Manufacturer</label>
+                                    <input type="text" class="form-control" id="productManufacturer" name="productManufacturer" required>
+                                </div>
+                                <div class="col-md-6 form-field-group">
+                                    <label for="productPrice" class="form-field-label">Price</label>
+                                    <input type="number" step="0.01" class="form-control" id="productPrice" name="productPrice">
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 form-field-group">
+                                    <label for="productFeatures" class="form-field-label required-field">Features</label>
+                                    <textarea class="form-control" id="productFeatures" name="productFeatures" rows="3" required></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-12 form-field-group">
+                                    <label for="productTechSpecs" class="form-field-label">Technical Specifications</label>
+                                    <textarea class="form-control" id="productTechSpecs" name="productTechSpecs" rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-action-buttons">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-outline-primary" id="saveDraftButton">Save as Draft</button>
+                        <button type="submit" class="btn btn-primary">Submit Resource</button>
+                    </div>
+                </form>
+            </div>  
+        </div>
+    </div>
+</div>

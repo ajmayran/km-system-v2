@@ -1,0 +1,348 @@
+{% extends 'base/admin-index.html' %}
+{% load static %}
+{% block title %}
+  Admin Knowledge Management
+{% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'style/css/admin.resources-post.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="masonry-item col-12">
+  <!-- Dashboard Header -->
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">
+        Knowledge Resources 
+        <div class="btn-group">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createResourceModal">
+                <i class="fas fa-plus"></i> Add New Resource
+            </button>
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-filter"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#">All Resources</a></li>
+                <li><a class="dropdown-item" href="#">Featured Only</a></li>
+                <li><a class="dropdown-item" href="#">Pending Approval</a></li>
+                <li><a class="dropdown-item" href="#">Recently Added</a></li>
+            </ul>
+        </div>
+    </h1>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="row">
+    <div class="col-md-3 col-sm-6">
+        <div class="stats-card">
+            <div class="stats-icon blue">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="stats-info">
+                <h3>157</h3>
+                <p>Total Resources</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="stats-card">
+            <div class="stats-icon green">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stats-info">
+                <h3>142</h3>
+                <p>Approved</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="stats-card">
+            <div class="stats-icon yellow">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="stats-info">
+                <h3>15</h3>
+                <p>Pending Approval</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+        <div class="stats-card">
+            <div class="stats-icon red">
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="stats-info">
+                <h3>42</h3>
+                <p>Featured Resources</p>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="row">
+    <!-- Left Side - Filters -->
+    <div class="col-lg-3">
+        <div class="filter-container">
+            <h4 class="filter-title">Filter Resources</h4>
+            
+            <div class="filter-section">
+                <h5>Resource Type</h5>
+                {% for knowledge in knowledge_resources %}
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="filterEvent" checked>
+                    <label class="form-check-label" for="filterEvent">
+                        {{knowledge.knowledge_title}}
+                    </label>
+                </div>
+                {% endfor %}
+                
+                <div class="mb-2"></div>
+                <button class="btn btn-sm btn-link text-primary p-0">Show more</button>
+            </div>
+            
+            <div class="filter-section">
+                <h5>Status</h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="filterApproved" checked>
+                    <label class="form-check-label" for="filterApproved">
+                        Approved
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="filterPending" checked>
+                    <label class="form-check-label" for="filterPending">
+                        Pending
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="filterFeatured">
+                    <label class="form-check-label" for="filterFeatured">
+                        Featured
+                    </label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h5>Date Added</h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateFilter" id="filterToday">
+                    <label class="form-check-label" for="filterToday">
+                        Today
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateFilter" id="filterWeek">
+                    <label class="form-check-label" for="filterWeek">
+                        This Week
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateFilter" id="filterMonth">
+                    <label class="form-check-label" for="filterMonth">
+                        This Month
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateFilter" id="filterYear" checked>
+                    <label class="form-check-label" for="filterYear">
+                        This Year
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="dateFilter" id="filterAll">
+                    <label class="form-check-label" for="filterAll">
+                        All Time
+                    </label>
+                </div>
+            </div>
+            
+            <div class="filter-section">
+                <h5>Tags</h5>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="filterTagRice">
+                    <label class="form-check-label" for="filterTagRice">
+                        Rice
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="filterTagCorn">
+                    <label class="form-check-label" for="filterTagCorn">
+                        Corn
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="filterTagCoconut">
+                    <label class="form-check-label" for="filterTagCoconut">
+                        Coconut
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="filterTagAquaculture">
+                    <label class="form-check-label" for="filterTagAquaculture">
+                        Aquaculture
+                    </label>
+                </div>
+                <div class="mb-2"></div>
+                <button class="btn btn-sm btn-link text-primary p-0">Show more</button>
+            </div>
+            
+            <div class="d-flex justify-content-between mt-3">
+                <button class="btn btn-sm btn-outline-secondary">Reset Filters</button>
+                <button class="btn btn-sm btn-primary">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Right Side - Content -->
+    <div class="col-lg-9">
+        <div class="table-container">
+            <div class="table-header">
+                <h4 class="table-title">All Knowledge Resources</h4>
+                <div class="d-flex">
+                    <div class="input-group me-2">
+                        <input type="text" class="form-control" placeholder="Quick search...">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-outline-secondary active">
+                            <i class="fas fa-table"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="table-responsive">
+                <table class="table resource-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;"><input type="checkbox" class="form-check-input"></th>
+                            <th>Title</th> <!--resource title-->
+                            <th>Type</th> <!--resource type-->
+                            <th>Date Added</th> <!--created_at-->
+                            <th>Status</th> <!--is_approved is_featured-->
+                            <th style="width: 150px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for resource in resources_data %}
+                        <tr>
+                            <td><input type="checkbox" class="form-check-input"></td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    {% if resource.resource_type == 'events' %}
+                                    <div class="type-icon event-icon me-3">
+                                        <i class="fas fa-calendar-alt text-warning"></i>
+                                    </div>
+                                    {% elif resource.resource_type == 'webinars' %}
+                                    <div class="type-icon webinar-icon me-3">
+                                        <i class="fas fa-video text-success"></i>
+                                    </div>
+                                    {% elif resource.resource_type == 'news' %}
+                                    <div class="type-icon news-icon me-3">
+                                        <i class="fas fa-newspaper text-primary"></i>
+                                    </div>
+                                    {% elif resource.resource_type == 'policies' %}
+                                    <div class="type-icon policy-icon me-3">
+                                        <i class="fas fa-gavel text-danger"></i>
+                                    </div>
+                                    {% else %}
+                                    <div class="type-icon publication-icon me-3">
+                                        <i class="fas fa-file-alt text-info"></i>
+                                    </div>
+                                    {% endif %}
+                                    <div>
+                                        <div class="fw-bold">{{ resource.title }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><span class="resource-type publication">{{resource }}</span></td>
+                            <td>{{resource.created_at}}</td>
+                            <td>
+                                {% if resource.is_approved %}
+                                <span class="status-badge approved"> Approved </span>
+                                {% elif resource.is_featured %}
+                                <span class="status-badge featured"> Featured </span>
+                                {% else %}
+                                <span class="status-badge pending"> Pending </span>
+                                {% endif %}
+                            </td>
+                            <td class="action-buttons">
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewResource('pub-001')">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" onclick="editResource('pub-001')">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" onclick="toggleFeatured('pub-001')">
+                                    <i class="far fa-star"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('pub-001')">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+            
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item disabled">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+  </div>
+</div>
+
+{% include 'modal/resources-post/add-resources.html' %}
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'style/js/admin.resource-post.js' %}"></script>
+<script src="{% static 'style/js/admin.resource-post-control.js' %}"></script>
+
+{% if messages %}
+{% for message in messages %}
+  {% if message.tags == 'success' %}
+    <script>
+      // Display SweetAlert success message
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: '{{ message }}'
+      })
+    </script>
+    {% else %}
+    <script>
+      // Display SweetAlert success message
+      Swal.fire({
+        icon: 'error',
+        title: 'Error!',
+        text: '{{ message }}'
+      })
+    </script>
+  {% endif %}
+{% endfor %}
+{% endif %}
+  
+{% endblock %}

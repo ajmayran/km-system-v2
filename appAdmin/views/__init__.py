@@ -10,7 +10,7 @@ from .commodities_view import (
     admin_edit_commodity,
     admin_delete_commodity,
 )
-from .forum_view import manage_forum
+from .forum_view import manage_forum, get_comments_per_forum_post
 from .cmi_view import (
     admin_cmi,
     admin_add_cmi,
@@ -36,4 +36,10 @@ from .useful_link_view import (
     admin_add_useful_link,
     admin_edit_useful_link,
     admin_delete_useful_link,
+)
+
+from .resources_post_view import (
+    admin_resources_post,
+    admin_add_resources_post,
+    admin_edit_resources_post,
 )
