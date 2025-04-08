@@ -1,0 +1,186 @@
+/* Main layout styles */
+.masonry-item {
+    overflow: auto;
+  }
+  
+  /* Ensure the DataTables length menu and dropdown are displayed inline */
+  .dataTables_length {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Adjust the margin and padding for better alignment */
+  .dataTables_length label {
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Adjust the width and margin of the select box */
+  .dataTables_length select {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 50px; /* Adjust the width as needed */
+  }
+  
+  /* Custom styles for discussion and comment tables */
+  .discussion-table th, .comment-table th {
+    background-color: #0C356A; 
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+  }
+  
+  .discussion-table tbody tr, .comment-table tbody tr {
+    font-size: 12px;
+  }
+  
+  .discussion-table td, .comment-table td {
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle;
+  }
+  
+  /* Badge styles */
+  .badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+  }
+  
+  /* Action buttons */
+  .btn-group .btn {
+    margin-right: 2px;
+  }
+  
+  .btn-group .btn:last-child {
+    margin-right: 0;
+  }
+  
+  /* Modal styles */
+  .modal-content {
+    border-radius: 5px;
+  }
+  
+  .modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .modal-footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  /* Dashboard charts */
+  .chart-container {
+    position: relative;
+    height: 250px;
+    width: 100%;
+  }
+  
+  /* Status badges */
+  .badge.bgc-green-50 {
+    background-color: rgba(40, 167, 69, 0.1);
+  }
+  
+  .badge.bgc-blue-50 {
+    background-color: rgba(0, 123, 255, 0.1);
+  }
+  
+  .badge.bgc-grey-50 {
+    background-color: rgba(108, 117, 125, 0.1);
+  }
+  
+  .badge.bgc-red-50 {
+    background-color: rgba(220, 53, 69, 0.1);
+  }
+  
+  .badge.bgc-orange-50 {
+    background-color: rgba(253, 126, 20, 0.1);
+  }
+  
+  /* Dashboard cards */
+  .analytics-card {
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  
+  .analytics-header {
+    padding: 15px;
+    border-bottom: 1px solid #f1f1f1;
+  }
+  
+  .analytics-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #464E5F;
+  }
+  
+  .analytics-body {
+    padding: 20px;
+  }
+  
+  /* Comment content in view modal */
+  #view-comment-content, #view-discussion-content, #reported-content {
+    max-height: 200px;
+    overflow-y: auto;
+    background-color: #f8f9fa;
+  }
+  
+  /* Comment list in view discussion modal */
+  #view-discussion-comments {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .comment-item {
+    border-bottom: 1px solid #eee;
+    padding: 10px 0;
+  }
+  
+  .comment-item:last-child {
+    border-bottom: none;
+  }
+  
+  .comment-meta {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+  }
+  
+  .comment-content {
+    font-size: 14px;
+  }
+  
+  /* Nav pills for reported content */
+  .nav-pills .nav-link {
+    color: #495057;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+    margin-right: 5px;
+  }
+  
+  .nav-pills .nav-link.active {
+    color: #fff;
+    background-color: #0C356A;
+  }
+  
+  /* Search terms table */
+  .trend-up {
+    color: #28a745;
+  }
+  
+  .trend-down {
+    color: #dc3545;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .actions-column {
+      min-width: 100px;
+    }
+  }

@@ -1,0 +1,188 @@
+#navbar {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 240px;
+    /* 240px */
+    background-color: #0C356A;
+    display: block;
+    align-items: center;
+    padding: 5px;
+    z-index: 5;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    /* Firefox */
+    transition: width 0.5s ease-in-out;
+}
+
+#toggle-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px !important;
+    color: #0C356A;
+    transition: font-size 0.25s ease-out, color 0.25s;
+}
+
+#toggle-nav-btn:hover {
+    cursor: pointer;
+    font-size: 40px !important;
+    color: rgb(187, 241, 255);
+}
+
+#navbar::-webkit-scrollbar {
+    display: none;
+}
+
+#navbar div,
+#navbar a {
+    font-size: 19px;
+    color: white;
+    text-decoration: none;
+}
+
+#navbar a {
+    color: rgb(221, 221, 221);
+    display: flex;
+    align-items: center;
+    padding: 15px 15px 15px 15px;
+    margin-left: 5px;
+    /* 15px 15px 15px 9px */
+}
+
+#navbar i {
+    margin-right: 0px;
+    /* 10px */
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logout-container {
+    flex-shrink: 0;
+    /* Do not shrink */
+    /* You can add additional styling to the logout container here */
+}
+
+#navbar a:hover {
+    color: white;
+}
+
+.nav-title {
+    padding: 15px 15px 15px 10px;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+}
+
+.nav-admin {
+    font-size: 20px;
+    display: block;
+    /* block */
+    opacity: 1;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    color: #fff;
+    margin-left: 26px;
+}
+
+.nav-text {
+    font-size: 15px;
+    display: block;
+    margin-left: 5px;
+    opacity: 1;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.nav-title .nav-text {
+    white-space: normal;
+}
+
+.nav-link {
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.logo-image {
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.t1,
+.t2 {
+    margin: 0;
+    font-weight: bold;
+}
+
+.t1 {
+    font-size: 30px;
+}
+
+.t2 {
+    font-size: 10px;
+}
+
+.navbar-logo-raise {
+    width: 50px;
+    height: auto;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+/* Hide the vertical line when the class 'retracted' is added */
+#navbar.retracted .text-container{
+    display: none;
+}
+
+
+.nav-link:hover {
+    background-color: rgba(201, 189, 189, 0.082);
+}
+
+#web-name {
+    padding: 15px 15px 15px 10px;
+    font-size: 19px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Add this line to center the content horizontally */
+    flex-direction: column;
+    /* Add this line to stack the logo and text vertically */
+    text-align: center;
+    /* Add this line to center the text horizontally */
+}
+
+#web-name .nav-text {
+    display: block;
+    /* Add this line to create space between the title and text */
+    opacity: 1;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    color: #fff;
+}
+
+.dropdown-container  {
+    display: none;
+    color: green;
+    /* Adjusted the font color to green */
+}
+
+.dropdown-text{
+    font-size: 13px;
+    color: #fff
+}
+
+/* Adjust the dropdown content when the button has the 'show' class */
+.dropdown-btn.show+.dropdown-container {
+    display: block;
+}
+
+/* @media screen and (min-width:767px) and (max-width: 1023px) for table view */
+
+/* @media screen and (max-width:767px) for mobile view*/
