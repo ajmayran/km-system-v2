@@ -510,3 +510,6 @@ UnboundLocalError: local variable 'resources' referenced before assignment
 [2025-04-07 14:46:00] Watching for file changes with StatReloader
 [2025-04-07 14:47:13] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\resources_post_view.py changed, reloading.
 [2025-04-07 14:47:14] Watching for file changes with StatReloader
+[2025-04-08 10:24:56] Watching for file changes with StatReloader
+[2025-04-08 10:25:30] Watching for file changes with StatReloader
+[2025-04-08 10:25:35] Not Found: /favicon.ico

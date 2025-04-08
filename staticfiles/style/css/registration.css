@@ -1,0 +1,198 @@
+/* registration.css */
+
+:root {
+  --purple-primary: #6a3de8;
+  --purple-light: #f3f0ff;
+  --purple-dark: #5432b4;
+  --text-dark: #333333;
+  --text-gray: #666666;
+  --border-color: #e1e1e1;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #ffffff;
+  height: 100%;
+}
+
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  width: 100%;
+  background-color: #f4f4f4;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.auth-branding {
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.auth-branding::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background-color: #5432b4;
+}
+
+.auth-branding img {
+  max-width: 70%;
+  max-height: 110px;
+  height: auto;
+}
+
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 1rem;
+  font-size: 13px;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: var(--purple-primary);
+  outline: none;
+}
+
+.btn-auth {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+  background-color: var(--purple-primary);
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.btn-auth:hover {
+  background-color: var(--purple-dark);
+}
+
+.text-link {
+  color: var(--purple-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.875rem;
+  display: block;
+  text-align: center;
+}
+
+.text-link:hover {
+  text-decoration: underline;
+}
+
+.signup-prompt {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-gray);
+}
+
+.signup-prompt a {
+  color: var(--purple-primary);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.signup-prompt a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .auth-container {
+    padding: 1rem;
+  }
+
+  .auth-card {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+
+  .auth-branding {
+    padding-bottom: 1.5rem;
+  }
+
+  .auth-branding::after {
+    left: 5%;
+    width: 90%;
+  }
+
+  .auth-branding img {
+    max-height: 120px;
+  }
+
+  .form-control {
+    padding: 0.875rem;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 0.5rem;
+  }
+
+  .auth-card {
+    padding: 1.25rem;
+    border-radius: 0.375rem;
+  }
+
+  .auth-branding {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-control {
+    padding: 0.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .btn-auth {
+    padding: 0.625rem;
+  }
+}

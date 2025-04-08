@@ -1,2 +1,6 @@
 km-env
 .env
+.dockerignore
+docker-compose
+docker
+nginx

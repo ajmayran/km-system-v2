@@ -1,0 +1,26 @@
+
+/* Style for expanded main-content */
+#main-content.expanded {
+    width: calc(80% - 240px);
+    transition: all 0.3s;
+    position: relative;
+    
+}
+
+/* Style for retracted main-content */
+#main-content.retracted {
+    width: calc(100% - 80px);
+    transition: all 0.3s;
+    position: relative;
+
+}
+
+/* Style for the textarea */
+form textarea {
+    width: 100%; /* Set the width to 100% */
+    height: 50vh; /* Set the height to 50% of the viewport height */
+    box-sizing: border-box; /* Include padding and border in the width calculation */
+    resize: vertical; /* Allow vertical resizing */
+    /* Add any other textarea styles here */
+
+}

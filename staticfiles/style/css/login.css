@@ -1,0 +1,283 @@
+/* login.css */
+
+:root {
+  --purple-primary: #6a3de8;
+  --purple-light: #f3f0ff;
+  --purple-dark: #5432b4;
+  --text-dark: #333333;
+  --text-gray: #666666;
+  --border-color: #e1e1e1;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #ffffff;
+  height: 100%;
+}
+
+.main-content {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Center the login container */
+.login-container {
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+  min-height: 100vh; /* Full height of the viewport */
+  width: 100%;
+  background-color: #f4f4f4; /* Light background for contrast */
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+/* Style the login card */
+.login-card {
+  width: 100%;
+  max-width: 500px; /* Adjust the width */
+  padding: 2rem;
+  background: white;
+  border-radius: 0.5rem;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.login-branding {
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.login-branding::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 10%;
+  width: 80%;
+  height: 2px;
+  background-color: #5432b4;
+}
+
+.logo {
+  max-width: 70%;
+  max-height: 110px;
+  height: auto;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: var(--text-dark);
+  text-align: left;
+}
+
+/* Make inputs larger */
+.form-control {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  border-color: var(--purple-primary);
+  outline: none;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+}
+
+.remember-me input[type="checkbox"] {
+  margin-right: 0.5rem;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 0.25rem;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.remember-me input[type="checkbox"]:checked {
+  background-color: var(--purple-primary);
+  border-color: var(--purple-primary);
+}
+
+.remember-me input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.remember-me label {
+  font-size: 0.875rem;
+  cursor: pointer;
+  color: var(--text-gray);
+}
+
+.forgot-password a {
+  font-size: 0.875rem;
+  color: var(--purple-primary);
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+.login-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--purple-primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--purple-dark);
+}
+
+.signup-prompt {
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-gray);
+}
+
+.signup-prompt a {
+  color: var(--purple-primary);
+  text-decoration: none;
+  font-weight: 500;
+  margin-left: 0.25rem;
+}
+
+.signup-prompt a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 1rem;
+  }
+  
+  .login-card {
+    padding: 1.5rem;
+    max-width: 100%;
+  }
+  
+  .logo {
+    height: 80px;
+    margin-bottom: 1.5rem;
+  }
+  
+  .login-branding {
+    padding-bottom: 1.5rem;
+  }
+  
+  .login-branding::after {
+    left: 5%;
+    width: 90%;
+  }
+  
+  .form-control {
+    padding: 0.875rem;
+  }
+  
+  .form-options {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  .forgot-password {
+    align-self: flex-end;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 0.5rem;
+  }
+  
+  .login-card {
+    padding: 1.25rem;
+    border-radius: 0.375rem;
+  }
+  
+  .login-branding {
+    margin-bottom: 1.5rem;
+  }
+  
+  .logo {
+    height: 70px;
+    margin-bottom: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-control {
+    padding: 0.75rem;
+    font-size: 0.9375rem;
+  }
+  
+  .btn {
+    padding: 0.625rem;
+  }
+}

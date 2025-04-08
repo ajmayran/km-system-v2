@@ -1,0 +1,16 @@
+
+/* Style for expanded main-content */
+#main-content.expanded {
+    width: calc(80% - 240px);
+    transition: all 0.3s;
+    position: relative;
+    
+}
+
+/* Style for retracted main-content */
+#main-content.retracted {
+    width: calc(100% - 80px);
+    transition: all 0.3s;
+    position: relative;
+
+}

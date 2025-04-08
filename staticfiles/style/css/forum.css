@@ -1,0 +1,219 @@
+.main-content {
+    overflow-x: hidden;
+}
+
+#search_term {
+    width: auto;
+}
+
+.background-img {
+    border-radius: 7px;
+    width: 875px;
+    height: 350px;
+    object-fit: cover;
+}
+
+.front-header {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-40%, -40%);
+    text-align: left;
+    width: 100%;
+}
+
+.img-text {
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.img-text-sec {
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    font-size: 40px;
+    font-weight: bold;
+    display: block;
+}
+
+.dropdown-toggle {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    background-color: #fcb040;
+    border: #fcb040 1px solid;
+}
+
+.dropdown-toggle:hover {
+    background-color: #f8d082;
+    color: #0c356a;
+    border: none;
+}
+
+.not_authenticated {
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+
+.not_authenticated:hover {
+    color: #0174be;
+    text-decoration: none;
+}
+
+.pagination-button {
+    border-radius: 5px;
+    /* Adds rounded corners to the button */
+    background-color: #0c356a;
+    /* Sets the background color to green */
+    color: white;
+    /* Sets the text color to white */
+    padding: 2px 7px;
+    /* Adds padding to the button */
+    border: none;
+    /* Removes the button border */
+    cursor: pointer;
+    /* Changes the cursor to a pointer on hover */
+    font-weight: bold;
+}
+
+.pagination-button:disabled {
+    background-color: white;
+    color: #0c356a;
+    /* Change text color for better visibility */
+    cursor: not-allowed;
+    /* Change cursor to indicate it's not clickable */
+    /* Add any additional styling for the disabled state */
+}
+
+.remove-commodity:hover {
+    color: crimson;
+}
+
+.post_discussion_title {
+    color: #000000;
+}
+
+.header-content {
+    margin-left: 55px;
+    /* maintains the left margin */
+    display: flex;
+    /* uses flexbox for layout */
+    flex-direction: column;
+    /* stacks children vertically */
+    align-items: flex-start;
+    /* aligns items to the left */
+}
+
+.discussion-card {
+    width: 875px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+}
+
+.commodity-tag {
+    color: #000000;
+    font-size: 10px;
+}
+
+.date-posted {
+    display: block;
+    font-size: 10px;
+}
+
+.body-content {
+    margin-left: 55px;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 1340px) {
+    #search_term {
+        width: 150px;
+        margin-bottom: 10px;
+    }
+
+    .search-input {
+        width: 100%;
+    }
+
+    .background-img {
+        border-radius: 7px;
+        width: 330px;
+        height: 350px;
+        object-fit: cover;
+    }
+
+    .front-header {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: left;
+        width: 90%;
+        margin-left: 20px;
+    }
+
+    .img-text,
+    .img-text-sec {
+        color: white;
+        text-shadow: 1px 1px 2px black;
+        font-size: 25px;
+        font-weight: bold;
+    }
+
+    .header-content {
+        margin-left: 0;
+        align-items: center;
+        text-align: center;
+    }
+
+    .discussion-card {
+        width: 100%;
+    }
+
+    .profile-pic {
+        width: 30px;
+        height: 30px;
+    }
+
+    .commodity-tag {
+        font-size: 8px;
+        text-align: left;
+        display: inline-block; /* Ensures each tag aligns properly in a line */
+    }
+    
+    .date-posted {
+        font-size: 8px;
+        text-align: left;
+    }
+    
+    .header-content {
+        margin-left: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; /* Aligns items to the left */
+    }
+    
+    .body-content {
+        margin-left: 40px;
+        margin-top: 10px;
+        text-align: left;
+        text-align: justify;
+        font-size: 11px;
+    }
+    
+    .post_discussion_title {
+        font-size: 12px;
+        text-align: left;
+        display: block; /* Ensures it takes full width and aligns left */
+    }
+
+}
