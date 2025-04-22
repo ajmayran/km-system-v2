@@ -1,0 +1,846 @@
+
+{% extends 'base/cmi-index.html' %} 
+{% load static %} 
+{% block title %}User Profile | AANR Knowledge Hub{% endblock %} 
+{% block stylesheet %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="{% static "style/css/cmi-profile.css" %}">
+{% endblock %} 
+
+{% block content %}
+    <div class="main-content">
+        <!-- Success notification -->
+        <div id="notification" class="notification hidden">
+            <i class="fas fa-check-circle"></i>
+            <span>Profile updated successfully!</span>
+        </div>
+        
+        <div class="container">
+            <div class="profile-card">
+            <!-- Profile header/banner -->
+            <div class="profile-header">
+                <div class="profile-avatar-container">
+                <div class="profile-avatar">
+                    {% if user_profile and user_profile.picture %}
+                        <img id="profile-image" src="{{ user_profile.picture.url }}" alt="Profile Image">
+                    {% else %}
+                        <img id="profile-image" src="{% static default_profile_image %}" alt="Default Profile Image">
+                    {% endif %}
+                </div>
+                
+                <!-- Camera icon for photo upload -->
+                <label for="profile-upload" class="camera-icon">
+                    <i class="fas fa-camera"></i>
+                    <form id="profile-picture-form" action="{% url 'appCmi:upload-profile' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                    <input type="file" id="profile-upload" name="picture" accept="image/*" onchange="submitProfileForm(this)">
+                    </form>
+                </label>
+                </div>
+                
+                
+                <!-- Edit profile button -->
+                <button id="edit-profile-btn" class="edit-profile-btn" data-url="{% url 'appCmi:update_user_info' %}">
+                    <i class="fas fa-edit"></i>
+                    <span>Edit Profile</span>
+                </button>
+            </div>
+            
+            <!-- Profile content -->
+            <div class="profile-content">
+                <div class="profile-grid">
+                <!-- Left column - Basic info -->
+                <div class="profile-section">
+                    <div class="section-container">
+                    <h2 class="section-title">Basic Information</h2>
+                    
+                    <div id="basic-info-display" class="info-display">
+                        <div class="info-item">
+                        <i class="fas fa-user"></i>
+                        <div>
+                            <h3 class="info-value" id="full-name">{{user.first_name}} {{user.last_name}}</h3>
+                            <p class="info-label">Full Name</p>
+                        </div>
+                        </div>
+                        <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3 class="info-value" id="email-display">{{user.email}}</h3>
+                            <p class="info-label">Email</p>
+                        </div>
+                        </div>
+                        <div class="info-item">
+                        <i class="fas fa-calendar"></i>
+                        <div>
+                            <h3 class="info-value" id="dob-display">{{user.date_birth}}</h3>
+                            <p class="info-label">Date of Birth</p>
+                        </div>
+                        </div>
+                        <div class="info-item">
+                        <i class="fas fa-venus-mars"></i>
+                        <div>
+                            <h3 class="info-value" id="sex-display">{{user.sex}}</h3>
+                            <p class="info-label">Sex</p>
+                        </div>
+                        </div>
+                        <div class="info-item">
+                        <div class="icon-text">G</div>
+                        <div>
+                            <h3 class="info-value" id="gender-display">{{user.gender}}</h3>
+                            <p class="info-label">Gender</p>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <div id="basic-info-edit" class="info-edit hidden">
+                        <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        <input type="text" id="first-name" value="{{user.first_name}}" name="first_name">
+                        </div>
+                        <div class="form-group">
+                        <label for="middle-name">Middle Name</label>
+                        <input type="text" id="middle-name" value="{{user.middle_name}}" name="middle_name">
+                        </div>
+                        <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        <input type="text" id="last-name" value="{{user.last_name}}" name="last_name">
+                        </div>
+                        <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" value="{{user.email}}" name="email">
+                        </div>
+                        <div class="form-group">
+                        <label for="date-birth">Date of Birth</label>
+                        <input type="date" id="date-birth" value="{{user.date_birth}}" name="date_birth">
+                        </div>
+                        <div class="form-group">
+                        <label for="sex">Sex</label>
+                        <select id="sex">
+                            <option value="Female" selected>Female</option>
+                            <option value="Male">Male</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <input type="text" id="gender" value="Female">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- Middle column - Professional info -->
+                <div class="profile-section">
+                    <div class="section-container">
+                    <h2 class="section-title">Professional Information</h2>
+                    
+                    <div id="prof-info-display" class="info-display">
+                        <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3 class="info-value" id="institution-display">{{user.institution}}</h3>
+                            <p class="info-label">Institution</p>
+                        </div>
+                        </div>
+                        <div class="info-item">
+                        <i class="fas fa-briefcase"></i>
+                        <div>
+                            <h3 class="info-value" id="position-display">{{user.position}}</h3>
+                            <p class="info-label">Position</p>
+                        </div>
+                        </div>
+                        <div class="info-item">
+                        <i class="fas fa-award"></i>
+                        <div>
+                            <h3 class="info-value" id="specialization-display">{{user.specialization}}</h3>
+                            <p class="info-label">Specialization</p>
+                        </div>
+                        </div>
+                        <div class="info-item">
+                        <i class="fas fa-graduation-cap"></i>
+                        <div>
+                            <h3 class="info-value" id="education-display">{{user.highest_educ}}</h3>
+                            <p class="info-label">Highest Education</p>
+                        </div>
+                        </div>
+                        <div class="info-item">
+                        <div class="icon-text">T</div>
+                        <div>
+                            <h3 class="info-value" id="user-type-display">{{user.user_type}}</h3>
+                            <p class="info-label">User Type</p>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <div id="prof-info-edit" class="info-edit hidden">
+                        <div class="form-group">
+                        <label for="institution">Institution</label>
+                        <input type="text" id="institution" value="{{user.institution}}" name="institution">
+                        </div>
+                        <div class="form-group">
+                        <label for="position">Position</label>
+                        <input type="text" id="position" value="{{user.position}}" name="position">
+                        </div>
+                        <div class="form-group">
+                        <label for="specialization">Specialization</label>
+                        <input type="text" id="specialization" value="{{user.specialization}}" name="specialization">
+                        </div>
+                        <div class="form-group">
+                        <label for="highest-educ">Highest Education</label>
+                        <select id="highest-educ">
+                            <option value="Bachelors">Bachelors Degree</option>
+                            <option value="Masters" selected>Masters Degree</option>
+                            <option value="Doctorate">Doctorate Degree</option>
+                            <option value="Post-Doctorate">Post-Doctorate</option>
+                        </select>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
+                <!-- Right column - Contact & Account -->
+                <div class="profile-section">
+                    <div class="section-container contact-section">
+                    <h2 class="section-title">Contact Information</h2>
+                    
+                    <div id="contact-info-display" class="info-display">
+                        <div class="info-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3 class="info-value" id="contact-num-display">{{user.contact_num}}</h3>
+                            <p class="info-label">Contact Number</p>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <div id="contact-info-edit" class="info-edit hidden">
+                        <div class="form-group">
+                        <label for="contact-num">Contact Number</label>
+                        <input type="text" id="contact-num" value="{{user.contact_num}}" name="contact_num">
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class="section-container">
+                    <h2 class="section-title">Account Information</h2>
+                    
+                    <div class="info-display">
+                        <div class="info-item">
+                        <i class="fas fa-calendar"></i>
+                        <div>
+                            <h3 class="info-value">{{user.date_created}}</h3>
+                            <p class="info-label">Member Since</p>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                
+                <!-- Activity section -->
+                <div class="activity-section">
+                <h2 class="section-title">Recent Activity</h2>
+                
+                <div class="activity-list">
+                    <div class="activity-item">
+                    <div class="activity-content">
+                        <p>Posted in forum: "Best practices for rice cultivation"</p>
+                        <span>2 days ago</span>
+                    </div>
+                    </div>
+                    <div class="activity-item">
+                    <div class="activity-content">
+                        <p>Commented on "Sustainable farming techniques in Western Mindanao"</p>
+                        <span>1 week ago</span>
+                    </div>
+                    </div>
+                    <div class="activity-item">
+                    <div class="activity-content">
+                        <p>Bookmarked resource on "Aquaculture best practices"</p>
+                        <span>2 weeks ago</span>
+                    </div>
+                    </div>
+                </div>
+                
+                <div class="view-all">
+                    <button>View All Activity</button>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+  
+  
+  {% endblock content %}
+
+  {% block script %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss alerts after 5 seconds
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      setTimeout(() => {
+        const closeButton = alert.querySelector('.btn-close');
+        if (closeButton) {
+          closeButton.click();
+        }
+      }, 5000);
+    });
+  });
+</script>
+<script src="{% static "style/js/cmi-profile.js" %}"></script>
+<script>
+    function submitProfileForm(input) {
+        if (input.files && input.files[0]) {
+            // Create loading indicator
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'loading-indicator';
+            loadingIndicator.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+            loadingIndicator.style.position = 'absolute';
+            loadingIndicator.style.top = '50%';
+            loadingIndicator.style.left = '50%';
+            loadingIndicator.style.transform = 'translate(-50%, -50%)';
+            loadingIndicator.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            loadingIndicator.style.borderRadius = '50%';
+            loadingIndicator.style.width = '40px';
+            loadingIndicator.style.height = '40px';
+            loadingIndicator.style.display = 'flex';
+            loadingIndicator.style.alignItems = 'center';
+            loadingIndicator.style.justifyContent = 'center';
+            loadingIndicator.style.color = 'white';
+            
+            const avatarContainer = document.querySelector('.profile-avatar');
+            avatarContainer.style.position = 'relative';
+            avatarContainer.appendChild(loadingIndicator);
+            
+            // Show preview of the image
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById('profile-image').src = e.target.result;
+            };
+            reader.readAsDataURL(input.files[0]);
+            
+            // Submit the form via AJAX
+            const form = document.getElementById('profile-picture-form');
+            const formData = new FormData(form);
+            
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Remove loading indicator
+                loadingIndicator.remove();
+                
+                if (data.success) {
+                    // Update the image with server version
+                    document.getElementById('profile-image').src = data.image_url + '?t=' + new Date().getTime();
+                    
+                    // Show success notification
+                    showNotification('Profile picture updated successfully', 'success');
+                } else {
+                    // Show error message
+                    showNotification(data.message, 'error');
+                    
+                    // Revert the image to previous state if available
+                    if (window.originalProfileImage) {
+                        document.getElementById('profile-image').src = window.originalProfileImage;
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                loadingIndicator.remove();
+                showNotification('An error occurred while uploading the image', 'error');
+                
+                // Revert the image to previous state if available
+                if (window.originalProfileImage) {
+                    document.getElementById('profile-image').src = window.originalProfileImage;
+                }
+            });
+        }
+    }
+    
+    // Save original image URL when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        window.originalProfileImage = document.getElementById('profile-image').src;
+        
+        // Add event listener to capture file selection
+        document.getElementById('profile-upload').addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                submitProfileForm(this);
+            }
+        });
+    });
+    
+    // This function will be called when the "Save Profile" button is clicked
+function saveChanges() {
+    // Get CSRF token
+    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    
+    // Collect form data from all edit sections
+    const formData = new FormData();
+    
+    // Basic info
+    formData.append('first_name', document.getElementById('first-name').value);
+    formData.append('middle_name', document.getElementById('middle-name').value);
+    formData.append('last_name', document.getElementById('last-name').value);
+    formData.append('email', document.getElementById('email').value);
+    formData.append('date_birth', document.getElementById('date-birth').value);
+    formData.append('sex', document.getElementById('sex').value);
+    formData.append('gender', document.getElementById('gender').value);
+    
+    // Professional info
+    formData.append('institution', document.getElementById('institution').value);
+    formData.append('position', document.getElementById('position').value);
+    formData.append('specialization', document.getElementById('specialization').value);
+    formData.append('highest_educ', document.getElementById('highest-educ').value);
+    
+    // Contact info
+    formData.append('contact_num', document.getElementById('contact-num').value);
+    
+    // User type should not be changed by the user, but we'll keep it in the form
+    // The backend will ignore this if it's not allowed to be changed
+    const userTypeDisplay = document.getElementById('user-type-display');
+    if (userTypeDisplay) {
+        const userType = userTypeDisplay.textContent.toLowerCase();
+        formData.append('user_type', userType);
+    }
+    
+    // Create loading indicator
+    const loadingIndicator = createLoadingIndicator();
+    document.querySelector('.profile-content').appendChild(loadingIndicator);
+    
+    // Get the URL from the button's data-url attribute
+    const updateUrl = document.getElementById('edit-profile-btn').getAttribute('data-url');
+    
+    // Send data to the server
+    fetch(updateUrl, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': csrfToken
+        },
+        credentials: 'same-origin'
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Remove loading indicator
+        loadingIndicator.remove();
+        
+        if (data.success) {
+            // Update display values with the new data
+            updateDisplayValues();
+            
+            // Show success notification
+            showNotification(data.message || 'Profile updated successfully', 'success');
+        } else {
+            // Show error message
+            showNotification(data.message || 'An error occurred while updating the profile', 'error');
+            
+            // Display form errors if available
+            if (data.errors) {
+                displayFormErrors(data.errors);
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        loadingIndicator.remove();
+        showNotification('An error occurred while updating the profile', 'error');
+    });
+}
+
+// Function to display form errors
+function displayFormErrors(errors) {
+    // Clear previous error messages
+    document.querySelectorAll('.error-message').forEach(el => el.remove());
+    
+    // Loop through all error fields and add error messages
+    for (const field in errors) {
+        const inputElement = document.querySelector(`[name="${field}"]`);
+        if (inputElement) {
+            const errorElement = document.createElement('div');
+            errorElement.className = 'error-message';
+            errorElement.textContent = errors[field].join(' ');
+            errorElement.style.color = '#dc3545';
+            errorElement.style.fontSize = '0.875rem';
+            errorElement.style.marginTop = '0.25rem';
+            
+            // Insert error message after the input element
+            inputElement.parentNode.insertBefore(errorElement, inputElement.nextSibling);
+            
+            // Highlight the input field
+            inputElement.style.borderColor = '#dc3545';
+        }
+    }
+}
+
+// Function to create a loading indicator
+function createLoadingIndicator() {
+    const loadingIndicator = document.createElement('div');
+    loadingIndicator.className = 'loading-indicator';
+    loadingIndicator.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+    loadingIndicator.style.position = 'fixed';
+    loadingIndicator.style.top = '50%';
+    loadingIndicator.style.left = '50%';
+    loadingIndicator.style.transform = 'translate(-50%, -50%)';
+    loadingIndicator.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+    loadingIndicator.style.borderRadius = '5px';
+    loadingIndicator.style.padding = '20px';
+    loadingIndicator.style.zIndex = '9999';
+    loadingIndicator.style.display = 'flex';
+    loadingIndicator.style.alignItems = 'center';
+    loadingIndicator.style.justifyContent = 'center';
+    loadingIndicator.style.color = 'white';
+    loadingIndicator.style.fontSize = '1.5rem';
+    
+    return loadingIndicator;
+}
+
+// Function to update display values after successful update
+function updateDisplayValues() {
+    // Format date of birth for display
+    const dobValue = document.getElementById('date-birth').value;
+    let formattedDob = dobValue;
+    
+    if (dobValue) {
+        const dob = new Date(dobValue);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        formattedDob = dob.toLocaleDateString('en-US', options);
+    }
+    
+    // Update basic info
+    const firstName = document.getElementById('first-name').value;
+    const middleName = document.getElementById('middle-name').value;
+    const lastName = document.getElementById('last-name').value;
+    
+    document.getElementById('full-name').textContent = `${firstName} ${middleName ? middleName + ' ' : ''}${lastName}`;
+    document.getElementById('email-display').textContent = document.getElementById('email').value;
+    document.getElementById('dob-display').textContent = formattedDob;
+    document.getElementById('sex-display').textContent = document.getElementById('sex').value;
+    document.getElementById('gender-display').textContent = document.getElementById('gender').value;
+    
+    // Update professional info
+    document.getElementById('institution-display').textContent = document.getElementById('institution').value;
+    document.getElementById('position-display').textContent = document.getElementById('position').value;
+    document.getElementById('specialization-display').textContent = document.getElementById('specialization').value;
+    
+    const educValue = document.getElementById('highest-educ').value;
+    document.getElementById('education-display').textContent = `${educValue} Degree`;
+    
+    // Update contact info
+    document.getElementById('contact-num-display').textContent = document.getElementById('contact-num').value;
+}
+
+// Modify the existing toggleEditMode function to use our saveChanges function
+document.addEventListener('DOMContentLoaded', function() {
+    const editProfileBtn = document.getElementById('edit-profile-btn');
+    
+    // Verify the data-url attribute exists
+    if (editProfileBtn && !editProfileBtn.hasAttribute('data-url')) {
+        console.warn('The edit-profile-btn is missing the data-url attribute. Adding default URL.');
+        // Add a default URL if missing (can be changed in the HTML)
+        editProfileBtn.setAttribute('data-url', '/update_user_info/');
+    }
+    
+    if (editProfileBtn) {
+        // Remove the existing event listener using cloneNode and replace
+        const newEditBtn = editProfileBtn.cloneNode(true);
+        editProfileBtn.parentNode.replaceChild(newEditBtn, editProfileBtn);
+        
+        // Add our modified event listener
+        newEditBtn.addEventListener('click', function() {
+            const isEditing = this.classList.contains('active');
+            
+            if (!isEditing) {
+                // Switch to edit mode
+                this.innerHTML = '<i class="fas fa-save"></i><span>Save Profile</span>';
+                this.classList.add('active');
+                
+                // Show edit forms, hide displays
+                document.getElementById('basic-info-display').classList.add('hidden');
+                document.getElementById('basic-info-edit').classList.add('show');
+                document.getElementById('basic-info-edit').classList.remove('hidden');
+                
+                document.getElementById('prof-info-display').classList.add('hidden');
+                document.getElementById('prof-info-edit').classList.add('show');
+                document.getElementById('prof-info-edit').classList.remove('hidden');
+                
+                document.getElementById('contact-info-display').classList.add('hidden');
+                document.getElementById('contact-info-edit').classList.add('show');
+                document.getElementById('contact-info-edit').classList.remove('hidden');
+                
+                // Add animation to form fields
+                animateFormFields();
+            } else {
+                // Save the changes using our new function
+                saveChanges();
+                
+                // Switch back to display mode
+                this.innerHTML = '<i class="fas fa-edit"></i><span>Edit Profile</span>';
+                this.classList.remove('active');
+                
+                // Show displays, hide edit forms
+                document.getElementById('basic-info-display').classList.remove('hidden');
+                document.getElementById('basic-info-edit').classList.remove('show');
+                document.getElementById('basic-info-edit').classList.add('hidden');
+                
+                document.getElementById('prof-info-display').classList.remove('hidden');
+                document.getElementById('prof-info-edit').classList.remove('show');
+                document.getElementById('prof-info-edit').classList.add('hidden');
+                
+                document.getElementById('contact-info-display').classList.remove('hidden');
+                document.getElementById('contact-info-edit').classList.remove('show');
+                document.getElementById('contact-info-edit').classList.add('hidden');
+            }
+        });
+    }
+    
+    // Function to animate form fields (keeping the original animation)
+    function animateFormFields() {
+        const inputs = document.querySelectorAll('.info-edit input, .info-edit select');
+        inputs.forEach((input, index) => {
+            setTimeout(() => {
+                input.style.transition = 'transform 0.3s ease, opacity 0.3s ease';
+                input.style.transform = 'translateY(0)';
+                input.style.opacity = '1';
+            }, 50 * index);
+        });
+    }
+});
+
+// Enhanced notification function that supports both success and error messages
+function showNotification(message, type) {
+    const notification = document.getElementById('notification') || createNotificationElement();
+    
+    // Set message and style based on type
+    const iconClass = type === 'error' ? 'fa-exclamation-circle' : 'fa-check-circle';
+    notification.innerHTML = `<i class="fas ${iconClass}"></i><span>${message}</span>`;
+    notification.className = 'notification';
+    
+    if (type === 'error') {
+        notification.style.backgroundColor = '#dc3545';
+    } else {
+        notification.style.backgroundColor = '#28a745';
+    }
+    
+    // Show notification
+    notification.classList.remove('hidden');
+    setTimeout(() => {
+        notification.classList.add('show');
+    }, 10);
+    
+    // Hide after 3 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.classList.add('hidden');
+        }, 300);
+    }, 3000);
+}
+
+// Helper function to create notification element if it doesn't exist
+function createNotificationElement() {
+    const notification = document.createElement('div');
+    notification.id = 'notification';
+    notification.className = 'notification hidden';
+    document.body.appendChild(notification);
+    return notification;
+}
+
+// Add CSS for error handling and form validation
+document.addEventListener('DOMContentLoaded', function() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .form-group {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .form-group input, .form-group select {
+            transition: border-color 0.15s ease-in-out;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: #28a745;
+        }
+        
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+});
+
+// Add the modal HTML to the page
+document.addEventListener('DOMContentLoaded', function() {
+    // Create the modal element
+    const modal = document.createElement('div');
+    modal.id = 'profile-image-modal';
+    modal.className = 'profile-image-modal';
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <img id="modal-profile-image" src="" alt="Profile Image">
+        </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Get the profile image and modal elements
+    const profileImage = document.getElementById('profile-image');
+    const profileModal = document.getElementById('profile-image-modal');
+    const modalImage = document.getElementById('modal-profile-image');
+    const closeButton = document.querySelector('.close-button');
+
+    // Add click event to profile image
+    if (profileImage) {
+        profileImage.style.cursor = 'pointer';
+        
+        profileImage.addEventListener('click', function() {
+            // Set the modal image source to the profile image source
+            modalImage.src = this.src;
+            // Show the modal
+            profileModal.style.display = 'flex';
+            // Add animation class
+            setTimeout(() => {
+                profileModal.classList.add('show');
+            }, 10);
+        });
+    }
+
+    // Close the modal when clicking the close button
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModal);
+    }
+
+    // Close the modal when clicking outside the image
+    window.addEventListener('click', function(event) {
+        if (event.target === profileModal) {
+            closeModal();
+        }
+    });
+
+    // Close with ESC key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && profileModal.classList.contains('show')) {
+            closeModal();
+        }
+    });
+
+    function closeModal() {
+        profileModal.classList.remove('show');
+        setTimeout(() => {
+            profileModal.style.display = 'none';
+        }, 300);
+    }
+
+    // Add CSS for the modal
+    const style = document.createElement('style');
+    style.textContent = `
+        .profile-image-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .profile-image-modal.show {
+            opacity: 1;
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: transparent;
+            margin: auto;
+            width: 30%;
+            height: auto;
+            overflow: hidden;
+            animation: fadeIn 0.3s;
+        }
+
+        #modal-profile-image {
+            display: block;
+            width: auto;
+            height: auto;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-image-modal.show #modal-profile-image {
+            transform: scale(1);
+        }
+
+        .close-button {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+
+        .close-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: scale(0.9);}
+            to {opacity: 1; transform: scale(1);}
+        }
+
+        /* Add a subtle zoom effect when hovering over the profile image */
+        .profile-avatar img {
+            transition: transform 0.3s ease;
+        }
+
+        .profile-avatar:hover img {
+            transform: scale(1.05);
+        }
+    `;
+    document.head.appendChild(style);
+});
+</script>
+{% endblock %}

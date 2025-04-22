@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AANR Knowledge Management Footer</title>
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+        }
+        
+        /* Animation keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(78, 177, 121, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(78, 177, 121, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(78, 177, 121, 0); }
+        }
+        
+        @keyframes floatUpDown {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+        
+        @keyframes borderPulse {
+            0% { border-color: rgba(255, 255, 255, 0.3); }
+            50% { border-color: rgba(255, 255, 255, 0.9); }
+            100% { border-color: rgba(255, 255, 255, 0.3); }
+        }
+        
+        /* Footer styles */
+        .footer {
+            background-color: #2C6E49;
+            color: #ffffff;
+            padding: 3rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Animated background element */
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 200%;
+            height: 10px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shine 3s infinite linear;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-30%); }
+            100% { transform: translateX(30%); }
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        /* Logo and about section */
+        .footer-about {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+        
+        .footer-about img {
+            height: 50px;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-about img:hover {
+            transform: scale(1.05);
+        }
+        
+        .footer-about p {
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+        
+        /* Footer navigation */
+        .footer-nav {
+            animation: fadeIn 0.6s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+        
+        .footer-contact {
+            animation: fadeIn 0.6s ease-out 0.4s forwards;
+            opacity: 0;
+        }
+        
+        .footer-subscribe {
+            animation: fadeIn 0.6s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+        
+        .footer-nav h3,
+        .footer-contact h3,
+        .footer-subscribe h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-nav h3:after,
+        .footer-contact h3:after,
+        .footer-subscribe h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #4EB179;
+            animation: widthPulse 2s infinite alternate;
+        }
+        
+        @keyframes widthPulse {
+            0% { width: 30px; }
+            100% { width: 50px; }
+        }
+        
+        .footer-nav ul {
+            list-style: none;
+        }
+        
+        .footer-nav ul li {
+            margin-bottom: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-nav ul li:hover {
+            transform: translateX(5px);
+        }
+        
+        .footer-nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+            position: relative;
+        }
+        
+        .footer-nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: #ffffff;
+            transition: width 0.3s ease;
+        }
+        
+        .footer-nav ul li a:hover {
+            opacity: 1;
+        }
+        
+        .footer-nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        /* Contact information */
+        .contact-info {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-info p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.7rem;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-info p:hover {
+            transform: translateX(5px);
+        }
+        
+        .contact-info i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+            animation: floatUpDown 2s ease infinite;
+        }
+        
+        /* Social media links */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 34px;
+            height: 34px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .social-links a:hover {
+            background-color: #4EB179;
+            transform: translateY(-3px);
+            animation: pulseGlow 1.5s infinite;
+        }
+        
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .social-links a:hover::before {
+            left: 100%;
+        }
+        
+        /* Newsletter form */
+        .newsletter-form {
+            margin-top: 1rem;
+            position: relative;
+        }
+        
+        .newsletter-form input {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 4px 4px 0 0;
+            margin-bottom: 1px;
+            outline: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .newsletter-form input:focus {
+            border-color: #4EB179;
+            animation: borderPulse 1.5s infinite;
+        }
+        
+        .newsletter-form button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #4EB179;
+            color: white;
+            border: none;
+            border-radius: 0 0 4px 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .newsletter-form button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .newsletter-form button:hover::before {
+            left: 100%;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: #3D9366;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Copyright section */
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.85rem;
+            opacity: 0.8;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+            animation: fadeIn 0.6s ease-out 0.8s forwards;
+            opacity: 0;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- About section -->
+            <div class="footer-about">
+                <img src="https://via.placeholder.com/150x50?text=AANR+Logo" alt="AANR Logo">
+                <p>AANR Knowledge Management System provides comprehensive resources and tools for agricultural research and innovation across regions and sectors.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            
+            <!-- Quick Links -->
+            <div class="footer-nav">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Knowledge Base</a></li>
+                    <li><a href="#">Research Papers</a></li>
+                    <li><a href="#">Resources</a></li>
+                    <li><a href="#">Events & Webinars</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="footer-contact">
+                <h3>Contact Us</h3>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Research Avenue, Agricultural District, Manila</p>
+                    <p><i class="fas fa-phone"></i> +63 (2) 8123 4567</p>
+                    <p><i class="fas fa-envelope"></i> info@aanr-knowledge.org</p>
+                    <p><i class="fas fa-clock"></i> Monday-Friday: 8:00 AM - 5:00 PM</p>
+                </div>
+            </div>
+            
+            <!-- Newsletter Subscription -->
+            <div class="footer-subscribe">
+                <h3>Stay Updated</h3>
+                <p>Subscribe to our newsletter for the latest agricultural research updates and knowledge resources.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Your Email Address" required>
+                    <button type="submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Copyright Section -->
+        <div class="footer-bottom">
+            <p>&copy; 2025 AANR Knowledge Management System. All Rights Reserved. | Privacy Policy | Terms of Use</p>
+        </div>
+    </footer>
+</body>
+</html>
