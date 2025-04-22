@@ -2,6 +2,11 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
+import random
+import string
+from django.utils.text import slugify
+
+# ACCOUNTS
 
 
 class CustomUserManager(BaseUserManager):
@@ -37,11 +42,6 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault("is_superuser", True)
 
         return self._create_user(email, password, **extra_fields)
-
-
-import random
-import string
-from django.utils.text import slugify
 
 
 def generate_random_slug():
@@ -126,7 +126,7 @@ class Profile(models.Model):
 
     profile_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    picture = models.ImageField(upload_to="profiles_img/", null=True, blank=True)
+    picture = models.ImageField(upload_to="user-profiles/", null=True, blank=True)
 
     class Meta:
         db_table = "tbl_profile_pictures"

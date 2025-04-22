@@ -5,6 +5,8 @@ from embed_video.fields import EmbedVideoField
 from django.urls import reverse
 from django.utils.text import slugify
 
+# ADMIN
+
 
 class Commodity(models.Model):
     commodity_id = models.AutoField(primary_key=True)

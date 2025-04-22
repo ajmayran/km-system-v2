@@ -10,10 +10,18 @@ from .cmi_forum_url import (
 from .cmi_commodities_url import (
     urlpatterns as commodities_url_urlpatterns,
 )
+from .cmi_message_url import (
+    urlpatterns as message_url_urlpatterns,
+)
+from .cmi_user_profile_url import (
+    urlpatterns as user_profile_url_urlpatterns,
+)
 
 urlpatterns = (
     home_url_urlpatterns
     + cmi_about_url_urlpatterns
     + forum_url_urlpatterns
     + commodities_url_urlpatterns
+    + message_url_urlpatterns
+    + user_profile_url_urlpatterns
 )

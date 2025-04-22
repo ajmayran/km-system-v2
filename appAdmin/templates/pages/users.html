@@ -19,16 +19,17 @@
               <div class="row">
                 <div class="col-12">
                   <form action="#" method="POST" class="form-search">
+                    {% csrf_token %}
                     <input type="text" id="search_user_id" name="search_user_id" class="form-control" placeholder="Search by User ID" />
                     <input type="text" id="search_name" name="search_name" class="form-control" placeholder="Search by Name" />
                     <input type="text" id="search_institution" name="search_institution" class="form-control" placeholder="Search by Institution" />
+                    <button type="button" id="searchButton" class="btn btn-primary">Search</button>
                   </form>
                 </div>
               </div>
             </div>
             <br />
             <div class="layer w-100">
-              {% comment %} <div id="world-map-marker"></div> {% endcomment %}
               <div class="table-container" style="max-height: 500px; overflow-y: auto; width: 100%;">
                 <table id="accountsTable" class="accounts-table table table-bordered" style="width: 100%; min-width: 600px;">
                   <thead style="font-size: 13px; font-weight: bolder;">
@@ -67,7 +68,7 @@
 
                             <button type="button" style="background-color: #0C356A; color: #FEFBF6;" class="btn btn-sm view-btn" data-toggle="modal" data-target="#viewAccountModal" data-userid="{{ user.id }}" data-firstname="{{ user.first_name|capfirst }}" data-middlename="{% if user.middle_name %}{{ user.middle_name|capfirst }}{% endif %}" data-lastname="{{ user.last_name|capfirst }}" data-datejoined="{{ user.date_joined|date:'Y-m-d' }}" data-email="{{ user.email }}" data-institution="{{ user.institution }}" data-position="{{ user.position|capfirst }}" data-usertype="{{ user.user_type|capfirst }} User" data-sex="{% if user.sex %}{{ user.sex|capfirst }}{% endif %}" data-gender="{% if user.gender %}{{ user.gender }}{% endif %}" data-birthdate="{{ user.date_birth|date:'Y-m-d' }}" data-contactnum="{% if user.contact_num %}{{ user.contact_num }}{% endif %}" data-highesteduc="{{ user.highest_educ|capfirst }}s Degree" data-specialization="{% if user.specialization %}{{ user.specialization|capfirst }}{% endif %}">View</button>
 
-                            <a data-placement="top" style="background-color: #D71313; color: #FEFBF6;" data-toggle="tooltip" title="delete" href="" class="btn btn-sm" onclick="confirmDeletion(event, this)">Delete</a>
+                            <a data-placement="top" style="background-color: #D71313; color: #FEFBF6;" data-toggle="tooltip" title="delete" href="" class="btn btn-sm delete-btn">Delete</a>
                           </div>
                         </td>
                       </tr>
@@ -89,19 +90,19 @@
               </div>
               <div class="peers pT-20 mT-20 bdT fxw-nw@lg+ jc-sb ta-c gap-10">
                 <div class="peer">
-                  <div id="generalUserChart" class="easy-pie-chart" data-size="80" data-percent="{{ gen_user_percent }}" data-bar-color="#f44336">
+                  <div id="generalUserChart" class="user-chart-pie" data-percent="{{ gen_user_percent }}">
                     <span>{{ gen_user_percent }}%</span>
                   </div>
                   <h6 class="fsz-sm">General Users ({{ total_gen_user }})</h6>
                 </div>
                 <div class="peer">
-                  <div id="cmiUserChart" class="easy-pie-chart" data-size="80" data-percent="{{ cmi_user_percent }}" data-bar-color="#2196f3">
+                  <div id="cmiUserChart" class="user-chart-pie" data-percent="{{ cmi_user_percent }}">
                     <span>{{ cmi_user_percent }}%</span>
                   </div>
                   <h6 class="fsz-sm">CMI Users ({{ total_cmi_user }})</h6>
                 </div>
                 <div class="peer">
-                  <div id="secretariatUserChart" class="easy-pie-chart" data-size="80" data-percent="{{ sec_user_percent }}" data-bar-color="#ff9800">
+                  <div id="secretariatUserChart" class="user-chart-pie" data-percent="{{ sec_user_percent }}">
                     <span>{{ sec_user_percent }}%</span>
                   </div>
                   <h6 class="fsz-sm">Secretariat ({{ total_sec_user }})</h6>
@@ -129,242 +130,601 @@
       </div>
     </div>
   </div>
-{% comment %} 
-  {% include 'content/mod-account/modal/add-account.html' %}
-  {% include 'content/mod-account/modal/edit-account.html' %}
-  {% include 'content/mod-account/modal/view-account.html' %} {% endcomment %}
+
+  <!-- Add User Modal -->
+  <div class="modal fade" id="accountRegistrationModal" tabindex="-1" role="dialog" aria-labelledby="accountRegistrationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="accountRegistrationModalLabel">Add New User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+            <!-- Personal Information Fieldset -->
+            <div class="fieldset">
+              <legend class="legend">Personal Information</legend>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="first_name">First Name</label>
+                  <input type="text" class="form-control" id="first_name" name="first_name" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="middle_name">Middle Name</label>
+                  <input type="text" class="form-control" id="middle_name" name="middle_name">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="last_name">Last Name</label>
+                  <input type="text" class="form-control" id="last_name" name="last_name" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="sex">Biological Sex</label>
+                  <select class="form-control" id="sex" name="sex" required>
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="gender">Gender</label>
+                  <select class="form-control" id="gender" name="gender">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-Binary</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="date_birth">Date of Birth</label>
+                  <input type="date" class="form-control" id="date_birth" name="date_birth">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="contact_num">Contact Number</label>
+                  <input type="text" class="form-control" id="contact_num" name="contact_num">
+                </div>
+              </div>
+            </div>
+            
+            <!-- Account Information Fieldset -->
+            <div class="fieldset">
+              <legend class="legend">Account Information</legend>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="user_type">User Type</label>
+                  <select class="form-control" id="user_type" name="user_type" required>
+                    <option value="">Select</option>
+                    <option value="general">General User</option>
+                    <option value="cmi">CMI User</option>
+                    <option value="secretariat">Secretariat</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Professional Information Fieldset -->
+            <div class="fieldset">
+              <legend class="legend">Professional Information</legend>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="institution">Institution</label>
+                  <input type="text" class="form-control" id="institution" name="institution" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="position">Position</label>
+                  <input type="text" class="form-control" id="position" name="position">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="highest_educ">Highest Education</label>
+                  <select class="form-control" id="highest_educ" name="highest_educ">
+                    <option value="">Select</option>
+                    <option value="high_school">High School</option>
+                    <option value="associate">Associate's</option>
+                    <option value="bachelor">Bachelor's</option>
+                    <option value="master">Master's</option>
+                    <option value="doctoral">Doctoral</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="specialization">Specialization</label>
+                  <input type="text" class="form-control" id="specialization" name="specialization">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <!-- View User Modal -->
+  <div class="modal fade" id="viewAccountModal" tabindex="-1" role="dialog" aria-labelledby="viewAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="viewAccountModalLabel">User Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <!-- User Information -->
+            <div class="fieldset">
+              <legend class="legend">Personal Information</legend>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="first_name">First Name</label>
+                  <input type="text" class="form-control view-modal" id="first_name" readonly>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="middle_name">Middle Name</label>
+                  <input type="text" class="form-control view-modal" id="middle_name" readonly>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="last_name">Last Name</label>
+                  <input type="text" class="form-control view-modal" id="last_name" readonly>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="sex">Biological Sex</label>
+                  <input type="text" class="form-control view-modal" id="sex" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="gender">Gender</label>
+                  <input type="text" class="form-control view-modal" id="gender" readonly>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="date_birth">Date of Birth</label>
+                  <input type="text" class="form-control view-modal" id="date_birth" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="contact_num">Contact Number</label>
+                  <input type="text" class="form-control view-modal" id="contact_num" readonly>
+                </div>
+              </div>
+            </div>
+
+            <!-- Account Information -->
+            <div class="fieldset">
+              <legend class="legend">Account Information</legend>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control view-modal" id="email" readonly>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="user_type">User Type</label>
+                  <input type="text" class="form-control view-modal" id="user_type" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="id">User ID</label>
+                  <input type="text" class="form-control view-modal" id="id" readonly>
+                </div>
+              </div>
+            </div>
+
+            <!-- Professional Information -->
+            <div class="fieldset">
+              <legend class="legend">Professional Information</legend>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="institution">Institution</label>
+                  <input type="text" class="form-control view-modal" id="institution" readonly>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="position">Position</label>
+                  <input type="text" class="form-control view-modal" id="position" readonly>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="highest_educ">Highest Education</label>
+                  <input type="text" class="form-control view-modal" id="highest_educ" readonly>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="specialization">Specialization</label>
+                  <input type="text" class="form-control view-modal" id="specialization" readonly>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit User Modal -->
+  <div class="modal fade" id="editAccountModal" tabindex="-1" role="dialog" aria-labelledby="editAccountModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editAccountModalLabel">Edit User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form id="editAccountForm" method="POST">
+          {% csrf_token %}
+          <div class="modal-body">
+            <!-- Personal Information -->
+            <div class="fieldset">
+              <legend class="legend">Personal Information</legend>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="first_name">First Name</label>
+                  <input type="text" class="form-control" id="first_name" name="first_name" required>
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="middle_name">Middle Name</label>
+                  <input type="text" class="form-control" id="middle_name" name="middle_name">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="last_name">Last Name</label>
+                  <input type="text" class="form-control" id="last_name" name="last_name" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="sex">Biological Sex</label>
+                  <select class="form-control" id="sex" name="sex">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                  </select>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="gender">Gender</label>
+                  <select class="form-control" id="gender" name="gender">
+                    <option value="">Select</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non-Binary</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="date_birth">Date of Birth</label>
+                  <input type="date" class="form-control" id="date_birth" name="date_birth">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="contact_num">Contact Number</label>
+                  <input type="text" class="form-control" id="contact_num" name="contact_num">
+                </div>
+              </div>
+            </div>
+
+            <!-- Account Information -->
+            <div class="fieldset">
+              <legend class="legend">Account Information</legend>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="email">Email</label>
+                  <input type="email" class="form-control" id="email" name="email" required>
+                  <input type="hidden" id="id" name="id">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="user_type">User Type</label>
+                  <select class="form-control" id="user_type" name="user_type" required>
+                    <option value="">Select</option>
+                    <option value="general">General User</option>
+                    <option value="cmi">CMI User</option>
+                    <option value="secretariat">Secretariat</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Professional Information -->
+            <div class="fieldset">
+              <legend class="legend">Professional Information</legend>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="institution">Institution</label>
+                  <input type="text" class="form-control" id="institution" name="institution" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="position">Position</label>
+                  <input type="text" class="form-control" id="position" name="position">
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="highest_educ">Highest Education</label>
+                  <select class="form-control" id="highest_educ" name="highest_educ">
+                    <option value="">Select</option>
+                    <option value="high_school">High School</option>
+                    <option value="associate">Associate's</option>
+                    <option value="bachelor">Bachelor's</option>
+                    <option value="master">Master's</option>
+                    <option value="doctoral">Doctoral</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-3">
+                  <label for="specialization">Specialization</label>
+                  <input type="text" class="form-control" id="specialization" name="specialization">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 {% endblock %}
 
 {% block script %}
-  <script src="https://cdn.jsdelivr.net/npm/jquery.flot@0.8.3/jquery.flot.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flot-pie@1.0.0/src/jquery.flot.pie.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flot-spline@0.0.1/js/jquery.flot.spline.min.js"></script>
-
-  {% if messages %}
-    {% for message in messages %}
-      {% if message.tags == 'success' %}
-        <script>
-          // Display SweetAlert success message
-          Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: '{{ message }}'
-          })
-        </script>
-      {% else %}
-        <script>
-          // Display SweetAlert success message
-          Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: '{{ message }}'
-          })
-        </script>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+  <!-- Include easy-pie-chart library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/easy-pie-chart/2.1.6/jquery.easypiechart.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const charts = document.querySelectorAll('.easy-pie-chart')
-      charts.forEach(function (chart) {
-        new EasyPieChart(chart, {
+      // Initialize the pie charts using jQuery
+      $('.user-chart-pie').each(function() {
+        const $this = $(this);
+        const percent = $this.data('percent');
+        const barColor = $this.attr('id') === 'generalUserChart' ? '#f44336' : 
+                         $this.attr('id') === 'cmiUserChart' ? '#2196f3' : '#ff9800';
+                         
+        $this.easyPieChart({
           size: 80,
-          barColor: chart.getAttribute('data-bar-color'),
+          barColor: barColor,
           scaleColor: false,
           trackColor: '#e5e5e5',
           lineWidth: 5,
           lineCap: 'round',
           animate: 1000
-        })
-      })
-    })
-    
-    function confirmDeletion(event, element) {
-      event.preventDefault() // Prevent the link from being followed directly
-      Swal.fire({
-        title: 'Are you sure?',
-        text: 'Do you really want to delete this user? This action cannot be undone.',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
-      }).then((result) => {
-        if (result.isConfirmed) {
-          // If confirmed, proceed with the deletion
-          window.location.href = element.href
-        }
-      })
-    }
-    
-    //add account modal
-    function addAccount() {
-      // Logic to handle adding data goes here
-      console.log('Add Data button clicked')
-      // Add your logic here for adding data
-      $('#accountRegistrationModal').modal('show')
-      //alert("To be update!")
-    }
-    
-    //view account modal
-    $(document).ready(function () {
-      $('.view-btn').on('click', function () {
-        var userId = $(this).data('userid')
-        var firstName = $(this).data('firstname')
-        var middleName = $(this).data('middlename')
-        var lastName = $(this).data('lastname')
-        var dateJoined = $(this).data('datejoined')
-        var userEmail = $(this).data('email')
-        var institution = $(this).data('institution')
-        var position = $(this).data('position')
-        var userType = $(this).data('usertype')
-        var sex = $(this).data('sex')
-        var gender = $(this).data('gender')
-        var dateBirth = $(this).data('birthdate')
-        var contactNum = $(this).data('contactnum')
-        var highestEduc = $(this).data('highesteduc')
-        var specialization = $(this).data('specialization')
-    
-        $('#viewAccountModal').find('#id').val(userId)
-        $('#viewAccountModal').find('#first_name').val(firstName)
-        $('#viewAccountModal').find('#middle_name').val(middleName)
-        $('#viewAccountModal').find('#last_name').val(lastName)
-        $('#viewAccountModal').find('#email').val(userEmail)
-        $('#viewAccountModal').find('#institution').val(institution)
-        $('#viewAccountModal').find('#position').val(position)
-        $('#viewAccountModal').find('#user_type').val(userType)
-        $('#viewAccountModal').find('#sex').val(sex)
-        $('#viewAccountModal').find('#gender').val(gender)
-        $('#viewAccountModal').find('#date_birth').val(dateBirth)
-        $('#viewAccountModal').find('#contact_num').val(contactNum)
-        $('#viewAccountModal').find('#highest_educ').val(highestEduc)
-        $('#viewAccountModal').find('#specialization').val(specialization)
-      })
-    })
-    
-    //edit account modal
-    $(document).ready(function () {
-      // Event listener for the edit button
-      $('.edit-btn').on('click', function () {
-        const modal = $('#viewAccountModal')
-        const form = modal.find('form')
-    
-        var userId = $(this).data('userid')
-        var firstName = $(this).data('firstname')
-        var middleName = $(this).data('middlename')
-        var lastName = $(this).data('lastname')
-        var dateJoined = $(this).data('datejoined')
-        var userEmail = $(this).data('email')
-        var institution = $(this).data('institution')
-        var position = $(this).data('position')
-        var userType = $(this).data('usertype')
-        var sex = $(this).data('sex')
-        var gender = $(this).data('gender')
-        var dateBirth = $(this).data('birthdate')
-        var contactNum = $(this).data('contactnum')
-        var highestEduc = $(this).data('highesteduc')
-        var specialization = $(this).data('specialization')
-    
-        // Populate modal fields with user-specific data
-        $('#editAccountModal').find('#id').val(userId)
-        $('#editAccountModal').find('#first_name').val(firstName)
-        $('#editAccountModal').find('#middle_name').val(middleName)
-        $('#editAccountModal').find('#last_name').val(lastName)
-        $('#editAccountModal').find('#email').val(userEmail)
-        $('#editAccountModal').find('#institution').val(institution)
-        $('#editAccountModal').find('#position').val(position)
-        $('#editAccountModal').find('#user_type').val(userType.toLowerCase())
-        $('#editAccountModal').find('#sex').val(sex)
-        $('#editAccountModal').find('#gender').val(gender)
-        $('#editAccountModal').find('#date_birth').val(dateBirth)
-        $('#editAccountModal').find('#contact_num').val(contactNum)
-        $('#editAccountModal').find('#highest_educ').val(highestEduc)
-        $('#editAccountModal').find('#specialization').val(specialization)
-    
-        console.log('USER ID: ', userId)
-        // Update form action attribute with the Django URL template tag
-        var newAction = `edit-account/${userId}/`
-        $('#editAccountModal').find('form').attr('action', newAction)
-      })
-    })
-    
-    $(document).ready(function () {
-      // Initialize DataTable with custom settings
-      let table = $('#accountsTable').DataTable({
+        });
+      });
+      
+      // Function to handle user deletion confirmation
+      $('.delete-btn').on('click', function(event) {
+        event.preventDefault(); // Prevent the default link behavior
+        
+        const deleteUrl = $(this).attr('href');
+        
+        Swal.fire({
+          title: 'Are you sure?',
+          text: 'Do you really want to delete this user? This action cannot be undone.',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            // If confirmed, proceed with the deletion
+            window.location.href = deleteUrl;
+          }
+        });
+      });
+      
+      // Initialize the DataTable
+      const accountsTable = $('#accountsTable').DataTable({
         language: {
-          // Display the "show [] entries" part
           lengthMenu: 'Show _MENU_ entries',
-          // Remove the search label text and only display the placeholder
-          search: ''
+          search: '',
+          searchPlaceholder: 'Search...'
         },
-        // Set options for the number of entries to display per page
         lengthMenu: [
           [7, 10, 25, -1],
           [7, 10, 25, 'All']
         ],
-        // Enable paging, length change, auto width adjustment, info display, sorting, and responsiveness
         paging: true,
         lengthChange: true,
         autoWidth: false,
         bInfo: true,
         bSort: true,
         responsive: true,
-        // Define buttons for CSV, PDF, and Add functionality
         buttons: [
           {
             text: 'CSV',
-            extend: 'csv'
+            extend: 'csv',
+            className: 'btn-sm'
           },
           {
             text: 'PDF',
-            extend: 'pdf'
+            extend: 'pdf',
+            className: 'btn-sm'
           },
           {
             text: 'ADD',
-            className: 'btn btn-primary',
+            className: 'btn btn-primary btn-sm',
             action: function () {
-              addAccount() // Call addAccount function when ADD button is clicked
+              $('#accountRegistrationModal').modal('show');
             }
           }
         ],
-        // Define the layout of the DataTable components
         dom:
-          '<"row"<"col-md-3"l><"col-md-9 text-right"B>>' + // Length menu on left, buttons on right
-          '<"row"<"col-md-12"tr>>' + // Table rows occupying full width
-          '<"row"<"col-md-5"i><"col-md-7"p>>' // Info on left, pagination on right
-      })
-    
-      // Additional JavaScript to ensure the buttons and length menu are aligned correctly
-      $('.dataTables_length').addClass('float-left d-inline-block').css('width', 'auto') // Align length menu to the left and expand width
-      $('.dt-buttons').addClass('float-right d-inline-block') // Align buttons to the right
-    })
-    
-    $(document).ready(function () {
-      // Function to filter the table
+          '<"row"<"col-md-3"l><"col-md-9 text-right"B>>' +
+          '<"row"<"col-md-12"tr>>' +
+          '<"row"<"col-md-5"i><"col-md-7"p>>'
+      });
+      
+      // Ensure proper styling for DataTable elements
+      $('.dataTables_length').addClass('float-left d-inline-block').css('width', 'auto');
+      $('.dt-buttons').addClass('float-right d-inline-block');
+      
+      // Custom search functionality
+      $('#searchButton').on('click', function() {
+        filterTable();
+      });
+      
+      // Also filter when user types in any of the search fields
+      $('#search_user_id, #search_name, #search_institution').on('keyup', function() {
+        filterTable();
+      });
+      
+      // Function to handle table filtering
       function filterTable() {
-        var userId = $('#search_user_id').val().toLowerCase()
-        var name = $('#search_name').val().toLowerCase()
-        var institution = $('#search_institution').val().toLowerCase()
-    
-        $('#accountsTable tbody tr').each(function () {
-          var row = $(this)
-          var rowUserId = row.find('td:eq(0)').text().toLowerCase()
-          var rowName = row.find('td:eq(1)').text().toLowerCase()
-          var rowInstitution = row.find('td:eq(4)').text().toLowerCase()
-    
-          if ((userId === '' || rowUserId.includes(userId)) && (name === '' || rowName.includes(name)) && (institution === '' || rowInstitution.includes(institution))) {
-            row.show()
-          } else {
-            row.hide()
-          }
-        })
+        const userId = $('#search_user_id').val().toLowerCase();
+        const name = $('#search_name').val().toLowerCase();
+        const institution = $('#search_institution').val().toLowerCase();
+        
+        // Use DataTables API for more efficient searching
+        accountsTable.search('').draw(); // Clear any existing search
+        
+        // Apply custom filtering
+        $.fn.dataTable.ext.search.push(function(settings, data, dataIndex) {
+          const rowUserId = data[0].toLowerCase();
+          const rowName = data[1].toLowerCase();
+          const rowInstitution = data[4].toLowerCase();
+          
+          const userIdMatch = userId === '' || rowUserId.includes(userId);
+          const nameMatch = name === '' || rowName.includes(name);
+          const institutionMatch = institution === '' || rowInstitution.includes(institution);
+          
+          return userIdMatch && nameMatch && institutionMatch;
+        });
+        
+        accountsTable.draw();
+        
+        // Remove the custom filter after drawing
+        $.fn.dataTable.ext.search.pop();
       }
-    
-      // Bind the filter function to the search button click event
-      $('#searchButton').on('click', filterTable)
-    
-      // Optionally, you can also filter as the user types
-      $('#search_user_id, #search_name, #search_institution').on('keyup', filterTable)
-    })
+      
+      // Handle view modal data population
+      $('.view-btn').on('click', function() {
+        const userId = $(this).data('userid');
+        const firstName = $(this).data('firstname');
+        const middleName = $(this).data('middlename');
+        const lastName = $(this).data('lastname');
+        const dateJoined = $(this).data('datejoined');
+        const userEmail = $(this).data('email');
+        const institution = $(this).data('institution');
+        const position = $(this).data('position');
+        const userType = $(this).data('usertype');
+        const sex = $(this).data('sex');
+        const gender = $(this).data('gender');
+        const dateBirth = $(this).data('birthdate');
+        const contactNum = $(this).data('contactnum');
+        const highestEduc = $(this).data('highesteduc');
+        const specialization = $(this).data('specialization');
+        
+        const modal = $('#viewAccountModal');
+        modal.find('#id').val(userId);
+        modal.find('#first_name').val(firstName);
+        modal.find('#middle_name').val(middleName);
+        modal.find('#last_name').val(lastName);
+        modal.find('#email').val(userEmail);
+        modal.find('#institution').val(institution);
+        modal.find('#position').val(position);
+        modal.find('#user_type').val(userType);
+        modal.find('#sex').val(sex);
+        modal.find('#gender').val(gender);
+        modal.find('#date_birth').val(dateBirth);
+        modal.find('#contact_num').val(contactNum);
+        modal.find('#highest_educ').val(highestEduc);
+        modal.find('#specialization').val(specialization);
+      });
+      
+      // Handle edit modal data population and form action
+      $('.edit-btn').on('click', function() {
+        const userId = $(this).data('userid');
+        const firstName = $(this).data('firstname');
+        const middleName = $(this).data('middlename');
+        const lastName = $(this).data('lastname');
+        const dateJoined = $(this).data('datejoined');
+        const userEmail = $(this).data('email');
+        const institution = $(this).data('institution');
+        const position = $(this).data('position');
+        const userType = $(this).data('usertype');
+        const sex = $(this).data('sex');
+        const gender = $(this).data('gender');
+        const dateBirth = $(this).data('birthdate');
+        const contactNum = $(this).data('contactnum');
+        const highestEduc = $(this).data('highesteduc');
+        const specialization = $(this).data('specialization');
+        
+        const modal = $('#editAccountModal');
+        modal.find('#id').val(userId);
+        modal.find('#first_name').val(firstName);
+        modal.find('#middle_name').val(middleName);
+        modal.find('#last_name').val(lastName);
+        modal.find('#email').val(userEmail);
+        modal.find('#institution').val(institution);
+        modal.find('#position').val(position);
+        
+        // For select elements, we need to select the correct option
+        modal.find('#user_type').val(userType.toLowerCase());
+        modal.find('#sex').val(sex ? sex.toLowerCase() : '');
+        modal.find('#gender').val(gender ? gender.toLowerCase() : '');
+        
+        modal.find('#date_birth').val(dateBirth);
+        modal.find('#contact_num').val(contactNum);
+        
+        // Extract just the education level from "X's Degree"
+        const educLevel = highestEduc ? highestEduc.split(' ')[0].toLowerCase() : '';
+        modal.find('#highest_educ').val(educLevel);
+        
+        modal.find('#specialization').val(specialization);
+        
+        // Set the form action URL
+        $('#editAccountForm').attr('action', formAction);
+      });
+      
+      // Display SweetAlert messages if provided from the server
+      {% if messages %}
+        {% for message in messages %}
+          {% if message.tags == 'success' %}
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: '{{ message }}'
+            });
+          {% else %}
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: '{{ message }}'
+            });
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    });
   </script>
 {% endblock %}

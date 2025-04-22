@@ -3,6 +3,8 @@ from django.utils import timezone
 from utils.slug_generator import generate_random_slug
 from django.urls import reverse
 
+# CMI models
+
 
 class Forum(models.Model):
     forum_id = models.AutoField(primary_key=True)

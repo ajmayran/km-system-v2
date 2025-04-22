@@ -1,0 +1,139 @@
+{% extends 'base/cmi-index.html' %} 
+{% load static %} 
+{% block title %}Message Admin | AANR Knowledge Hub{% endblock %} 
+{% block stylesheet %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+<link rel="stylesheet" href="{% static "style/css/cmi-message.css" %}">
+{% endblock %} 
+
+{% block content %}
+<div class="main-content">
+  <div class="container">
+    <!-- Message Header Section -->
+    <div class="message-header">
+      <img src="{% static 'assets/images/goma.JPG' %}" alt="Contact Admin" class="message-background-img" />
+      <div class="message-header-content">
+        <h1 class="message-title">Contact Admin</h1>
+        <p class="message-subtitle">
+          Have questions, feedback, or need assistance? We're here to help!
+        </p>
+      </div>
+    </div>
+
+    <!-- Message Form Section -->
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="message-form-container">
+          <h2 class="message-form-title">
+            <i class="fas fa-envelope"></i> Send a Message to Admin
+          </h2>
+          
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert {% if message.tags == 'success' %}alert-success{% else %}alert-danger{% endif %} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+          
+          <form method="post" action="#">
+            {% csrf_token %}
+            
+            <div class="form-group">
+              <label for="subject" class="form-label">Subject</label>
+              <input type="text" class="form-control" id="subject" name="subject" placeholder="What is your message about?" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="message" class="form-label">Message</label>
+              <textarea class="form-control" id="message" name="message" rows="5" placeholder="Type your message here..." required></textarea>
+              <small class="form-text">Please provide as much detail as possible to help us assist you better.</small>
+            </div>
+            
+            <div class="form-group">
+              <label for="category" class="form-label">Category</label>
+              <select class="form-control" id="category" name="category">
+                <option value="general">General Inquiry</option>
+                <option value="technical">Technical Support</option>
+                <option value="feedback">Feedback</option>
+                <option value="report">Report an Issue</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            
+            <div class="text-end">
+              <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <!-- Message History Section -->
+        <div class="message-history-section">
+          <h2 class="message-history-title">
+            <i class="fas fa-history"></i> Your Message History
+          </h2>
+          
+          {% if user_messages %}
+            {% for message in user_messages %}
+              <div class="message-card">
+                <div class="message-card-header">
+                  <span>Message #{{ message.id }}</span>
+                  <span class="message-status {% if message.is_replied %}status-replied{% else %}status-pending{% endif %}">
+                    {% if message.is_replied %}Replied{% else %}Pending{% endif %}
+                  </span>
+                </div>
+                <div class="message-card-body">
+                  <h3 class="message-subject">{{ message.subject }}</h3>
+                  <div class="message-date">
+                    <i class="far fa-calendar-alt"></i> {{ message.created_at|date:"F d, Y" }}
+                    <span class="badge bg-secondary">{{ message.category }}</span>
+                  </div>
+                  <div class="message-content">
+                    {{ message.message|linebreaks }}
+                  </div>
+                  
+                  {% if message.is_replied %}
+                    <div class="message-reply">
+                      <div class="reply-header">
+                        <i class="fas fa-reply"></i> Admin Response ({{ message.replied_at|date:"F d, Y" }})
+                      </div>
+                      <div class="reply-content">
+                        {{ message.admin_reply|linebreaks }}
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="no-messages">
+              <i class="far fa-comment-dots"></i>
+              <p class="no-messages-text">You haven't sent any messages yet.</p>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Auto-dismiss alerts after 5 seconds
+    const alerts = document.querySelectorAll('.alert');
+    alerts.forEach(alert => {
+      setTimeout(() => {
+        const closeButton = alert.querySelector('.btn-close');
+        if (closeButton) {
+          closeButton.click();
+        }
+      }, 5000);
+    });
+  });
+</script>
+{% endblock %}
