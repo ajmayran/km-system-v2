@@ -1613,3 +1613,8 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'update-profile' not found. '
 [2025-04-22 14:26:13] Compression method 0
 [2025-04-22 14:26:13] STREAM b'cHRM' 2713 32
 [2025-04-22 14:26:13] STREAM b'IDAT' 2757 116127
+[2025-04-22 14:42:17] Watching for file changes with StatReloader
+[2025-04-23 10:03:32] Watching for file changes with StatReloader
+[2025-04-24 10:14:50] Watching for file changes with StatReloader
+[2025-04-24 10:16:29] Not Found: /favicon.ico
+[2025-05-06 09:33:42] Watching for file changes with StatReloader
