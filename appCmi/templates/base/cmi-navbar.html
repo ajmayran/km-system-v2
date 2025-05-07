@@ -65,7 +65,7 @@
                 Knowledge Resources <i class="fa-solid fa-circle-chevron-down"></i>
               </a>
               <div class="dropdown-menu" aria-labelledby="dropdownResources" id="resources-container">
-                <a href="#" class="dropdown-item">All Knowledge Resources</a>
+                <a href="{% url 'appCmi:all-knowledge-resources' %}" class="dropdown-item">All Knowledge Resources</a>
                 {% if knowledge_resources %}
                 {% for knowledge in knowledge_resources %}
                 <a href="#" class="dropdown-item">{{knowledge.knowledge_title}}</a>
