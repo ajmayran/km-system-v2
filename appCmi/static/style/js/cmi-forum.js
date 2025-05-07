@@ -222,13 +222,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function checkEmptyState() {
       const activeTab = document.querySelector('.forum-tab.active');
       const activeTabId = activeTab ? activeTab.getAttribute('data-target') : 'newQuestions';
+      const container = document.querySelector(`#${activeTabId}`);
       const visiblePosts = document.querySelectorAll(`#${activeTabId} .discussion-post[style*="display: block"]`);
       const emptyState = document.querySelector('.forum-empty-state');
       
-      if (emptyState) {
+      if (container && emptyState) {
         if (visiblePosts.length === 0) {
           // No visible posts, show empty state
-          document.querySelector(`#${activeTabId}`).appendChild(emptyState);
+          container.appendChild(emptyState);
           emptyState.style.display = 'block';
         } else {
           // Posts are visible, hide empty state
@@ -237,23 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     }
     
-    // Filter menu functionality
-    const filterButton = document.getElementById('filterButton');
-    const filterMenu = document.getElementById('filterMenu');
-    
-    if (filterButton && filterMenu) {
-      filterButton.addEventListener('click', function() {
-        filterMenu.classList.toggle('show');
-      });
-
-      // Close filter menu when clicking outside
-      document.addEventListener('click', function(e) {
-        if (!filterButton.contains(e.target) && !filterMenu.contains(e.target)) {
-          filterMenu.classList.remove('show');
-        }
-      });
-    }
-
     // Commodity selection handling
     const commoditySelect = document.getElementById('commoditySelect');
     const selectedCommodityList = document.getElementById('selected-commodity');
@@ -322,6 +306,271 @@ document.addEventListener('DOMContentLoaded', function() {
         function updateTextarea() {
             commodityIdsInput.value = selectedCommodities.join(',');
         }
+    }
+
+    function initForum() {
+      // Tab functionality
+      const tabButtons = document.querySelectorAll('.forum-tab');
+      const tabContents = document.querySelectorAll('.forum-posts');
+    
+      if (tabButtons.length > 0 && tabContents.length > 0) {
+        tabButtons.forEach(button => {
+          button.addEventListener('click', function() {
+            // Remove active class from all tabs
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked tab
+            this.classList.add('active');
+            
+            // Get the target content
+            const targetId = this.getAttribute('data-target');
+            const targetContent = document.getElementById(targetId);
+            
+            if (targetContent) {
+              // Hide all content
+              tabContents.forEach(content => {
+                if (content) {
+                  content.style.display = 'none';
+                }
+              });
+              
+              // Show the target content
+              targetContent.style.display = 'flex';
+              
+              // Check for empty state
+              checkEmptyState(targetId);
+            }
+          });
+        });
+      }
+
+      // Function to check if we need to show empty state
+      function checkEmptyState(tabId) {
+        const container = document.getElementById(tabId);
+        if (!container) return;
+
+        // Remove any existing empty state
+        const existingEmptyState = container.querySelector('.forum-empty-state');
+        if (existingEmptyState) {
+          existingEmptyState.remove();
+        }
+
+        const visiblePosts = container.querySelectorAll('.discussion-post[style*="display: block"], .discussion-post:not([style*="display: none"])');
+        
+        if (visiblePosts.length === 0) {
+          // Create empty state element
+          const emptyState = document.createElement('div');
+          emptyState.className = 'forum-empty-state';
+          emptyState.innerHTML = `
+            <div class="empty-state-content">
+              <i class="fas fa-inbox fa-3x"></i>
+              <h3>No Questions Yet</h3>
+              <p>${tabId === 'popularQuestions' ? 'No popular questions available at the moment.' : 'Be the first to ask a question!'}</p>
+              ${tabId === 'newQuestions' ? '<button class="ask-question-btn" data-toggle="modal" data-target="#questionModal"><i class="fas fa-plus-circle"></i> Ask Your Question</button>' : ''}
+            </div>
+          `;
+          
+          // Add styles to empty state
+          emptyState.style.textAlign = 'center';
+          emptyState.style.padding = '2rem';
+          emptyState.style.margin = '2rem 0';
+          emptyState.style.backgroundColor = '#f8f9fa';
+          emptyState.style.borderRadius = '8px';
+          
+          // Add styles to empty state content
+          const emptyStateContent = emptyState.querySelector('.empty-state-content');
+          emptyStateContent.style.display = 'flex';
+          emptyStateContent.style.flexDirection = 'column';
+          emptyStateContent.style.alignItems = 'center';
+          emptyStateContent.style.gap = '1rem';
+          
+          // Add styles to icon
+          const icon = emptyState.querySelector('i');
+          icon.style.color = '#6c757d';
+          icon.style.marginBottom = '1rem';
+          
+          // Add styles to heading
+          const heading = emptyState.querySelector('h3');
+          heading.style.color = '#343a40';
+          heading.style.marginBottom = '0.5rem';
+          
+          // Add styles to paragraph
+          const paragraph = emptyState.querySelector('p');
+          paragraph.style.color = '#6c757d';
+          
+          // Add styles to button if it exists
+          const button = emptyState.querySelector('.ask-question-btn');
+          if (button) {
+            button.style.marginTop = '1rem';
+            button.style.padding = '0.5rem 1rem';
+            button.style.backgroundColor = '#2c6e49';
+            button.style.color = 'white';
+            button.style.border = 'none';
+            button.style.borderRadius = '4px';
+            button.style.cursor = 'pointer';
+            button.style.display = 'flex';
+            button.style.alignItems = 'center';
+            button.style.gap = '0.5rem';
+            
+            // Add hover effect
+            button.addEventListener('mouseover', () => {
+              button.style.backgroundColor = '#1a472e';
+            });
+            button.addEventListener('mouseout', () => {
+              button.style.backgroundColor = '#2c6e49';
+            });
+          }
+          
+          container.appendChild(emptyState);
+        }
+      }
+
+      // Initialize empty state for active tab
+      const activeTab = document.querySelector('.forum-tab.active');
+      if (activeTab) {
+        const activeTabId = activeTab.getAttribute('data-target');
+        checkEmptyState(activeTabId);
+      }
+    
+      // Topic pill selection
+      const topicPills = document.querySelectorAll('.topic-pill');
+    
+      if (topicPills.length > 0) {
+        topicPills.forEach(pill => {
+          pill.addEventListener('click', function() {
+            // Remove active class from all pills
+            topicPills.forEach(p => p.classList.remove('active'));
+            
+            // Add active class to clicked pill
+            this.classList.add('active');
+            
+            // Filter posts based on selected topic
+            const topic = this.textContent.trim();
+            
+            if (topic === 'All Topics') {
+              showAllPosts();
+            } else {
+              filterPostsByTopic(topic);
+            }
+          });
+        });
+      }
+    
+      // Filter checkbox functionality
+      const commodityCheckboxes = document.querySelectorAll('input[name="commodity"]');
+    
+      if (commodityCheckboxes.length > 0) {
+        commodityCheckboxes.forEach(checkbox => {
+          checkbox.addEventListener('change', function() {
+            const isAllCommodity = this.value === 'all';
+            
+            if (isAllCommodity && this.checked) {
+              // If "All Commodities" is checked, uncheck all other options
+              commodityCheckboxes.forEach(cb => {
+                if (cb.value !== 'all') {
+                  cb.checked = false;
+                }
+              });
+              // Show all discussion posts
+              const discussionPosts = document.querySelectorAll('.discussion-post');
+              discussionPosts.forEach(post => {
+                post.style.display = 'block';
+              });
+            } else if (!isAllCommodity && this.checked) {
+              // If a specific commodity is checked, uncheck "All Commodities"
+              const allCommodityCheckbox = document.querySelector('input[name="commodity"][value="all"]');
+              if (allCommodityCheckbox) {
+                allCommodityCheckbox.checked = false;
+              }
+              
+              // Filter posts by the selected commodity
+              filterPostsByCommodity();
+            } else if (!isAllCommodity && !this.checked) {
+              // If a specific commodity is unchecked, check if we need to show all again
+              const anyChecked = Array.from(commodityCheckboxes).some(cb => cb.value !== 'all' && cb.checked);
+              if (!anyChecked) {
+                // If no specific commodities are checked, check "All Commodities" again
+                const allCommodityCheckbox = document.querySelector('input[name="commodity"][value="all"]');
+                if (allCommodityCheckbox) {
+                  allCommodityCheckbox.checked = true;
+                }
+                // Show all discussion posts
+                const discussionPosts = document.querySelectorAll('.discussion-post');
+                discussionPosts.forEach(post => {
+                  post.style.display = 'block';
+                });
+              } else {
+                // Filter posts by the remaining checked commodities
+                filterPostsByCommodity();
+              }
+            }
+          });
+        });
+      }
+    
+      // Submit question button animation
+      const submitQuestionBtn = document.getElementById('submitQuestion');
+    
+      if (submitQuestionBtn) {
+        submitQuestionBtn.addEventListener('click', async function(e) {
+          e.preventDefault();  // Prevent default form submission
+          
+          // Show loading state
+          this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Posting...';
+          this.disabled = true;
+          
+          try {
+            // Get the form data
+            const form = document.getElementById('questionForm');
+            if (!form) return;
+            
+            const formData = new FormData(form);
+            
+            // Submit the form
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData,
+              headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+              }
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+              // If submission was successful
+              $('#questionModal').modal('hide');
+              showNotification('Question posted successfully!', 'success');
+              
+              // Refresh only the forum-posts div
+              setTimeout(async () => {
+                try {
+                  const response = await fetch(window.location.href);
+                  const text = await response.text();
+                  const parser = new DOMParser();
+                  const doc = parser.parseFromString(text, 'text/html');
+                  const newForumPosts = doc.getElementById('forum-posts');
+                  
+                  if (newForumPosts) {
+                    document.getElementById('forum-posts').innerHTML = newForumPosts.innerHTML;
+                  }
+                } catch (error) {
+                  console.error('Error refreshing forum posts:', error);
+                }
+              }, 1000); // Wait for 1 second after showing notification before refreshing
+            } else {
+              // If submission failed
+              showNotification(result.message || 'Failed to post question', 'error');
+            }
+          } catch (error) {
+            showNotification('An error occurred while posting your question', 'error');
+          } finally {
+            // Reset button state
+            this.innerHTML = 'Post Question';
+            this.disabled = false;
+          }
+        });
+      }
     }
 });
             

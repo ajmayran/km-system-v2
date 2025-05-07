@@ -1,0 +1,1174 @@
+{% extends 'base/cmi-index.html' %} 
+{% load static %}
+{% block title %} 
+Knowledge Resources | AANR Knowledge Hub {% endblock %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static "style/css/cmi-knowledge-resources.css" %}">
+{% endblock stylesheet %}
+
+{% block content %}
+<!-- Header Section -->
+<header class="resources-header">
+    <div class="container">
+        <h1 class="resources-title">AANR Knowledge Resources</h1>
+        <p class="resources-subtitle">Explore our comprehensive collection of resources in Agriculture, Aquatic, and Natural Resources sectors.</p>
+    </div>
+</header>
+
+<!-- Main Content -->
+<main class="container">
+    <!-- Search and Filter Bar -->
+    <div class="filter-bar">
+        <div class="search-wrapper">
+            <input type="text" id="search-input" class="search-input" placeholder="Search for resources...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+        <div class="filter-dropdown">
+            <button class="filter-button" id="filter-button">
+                <span>Filter</span>
+                <i class="fas fa-sliders"></i>
+            </button>
+            <div class="filter-menu" id="filter-menu">
+                <div class="filter-group">
+                    <h4 class="filter-group-title">Resource Type</h4>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-all" value="all" checked>
+                        <label for="filter-all">All Types</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-event" value="event">
+                        <label for="filter-event">Events</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-info_system" value="info_system">
+                        <label for="filter-info_system">Information Systems</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-map" value="map">
+                        <label for="filter-map">Maps</label生成
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-media" value="media">
+                        <label for="filter-media">Media</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-news" value="news">
+                        <label for="filter-news">News</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-policy" value="policy">
+                        <label for="filter-policy">Policies</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-project" value="project">
+                        <label for="filter-project">Projects</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-publication" value="publication">
+                        <label for="filter-publication">Publications</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-technology" value="technology">
+                        <label for="filter-technology">Technologies</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-training" value="training">
+                        <label for="filter-training">Training/Seminars</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-webinar" value="webinar">
+                        <label for="filter-webinar">Webinars</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="checkbox" id="filter-product" value="product">
+                        <label for="filter-product">Products</label>
+                    </div>
+                </div>
+                
+                <div class="filter-group">
+                    <h4 class="filter-group-title">Sort By</h4>
+                    <div class="filter-option">
+                        <input type="radio" name="sort" id="sort-newest" value="newest" checked>
+                        <label for="sort-newest">Newest First</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" name="sort" id="sort-oldest" value="oldest">
+                        <label for="sort-oldest">Oldest First</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" name="sort" id="sort-az" value="az">
+                        <label for="sort-az">A-Z</label>
+                    </div>
+                    <div class="filter-option">
+                        <input type="radio" name="sort" id="sort-za" value="za">
+                        <label for="sort-za">Z-A</label>
+                    </div>
+                </div>
+                
+                <div class="filter-actions">
+                    <button class="filter-reset" id="filter-reset">Reset</button>
+                    <button class="filter-apply" id="filter-apply">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Resource Categories -->
+    <div class="resource-categories">
+        <div class="category-pill active" data-category="all">All Resources</div>
+        <div class="category-pill" data-category="event">Events</div>
+        <div class="category-pill" data-category="info_system">Information Systems</div>
+        <div class="category-pill" data-category="map">Maps</div>
+        <div class="category-pill" data-category="media">Media</div>
+        <div class="category-pill" data-category="news">News</div>
+        <div class="category-pill" data-category="policy">Policies</div>
+        <div class="category-pill" data-category="project">Projects</div>
+        <div class="category-pill" data-category="publication">Publications</div>
+        <div class="category-pill" data-category="technology">Technologies</div>
+        <div class="category-pill" data-category="training">Training/Seminars</div>
+        <div class="category-pill" data-category="webinar">Webinars</div>
+        <div class="category-pill" data-category="product">Products</div>
+    </div>
+    
+    <!-- Resources Grid -->
+    <div class="resources-grid" id="resources-grid">
+        <!-- Resources will be loaded dynamically -->
+    </div>
+    
+    <!-- Pagination -->
+    <div class="pagination" id="pagination">
+        <button class="page-button disabled" id="first-page"><i class="fas fa-angle-double-left"></i></button>
+        <button class="page-button disabled" id="prev-page"><i class="fas fa-angle-left"></i></button>
+        <button class="page-button active" data-page="1">1</button>
+        <button class="page-button" data-page="2">2</button>
+        <button class="page-button" data-page="3">3</button>
+        <button class="page-button" id="next-page"><i class="fas fa-angle-right"></i></button>
+        <button class="page-button" id="last-page"><i class="fas fa-angle-double-right"></i></button>
+    </div>
+    
+    <!-- Resource Detail Modal -->
+    <div class="modal-backdrop" id="resource-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Resource Title</h2>
+                <p class="modal-subtitle">Resource type</p>
+                <button class="modal-close" id="modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="resource-detail-grid">
+                    <div class="resource-detail-section">
+                        <h3 class="detail-section-title">Description</h3>
+                        <p class="resource-description-full">Resource description will appear here.</p>
+                        
+                        <h3 class="detail-section-title">Tags</h3>
+                        <div class="resource-tags" id="modal-tags">
+                            <!-- Tags will be added dynamically -->
+                        </div>
+                    </div>
+                    <div class="resource-detail-section">
+                        <h3 class="detail-section-title">Details</h3>
+                        <div class="detail-item">
+                            <p class="detail-label">Resource Type</p>
+                            <p class="detail-value" id="modal-type">-</p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Created By</p>
+                            <p class="detail-value" id="modal-author">-</p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Created Date</p>
+                            <p class="detail-value" id="modal-created">-</p>
+                        </div>
+                        <div class="detail-item">
+                            <p class="detail-label">Last Updated</p>
+                            <p class="detail-value" id="modal-updated">-</p>
+                        </div>
+                        
+                        <!-- Dynamic fields for specific resource types -->
+                        <div id="resource-specific-details">
+                            <!-- Will be populated based on resource type -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="resource-meta" id="modal-meta">
+                    <!-- Will be dynamically populated -->
+                </div>
+                <div class="modal-actions">
+                    <a href="#" class="modal-button secondary-button" id="modal-download">
+                        <i class="fas fa-download"></i> Download
+                    </a>
+                    <a href="#" class="modal-button primary-button" id="modal-view">
+                        <i class="fas fa-external-link-alt"></i> View Resource
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+{% block script %}
+<script>
+    // Define sample data for resources
+    const resourcesData = [
+        {
+            id: 1,
+            title: "Sustainable Rice Farming Techniques in Western Mindanao",
+            type: "publication",
+            description: "This comprehensive guide provides detailed information on sustainable rice farming practices specifically adapted for Western Mindanao's climate and soil conditions.",
+            author: "AANR Research Team",
+            created_date: "2024-04-15",
+            updated_date: "2024-05-01",
+            views: 528,
+            downloads: 127,
+            tags: ["rice farming", "sustainable agriculture", "Western Mindanao", "crop rotation"],
+            file_type: "PDF",
+            file_size: "4.2 MB",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 2,
+            title: "Integrated Aquaculture Systems for Small-Scale Farmers",
+            type: "technology",
+            description: "This technology package presents cost-effective solutions for small-scale farmers to implement integrated aquaculture systems that maximize water usage and farm productivity.",
+            author: "AANR Aquaculture Division",
+            created_date: "2024-03-22",
+            updated_date: "2024-04-12",
+            views: 421,
+            downloads: 89,
+            tags: ["aquaculture", "integrated farming", "small-scale", "fish production"],
+            file_type: "PDF",
+            file_size: "3.8 MB",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 3,
+            title: "Forest Conservation Workshop Series",
+            type: "event",
+            description: "A three-day workshop series aimed at local community leaders, focusing on sustainable forest management practices and conservation strategies for protected areas.",
+            author: "Natural Resources Department",
+            created_date: "2024-05-03",
+            updated_date: "2024-05-03",
+            views: 342,
+            downloads: 0,
+            tags: ["forest conservation", "workshop", "community engagement", "protected areas"],
+            event_date: "June 15-17, 2025",
+            event_location: "Zamboanga City Convention Center",
+            registration_link: "#",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 4,
+            title: "Coconut Pest Management Guidelines",
+            type: "publication",
+            description: "A detailed guide on identifying, preventing, and treating common coconut pests in the Philippines, with special focus on organic and integrated pest management approaches.",
+            author: "AANR Crop Protection Unit",
+            created_date: "2024-01-10",
+            updated_date: "2024-02-25",
+            views: 876,
+            downloads: 324,
+            tags: ["coconut", "pest management", "organic farming", "IPM"],
+            file_type: "PDF",
+            file_size: "5.7 MB",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 5,
+            title: "Agricultural Water Management Systems Database",
+            type: "info_system",
+            description: "A comprehensive database of water management technologies, practices, and case studies for agricultural applications in different regions of the Philippines.",
+            author: "AANR Water Resources Team",
+            created_date: "2024-02-18",
+            updated_date: "2024-04-30",
+            views: 623,
+            downloads: 0,
+            tags: ["water management", "database", "irrigation", "water conservation"],
+            access_type: "Online Database",
+            login_required: true,
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 6,
+            title: "Bamboo Industry Development Roadmap",
+            type: "policy",
+            description: "This policy document outlines the 5-year strategic roadmap for developing the bamboo industry in Western Mindanao, including production, processing, and market development.",
+            author: "AANR Policy Division",
+            created_date: "2023-11-12",
+            updated_date: "2024-01-30",
+            views: 532,
+            downloads: 178,
+            tags: ["bamboo", "industry development", "policy", "roadmap"],
+            file_type: "PDF",
+            file_size: "3.2 MB",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 7,
+            title: "Climate-Smart Agriculture Webinar Series",
+            type: "webinar",
+            description: "A series of online sessions discussing climate-smart agricultural practices for different crop types and farming systems in the face of changing weather patterns.",
+            author: "AANR Climate Adaptation Team",
+            created_date: "2024-04-05",
+            updated_date: "2024-05-02",
+            views: 289,
+            downloads: 124,
+            tags: ["climate-smart agriculture", "webinar", "adaptation", "resilience"],
+            webinar_date: "May 20-22, 2025",
+            webinar_platform: "Zoom",
+            registration_link: "#",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 8,
+            title: "GIS Mapping of Agricultural Resources in Zamboanga Peninsula",
+            type: "map",
+            description: "Interactive GIS maps showing the distribution of agricultural resources, protected areas, water sources, and farming communities across the Zamboanga Peninsula.",
+            author: "AANR GIS Team",
+            created_date: "2023-10-30",
+            updated_date: "2024-03-15",
+            views: 745,
+            downloads: 213,
+            tags: ["GIS", "mapping", "Zamboanga Peninsula", "agricultural resources"],
+            map_type: "Interactive GIS",
+            data_last_updated: "March 15, 2025",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 9,
+            title: "Sustainable Fishing Practices Documentary",
+            type: "media",
+            description: "A 30-minute documentary showcasing sustainable fishing practices being implemented by coastal communities in Western Mindanao and their positive impact on marine conservation.",
+            author: "AANR Media Production Unit",
+            created_date: "2024-02-08",
+            updated_date: "2024-02-08",
+            views: 1243,
+            downloads: 0,
+            tags: ["sustainable fishing", "documentary", "coastal communities", "marine conservation"],
+            media_type: "Video",
+            duration: "30 minutes",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 10,
+            title: "Improved Varieties of Drought-Resistant Corn",
+            type: "technology",
+            description: "This technology bulletin presents information on newly developed corn varieties that show improved resistance to drought conditions, suitable for rain-fed agricultural areas.",
+            author: "AANR Crop Research Division",
+            created_date: "2023-12-05",
+            updated_date: "2024-01-20",
+            views: 682,
+            downloads: 234,
+            tags: ["corn", "drought-resistant", "crop varieties", "rain-fed agriculture"],
+            file_type: "PDF",
+            file_size: "2.8 MB",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 11,
+            title: "Latest Research on Aquaculture Disease Management",
+            type: "news",
+            description: "Recent findings from AANR's research on preventing and managing common diseases in tilapia and milkfish farming, with emphasis on biosecurity measures.",
+            author: "AANR News Team",
+            created_date: "2024-04-28",
+            updated_date: "2024-04-28",
+            views: 316,
+            downloads: 0,
+            tags: ["aquaculture", "disease management", "tilapia", "milkfish", "biosecurity"],
+            source: "AANR Research Bulletin",
+            publication_date: "April 28, 2025",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 12,
+            title: "Training Course on Organic Certification",
+            type: "training",
+            description: "A comprehensive training program for farmers and agricultural technicians on the requirements, procedures, and benefits of organic certification for various crop types.",
+            author: "AANR Training Department",
+            created_date: "2024-03-10",
+            updated_date: "2024-04-15",
+            views: 428,
+            downloads: 156,
+            tags: ["organic certification", "training", "organic farming", "standards"],
+            training_date: "July 10-12, 2025",
+            training_location: "AANR Training Center, Zamboanga City",
+            registration_deadline: "June 30, 2025",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 13,
+            title: "Natural Farming Inputs Production Kit",
+            type: "product",
+            description: "A starter kit containing materials and guide for producing organic fertilizers, indigenous microorganisms, and botanical pesticides for natural farming systems.",
+            author: "AANR Organic Agriculture Division",
+            created_date: "2024-01-25",
+            updated_date: "2024-03-05",
+            views: 573,
+            downloads: 0,
+            tags: ["natural farming", "organic inputs", "starter kit", "sustainable agriculture"],
+            product_price: "₱1,500.00",
+            availability: "In Stock",
+            order_link: "#",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 14,
+            title: "Climate-Resilient Agricultural Infrastructure Project",
+            type: "project",
+            description: "A multi-year project implementing climate-resilient agricultural infrastructure in vulnerable farming communities across Western Mindanao.",
+            author: "AANR Project Management Office",
+            created_date: "2023-09-15",
+            updated_date: "2024-04-10",
+            views: 489,
+            downloads: 167,
+            tags: ["climate resilience", "agricultural infrastructure", "project", "adaptation"],
+            project_status: "Ongoing",
+            project_timeline: "2023-2028",
+            funding_agency: "Department of Agriculture",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        },
+        {
+            id: 15,
+            title: "Sustainable Agroforestry Practices Manual",
+            type: "publication",
+            description: "A comprehensive manual on implementing sustainable agroforestry systems that integrate timber, fruit trees, and crops for maximum productivity and environmental benefits.",
+            author: "AANR Agroforestry Team",
+            created_date: "2023-11-20",
+            updated_date: "2024-02-12",
+            views: 621,
+            downloads: 245,
+            tags: ["agroforestry", "sustainable", "manual", "integrated systems"],
+            file_type: "PDF",
+            file_size: "6.4 MB",
+            url: "#",
+            thumbnail: "https://via.placeholder.com/300x200"
+        }
+    ];
+
+    // DOM Elements
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize DOM elements
+        const resourcesGrid = document.getElementById('resources-grid');
+        const filterButton = document.getElementById('filter-button');
+        const filterMenu = document.getElementById('filter-menu');
+        const filterReset = document.getElementById('filter-reset');
+        const filterApply = document.getElementById('filter-apply');
+        const searchInput = document.getElementById('search-input');
+        const categoryPills = document.querySelectorAll('.category-pill');
+        const resourceModal = document.getElementById('resource-modal');
+        const modalClose = document.getElementById('modal-close');
+        const paginationContainer = document.getElementById('pagination');
+        const firstPageBtn = document.getElementById('first-page');
+        const prevPageBtn = document.getElementById('prev-page');
+        const nextPageBtn = document.getElementById('next-page');
+        const lastPageBtn = document.getElementById('last-page');
+
+        // State
+        let currentFilters = {
+            type: ['all'],
+            search: '',
+            sortBy: 'newest',
+            currentPage: 1,
+            itemsPerPage: 9
+        };
+
+        // Filter menu toggle
+        filterButton.addEventListener('click', function() {
+            filterMenu.classList.toggle('show');
+            // Close when clicking outside
+            document.addEventListener('click', function closeMenu(e) {
+                if (!filterButton.contains(e.target) && !filterMenu.contains(e.target)) {
+                    filterMenu.classList.remove('show');
+                    document.removeEventListener('click', closeMenu);
+                }
+            });
+        });
+
+        // Category pill selection
+        categoryPills.forEach(pill => {
+            pill.addEventListener('click', function() {
+                // Remove active class from all pills
+                categoryPills.forEach(p => p.classList.remove('active'));
+                
+                // Add active class to clicked pill
+                this.classList.add('active');
+                
+                // Update filter and render
+                const category = this.getAttribute('data-category');
+                if (category === 'all') {
+                    currentFilters.type = ['all'];
+                } else {
+                    currentFilters.type = [category];
+                }
+                
+                currentFilters.currentPage = 1;
+                renderResources();
+                updatePagination();
+            });
+        });
+
+        // Type filter checkboxes
+        const typeCheckboxes = document.querySelectorAll('input[type="checkbox"]');
+        typeCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.value === 'all' && this.checked) {
+                    // If 'All Types' is checked, uncheck others
+                    typeCheckboxes.forEach(cb => {
+                        if (cb.value !== 'all') {
+                            cb.checked = false;
+                        }
+                    });
+                } else if (this.checked) {
+                    // If any specific type is checked, uncheck 'All Types'
+                    document.getElementById('filter-all').checked = false;
+                }
+                
+                // If no checkboxes are checked, check 'All Types'
+                const anyChecked = Array.from(typeCheckboxes).some(cb => cb.checked);
+                if (!anyChecked) {
+                    document.getElementById('filter-all').checked = true;
+                }
+            });
+        });
+
+        // Apply filters
+        filterApply.addEventListener('click', function() {
+            // Get selected types
+            const selectedTypes = Array.from(typeCheckboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.value);
+            
+            // Get sort option
+            const sortOption = document.querySelector('input[name="sort"]:checked').value;
+            
+            // Update filters
+            currentFilters.type = selectedTypes;
+            currentFilters.sortBy = sortOption;
+            currentFilters.currentPage = 1;
+            
+            // Close menu and render
+            filterMenu.classList.remove('show');
+            renderResources();
+            updatePagination();
+        });
+
+        // Reset filters
+        filterReset.addEventListener('click', function() {
+            // Reset checkboxes
+            typeCheckboxes.forEach(cb => {
+                cb.checked = cb.value === 'all';
+            });
+            
+            // Reset sort option
+            document.getElementById('sort-newest').checked = true;
+            
+            // Reset search
+            searchInput.value = '';
+            
+            // Reset filters
+            currentFilters = {
+                type: ['all'],
+                search: '',
+                sortBy: 'newest',
+                currentPage: 1,
+                itemsPerPage: 9
+            };
+            
+            // Reset category pills
+            categoryPills.forEach(pill => {
+                pill.classList.remove('active');
+                if (pill.getAttribute('data-category') === 'all') {
+                    pill.classList.add('active');
+                }
+            });
+            
+            // Render
+            filterMenu.classList.remove('show');
+            renderResources();
+            updatePagination();
+        });
+
+        // Search input
+        searchInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') {
+                currentFilters.search = this.value.trim().toLowerCase();
+                currentFilters.currentPage = 1;
+                renderResources();
+                updatePagination();
+            }
+        });
+
+        // Modal close
+        modalClose.addEventListener('click', function() {
+            resourceModal.classList.remove('show');
+        });
+
+        // Close modal when clicking outside
+        resourceModal.addEventListener('click', function(e) {
+            if (e.target === resourceModal) {
+                resourceModal.classList.remove('show');
+            }
+        });
+
+        // Pagination
+        function updatePagination() {
+            const filteredResources = filterResources();
+            const totalPages = Math.ceil(filteredResources.length / currentFilters.itemsPerPage);
+            
+            // Clear current pagination
+            const pageButtons = paginationContainer.querySelectorAll('button[data-page]');
+            pageButtons.forEach(btn => btn.remove());
+            
+            // Add page buttons
+            const maxPages = 5; // Maximum number of page buttons to show
+            let startPage = Math.max(1, currentFilters.currentPage - Math.floor(maxPages / 2));
+            let endPage = Math.min(totalPages, startPage + maxPages - 1);
+            
+            if (endPage - startPage + 1 < maxPages && startPage > 1) {
+                startPage = Math.max(1, endPage - maxPages + 1);
+            }
+            
+            // Insert page buttons before next button
+            for (let i = startPage; i <= endPage; i++) {
+                const pageButton = document.createElement('button');
+                pageButton.className = `page-button ${i === currentFilters.currentPage ? 'active' : ''}`;
+                pageButton.setAttribute('data-page', i);
+                pageButton.textContent = i;
+                
+                pageButton.addEventListener('click', function() {
+                    currentFilters.currentPage = i;
+                    renderResources();
+                    updatePagination();
+                });
+                
+                nextPageBtn.parentNode.insertBefore(pageButton, nextPageBtn);
+            }
+            
+            // Update navigation buttons
+            firstPageBtn.disabled = currentFilters.currentPage === 1;
+            prevPageBtn.disabled = currentFilters.currentPage === 1;
+            nextPageBtn.disabled = currentFilters.currentPage === totalPages;
+            lastPageBtn.disabled = currentFilters.currentPage === totalPages;
+        }
+
+        // Pagination navigation
+        firstPageBtn.addEventListener('click', function() {
+            if (!this.disabled) {
+                currentFilters.currentPage = 1;
+                renderResources();
+                updatePagination();
+            }
+        });
+
+        prevPageBtn.addEventListener('click', function() {
+            if (!this.disabled) {
+                currentFilters.currentPage--;
+                renderResources();
+                updatePagination();
+            }
+        });
+
+        nextPageBtn.addEventListener('click', function() {
+            if (!this.disabled) {
+                currentFilters.currentPage++;
+                renderResources();
+                updatePagination();
+            }
+        });
+
+        lastPageBtn.addEventListener('click', function() {
+            if (!this.disabled) {
+                const filteredResources = filterResources();
+                const totalPages = Math.ceil(filteredResources.length / currentFilters.itemsPerPage);
+                currentFilters.currentPage = totalPages;
+                renderResources();
+                updatePagination();
+            }
+        });
+
+        // Filter resources based on current filters
+        function filterResources() {
+            return resourcesData.filter(resource => {
+                // Filter by type
+                const typeMatch = currentFilters.type.includes('all') || 
+                    currentFilters.type.includes(resource.type);
+                
+                // Filter by search term
+                const searchMatch = !currentFilters.search || 
+                    resource.title.toLowerCase().includes(currentFilters.search) ||
+                    resource.description.toLowerCase().includes(currentFilters.search) ||
+                    resource.tags.some(tag => tag.toLowerCase().includes(currentFilters.search));
+                
+                return typeMatch && searchMatch;
+            }).sort((a, b) => {
+                // Sort by selected option
+                switch (currentFilters.sortBy) {
+                    case 'newest':
+                        return new Date(b.created_date) - new Date(a.created_date);
+                    case 'oldest':
+                        return new Date(a.created_date) - new Date(b.created_date);
+                    case 'az':
+                        return a.title.localeCompare(b.title);
+                    case 'za':
+                        return b.title.localeCompare(a.title);
+                    default:
+                        return 0;
+                }
+            });
+        }
+
+        // Render resources
+        function renderResources() {
+            const filteredResources = filterResources();
+            
+            // Pagination
+            const startIndex = (currentFilters.currentPage - 1) * currentFilters.itemsPerPage;
+            const endIndex = startIndex + currentFilters.itemsPerPage;
+            const paginatedResources = filteredResources.slice(startIndex, endIndex);
+            
+            // Clear grid
+            resourcesGrid.innerHTML = '';
+            
+            // Check if resources exist
+            if (paginatedResources.length === 0) {
+                renderEmptyState();
+                return;
+            }
+            
+            // Render resources
+            paginatedResources.forEach(resource => {
+                const resourceCard = createResourceCard(resource);
+                resourcesGrid.appendChild(resourceCard);
+            });
+        }
+
+        // Create resource card
+        function createResourceCard(resource) {
+            const card = document.createElement('div');
+            card.className = 'resource-card';
+            card.setAttribute('data-id', resource.id);
+            card.setAttribute('data-type', resource.type);
+            
+            // Format date
+            const createdDate = new Date(resource.created_date);
+            const formattedDate = createdDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Card content
+            card.innerHTML = `
+                <div class="resource-header">
+                    <span class="resource-type">${formatResourceType(resource.type)}</span>
+                    <h3 class="resource-title">${resource.title}</h3>
+                    <div class="resource-meta">
+                        <div class="resource-meta-item">
+                            <i class="fas fa-user"></i>
+                            <span>${resource.author}</span>
+                        </div>
+                        <div class="resource-meta-item">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>${formattedDate}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="resource-content">
+                    <p class="resource-description">${resource.description}</p>
+                    <div class="resource-tags">
+                        ${resource.tags.slice(0, 3).map(tag => `
+                            <span class="resource-tag">${tag}</span>
+                        `).join('')}
+                        ${resource.tags.length > 3 ? `<span class="resource-tag">+${resource.tags.length - 3} more</span>` : ''}
+                    </div>
+                </div>
+                <div class="resource-footer">
+                    <a href="#" class="resource-button">
+                        <i class="fas fa-eye"></i> View Details
+                    </a>
+                    <div class="resource-actions">
+                        <button class="action-button" title="Download">
+                            <i class="fas fa-download"></i>
+                        </button>
+                        <button class="action-button" title="Bookmark">
+                            <i class="far fa-bookmark"></i>
+                        </button>
+                        <button class="action-button" title="Share">
+                            <i class="fas fa-share-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Resource details click handler
+            const viewButton = card.querySelector('.resource-button');
+            viewButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                openResourceModal(resource);
+            });
+            
+            // Download button
+            const downloadButton = card.querySelector('.action-button[title="Download"]');
+            downloadButton.addEventListener('click', function() {
+                showToast(`Downloading "${resource.title}"`);
+            });
+            
+            // Bookmark button
+            const bookmarkButton = card.querySelector('.action-button[title="Bookmark"]');
+            bookmarkButton.addEventListener('click', function() {
+                this.innerHTML = '<i class="fas fa-bookmark"></i>';
+                showToast(`"${resource.title}" added to your bookmarks`);
+            });
+            
+            // Share button
+            const shareButton = card.querySelector('.action-button[title="Share"]');
+            shareButton.addEventListener('click', function() {
+                showToast(`Link copied to clipboard`);
+            });
+            
+            return card;
+        }
+
+        // Open resource modal
+        function openResourceModal(resource) {
+            // Set modal content
+            document.querySelector('.modal-title').textContent = resource.title;
+            document.querySelector('.modal-subtitle').textContent = formatResourceType(resource.type);
+            document.querySelector('.resource-description-full').textContent = resource.description;
+            
+            // Format created date
+            const createdDate = new Date(resource.created_date);
+            const formattedCreatedDate = createdDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Format updated date
+            const updatedDate = new Date(resource.updated_date);
+            const formattedUpdatedDate = updatedDate.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            // Set modal details
+            document.getElementById('modal-type').textContent = formatResourceType(resource.type);
+            document.getElementById('modal-author').textContent = resource.author;
+            document.getElementById('modal-created').textContent = formattedCreatedDate;
+            document.getElementById('modal-updated').textContent = formattedUpdatedDate;
+            
+            // Clear and set tags
+            const tagsContainer = document.getElementById('modal-tags');
+            tagsContainer.innerHTML = '';
+            resource.tags.forEach(tag => {
+                const tagSpan = document.createElement('span');
+                tagSpan.className = 'resource-tag';
+                tagSpan.textContent = tag;
+                tagsContainer.appendChild(tagSpan);
+            });
+            
+            // Set resource-specific details
+            const specificDetailsContainer = document.getElementById('resource-specific-details');
+            specificDetailsContainer.innerHTML = '';
+            
+            // Add different fields based on resource type
+            switch (resource.type) {
+                case 'publication':
+                    addDetailItem(specificDetailsContainer, 'File Type', resource.file_type);
+                    addDetailItem(specificDetailsContainer, 'File Size', resource.file_size);
+                    break;
+                case 'event':
+                    addDetailItem(specificDetailsContainer, 'Event Date', resource.event_date);
+                    addDetailItem(specificDetailsContainer, 'Location', resource.event_location);
+                    break;
+                case 'training':
+                    addDetailItem(specificDetailsContainer, 'Training Date', resource.training_date);
+                    addDetailItem(specificDetailsContainer, 'Location', resource.training_location);
+                    addDetailItem(specificDetailsContainer, 'Registration Deadline', resource.registration_deadline);
+                    break;
+                case 'webinar':
+                    addDetailItem(specificDetailsContainer, 'Webinar Date', resource.webinar_date);
+                    addDetailItem(specificDetailsContainer, 'Platform', resource.webinar_platform);
+                    break;
+                case 'project':
+                    addDetailItem(specificDetailsContainer, 'Status', resource.project_status);
+                    addDetailItem(specificDetailsContainer, 'Timeline', resource.project_timeline);
+                    addDetailItem(specificDetailsContainer, 'Funding Agency', resource.funding_agency);
+                    break;
+                case 'product':
+                    addDetailItem(specificDetailsContainer, 'Price', resource.product_price);
+                    addDetailItem(specificDetailsContainer, 'Availability', resource.availability);
+                    break;
+                case 'info_system':
+                    addDetailItem(specificDetailsContainer, 'Access Type', resource.access_type);
+                    addDetailItem(specificDetailsContainer, 'Login Required', resource.login_required ? 'Yes' : 'No');
+                    break;
+                case 'map':
+                    addDetailItem(specificDetailsContainer, 'Map Type', resource.map_type);
+                    addDetailItem(specificDetailsContainer, 'Data Last Updated', resource.data_last_updated);
+                    break;
+                case 'media':
+                    addDetailItem(specificDetailsContainer, 'Media Type', resource.media_type);
+                    addDetailItem(specificDetailsContainer, 'Duration', resource.duration);
+                    break;
+                case 'news':
+                    addDetailItem(specificDetailsContainer, 'Source', resource.source);
+                    addDetailItem(specificDetailsContainer, 'Publication Date', resource.publication_date);
+                    break;
+            }
+            
+            // Set meta info
+            const metaContainer = document.getElementById('modal-meta');
+            metaContainer.innerHTML = `
+                <div class="resource-meta-item">
+                    <i class="far fa-eye"></i>
+                    <span>${resource.views} Views</span>
+                </div>
+                <div class="resource-meta-item">
+                    <i class="fas fa-download"></i>
+                    <span>${resource.downloads} Downloads</span>
+                </div>
+            `;
+            
+            // Set buttons
+            const downloadButton = document.getElementById('modal-download');
+            const viewButton = document.getElementById('modal-view');
+            
+            // Hide download button for resources without downloads
+            if (['event', 'info_system', 'product', 'media'].includes(resource.type)) {
+                downloadButton.style.display = 'none';
+            } else {
+                downloadButton.style.display = 'inline-flex';
+                downloadButton.href = resource.url;
+            }
+            
+            viewButton.href = resource.url;
+            
+            // Update button text based on resource type
+            switch (resource.type) {
+                case 'event':
+                case 'training':
+                case 'webinar':
+                    viewButton.innerHTML = '<i class="fas fa-calendar-check"></i> Register';
+                    break;
+                case 'product':
+                    viewButton.innerHTML = '<i class="fas fa-shopping-cart"></i> Order Now';
+                    break;
+                case 'info_system':
+                case 'map':
+                    viewButton.innerHTML = '<i class="fas fa-database"></i> Access System';
+                    break;
+                case 'media':
+                    viewButton.innerHTML = '<i class="fas fa-play-circle"></i> Watch Now';
+                    break;
+                default:
+                    viewButton.innerHTML = '<i class="fas fa-external-link-alt"></i> View Resource';
+            }
+            
+            // Show modal
+            resourceModal.classList.add('show');
+        }
+
+        // Helper function to add a detail item to the container
+        function addDetailItem(container, label, value) {
+            if (!value) return;
+            
+            const detailItem = document.createElement('div');
+            detailItem.className = 'detail-item';
+            detailItem.innerHTML = `
+                <p class="detail-label">${label}</p>
+                <p class="detail-value">${value}</p>
+            `;
+            container.appendChild(detailItem);
+        }
+
+        // Format resource type (capitalize and replace underscores)
+        function formatResourceType(type) {
+            return type
+                .split('_')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+
+        // Empty state
+        function renderEmptyState() {
+            resourcesGrid.innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="empty-title">No Resources Found</h3>
+                    <p class="empty-message">We couldn't find any resources matching your search criteria. Try adjusting your filters or search term.</p>
+                    <button class="empty-action" id="reset-search">
+                        <i class="fas fa-sync"></i> Reset Filters
+                    </button>
+                </div>
+            `;
+            
+            // Reset search button
+            document.getElementById('reset-search').addEventListener('click', function() {
+                filterReset.click();
+            });
+        }
+
+        // Toast notification
+        function showToast(message, type = 'success') {
+            // Create toast container if it doesn't exist
+            let toastContainer = document.querySelector('.toast-container');
+            if (!toastContainer) {
+                toastContainer = document.createElement('div');
+                toastContainer.className = 'toast-container';
+                document.body.appendChild(toastContainer);
+            }
+            
+            // Create toast
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = `
+                <div class="toast-icon">
+                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                </div>
+                <div class="toast-content">
+                    <p>${message}</p>
+                </div>
+                <button class="toast-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            // Add to container
+            toastContainer.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 10);
+            
+            // Close toast
+            toast.querySelector('.toast-close').addEventListener('click', function() {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            });
+            
+            // Auto close after 3 seconds
+            setTimeout(() => {
+                if (toast && toast.parentNode) {
+                    toast.classList.remove('show');
+                    setTimeout(() => {
+                        toast.remove();
+                    }, 300);
+                }
+            }, 3000);
+        }
+
+        // Initialize
+        renderResources();
+        updatePagination();
+
+        // Add event listeners to bookmark and share buttons in resource cards
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.action-button[title="Bookmark"]')) {
+                const button = e.target.closest('.action-button[title="Bookmark"]');
+                button.innerHTML = '<i class="fas fa-bookmark"></i>';
+                
+                const card = button.closest('.resource-card');
+                const resourceId = card.getAttribute('data-id');
+                const resource = resourcesData.find(r => r.id === parseInt(resourceId));
+                
+                if (resource) {
+                    showToast(`"${resource.title}" added to your bookmarks`);
+                }
+            } else if (e.target.closest('.action-button[title="Share"]')) {
+                const card = e.target.closest('.resource-card');
+                const resourceId = card.getAttribute('data-id');
+                const resource = resourcesData.find(r => r.id === parseInt(resourceId));
+                
+                if (resource) {
+                    // Mock copying to clipboard
+                    navigator.clipboard.writeText(window.location.href + '?id=' + resourceId)
+                        .then(() => {
+                            showToast('Link copied to clipboard');
+                        })
+                        .catch(() => {
+                            showToast('Failed to copy link', 'error');
+                        });
+                }
+            } else if (e.target.closest('.action-button[title="Download"]')) {
+                const card = e.target.closest('.resource-card');
+                const resourceId = card.getAttribute('data-id');
+                const resource = resourcesData.find(r => r.id === parseInt(resourceId));
+                
+                if (resource) {
+                    showToast(`Downloading "${resource.title}"`);
+                }
+            }
+        });
+
+        // URL parameter handling for direct resource access
+        function checkUrlParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const resourceId = urlParams.get('id');
+            
+            if (resourceId) {
+                const resource = resourcesData.find(r => r.id === parseInt(resourceId));
+                if (resource) {
+                    openResourceModal(resource);
+                }
+            }
+        }
+
+        // Check URL parameters on load
+        checkUrlParameters();
+
+        // Add visual feedback for hover states
+        const interactiveElements = document.querySelectorAll('.filter-button, .category-pill, .page-button, .resource-card, .action-button, .modal-button');
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transition = 'var(--transition)';
+            });
+        });
+
+        // Accessibility enhancements
+        document.querySelectorAll('.action-button, .resource-button, .filter-button, .category-pill, .page-button').forEach(button => {
+            if (!button.getAttribute('aria-label')) {
+                const text = button.textContent.trim();
+                if (text) {
+                    button.setAttribute('aria-label', text);
+                }
+            }
+            
+            button.setAttribute('tabindex', '0');
+            
+            // Handle keyboard navigation
+            button.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    this.click();
+                }
+            });
+        });
+
+        // For screen readers
+        document.getElementById('resources-grid').setAttribute('aria-live', 'polite');
+        document.getElementById('pagination').setAttribute('aria-label', 'Pagination Navigation');
+    });
+</script>
+{% endblock script %}

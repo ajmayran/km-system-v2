@@ -18,3 +18,4 @@ from .cmi_user_profile_view import (
     upload_profile_picture,
     update_user_info,
 )
+from .cmi_knowledge_resources_view import cmi_knowledge_resources

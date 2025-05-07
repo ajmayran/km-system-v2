@@ -51,9 +51,9 @@
             <i class="fas fa-book"></i>
           </div>
           <div class="feature-content">
-            <h3 class="feature-title">Resource Library</h3>
+            <h3 class="feature-title">Knowledge Resource</h3>
             <p class="feature-description">Access a comprehensive collection of research papers, case studies, and technical guides on AANR technologies.</p>
-            <a href="/resources" class="feature-link">Browse Library <i class="fas fa-arrow-right"></i></a>
+            <a href="{% url 'appCmi:all-knowledge-resources' %}" class="feature-link">Browse Resources <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -64,25 +64,25 @@
           <div class="feature-content">
             <h3 class="feature-title">Community Forum</h3>
             <p class="feature-description">Connect with experts and practitioners to discuss challenges, share insights, and collaborate on solutions.</p>
-            <a href="/forum" class="feature-link">Join Discussion <i class="fas fa-arrow-right"></i></a>
+            <a href="{% url 'appCmi:cmi-forum' %}" class="feature-link">Join Discussion <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
         <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
           <div class="feature-icon">
-            <i class="fas fa-chart-line"></i>
+            <i class="fas fa-seedling"></i>
           </div>
           <div class="feature-content">
-            <h3 class="feature-title">Market Insights</h3>
+            <h3 class="feature-title">Commodities</h3>
             <p class="feature-description">Stay updated with the latest market trends, commodity prices, and economic analyses for informed decision-making.</p>
-            <a href="/commodities" class="feature-link">View Insights <i class="fas fa-arrow-right"></i></a>
+            <a href="{% url 'appCmi:all-commodities' %}" class="feature-link">View Commodities <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Resources Section -->
-    <section class="resources-section">
+    {% comment %} <section class="resources-section">
       <h2 class="section-title" data-aos="fade-up">Latest Knowledge Resources</h2>
       <p class="section-subtitle" data-aos="fade-up">Explore the most recent additions to our knowledge repository</p>
       
@@ -132,7 +132,7 @@
           </div>
         </div>
       </div>
-    </section>
+    </section> {% endcomment %}
 
     <!-- Stats Section -->
     <section class="stats-section">

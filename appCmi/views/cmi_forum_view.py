@@ -8,6 +8,7 @@ from django.contrib import messages
 from appAdmin.models import Commodity
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 logger = logging.getLogger(__name__)
 
@@ -21,14 +22,28 @@ def cmi_forum(request):
     commodities = models.get("commodities", [])
     knowledge_resources = models.get("knowledge_resources", [])
 
-    # Fetch all discussions for display
+    # Get all forums for display
     forums = Forum.objects.all().order_by("-date_posted")
+
+    # Get popular forums based on like count
+    # Using annotate to count likes and order by that count
+    popular_forums = Forum.objects.annotate(like_count=Count("likes")).order_by(
+        "-like_count"
+    )[
+        :10
+    ]  # Limiting to top 5, adjust as needed
+
+    # Get posts created by the logged-in user
+    logged_in_user = request.user
+    user_forums = Forum.objects.filter(author=logged_in_user).order_by("-date_posted")
 
     context = {
         "commodities": commodities,
         "useful_links": useful_links,
         "knowledge_resources": knowledge_resources,
         "forums": forums,
+        "user_forums": user_forums,  # Add the user's forums to the context
+        "popular_forums": popular_forums,  # Add popular forums to the context
     }
 
     return render(request, "pages/cmi-forum.html", context)
