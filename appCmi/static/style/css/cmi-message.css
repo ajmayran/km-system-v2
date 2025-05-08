@@ -192,6 +192,10 @@
     transform: translateY(-2px);
   }
 
+  .category-history{
+    background: var(--accent);
+  }
+
   .submit-btn:active {
     transform: translateY(0);
   }

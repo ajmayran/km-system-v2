@@ -119,3 +119,57 @@ class ForumComment(models.Model):
             "appCmi:display-forum",
             kwargs={"forum_slug": self.post.slug, "comment_slug": self.slug},
         )
+
+
+class MessageToAdmin(models.Model):
+    # Category choices
+    CATEGORY_CHOICES = [
+        ("general", "General Inquiry"),
+        ("technical", "Technical Support"),
+        ("feedback", "Feedback"),
+        ("report", "Report an Issue"),
+        ("other", "Other"),
+    ]
+
+    # Status choices
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("read", "Read"),
+        ("replied", "Replied"),
+        ("closed", "Closed"),
+        ("archived", "Archived"),
+    ]
+
+    user = models.ForeignKey(
+        "appAccounts.CustomUser",
+        on_delete=models.CASCADE,
+        related_name="admin_messages",
+    )
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+    category = models.CharField(
+        max_length=20, choices=CATEGORY_CHOICES, default="general"
+    )
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    is_replied = models.BooleanField(default=False)
+    admin_reply = models.TextField(blank=True, null=True)
+    replied_at = models.DateTimeField(blank=True, null=True)
+
+    class Meta:
+        db_table = "tbl_message_to_admin"
+        ordering = ["-created_at"]
+        verbose_name = "Message to Admin"
+        verbose_name_plural = "Messages to Admin"
+
+    def __str__(self):
+        return f"{self.subject} - {self.user.username}"
+
+    def save(self, *args, **kwargs):
+        # Update replied_at timestamp and status when a reply is added
+        if self.admin_reply and not self.replied_at:
+            self.is_replied = True
+            self.replied_at = timezone.now()
+            self.status = "replied"
+        super(MessageToAdmin, self).save(*args, **kwargs)
