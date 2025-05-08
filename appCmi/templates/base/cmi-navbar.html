@@ -60,7 +60,8 @@
             <a href="{% url "appCmi:cmi-forum" %}">Forum</a>
           </li>
           <li>
-            <div class="dropdown">
+            <a href="{% url 'appCmi:all-knowledge-resources' %}">Knowledge Resources</a>
+            {% comment %} <div class="dropdown">
               <a class="dropdown-fa-toggle-down" id="dropdownResources" data-toggle="dropdown" aria-haspopup="true">
                 Knowledge Resources <i class="fa-solid fa-circle-chevron-down"></i>
               </a>
@@ -74,7 +75,7 @@
                 <a href="#" class="dropdown-item">No Knowledge Resources Yet</a>
                 {% endif %}
               </div>
-            </div>
+            </div> {% endcomment %}
           </li>
         </ul>
       </div>
