@@ -13,6 +13,7 @@
     --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     --box-shadow-hover: 0 8px 20px rgba(0, 0, 0, 0.1);
     --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --card-bg: #e6f4ea; /* Soft green card background */
 }
 
 * {
@@ -261,7 +262,7 @@ body {
 }
 
 .resource-card {
-    background-color: white;
+    background-color: var(--card-bg);
     border-radius: var(--border-radius);
     overflow: hidden;
     box-shadow: var(--box-shadow);
@@ -283,10 +284,7 @@ body {
 }
 
 .resource-type {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    padding: 0.3rem 0.8rem;
+    padding: 0.1rem 0.5rem;
     background-color: var(--accent-light);
     color: var(--primary);
     border-radius: 50px;
