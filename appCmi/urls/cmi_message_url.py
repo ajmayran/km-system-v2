@@ -8,6 +8,7 @@ app_name = "appCmi"
 urlpatterns = (
     [
         path("message/", cmi_message_view.message, name="message"),
+        path("message/submit/", cmi_message_view.send_message, name="send_message"),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

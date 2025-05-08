@@ -12,7 +12,7 @@ from .cmi_commodities_view import (
     all_commodities,
     display_commodity,
 )  # ✅ Import the commodities function
-from .cmi_message_view import message
+from .cmi_message_view import message, send_message
 from .cmi_user_profile_view import (
     display_cmi_profile,
     upload_profile_picture,

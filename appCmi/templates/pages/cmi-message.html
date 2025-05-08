@@ -37,7 +37,7 @@
             {% endfor %}
           {% endif %}
           
-          <form method="post" action="#">
+          <form method="post" action="{% url 'appCmi:send_message' %}">
             {% csrf_token %}
             
             <div class="form-group">
@@ -89,7 +89,7 @@
                   <h3 class="message-subject">{{ message.subject }}</h3>
                   <div class="message-date">
                     <i class="far fa-calendar-alt"></i> {{ message.created_at|date:"F d, Y" }}
-                    <span class="badge bg-secondary">{{ message.category }}</span>
+                    <span class="badge category-history">{{ message.category|upper }}</span>
                   </div>
                   <div class="message-content">
                     {{ message.message|linebreaks }}
