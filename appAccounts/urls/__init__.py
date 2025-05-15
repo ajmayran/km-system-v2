@@ -7,6 +7,7 @@ from .enter_email_url import urlpatterns as enter_email_patterns
 from .request_new_activation_code_url import (
     urlpatterns as request_new_activation_code_patterns,
 )
+from .cmi_change_pass_url import urlpatterns as cmi_change_pass_patterns
 
 from appAccounts.views import *
 
@@ -19,4 +20,5 @@ urlpatterns = (
     + password_reset_patterns
     + enter_email_patterns
     + request_new_activation_code_patterns
+    + cmi_change_pass_patterns
 )

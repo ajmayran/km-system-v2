@@ -4,6 +4,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.auth import get_user_model
 from django.utils.encoding import force_bytes, force_str
 from django.contrib import messages
+from .new_activation_code_view import send_new_activation_code
 
 
 def request_new_activation_code(request):

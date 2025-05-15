@@ -1,0 +1,2732 @@
+diff --git a/appAccounts/urls/__init__.py b/appAccounts/urls/__init__.py
+index 5a0b008..a2c614f 100644
+--- a/appAccounts/urls/__init__.py
++++ b/appAccounts/urls/__init__.py
+@@ -7,6 +7,7 @@ from .enter_email_url import urlpatterns as enter_email_patterns
+ from .request_new_activation_code_url import (
+     urlpatterns as request_new_activation_code_patterns,
+ )
++from .cmi_change_pass_url import urlpatterns as cmi_change_pass_patterns
+ 
+ from appAccounts.views import *
+ 
+@@ -19,4 +20,5 @@ urlpatterns = (
+     + password_reset_patterns
+     + enter_email_patterns
+     + request_new_activation_code_patterns
++    + cmi_change_pass_patterns
+ )
+diff --git a/appAccounts/urls/__pycache__/__init__.cpython-310.pyc b/appAccounts/urls/__pycache__/__init__.cpython-310.pyc
+index 40d2679..3140b5a 100644
+Binary files a/appAccounts/urls/__pycache__/__init__.cpython-310.pyc and b/appAccounts/urls/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/appAccounts/urls/__pycache__/cmi_change_pass_url.cpython-310.pyc b/appAccounts/urls/__pycache__/cmi_change_pass_url.cpython-310.pyc
+new file mode 100644
+index 0000000..e17376a
+Binary files /dev/null and b/appAccounts/urls/__pycache__/cmi_change_pass_url.cpython-310.pyc differ
+diff --git a/appAccounts/urls/cmi_change_pass_url.py b/appAccounts/urls/cmi_change_pass_url.py
+new file mode 100644
+index 0000000..c53f314
+--- /dev/null
++++ b/appAccounts/urls/cmi_change_pass_url.py
+@@ -0,0 +1,19 @@
++# Add this to your appAccounts/urls.py file
++from django.urls import path
++from django.conf import settings
++from django.conf.urls.static import static
++from appAccounts.views import cmi_change_pass_view
++
++app_name = "appAccounts"
++
++urlpatterns = (
++    [
++        path(
++            "send-reset-password-link/",
++            cmi_change_pass_view.send_reset_password_link,
++            name="send-reset-password-link",
++        ),
++    ]
++    + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
++    + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
++)
+diff --git a/appAccounts/views/__init__.py b/appAccounts/views/__init__.py
+index a850be7..5308569 100644
+--- a/appAccounts/views/__init__.py
++++ b/appAccounts/views/__init__.py
+@@ -21,3 +21,4 @@ from .reset_password_view import reset_password  # ✅ Import the reset_password
+ from .update_password_view import (
+     update_password,
+ )  # ✅ Import the update_password function
++from .cmi_change_pass_view import send_reset_password_link
+diff --git a/appAccounts/views/__pycache__/__init__.cpython-310.pyc b/appAccounts/views/__pycache__/__init__.cpython-310.pyc
+index aa36aec..9cb6fb0 100644
+Binary files a/appAccounts/views/__pycache__/__init__.cpython-310.pyc and b/appAccounts/views/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/appAccounts/views/__pycache__/cmi_change_pass_view.cpython-310.pyc b/appAccounts/views/__pycache__/cmi_change_pass_view.cpython-310.pyc
+new file mode 100644
+index 0000000..76b59a2
+Binary files /dev/null and b/appAccounts/views/__pycache__/cmi_change_pass_view.cpython-310.pyc differ
+diff --git a/appAccounts/views/__pycache__/request_new_activation_code_view.cpython-310.pyc b/appAccounts/views/__pycache__/request_new_activation_code_view.cpython-310.pyc
+index 7e198b7..2ced8af 100644
+Binary files a/appAccounts/views/__pycache__/request_new_activation_code_view.cpython-310.pyc and b/appAccounts/views/__pycache__/request_new_activation_code_view.cpython-310.pyc differ
+diff --git a/appAccounts/views/cmi_change_pass_view.py b/appAccounts/views/cmi_change_pass_view.py
+new file mode 100644
+index 0000000..db6777e
+--- /dev/null
++++ b/appAccounts/views/cmi_change_pass_view.py
+@@ -0,0 +1,155 @@
++from django.shortcuts import render, redirect
++from django.contrib.auth.tokens import default_token_generator
++from django.contrib.sites.shortcuts import get_current_site
++from django.core.mail import send_mail
++from django.template.loader import render_to_string
++from django.utils.encoding import force_bytes
++from django.utils.http import urlsafe_base64_encode
++from django.utils.html import strip_tags
++from django.urls import reverse_lazy
++from django.contrib import messages
++from django.conf import settings
++from django.contrib.auth.decorators import login_required
++import logging
++from django.http import JsonResponse
++import traceback
++
++# Set up logger
++logger = logging.getLogger(__name__)
++
++
++@login_required
++def send_reset_password_link(request):
++    """
++    View function to send a password reset link to the currently logged in user.
++    Triggered from the user profile page.
++    """
++    if request.method != "POST":
++        # If not POST, redirect to profile page
++        return redirect("appCmi:cmi-profile")
++
++    user = request.user
++    is_ajax = request.headers.get("X-Requested-With") == "XMLHttpRequest"
++    response_data = {"success": False, "message": "", "errors": {}}
++
++    try:
++        # Log attempt with user details for debugging
++        logger.info(f"Password reset requested for user: {user.email} (ID: {user.pk})")
++
++        if not user.is_active:
++            error_msg = "Your account is not active. Please contact support."
++            logger.warning(
++                f"Reset password failed: Inactive account for user {user.email}"
++            )
++            messages.error(request, error_msg)
++            response_data["message"] = error_msg
++
++            if is_ajax:
++                return JsonResponse(response_data)
++            return redirect("appCmi:cmi-profile")
++
++        # Generate password reset token
++        token_generator = default_token_generator
++        uid = urlsafe_base64_encode(force_bytes(user.pk))
++        token = token_generator.make_token(user)
++
++        # Build reset password URL
++        current_site = get_current_site(request)
++        protocol = "https" if request.is_secure() else "http"
++        reset_url = reverse_lazy(
++            "appAccounts:reset-pass-confirm", kwargs={"uidb64": uid, "token": token}
++        )
++        reset_url = f"{protocol}://{current_site.domain}{reset_url}"
++
++        # Log token creation details
++        logger.info(
++            f"Reset token created for user {user.email}: UID={uid}, token valid at {current_site.domain}"
++        )
++
++        # Send email with reset password link
++        subject = "Password Reset Request"
++        context = {
++            "user": user,
++            "reset_url": reset_url,
++            "first_name": user.first_name,  # Add more user context fields as needed
++            "request_ip": request.META.get("REMOTE_ADDR", "unknown"),
++        }
++        receiver_email = [user.email]
++        template_name = "forgot-password/email-reset-pass.html"
++
++        try:
++            convert_to_html_content = render_to_string(template_name, context)
++            plain_message = strip_tags(convert_to_html_content)
++        except Exception as template_error:
++            error_msg = f"Failed to render email template: {str(template_error)}"
++            logger.error(f"{error_msg}\n{traceback.format_exc()}")
++            response_data["errors"]["template"] = error_msg
++            response_data["message"] = "Email template error. Please contact support."
++
++            if is_ajax:
++                return JsonResponse(response_data)
++            messages.error(request, response_data["message"])
++            return redirect("appCmi:cmi-profile")
++
++        # Send email and capture result
++        try:
++            yo_send_it = send_mail(
++                subject=subject,
++                message=plain_message,
++                from_email=settings.EMAIL_HOST_USER,
++                recipient_list=receiver_email,
++                html_message=convert_to_html_content,
++                fail_silently=False,  # Changed to False to catch email errors
++            )
++
++            # Log email sending details
++            logger.info(
++                f"Password reset email sent to {user.email}: {'Success' if yo_send_it else 'Failed'}"
++            )
++
++        except Exception as email_error:
++            error_details = str(email_error)
++            logger.error(
++                f"Email sending error for {user.email}: {error_details}\n{traceback.format_exc()}"
++            )
++            response_data["errors"]["email"] = error_details
++            response_data["message"] = "Failed to send email. Please try again later."
++
++            if is_ajax:
++                return JsonResponse(response_data)
++            messages.error(request, response_data["message"])
++            return redirect("appCmi:cmi-profile")
++
++        if yo_send_it:
++            success_msg = (
++                "Password reset link sent to your email. Please check your inbox."
++            )
++            messages.success(request, success_msg)
++            response_data["success"] = True
++            response_data["message"] = success_msg
++        else:
++            error_msg = "Failed to send email. Please try again later."
++            logger.warning(
++                f"Email sending failed for user {user.email} - no exception but returned 0"
++            )
++            messages.error(request, error_msg)
++            response_data["message"] = error_msg
++            response_data["errors"]["email_send"] = "Email service returned 0"
++
++    except Exception as e:
++        # Catch any unexpected errors
++        error_trace = traceback.format_exc()
++        logger.critical(
++            f"Unexpected error in password reset for {user.email}: {str(e)}\n{error_trace}"
++        )
++        response_data["message"] = (
++            "An unexpected error occurred. Please try again later."
++        )
++        response_data["errors"]["unexpected"] = str(e)
++        messages.error(request, response_data["message"])
++
++    # Return JSON response if it's an AJAX request
++    if is_ajax:
++        return JsonResponse(response_data)
++
++    return redirect("appCmi:cmi-profile")
+diff --git a/appAccounts/views/request_new_activation_code_view.py b/appAccounts/views/request_new_activation_code_view.py
+index 7bb66b9..a7ccd6e 100644
+--- a/appAccounts/views/request_new_activation_code_view.py
++++ b/appAccounts/views/request_new_activation_code_view.py
+@@ -4,6 +4,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+ from django.contrib.auth import get_user_model
+ from django.utils.encoding import force_bytes, force_str
+ from django.contrib import messages
++from .new_activation_code_view import send_new_activation_code
+ 
+ 
+ def request_new_activation_code(request):
+diff --git a/appAdmin/__pycache__/models.cpython-310.pyc b/appAdmin/__pycache__/models.cpython-310.pyc
+index cad8d72..f531bf0 100644
+Binary files a/appAdmin/__pycache__/models.cpython-310.pyc and b/appAdmin/__pycache__/models.cpython-310.pyc differ
+diff --git a/appAdmin/templates/base/admin-index.html b/appAdmin/templates/base/admin-index.html
+index cf654f5..4a3edc8 100644
+--- a/appAdmin/templates/base/admin-index.html
++++ b/appAdmin/templates/base/admin-index.html
+@@ -148,147 +148,62 @@
+             </ul>
+             <ul class="nav-right">
+               <li class="notifications dropdown">
+-                <span class="counter bgc-red">3</span>
+-                <a href class="dropdown-toggle no-after" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="ti-bell"></i></a>
+-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+-                  <li class="pX-20 pY-15 bdB">
+-                    <i class="ti-bell pR-10"></i>
+-                    <span class="fsz-sm fw-600 c-grey-900">Notifications</span>
+-                  </li>
+-                  <li>
+-                    <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
+-                      <li>
+-                        <a href class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+-                          <div class="peer mR-15">
+-                            <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt />
+-                          </div>
+-                          <div class="peer peer-greed">
+-                            <span>
+-                              <span class="fw-500">John Doe</span>
+-                              <span class="c-grey-600">liked your <span class="text-dark">post</span></span>
+-                            </span>
+-                            <p class="m-0">
+-                              <small class="fsz-xs">5 mins ago</small>
+-                            </p>
+-                          </div>
+-                        </a>
+-                      </li>
+-                      <li>
+-                        <a href class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+-                          <div class="peer mR-15">
+-                            <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/2.jpg" alt />
+-                          </div>
+-                          <div class="peer peer-greed">
+-                            <span>
+-                              <span class="fw-500">Moo Doe</span>
+-                              <span class="c-grey-600">liked your <span class="text-dark">cover image</span></span>
+-                            </span>
+-                            <p class="m-0">
+-                              <small class="fsz-xs">7 mins ago</small>
+-                            </p>
+-                          </div>
+-                        </a>
+-                      </li>
+-                      <li>
+-                        <a href class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+-                          <div class="peer mR-15">
+-                            <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/3.jpg" alt />
+-                          </div>
+-                          <div class="peer peer-greed">
+-                            <span>
+-                              <span class="fw-500">Lee Doe</span>
+-                              <span class="c-grey-600">commented on your <span class="text-dark">video</span></span>
+-                            </span>
+-                            <p class="m-0">
+-                              <small class="fsz-xs">10 mins ago</small>
+-                            </p>
+-                          </div>
+-                        </a>
+-                      </li>
+-                    </ul>
+-                  </li>
+-                  <li class="pX-20 pY-15 ta-c bdT">
+-                    <span><a href class="c-grey-600 cH-blue fsz-sm td-n">View All Notifications <i class="ti-angle-right fsz-xs mL-10"></i></a></span>
+-                  </li>
+-                </ul>
+-              </li>
+-              <li class="notifications dropdown">
+-                <span class="counter bgc-blue">3</span>
++                <span class="counter bgc-blue">{{ unread_count }}</span>
+                 <a href class="dropdown-toggle no-after" data-bs-toggle="dropdown"><i class="ti-email"></i></a>
+                 <ul class="dropdown-menu">
+                   <li class="pX-20 pY-15 bdB">
+                     <i class="ti-email pR-10"></i>
+-                    <span class="fsz-sm fw-600 c-grey-900">Emails</span>
++                    <span class="fsz-sm fw-600 c-grey-900">User Messages</span>
+                   </li>
+                   <li>
+                     <ul class="ovY-a pos-r scrollable lis-n p-0 m-0 fsz-sm">
+-                      <li>
+-                        <a href class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+-                          <div class="peer mR-15">
+-                            <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/1.jpg" alt />
+-                          </div>
+-                          <div class="peer peer-greed">
+-                            <div>
+-                              <div class="peers jc-sb fxw-nw mB-5">
+-                                <div class="peer">
+-                                  <p class="fw-500 mB-0">John Doe</p>
+-                                </div>
+-                                <div class="peer">
+-                                  <small class="fsz-xs">5 mins ago</small>
+-                                </div>
++                      {% if messages_to_admin %}
++                        {% for message in messages_to_admin|slice:":3" %}
++                          <li>
++                            <a href="" class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
++                              <div class="peer mR-15">
++                                {% if message.user.profile.avatar %}
++                                  <img class="w-3r bdrs-50p" src="{{ message.user.profile.avatar.url }}" alt="{{ message.user.username }}" />
++                                {% else %}
++                                  <div class="w-3r bdrs-50p bgc-grey-200 d-flex align-items-center justify-content-center">
++                                    <i class="ti-user c-grey-600"></i>
++                                  </div>
++                                {% endif %}
+                               </div>
+-                              <span class="c-grey-600 fsz-sm">Want to create your own customized data generator for your app...</span>
+-                            </div>
+-                          </div>
+-                        </a>
+-                      </li>
+-                      <li>
+-                        <a href class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+-                          <div class="peer mR-15">
+-                            <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/2.jpg" alt />
+-                          </div>
+-                          <div class="peer peer-greed">
+-                            <div>
+-                              <div class="peers jc-sb fxw-nw mB-5">
+-                                <div class="peer">
+-                                  <p class="fw-500 mB-0">Moo Doe</p>
+-                                </div>
+-                                <div class="peer">
+-                                  <small class="fsz-xs">15 mins ago</small>
++                              <div class="peer peer-greed">
++                                <div>
++                                  <div class="peers jc-sb fxw-nw mB-5">
++                                    <div class="peer">
++                                      <p class="fw-500 mB-0">{{ message.user.get_full_name|default:message.user.username }}</p>
++                                    </div>
++                                    <div class="peer">
++                                      <small class="fsz-xs">{{ message.created_at|timesince }} ago</small>
++                                    </div>
++                                  </div>
++                                  <span class="c-grey-600 fsz-sm">
++                                    <span class="badge {% if message.status == 'pending' %}bg-danger{% elif message.status == 'read' %}bg-warning{% else %}bg-success{% endif %} me-1">
++                                      {{ message.get_status_display }}
++                                    </span>
++                                    {{ message.subject|truncatechars:35 }}
++                                  </span>
+                                 </div>
+                               </div>
+-                              <span class="c-grey-600 fsz-sm">Want to create your own customized data generator for your app...</span>
+-                            </div>
+-                          </div>
+-                        </a>
+-                      </li>
+-                      <li>
+-                        <a href class="peers fxw-nw td-n p-20 bdB c-grey-800 cH-blue bgcH-grey-100">
+-                          <div class="peer mR-15">
+-                            <img class="w-3r bdrs-50p" src="https://randomuser.me/api/portraits/men/3.jpg" alt />
+-                          </div>
+-                          <div class="peer peer-greed">
+-                            <div>
+-                              <div class="peers jc-sb fxw-nw mB-5">
+-                                <div class="peer">
+-                                  <p class="fw-500 mB-0">Lee Doe</p>
+-                                </div>
+-                                <div class="peer">
+-                                  <small class="fsz-xs">25 mins ago</small>
+-                                </div>
+-                              </div>
+-                              <span class="c-grey-600 fsz-sm">Want to create your own customized data generator for your app...</span>
+-                            </div>
+-                          </div>
+-                        </a>
+-                      </li>
++                            </a>
++                          </li>
++                        {% endfor %}
++                      {% else %}
++                        <li class="ta-c p-20 c-grey-600">
++                          <i class="ti-inbox mB-10 d-block fsz-lg"></i>
++                          No new messages
++                        </li>
++                      {% endif %}
+                     </ul>
+                   </li>
+                   <li class="pX-20 pY-15 ta-c bdT">
+-                    <span><a href="email.html" class="c-grey-600 cH-blue fsz-sm td-n">View All Email <i class="fs-xs ti-angle-right mL-10"></i></a></span>
++                    <span><a href="" class="c-grey-600 cH-blue fsz-sm td-n">View All Messages <i class="fs-xs ti-angle-right mL-10"></i></a></span>
+                   </li>
+                 </ul>
+-              </li>
++            </li>
+               <li class="dropdown">
+                 <a href class="dropdown-toggle no-after peers fxw-nw ai-c lh-1" data-bs-toggle="dropdown">
+                   <div class="peer mR-10">
+diff --git a/appAdmin/views/__pycache__/dashboard_view.cpython-310.pyc b/appAdmin/views/__pycache__/dashboard_view.cpython-310.pyc
+index 9fa64e0..99d087a 100644
+Binary files a/appAdmin/views/__pycache__/dashboard_view.cpython-310.pyc and b/appAdmin/views/__pycache__/dashboard_view.cpython-310.pyc differ
+diff --git a/appAdmin/views/dashboard_view.py b/appAdmin/views/dashboard_view.py
+index 1a57820..903241a 100644
+--- a/appAdmin/views/dashboard_view.py
++++ b/appAdmin/views/dashboard_view.py
+@@ -4,10 +4,15 @@ from utils.get_models import get_active_models
+ 
+ def dashboard(request):
+     models = get_active_models()  # Fetch active models
++
+     commodities = models.get("commodities", [])
+     knowledge_resources = models.get("knowledge_resources", [])
+     cmis = models.get("cmis", [])
+     accounts = models.get("accounts", [])
++    notifications = models.get("notifications", [])
++
++    messages_to_admin = notifications.order_by("-created_at")
++    unread_count = notifications.count()
+ 
+     total_commodities = commodities.count()
+     total_knowledge_resources = knowledge_resources.count()
+@@ -23,6 +28,8 @@ def dashboard(request):
+         "total_accounts": total_accounts,
+         "total_cmis": total_cmis,
+         "total_knowledge_resources": total_knowledge_resources,
++        "messages_to_admin": messages_to_admin,
++        "unread_count": unread_count,
+     }
+ 
+     return render(request, "pages/dashboard.html", context)
+diff --git a/appCmi/__pycache__/models.cpython-310.pyc b/appCmi/__pycache__/models.cpython-310.pyc
+index ba546b7..d37edbf 100644
+Binary files a/appCmi/__pycache__/models.cpython-310.pyc and b/appCmi/__pycache__/models.cpython-310.pyc differ
+diff --git a/appCmi/migrations/0003_resourceview_resourcebookmark.py b/appCmi/migrations/0003_resourceview_resourcebookmark.py
+new file mode 100644
+index 0000000..4ebadd7
+--- /dev/null
++++ b/appCmi/migrations/0003_resourceview_resourcebookmark.py
+@@ -0,0 +1,43 @@
++# Generated by Django 4.2.7 on 2025-05-14 01:19
++
++from django.conf import settings
++from django.db import migrations, models
++import django.db.models.deletion
++
++
++class Migration(migrations.Migration):
++
++    dependencies = [
++        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
++        ('appAdmin', '0005_alter_resourcemetadata_resource_type'),
++        ('appCmi', '0002_messagetoadmin'),
++    ]
++
++    operations = [
++        migrations.CreateModel(
++            name='ResourceView',
++            fields=[
++                ('id', models.AutoField(primary_key=True, serialize=False)),
++                ('ip_address', models.GenericIPAddressField(blank=True, null=True)),
++                ('viewed_at', models.DateTimeField(auto_now_add=True)),
++                ('resource', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='views', to='appAdmin.resourcemetadata')),
++                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='resource_views', to=settings.AUTH_USER_MODEL)),
++            ],
++            options={
++                'db_table': 'tbl_knowledge_resources_views_count',
++            },
++        ),
++        migrations.CreateModel(
++            name='ResourceBookmark',
++            fields=[
++                ('id', models.AutoField(primary_key=True, serialize=False)),
++                ('created_at', models.DateTimeField(auto_now_add=True)),
++                ('resource', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='bookmarks', to='appAdmin.resourcemetadata')),
++                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='resource_bookmarks', to=settings.AUTH_USER_MODEL)),
++            ],
++            options={
++                'db_table': 'tbl_knowledge_resources_bookmarks',
++                'unique_together': {('resource', 'user')},
++            },
++        ),
++    ]
+diff --git a/appCmi/migrations/__pycache__/0003_resourceview_resourcebookmark.cpython-310.pyc b/appCmi/migrations/__pycache__/0003_resourceview_resourcebookmark.cpython-310.pyc
+new file mode 100644
+index 0000000..87ba79a
+Binary files /dev/null and b/appCmi/migrations/__pycache__/0003_resourceview_resourcebookmark.cpython-310.pyc differ
+diff --git a/appCmi/models.py b/appCmi/models.py
+index f9218bd..0c238b3 100644
+--- a/appCmi/models.py
++++ b/appCmi/models.py
+@@ -173,3 +173,47 @@ class MessageToAdmin(models.Model):
+             self.replied_at = timezone.now()
+             self.status = "replied"
+         super(MessageToAdmin, self).save(*args, **kwargs)
++
++
++class ResourceView(models.Model):
++    id = models.AutoField(primary_key=True)
++    resource = models.ForeignKey(
++        "appAdmin.ResourceMetadata", on_delete=models.CASCADE, related_name="views"
++    )
++    user = models.ForeignKey(
++        "appAccounts.CustomUser",
++        on_delete=models.SET_NULL,
++        null=True,
++        blank=True,  # Allow anonymous views
++        related_name="resource_views",
++    )
++    ip_address = models.GenericIPAddressField(
++        blank=True, null=True
++    )  # For anonymous users
++    viewed_at = models.DateTimeField(auto_now_add=True)
++
++    class Meta:
++        db_table = "tbl_knowledge_resources_views_count"
++
++    def __str__(self):
++        return f"{self.resource.title} viewed at {self.viewed_at}"
++
++
++class ResourceBookmark(models.Model):
++    id = models.AutoField(primary_key=True)
++    resource = models.ForeignKey(
++        "appAdmin.ResourceMetadata", on_delete=models.CASCADE, related_name="bookmarks"
++    )
++    user = models.ForeignKey(
++        "appAccounts.CustomUser",
++        on_delete=models.CASCADE,
++        related_name="resource_bookmarks",
++    )
++    created_at = models.DateTimeField(auto_now_add=True)
++
++    class Meta:
++        db_table = "tbl_knowledge_resources_bookmarks"
++        unique_together = ("resource", "user")  # Prevent duplicate bookmarks
++
++    def __str__(self):
++        return f"{self.user.username}'s bookmark of {self.resource.title}"
+diff --git a/appCmi/static/style/css/cmi-profile.css b/appCmi/static/style/css/cmi-profile.css
+index c5c0b3d..b4a4023 100644
+--- a/appCmi/static/style/css/cmi-profile.css
++++ b/appCmi/static/style/css/cmi-profile.css
+@@ -216,7 +216,7 @@
+     background-color: #ffebee;
+ }
+ 
+-.edit-profile-btn {
++.edit-profile-btn, .change-pass-btn {
+     background-color: white;
+     border: none;
+     padding: 10px 20px;
+@@ -231,7 +231,7 @@
+     transition: var(--transition-fast);
+ }
+ 
+-.edit-profile-btn:hover {
++.edit-profile-btn:hover, .change-pass-btn:hover {
+     transform: translateY(-3px);
+     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+ }
+diff --git a/appCmi/templates/base/cmi-navbar.html b/appCmi/templates/base/cmi-navbar.html
+index b8a5608..afc85e9 100644
+--- a/appCmi/templates/base/cmi-navbar.html
++++ b/appCmi/templates/base/cmi-navbar.html
+@@ -90,9 +90,6 @@
+             <a class="dropdown-item" href="{% url "appCmi:cmi-profile" %}">
+               <i class="fas fa-user"></i> Profile
+             </a>
+-            <a class="dropdown-item" href="#">
+-              <i class="fas fa-cog"></i> Settings
+-            </a>
+             <div class="dropdown-divider"></div>
+             <a class="dropdown-item" href="{% url 'appAccounts:logout' %}">
+               <i class="fas fa-sign-out-alt"></i> Logout
+@@ -170,9 +167,6 @@
+           <a href="#" class="dropdown-item">
+             <i class="fas fa-user"></i> Profile
+           </a>
+-          <a href="#" class="dropdown-item">
+-            <i class="fas fa-cog"></i> Settings
+-          </a>
+           <div class="dropdown-divider"></div>
+           <a href="{% url 'appAccounts:logout' %}" class="dropdown-item">
+             <i class="fas fa-sign-out-alt"></i> Logout
+diff --git a/appCmi/templates/pages/cmi-knowledge-resources.html b/appCmi/templates/pages/cmi-knowledge-resources.html
+index 19f682f..83a2de9 100644
+--- a/appCmi/templates/pages/cmi-knowledge-resources.html
++++ b/appCmi/templates/pages/cmi-knowledge-resources.html
+@@ -129,20 +129,16 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                         </div>
+                     </div>
+                     <div class="resource-footer">
+-                        <a href=" " class="resource-button">
+-                            <i class="fas fa-eye"></i> View Details
+-                        </a>
++                        <button type="button" class="resource-button" data-toggle="modal" data-target="#resourcesData" data-slug="{{ resource.slug }}" data-url="{% url 'appCmi:record-resource-view' slug=resource.slug %}">
++                            Open Modal
++                          </button>
+                         <div class="resource-actions">
+-                            {% if resource.resource_type in 'publication,policy,technology' %}
+-                            <a href="#" class="action-button" title="Download">
+-                                <i class="fas fa-download"></i>
+-                            </a>
+-                            {% endif %}
+-                            <button class="action-button bookmark-button" title="Bookmark" data-id="{{ resource.id }}">
+-                                <i class="far fa-bookmark"></i>
+-                            </button>
+-                            <button class="action-button share-button" title="Share" data-id="{{ resource.id }}" data-url="">
+-                                <i class="fas fa-share-alt"></i>
++                            <button class="action-button bookmark-button" title="Bookmark" data-slug="{{ resource.slug }}">
++                                {% if resource.is_bookmarked %}
++                                    <i class="fas fa-bookmark"></i>  <!-- Solid bookmark icon for bookmarked resources -->
++                                {% else %}
++                                    <i class="far fa-bookmark"></i>  <!-- Regular bookmark icon for non-bookmarked resources -->
++                                {% endif %}
+                             </button>
+                         </div>
+                     </div>
+@@ -280,7 +276,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href="" class="resource-button">
+                         <i class="fas fa-eye"></i> View Details
+                     </a>
+                     <div class="resource-actions">
+@@ -324,7 +320,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href="" class="resource-button">
+                         <i class="fas fa-eye"></i> View Details
+                     </a>
+                 </div>
+@@ -363,7 +359,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href="" class="resource-button">
+                         <i class="fas fa-external-link-alt"></i> Access System
+                     </a>
+                 </div>
+@@ -392,7 +388,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href=" " class="resource-button">
+                         <i class="fas fa-map"></i> View Map
+                     </a>
+                 </div>
+@@ -431,7 +427,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href=" " class="resource-button">
+                         <i class="fas fa-play-circle"></i> View Media
+                     </a>
+                 </div>
+@@ -470,7 +466,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href=" " class="resource-button">
+                         <i class="fas fa-eye"></i> View Policy
+                     </a>
+                     <div class="resource-actions">
+@@ -514,7 +510,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href=" " class="resource-button">
+                         <i class="fas fa-project-diagram"></i> Project Details
+                     </a>
+                 </div>
+@@ -553,7 +549,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100}} </p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href=" " class="resource-button">
+                         <i class="fas fa-microchip"></i> Technology Details
+                     </a>
+                     <div class="resource-actions">
+@@ -597,7 +593,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href=" " class="resource-button">
+                         <i class="fas fa-chalkboard-teacher"></i> Training Details
+                     </a>
+                 </div>
+@@ -636,7 +632,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href=" " class="resource-button">
+                         <i class="fas fa-video"></i> Webinar Details
+                     </a>
+                 </div>
+@@ -675,7 +671,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
+                 </div>
+                 <div class="resource-footer">
+-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
++                    <a href=" " class="resource-button">
+                         <i class="fas fa-shopping-cart"></i> Product Details
+                     </a>
+                 </div>
+@@ -691,14 +687,90 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+     {% endif %}
+     
+     <!-- Resource Detail Modal -->
+-    <div class="modal-backdrop" id="resource-modal">
+-        <div class="modal-content">
++    <div class="modal fade" id="resourcesData" tabindex="-1" role="dialog" aria-labelledby="resourcesDataLabel" aria-hidden="true">
++        <div class="modal-dialog" role="document">
++          <div class="modal-content">
++    
++            <!-- Modal Header -->
+             <div class="modal-header">
+-                <h2 class="modal-title">Resource Title</h2>
+-                <p class="modal-subtitle">Resource type</p>
+-                <button class="modal-close" id="modal-close"><i class="fas fa-times"></i></button>
++              <h5 class="modal-title" id="resourcesDataLabel">Resource Title</h5>
+             </div>
++    
++            <!-- Modal Body -->
+             <div class="modal-body">
++            </div>
++    
++            <!-- Modal Footer -->
++            <div class="modal-footer">
++              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
++            </div>
++    
++          </div>
++        </div>
++      </div>
++</main>
++{% endblock content %}
++
++{% block script %}
++
++<script>
++    document.addEventListener('DOMContentLoaded', function() {
++
++        // Initialize DOM elements
++        const filterButton = document.getElementById('filter-button');
++        const filterMenu = document.getElementById('filter-menu');
++        const categoryPills = document.querySelectorAll('.category-pill');
++        const resourceModal = document.getElementById('resource-modal');
++        const modalClose = document.getElementById('modal-close');
++
++        $('#resourcesData').on('show.bs.modal', function (event) {
++            const button = $(event.relatedTarget); // Button that triggered the modal
++            const resourceSlug = button.data('slug');
++            const resourceUrl = button.data('url');
++            const modal = $(this);
++            
++            // Show loading state in the modal
++            modal.find('.modal-body').html('<div class="text-center py-4"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div><p class="mt-2">Loading resource details...</p></div>');
++            
++            // Record the view and get resource data
++            fetch(resourceUrl, {
++                method: 'GET',
++                headers: {
++                    'X-Requested-With': 'XMLHttpRequest'
++                }
++            })
++            .then(response => {
++                if (!response.ok) {
++                    throw new Error('Network response was not ok');
++                }
++                return response.json();
++            })
++            .then(data => {
++                // Populate the modal with resource data
++                populateResourceModal(modal, data);
++            })
++            .catch(error => {
++                console.error('Error:', error);
++                
++                // Show error message in modal
++                modal.find('.modal-body').html(`
++                    <div class="alert alert-danger" role="alert">
++                        <h4 class="alert-heading">Error!</h4>
++                        <p>Failed to load resource details. Please try again later.</p>
++                    </div>
++                `);
++            });
++        });
++
++        function populateResourceModal(modal, data) {
++            const resource = data.resource;
++            const specificData = data.specific_data;
++            
++            // Set modal title
++            modal.find('.modal-title').text(resource.title);
++            
++            // Restore modal content structure
++            modal.find('.modal-body').html(`
+                 <div class="resource-detail-grid">
+                     <div class="resource-detail-section">
+                         <h3 class="detail-section-title">Description</h3>
+@@ -734,280 +806,315 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
+                         </div>
+                     </div>
+                 </div>
+-            </div>
+-            <div class="modal-footer">
+-                <div class="resource-meta" id="modal-meta">
+-                    <!-- Will be dynamically populated -->
+-                </div>
+-                <div class="modal-actions">
+-                    <a href="#" class="modal-button secondary-button" id="modal-download">
+-                        <i class="fas fa-download"></i> Download
+-                    </a>
+-                    <a href="#" class="modal-button primary-button" id="modal-view">
+-                        <i class="fas fa-external-link-alt"></i> View Resource
+-                    </a>
+-                </div>
+-            </div>
+-        </div>
+-    </div>
+-</main>
+-{% endblock content %}
+-
+-{% block script %}
+-<script>
+-    document.addEventListener('DOMContentLoaded', function() {
+-         // Debug: Get and log all resource card values
+-    getAndLogResourceCardValues();
+-
+-        // Initialize DOM elements
+-        const filterButton = document.getElementById('filter-button');
+-        const filterMenu = document.getElementById('filter-menu');
+-        const categoryPills = document.querySelectorAll('.category-pill');
+-        const resourceModal = document.getElementById('resource-modal');
+-        const modalClose = document.getElementById('modal-close');
++            `);
++            
++            // Set description
++            modal.find('.resource-description-full').text(
++            resource.description.charAt(0).toUpperCase() + resource.description.slice(1)
++            );
+ 
+-        // Filter menu toggle
+-        if (filterButton && filterMenu) {
+-            filterButton.addEventListener('click', function() {
+-                filterMenu.classList.toggle('show');
+-                // Close when clicking outside
+-                document.addEventListener('click', function closeMenu(e) {
+-                    if (!filterButton.contains(e.target) && !filterMenu.contains(e.target)) {
+-                        filterMenu.classList.remove('show');
+-                        document.removeEventListener('click', closeMenu);
+-                    }
++            // Set basic details
++            modal.find('#modal-type').text(formatResourceType(resource.resource_type));
++            modal.find('#modal-created').text(resource.created_at);
++            modal.find('#modal-updated').text(resource.updated_at || 'N/A');
++            modal.find('#modal-author').text(resource.created_by || 'N/A');
++            
++            // Populate tags
++            const tagsContainer = modal.find('#modal-tags');
++            tagsContainer.empty();
++            
++            if (resource.tags && resource.tags.length > 0) {
++                resource.tags.forEach(tag => {
++                    tagsContainer.append(`<span class="resource-tag">${tag.name}</span>`);
+                 });
+-            });
+-        }
+-
+-        // Category pill selection
+-        categoryPills.forEach(pill => {
+-            pill.addEventListener('click', function(e) {
+-                // If this is a normal link (not a filter-in-page action), let it proceed normally
+-                if (this.getAttribute('href') && !e.ctrlKey && !e.metaKey) {
+-                    return;
+-                }
+-                
+-                e.preventDefault();
+-                
+-                // Remove active class from all pills
+-                categoryPills.forEach(p => p.classList.remove('active'));
+-                
+-                // Add active class to clicked pill
+-                this.classList.add('active');
+-                
+-                // Get category
+-                const category = this.getAttribute('data-category');
+-                
+-                // Filter resources
+-                filterResources(category);
+-            });
+-        });
+-
+-        // Modal close
+-        if (modalClose && resourceModal) {
+-            modalClose.addEventListener('click', function() {
+-                resourceModal.classList.remove('show');
+-            });
+-
+-            // Close modal when clicking outside
+-            resourceModal.addEventListener('click', function(e) {
+-                if (e.target === resourceModal) {
+-                    resourceModal.classList.remove('show');
+-                }
+-            });
+-        }
+-
+-        // Resource detail view
+-        document.querySelectorAll('.resource-button').forEach(button => {
+-            button.addEventListener('click', function(e) {
+-                // If this is a normal link (not a modal-in-page action), let it proceed normally
+-                if (this.getAttribute('href') && this.getAttribute('href') !== '#' && !e.ctrlKey && !e.metaKey) {
+-                    return;
+-                }
+-                
+-                e.preventDefault();
+-                
+-                const card = this.closest('.resource-card');
+-                if (!card) return;
+-                
+-                const resourceId = card.getAttribute('data-id');
+-                const resourceType = card.getAttribute('data-type');
+-                
+-                // Here you would normally fetch resource details via AJAX
+-                // For now, we'll simulate with what's available in the DOM
+-                const title = card.querySelector('.resource-title').textContent;
+-                const type = card.querySelector('.resource-type').textContent;
+-                const description = card.querySelector('.resource-description').textContent;
+-                
+-                // Set modal content
+-                document.querySelector('.modal-title').textContent = title;
+-                document.querySelector('.modal-subtitle').textContent = type;
+-                document.querySelector('.resource-description-full').textContent = description;
+-                
+-                // Show modal
+-                resourceModal.classList.add('show');
+-            });
+-        });
+-
+-        // Bookmark functionality
+-        document.querySelectorAll('.bookmark-button').forEach(button => {
+-            button.addEventListener('click', function() {
+-                const resourceId = this.getAttribute('data-id');
+-                this.innerHTML = '<i class="fas fa-bookmark"></i>';
+-                showToast(`Resource added to your bookmarks`);
+-                
+-                // You can implement AJAX to save bookmarks in user session or database
+-            });
+-        });
+-
+-        // Share functionality
+-        document.querySelectorAll('.share-button').forEach(button => {
+-            button.addEventListener('click', function() {
+-                const url = this.getAttribute('data-url');
+-                
+-                // Copy to clipboard
+-                navigator.clipboard.writeText(url)
+-                    .then(() => {
+-                        showToast('Link copied to clipboard');
+-                    })
+-                    .catch(() => {
+-                        showToast('Failed to copy link', 'error');
+-                    });
+-            });
+-        });
+-
+-        // Filter resources in the grid
+-        function filterResources(category) {
+-            const resourceCards = document.querySelectorAll('.resource-card');
+-            console.log("Filtering by category:", category);
++            } else {
++                tagsContainer.append('<span class="resource-tag muted">No tags</span>');
++            }
+             
+-            resourceCards.forEach(card => {
+-                const cardValue = card.getAttribute('value');
+-                console.log("Card value:", cardValue, "Should display:", (category === 'all' || cardValue === category));
++            // Populate resource-specific details
++            const specificDetailsContainer = modal.find('#resource-specific-details');
++            specificDetailsContainer.empty();
++            
++            if (specificData && Object.keys(specificData).length > 0) {
++                // Create a header for the specific details section
++                specificDetailsContainer.append(`
++                    <h3 class="detail-section-title">${formatResourceType(resource.resource_type)} Details</h3>
++                `);
+                 
+-                if (category === 'all' || cardValue === category) {
+-                    card.style.display = '';
+-                } else {
+-                    card.style.display = 'none';
++                // Add each specific field
++                for (const [key, value] of Object.entries(specificData)) {
++                    if (value) {
++                        const displayValue = typeof value === 'boolean' ? (value ? 'Yes' : 'No') : value;
++                        
++                        specificDetailsContainer.append(`
++                            <div class="detail-item">
++                                <p class="detail-label">${formatFieldName(key)}</p>
++                                <p class="detail-value">${displayValue}</p>
++                            </div>
++                        `);
++                    }
+                 }
+-            });
++            }
+         }
+ 
+-        function getAndLogResourceCardValues() {
+-            const resourceCards = document.querySelectorAll('.resource-card');
+-            console.log("Found", resourceCards.length, "resource cards");
++        // Helper function to format resource type strings
++        function formatResourceType(type) {
++            if (!type) return 'Unknown';
+             
+-            // Create an object to store counts of each value
+-            const valueCounts = {};
++            // Map of resource types to display names
++            const typeMap = {
++                'event': 'Event',
++                'info_system': 'Information System',
++                'map': 'Map',
++                'media': 'Media',
++                'news': 'News',
++                'policy': 'Policy',
++                'project': 'Project',
++                'publication': 'Publication',
++                'technology': 'Technology',
++                'training': 'Training/Seminar',
++                'webinar': 'Webinar',
++                'product': 'Product'
++            };
+             
+-            // Loop through all resource cards
+-            resourceCards.forEach((card, index) => {
+-                const value = card.getAttribute('value') || '(empty)';
+-                const dataType = card.getAttribute('data-type') || '(empty)';
+-                const title = card.querySelector('.resource-title')?.textContent?.trim() || 'Unknown';
+-                const type = card.querySelector('.resource-type')?.textContent?.trim() || 'Unknown';
+-                
+-                console.log(`Card #${index + 1}:`, {
+-                    title: title,
+-                    displayType: type,
+-                    value: value,
+-                    dataType: dataType
+-                });
+-                
+-                // Count occurrences of each value
+-                valueCounts[value] = (valueCounts[value] || 0) + 1;
+-            });
++            return typeMap[type] || type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
++        }
++        
++        // Helper function to format field names
++        function formatFieldName(name) {
++            if (!name) return '';
++            
++            // Special cases for common abbreviations
++            const specialCases = {
++                'doi': 'DOI',
++                'isbn': 'ISBN',
++                'url': 'URL'
++            };
+             
+-            // Log summary of values
+-            console.log("=== Value Counts ===");
+-            for (const [value, count] of Object.entries(valueCounts)) {
+-                console.log(`${value}: ${count} cards`);
++            if (specialCases[name.toLowerCase()]) {
++                return specialCases[name.toLowerCase()];
+             }
+-            console.log("=====================");
+             
+-            // Get all category pills for comparison
+-            const categoryPills = document.querySelectorAll('.category-pill');
+-            console.log("Category pills:");
+-            categoryPills.forEach((pill, index) => {
+-                const category = pill.getAttribute('data-category') || '(empty)';
+-                const text = pill.textContent.trim();
+-                console.log(`Pill #${index + 1}: Category=${category}, Text=${text}`);
+-            });
++            // Convert snake_case to Title Case
++            return name.replace(/_/g, ' ')
++                .replace(/\b\w/g, l => l.toUpperCase());
+         }
+-
+-        // Toast notification
+-        function showToast(message, type = 'success') {
+-            // Create toast container if it doesn't exist
+-            let toastContainer = document.querySelector('.toast-container');
+-            if (!toastContainer) {
+-                toastContainer = document.createElement('div');
+-                toastContainer.className = 'toast-container';
+-                document.body.appendChild(toastContainer);
+-            }
++        
++        // Function to show toast notifications
++        function showToast(message) {
++            // Remove existing toasts
++            $('.toast').remove();
+             
+-            // Create toast
+-            const toast = document.createElement('div');
+-            toast.className = 'toast';
+-            toast.innerHTML = `
+-                <div class="toast-icon">
+-                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+-                </div>
+-                <div class="toast-content">
+-                    <p>${message}</p>
+-                </div>
+-                <button class="toast-close">
+-                    <i class="fas fa-times"></i>
+-                </button>
+-            `;
++            // Create Bootstrap toast
++            const toast = $(`
++                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
++                    <div class="toast-header">
++                        <strong class="mr-auto">Notification</strong>
++                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
++                            <span aria-hidden="true">&times;</span>
++                        </button>
++                    </div>
++                    <div class="toast-body">
++                        ${message}
++                    </div>
++                </div>
++            `);
+             
+-            // Add to container
+-            toastContainer.appendChild(toast);
++            // Add toast container if it doesn't exist
++            if (!$('.toast-container').length) {
++                $('body').append('<div class="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>');
++            }
+             
+-            // Show toast
+-            setTimeout(() => {
+-                toast.classList.add('show');
+-            }, 10);
++            // Add toast to container and show it
++            $('.toast-container').append(toast);
++            toast.toast('show');
++        }
+             
+-            // Close toast
+-            toast.querySelector('.toast-close').addEventListener('click', function() {
+-                toast.classList.remove('show');
+-                setTimeout(() => {
+-                    toast.remove();
+-                }, 300);
++            // Filter menu toggle
++            if (filterButton && filterMenu) {
++                filterButton.addEventListener('click', function() {
++                    filterMenu.classList.toggle('show');
++                    // Close when clicking outside
++                    document.addEventListener('click', function closeMenu(e) {
++                        if (!filterButton.contains(e.target) && !filterMenu.contains(e.target)) {
++                            filterMenu.classList.remove('show');
++                            document.removeEventListener('click', closeMenu);
++                        }
++                    });
++                });
++            }
++
++            // Category pill selection
++            categoryPills.forEach(pill => {
++                pill.addEventListener('click', function(e) {
++                    // If this is a normal link (not a filter-in-page action), let it proceed normally
++                    if (this.getAttribute('href') && !e.ctrlKey && !e.metaKey) {
++                        return;
++                    }
++                    
++                    e.preventDefault();
++                    
++                    // Remove active class from all pills
++                    categoryPills.forEach(p => p.classList.remove('active'));
++                    
++                    // Add active class to clicked pill
++                    this.classList.add('active');
++                    
++                    // Get category
++                    const category = this.getAttribute('data-category');
++                    
++                    // Filter resources
++                    filterResources(category);
++                });
+             });
+-            
+-            // Auto close after 3 seconds
+-            setTimeout(() => {
+-                if (toast && toast.parentNode) {
++
++            // Filter resources in the grid
++            function filterResources(category) {
++                const resourceCards = document.querySelectorAll('.resource-card');
++                console.log("Filtering by category:", category);
++                
++                resourceCards.forEach(card => {
++                    const cardValue = card.getAttribute('value');
++                    console.log("Card value:", cardValue, "Should display:", (category === 'all' || cardValue === category));
++                    
++                    if (category === 'all' || cardValue === category) {
++                        card.style.display = '';
++                    } else {
++                        card.style.display = 'none';
++                    }
++                });
++            }
++
++            // Toast notification
++            function showToast(message, type = 'success') {
++                // Create toast container if it doesn't exist
++                let toastContainer = document.querySelector('.toast-container');
++                if (!toastContainer) {
++                    toastContainer = document.createElement('div');
++                    toastContainer.className = 'toast-container';
++                    document.body.appendChild(toastContainer);
++                }
++                
++                // Create toast
++                const toast = document.createElement('div');
++                toast.className = 'toast';
++                toast.innerHTML = `
++                    <div class="toast-icon">
++                        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
++                    </div>
++                    <div class="toast-content">
++                        <p>${message}</p>
++                    </div>
++                    <button class="toast-close">
++                        <i class="fas fa-times"></i>
++                    </button>
++                `;
++                
++                // Add to container
++                toastContainer.appendChild(toast);
++                
++                // Show toast
++                setTimeout(() => {
++                    toast.classList.add('show');
++                }, 10);
++                
++                // Close toast
++                toast.querySelector('.toast-close').addEventListener('click', function() {
+                     toast.classList.remove('show');
+                     setTimeout(() => {
+                         toast.remove();
+                     }, 300);
+-                }
+-            }, 3000);
+-        }
++                });
++                
++                // Auto close after 3 seconds
++                setTimeout(() => {
++                    if (toast && toast.parentNode) {
++                        toast.classList.remove('show');
++                        setTimeout(() => {
++                            toast.remove();
++                        }, 300);
++                    }
++                }, 3000);
++            }
+ 
+-        // URL parameter handling for direct resource access
+-        function checkUrlParameters() {
+-            const urlParams = new URLSearchParams(window.location.search);
+-            const resourceId = urlParams.get('id');
+-            
+-            if (resourceId) {
+-                // You can implement AJAX to fetch resource details and open modal
+-                // For now, we'll try to find it in the DOM
+-                const card = document.querySelector(`.resource-card[data-id="${resourceId}"]`);
+-                if (card) {
+-                    const viewButton = card.querySelector('.resource-button');
+-                    if (viewButton) {
+-                        viewButton.click();
++            // URL parameter handling for direct resource access
++            function checkUrlParameters() {
++                const urlParams = new URLSearchParams(window.location.search);
++                const resourceId = urlParams.get('id');
++                
++                if (resourceId) {
++                    // You can implement AJAX to fetch resource details and open modal
++                    // For now, we'll try to find it in the DOM
++                    const card = document.querySelector(`.resource-card[data-id="${resourceId}"]`);
++                    if (card) {
++                        const viewButton = card.querySelector('.resource-button');
++                        if (viewButton) {
++                            viewButton.click();
++                        }
+                     }
+                 }
+             }
+-        }
+ 
+-        // Check URL parameters on load
+-        checkUrlParameters();
+-    });
++            // Check URL parameters on load
++            checkUrlParameters();
++
++
++            $(document).on('click', '.bookmark-button', function(e) {
++                e.preventDefault();
++            
++                const bookmarkButton = $(this);
++                const resourceSlug = bookmarkButton.data('slug');
++                
++                // Show loading state
++                bookmarkButton.addClass('loading');
++                
++                // Get CSRF token
++                function getCookie(name) {
++                    let cookieValue = null;
++                    if (document.cookie && document.cookie !== '') {
++                        const cookies = document.cookie.split(';');
++                        for (let i = 0; i < cookies.length; i++) {
++                            const cookie = cookies[i].trim();
++                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
++                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
++                                break;
++                            }
++                        }
++                    }
++                    return cookieValue;
++                }
++                
++                const csrfToken = getCookie('csrftoken');
++                
++                // Send AJAX request to toggle bookmark
++                $.ajax({
++                    url: '{% url "appCmi:bookmark-resource" %}',
++                    type: 'POST',
++                    data: {
++                        resource_slug: resourceSlug
++                    },
++                    // Note: No contentType specified, so jQuery will use application/x-www-form-urlencoded
++                    headers: {
++                        'X-Requested-With': 'XMLHttpRequest',
++                        'X-CSRFToken': csrfToken
++                    },
++                    success: function(data) {
++                        // Remove loading state
++                        bookmarkButton.removeClass('loading');
++                        
++                        if (data.status === 'success') {
++                            console.log(data.message);
++                            window.location.reload();
++                        }
++                    },
++                    error: function(xhr, status, error) {
++                        // Remove loading state
++                        bookmarkButton.removeClass('loading');
++                        console.error('Error toggling bookmark:', error);
++                        console.log('Response:', xhr.responseText);
++                    }
++                });
++            });
++        });
+ </script>
+ {% endblock script %}
+\ No newline at end of file
+diff --git a/appCmi/templates/pages/cmi-user-profile.html b/appCmi/templates/pages/cmi-user-profile.html
+index a9fdf4d..39037f1 100644
+--- a/appCmi/templates/pages/cmi-user-profile.html
++++ b/appCmi/templates/pages/cmi-user-profile.html
+@@ -44,6 +44,11 @@
+                     <i class="fas fa-edit"></i>
+                     <span>Edit Profile</span>
+                 </button>
++
++                <button id="change-pass-btn" class="change-pass-btn" style="margin-left: 5px;">
++                    <i class="fa-solid fa-lock"></i>
++                    <span>Change Password</span>
++                </button>
+             </div>
+             
+             <!-- Profile content -->
+@@ -235,38 +240,6 @@
+                     </div>
+                     </div>
+                 </div>
+-                </div>
+-                
+-                <!-- Activity section -->
+-                <div class="activity-section">
+-                <h2 class="section-title">Recent Activity</h2>
+-                
+-                <div class="activity-list">
+-                    <div class="activity-item">
+-                    <div class="activity-content">
+-                        <p>Posted in forum: "Best practices for rice cultivation"</p>
+-                        <span>2 days ago</span>
+-                    </div>
+-                    </div>
+-                    <div class="activity-item">
+-                    <div class="activity-content">
+-                        <p>Commented on "Sustainable farming techniques in Western Mindanao"</p>
+-                        <span>1 week ago</span>
+-                    </div>
+-                    </div>
+-                    <div class="activity-item">
+-                    <div class="activity-content">
+-                        <p>Bookmarked resource on "Aquaculture best practices"</p>
+-                        <span>2 weeks ago</span>
+-                    </div>
+-                    </div>
+-                </div>
+-                
+-                <div class="view-all">
+-                    <button>View All Activity</button>
+-                </div>
+-                </div>
+-            </div>
+             </div>
+         </div>
+     </div>
+@@ -276,18 +249,57 @@
+ 
+   {% block script %}
+ <script>
+-  document.addEventListener('DOMContentLoaded', function() {
+-    // Auto-dismiss alerts after 5 seconds
+-    const alerts = document.querySelectorAll('.alert');
+-    alerts.forEach(alert => {
+-      setTimeout(() => {
+-        const closeButton = alert.querySelector('.btn-close');
+-        if (closeButton) {
+-          closeButton.click();
++    document.addEventListener('DOMContentLoaded', function() {
++        // Auto-dismiss alerts after 5 seconds
++        const alerts = document.querySelectorAll('.alert');
++        alerts.forEach(alert => {
++        setTimeout(() => {
++            const closeButton = alert.querySelector('.btn-close');
++            if (closeButton) {
++            closeButton.click();
++            }
++        }, 5000);
++        });
++
++        const changePassBtn = document.getElementById('change-pass-btn');
++        
++        if (changePassBtn) {
++            changePassBtn.addEventListener('click', function() {
++                // Show a confirmation dialog
++                if (confirm('Do you want to send a password reset link to your email?')) {
++                    // Create loading indicator
++                    const loadingIndicator = createLoadingIndicator();
++                    document.querySelector('.profile-content').appendChild(loadingIndicator);
++                    
++                    // Get CSRF token
++                    const csrfToken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
++                    
++                    // Send request to the server
++                    fetch("{% url 'appAccounts:send-reset-password-link' %}", {
++                        method: 'POST',
++                        headers: {
++                            'X-Requested-With': 'XMLHttpRequest',
++                            'X-CSRFToken': csrfToken
++                        },
++                        credentials: 'same-origin'
++                    })
++                    .then(response => response.json())
++                    .then(data => {
++                        // Remove loading indicator
++                        loadingIndicator.remove();
++                        
++                        // Show notification
++                        showNotification(data.message, data.success ? 'success' : 'error');
++                    })
++                    .catch(error => {
++                        console.error('Error:', error);
++                        loadingIndicator.remove();
++                        showNotification('An error occurred while processing your request', 'error');
++                    });
++                }
++            });
+         }
+-      }, 5000);
+     });
+-  });
+ </script>
+ <script src="{% static "style/js/cmi-profile.js" %}"></script>
+ <script>
+diff --git a/appCmi/templatetags/__pycache__/custom_filters.cpython-310.pyc b/appCmi/templatetags/__pycache__/custom_filters.cpython-310.pyc
+index 2f759e0..edea952 100644
+Binary files a/appCmi/templatetags/__pycache__/custom_filters.cpython-310.pyc and b/appCmi/templatetags/__pycache__/custom_filters.cpython-310.pyc differ
+diff --git a/appCmi/urls/__pycache__/cmi_knowledge_resources_url.cpython-310.pyc b/appCmi/urls/__pycache__/cmi_knowledge_resources_url.cpython-310.pyc
+index 96448ac..19cdda7 100644
+Binary files a/appCmi/urls/__pycache__/cmi_knowledge_resources_url.cpython-310.pyc and b/appCmi/urls/__pycache__/cmi_knowledge_resources_url.cpython-310.pyc differ
+diff --git a/appCmi/urls/cmi_knowledge_resources_url.py b/appCmi/urls/cmi_knowledge_resources_url.py
+index ce2a800..f5250b2 100644
+--- a/appCmi/urls/cmi_knowledge_resources_url.py
++++ b/appCmi/urls/cmi_knowledge_resources_url.py
+@@ -12,6 +12,16 @@ urlpatterns = (
+             cmi_knowledge_resources_view.cmi_knowledge_resources,
+             name="all-knowledge-resources",
+         ),
++        path(
++            "knowledge-resources/<slug:slug>/view/",
++            cmi_knowledge_resources_view.record_resource_view,
++            name="record-resource-view",
++        ),
++        path(
++            "knowledge-resource/bookmark/",
++            cmi_knowledge_resources_view.toggle_bookmark,
++            name="bookmark-resource",
++        ),
+     ]
+     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+diff --git a/appCmi/views/__init__.py b/appCmi/views/__init__.py
+index c18c6ea..eb778b6 100644
+--- a/appCmi/views/__init__.py
++++ b/appCmi/views/__init__.py
+@@ -18,4 +18,8 @@ from .cmi_user_profile_view import (
+     upload_profile_picture,
+     update_user_info,
+ )
+-from .cmi_knowledge_resources_view import cmi_knowledge_resources
++from .cmi_knowledge_resources_view import (
++    cmi_knowledge_resources,
++    record_resource_view,
++    toggle_bookmark,
++)
+diff --git a/appCmi/views/__pycache__/__init__.cpython-310.pyc b/appCmi/views/__pycache__/__init__.cpython-310.pyc
+index b8fb20f..447b65e 100644
+Binary files a/appCmi/views/__pycache__/__init__.cpython-310.pyc and b/appCmi/views/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/appCmi/views/__pycache__/cmi_knowledge_resources_view.cpython-310.pyc b/appCmi/views/__pycache__/cmi_knowledge_resources_view.cpython-310.pyc
+index 08a99a0..c53d8d2 100644
+Binary files a/appCmi/views/__pycache__/cmi_knowledge_resources_view.cpython-310.pyc and b/appCmi/views/__pycache__/cmi_knowledge_resources_view.cpython-310.pyc differ
+diff --git a/appCmi/views/cmi_knowledge_resources_view.py b/appCmi/views/cmi_knowledge_resources_view.py
+index f5b7c8c..c32ef08 100644
+--- a/appCmi/views/cmi_knowledge_resources_view.py
++++ b/appCmi/views/cmi_knowledge_resources_view.py
+@@ -1,10 +1,18 @@
+ from utils.get_models import get_active_models
+-from appAdmin.models import ResourceMetadata, Tag, KnowledgeResources
++from appAdmin.models import ResourceMetadata, Tag
++from appCmi.models import ResourceBookmark, ResourceView
++from appCmi.templatetags import get_knowledge_title
+ from django.shortcuts import redirect, get_object_or_404
+ from django.db.models import Q
+ from django.shortcuts import render
++from django.urls import reverse
+ import logging
+-from appCmi.templatetags import get_knowledge_title
++from django.views.decorators.http import require_POST
++from django.utils import timezone
++from django.http import JsonResponse, HttpResponseRedirect
++import datetime
++from django.db import models
++from appCmi.templatetags.custom_filters import get_knowledge_title
+ 
+ logger = logging.getLogger(__name__)
+ 
+@@ -167,6 +175,62 @@ def cmi_knowledge_resources(request):
+             Q(title__icontains=search_query) | Q(description__icontains=search_query)
+         )
+ 
++    # Get user's bookmarked resources if user is authenticated
++    user_bookmarked_resources = set()
++    if request.user.is_authenticated:
++        # Get the IDs of resources bookmarked by the current user
++        user_bookmarked_resources = set(
++            ResourceBookmark.objects.filter(user=request.user).values_list(
++                "resource_id", flat=True
++            )
++        )
++
++    # Check for bookmarks and add a bookmarked flag to each resource
++    # For all_resources
++    for resource in all_resources:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    # For featured resources
++    for resource in featured_resources:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    # For each resource type
++    for resource in events:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in info_systems:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in maps:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in media:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in news_items:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in policies:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in projects:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in publications:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in technologies:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in trainings:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in webinars:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
++    for resource in products:
++        resource.is_bookmarked = resource.id in user_bookmarked_resources
++
+     context = {
+         # Existing context
+         "commodities": commodities,
+@@ -205,6 +269,172 @@ def cmi_knowledge_resources(request):
+         "trainings_count": trainings.count(),
+         "webinars_count": webinars.count(),
+         "products_count": products.count(),
++        # Add user bookmarks info
++        "has_bookmarks": bool(user_bookmarked_resources),
+     }
+ 
+     return render(request, "pages/cmi-knowledge-resources.html", context)
++
++
++def record_resource_view(request, slug):
++    """
++    Records a view for a resource and returns JSON data for the modal.
++    Simply records every view without duplicate checking.
++    """
++    resource = get_object_or_404(ResourceMetadata, slug=slug)
++
++    # Get the IP address for anonymous users
++    ip_address = request.META.get("REMOTE_ADDR")
++
++    # Create a view record for every view
++    view = ResourceView(resource=resource, ip_address=ip_address)
++
++    if request.user.is_authenticated:
++        view.user = request.user
++
++    view.save()
++
++    # Get the total view count
++    view_count = ResourceView.objects.filter(resource=resource).count()
++
++    # Check if the user has bookmarked this resource
++    is_bookmarked = False
++    if request.user.is_authenticated:
++        is_bookmarked = ResourceBookmark.objects.filter(
++            resource=resource, user=request.user
++        ).exists()
++
++    # Get specific resource data based on resource type
++    resource_type = resource.resource_type
++    specific_data = {}
++
++    # Try to get the related specific resource object
++    specific_model_name = resource_type.replace("-", "_")
++    if hasattr(resource, specific_model_name):
++        specific_resource = getattr(resource, specific_model_name)
++
++        # Dynamically get fields from the specific resource model
++        for field in specific_resource._meta.fields:
++            if field.name not in ("id", "metadata", "slug"):
++                field_value = getattr(specific_resource, field.name)
++
++                # Handle various field types
++                if isinstance(field_value, datetime.date) or isinstance(
++                    field_value, datetime.datetime
++                ):
++                    field_value = field_value.isoformat()
++                elif isinstance(field_value, models.Model):
++                    field_value = str(field_value)
++
++                specific_data[field.name] = field_value
++
++    # Return JSON data for the modal
++    if request.headers.get("X-Requested-With") == "XMLHttpRequest":
++        # Return JSON response for AJAX requests
++        response_data = {
++            "resource": {
++                "id": resource.id,
++                "title": resource.title,
++                "description": resource.description,
++                "resource_type": get_knowledge_title(resource.resource_type),
++                "created_at": resource.created_at.isoformat(),
++                "slug": resource.slug,
++                "view_count": view_count,
++                "is_bookmarked": is_bookmarked,
++                "tags": [
++                    {"id": tag.id, "name": tag.name} for tag in resource.tags.all()
++                ],
++                # Add other fields as needed
++            },
++            "specific_data": specific_data,
++        }
++        return JsonResponse(response_data)
++    else:
++        # For non-AJAX requests, redirect to a fallback page
++        resource_type_url_mapping = {
++            "event": "appCmi:event-detail",
++            "info_system": "appCmi:info-system-detail",
++            "map": "appCmi:map-detail",
++            "media": "appCmi:media-detail",
++            "news": "appCmi:news-detail",
++            "policy": "appCmi:policy-detail",
++            "project": "appCmi:project-detail",
++            "publication": "appCmi:publication-detail",
++            "technology": "appCmi:technology-detail",
++            "training": "appCmi:training-detail",
++            "webinar": "appCmi:webinar-detail",
++            "product": "appCmi:product-detail",
++        }
++
++        url_name = resource_type_url_mapping.get(
++            resource.resource_type, "appCmi:all-knowledge-resources"
++        )
++
++        try:
++            return HttpResponseRedirect(reverse(url_name, kwargs={"slug": slug}))
++        except:
++            return HttpResponseRedirect(
++                reverse("appCmi:all-knowledge-resources", kwargs={"slug": slug})
++            )
++
++
++def toggle_bookmark(request):
++    """
++    AJAX endpoint to toggle a resource bookmark.
++    Expects a POST request with resource_slug.
++    """
++
++    # At the top of your view function
++    print("Request method:", request.method)
++    print("Headers:", request.headers)
++    print("Content type:", request.headers.get("Content-Type"))
++    print("POST data:", request.POST)
++    print("Body:", request.body.decode("utf-8") if request.body else "Empty")
++
++    if (
++        request.method == "POST"
++        and request.headers.get("X-Requested-With") == "XMLHttpRequest"
++    ):
++
++        resource_slug = request.POST.get("resource_slug")
++
++        if not resource_slug:
++            return JsonResponse(
++                {"status": "error", "message": "Resource slug is required"}, status=400
++            )
++
++        try:
++            resource = ResourceMetadata.objects.get(slug=resource_slug)
++
++            # Check if bookmark already exists
++            bookmark = ResourceBookmark.objects.filter(
++                resource=resource, user=request.user
++            ).first()
++
++            if bookmark:
++                # Remove bookmark
++                bookmark.delete()
++                return JsonResponse(
++                    {
++                        "status": "success",
++                        "action": "removed",
++                        "message": f"'{resource.title}' removed from bookmarks",
++                    }
++                )
++            else:
++                # Add bookmark
++                ResourceBookmark.objects.create(resource=resource, user=request.user)
++                return JsonResponse(
++                    {
++                        "status": "success",
++                        "action": "added",
++                        "message": f"'{resource.title}' added to bookmarks",
++                    }
++                )
++
++        except ResourceMetadata.DoesNotExist:
++            return JsonResponse(
++                {"status": "error", "message": "Resource not found"}, status=404
++            )
++
++    return JsonResponse({"status": "error", "message": "Invalid request"}, status=400)
+diff --git a/logs/system.log b/logs/system.log
+index d42a135..70b2360 100644
+--- a/logs/system.log
++++ b/logs/system.log
+@@ -3027,3 +3027,849 @@ django.template.exceptions.TemplateSyntaxError: Invalid filter: 'toupper'
+ [2025-05-08 16:24:38] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_message_url.py changed, reloading.
+ [2025-05-08 16:24:39] Watching for file changes with StatReloader
+ [2025-05-08 16:30:16] Not Found: /favicon.ico
++[2025-05-09 09:24:45] Watching for file changes with StatReloader
++[2025-05-09 09:24:48] Internal Server Error: /admin/dashboard/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 28, in dashboard
++    return render(request, "pages/dashboard.html", context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
++    content = loader.render_to_string(template_name, context, request, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
++    return template.render(context, request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
++    return self.template.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
++    return self._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 132, in render
++    compiled_parent = self.get_parent(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
++    return self.find_template(parent, context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 107, in find_template
++    template, origin = context.template.engine.find_template(
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
++    template = loader.get_template(name, skip=skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
++    template = super().get_template(template_name, skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
++    return Template(
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
++    self.nodelist = self.compile_nodelist()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
++    return parser.parse()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
++    raise self.error(token, e)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
++    compiled_result = compile_func(self, token)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 1482, in do_with
++    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1116, in token_kwargs
++    kwargs[key] = parser.compile_filter(value)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
++    return FilterExpression(token, self)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 673, in __init__
++    raise TemplateSyntaxError(
++django.template.exceptions.TemplateSyntaxError: Could not parse some characters: messages_to_admin.filter.status|="pending"||length
++[2025-05-09 09:24:49] Not Found: /favicon.ico
++[2025-05-09 09:28:29] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\get_models.py changed, reloading.
++[2025-05-09 09:28:30] Watching for file changes with StatReloader
++[2025-05-09 09:28:46] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\__init__.py changed, reloading.
++[2025-05-09 09:28:47] Watching for file changes with StatReloader
++[2025-05-09 09:36:03] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\get_models.py changed, reloading.
++[2025-05-09 09:36:04] Watching for file changes with StatReloader
++[2025-05-09 09:36:08] Internal Server Error: /admin/dashboard/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 28, in dashboard
++    return render(request, "pages/dashboard.html", context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
++    content = loader.render_to_string(template_name, context, request, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
++    return template.render(context, request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
++    return self.template.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
++    return self._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 132, in render
++    compiled_parent = self.get_parent(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
++    return self.find_template(parent, context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 107, in find_template
++    template, origin = context.template.engine.find_template(
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
++    template = loader.get_template(name, skip=skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
++    template = super().get_template(template_name, skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
++    return Template(
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
++    self.nodelist = self.compile_nodelist()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
++    return parser.parse()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
++    raise self.error(token, e)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
++    compiled_result = compile_func(self, token)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 1482, in do_with
++    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1116, in token_kwargs
++    kwargs[key] = parser.compile_filter(value)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
++    return FilterExpression(token, self)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 673, in __init__
++    raise TemplateSyntaxError(
++django.template.exceptions.TemplateSyntaxError: Could not parse some characters: messages_to_admin.filter.status|="pending"||length
++[2025-05-09 09:36:11] Internal Server Error: /admin/dashboard/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 28, in dashboard
++    return render(request, "pages/dashboard.html", context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
++    content = loader.render_to_string(template_name, context, request, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
++    return template.render(context, request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
++    return self.template.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
++    return self._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 132, in render
++    compiled_parent = self.get_parent(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
++    return self.find_template(parent, context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 107, in find_template
++    template, origin = context.template.engine.find_template(
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
++    template = loader.get_template(name, skip=skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
++    template = super().get_template(template_name, skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
++    return Template(
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
++    self.nodelist = self.compile_nodelist()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
++    return parser.parse()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
++    raise self.error(token, e)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
++    compiled_result = compile_func(self, token)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 1482, in do_with
++    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1116, in token_kwargs
++    kwargs[key] = parser.compile_filter(value)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
++    return FilterExpression(token, self)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 673, in __init__
++    raise TemplateSyntaxError(
++django.template.exceptions.TemplateSyntaxError: Could not parse some characters: messages_to_admin.filter.status|="pending"||length
++[2025-05-09 09:36:50] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
++[2025-05-09 09:36:51] Watching for file changes with StatReloader
++[2025-05-09 09:38:35] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\get_models.py changed, reloading.
++[2025-05-09 09:38:36] Watching for file changes with StatReloader
++[2025-05-09 09:39:16] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\get_models.py changed, reloading.
++[2025-05-09 09:39:18] Watching for file changes with StatReloader
++[2025-05-09 09:39:49] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
++[2025-05-09 09:39:50] Watching for file changes with StatReloader
++[2025-05-09 09:41:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
++[2025-05-09 09:41:12] Watching for file changes with StatReloader
++[2025-05-09 10:48:34] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
++[2025-05-09 10:48:36] Watching for file changes with StatReloader
++[2025-05-09 10:48:53] Internal Server Error: /admin/dashboard/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 33, in dashboard
++    return render(request, "pages/dashboard.html", context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
++    content = loader.render_to_string(template_name, context, request, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
++    return template.render(context, request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
++    return self.template.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
++    return self._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 132, in render
++    compiled_parent = self.get_parent(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
++    return self.find_template(parent, context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 107, in find_template
++    template, origin = context.template.engine.find_template(
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
++    template = loader.get_template(name, skip=skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
++    template = super().get_template(template_name, skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
++    return Template(
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
++    self.nodelist = self.compile_nodelist()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
++    return parser.parse()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
++    raise self.error(token, e)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
++    compiled_result = compile_func(self, token)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 1482, in do_with
++    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1116, in token_kwargs
++    kwargs[key] = parser.compile_filter(value)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
++    return FilterExpression(token, self)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 673, in __init__
++    raise TemplateSyntaxError(
++django.template.exceptions.TemplateSyntaxError: Could not parse some characters: messages_to_admin.filter|(status="pending")||length
++[2025-05-09 10:50:03] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
++[2025-05-09 10:50:04] Watching for file changes with StatReloader
++[2025-05-09 10:50:15] Internal Server Error: /admin/dashboard/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 71, in reverse
++    extra, resolver = resolver.namespace_dict[ns]
++KeyError: 'admin'
++
++During handling of the above exception, another exception occurred:
++
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 35, in dashboard
++    return render(request, "pages/dashboard.html", context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
++    content = loader.render_to_string(template_name, context, request, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
++    return template.render(context, request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
++    return self.template.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
++    return self._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
++    return compiled_parent._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 321, in render
++    return nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 238, in render
++    nodelist.append(node.render_annotated(context))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
++    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 82, in reverse
++    raise NoReverseMatch("%s is not a registered namespace" % key)
++django.urls.exceptions.NoReverseMatch: 'admin' is not a registered namespace
++[2025-05-14 08:53:29] Watching for file changes with StatReloader
++[2025-05-14 08:53:41] Not Found: /favicon.ico
++[2025-05-14 09:14:30] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\models.py changed, reloading.
++[2025-05-14 09:14:31] Watching for file changes with StatReloader
++[2025-05-14 09:17:10] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
++[2025-05-14 09:17:10] Watching for file changes with StatReloader
++[2025-05-14 09:17:43] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
++[2025-05-14 09:18:27] Watching for file changes with StatReloader
++[2025-05-14 09:18:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
++[2025-05-14 09:18:41] Watching for file changes with StatReloader
++[2025-05-14 09:19:11] Watching for file changes with StatReloader
++[2025-05-14 09:26:15] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:26:17] Watching for file changes with StatReloader
++[2025-05-14 09:26:28] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\__init__.py changed, reloading.
++[2025-05-14 09:26:29] Watching for file changes with StatReloader
++[2025-05-14 09:27:29] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
++[2025-05-14 09:27:30] Watching for file changes with StatReloader
++[2025-05-14 09:27:41] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
++[2025-05-14 09:27:42] Watching for file changes with StatReloader
++[2025-05-14 09:30:58] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:33:51] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:34:11] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:34:12] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:34:26] Watching for file changes with StatReloader
++[2025-05-14 09:34:28] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:35:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
++[2025-05-14 09:35:12] Watching for file changes with StatReloader
++[2025-05-14 09:35:16] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:36:41] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:36:43] Watching for file changes with StatReloader
++[2025-05-14 09:36:43] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 256, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:36:47] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 256, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:38:37] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:38:38] Watching for file changes with StatReloader
++[2025-05-14 09:38:48] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
++[2025-05-14 09:38:49] Watching for file changes with StatReloader
++[2025-05-14 09:39:06] Internal Server Error: /cmis/knowledge-resources/RCL6bJgfSK7t/view/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (41)_detail' not found. 'KnowledgeResources object (41)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:43:24] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
++    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
++[2025-05-14 09:45:39] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:45:40] Watching for file changes with StatReloader
++[2025-05-14 09:45:49] Internal Server Error: /cmis/knowledge-resources/RCL6bJgfSK7t/view/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
++    self.check_response(response, callback)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 332, in check_response
++    raise ValueError(
++ValueError: The view appCmi.views.cmi_knowledge_resources_view.record_resource_view didn't return an HttpResponse object. It returned None instead.
++[2025-05-14 09:45:59] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:46:00] Watching for file changes with StatReloader
++[2025-05-14 09:46:20] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:46:21] Watching for file changes with StatReloader
++[2025-05-14 09:46:29] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:46:30] Watching for file changes with StatReloader
++[2025-05-14 09:46:33] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:46:34] Watching for file changes with StatReloader
++[2025-05-14 09:50:50] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:50:51] Watching for file changes with StatReloader
++[2025-05-14 09:51:32] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:51:33] Watching for file changes with StatReloader
++[2025-05-14 09:53:02] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 09:53:03] Watching for file changes with StatReloader
++[2025-05-14 10:00:09] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:00:11] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:00:34] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:03:58] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:03:59] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:06:09] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:11:48] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:11:50] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:12:15] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:32:14] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:32:16] Watching for file changes with StatReloader
++[2025-05-14 10:33:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:33:12] Watching for file changes with StatReloader
++[2025-05-14 10:34:00] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:34:01] Watching for file changes with StatReloader
++[2025-05-14 10:34:05] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:34:09] Not Found: /cmis/knowledge-resources
++[2025-05-14 10:34:10] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:34:10] Not Found: /favicon.ico
++[2025-05-14 10:34:14] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:34:30] Not Found: /resource/RCL6bJgfSK7t/
++[2025-05-14 10:34:30] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:34:50] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:34:50] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:35:58] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:35:59] Watching for file changes with StatReloader
++[2025-05-14 10:36:00] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:36:45] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:36:46] Watching for file changes with StatReloader
++[2025-05-14 10:37:12] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:37:13] Watching for file changes with StatReloader
++[2025-05-14 10:37:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:37:42] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:37:44] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:37:46] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:37:53] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:38:21] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:38:22] Watching for file changes with StatReloader
++[2025-05-14 10:38:22] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:40:39] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:40:41] Watching for file changes with StatReloader
++[2025-05-14 10:41:10] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:41:11] Watching for file changes with StatReloader
++[2025-05-14 10:41:13] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:43:10] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:43:11] Watching for file changes with StatReloader
++[2025-05-14 10:43:15] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:43:16] Watching for file changes with StatReloader
++[2025-05-14 10:43:18] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:43:21] Internal Server Error: /cmis/knowledge-resources/RCL6bJgfSK7t/view/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 280, in record_resource_view
++    "resource_type": resource.resource_type | get_knowledge_title,
++TypeError: unsupported operand type(s) for |: 'str' and 'function'
++[2025-05-14 10:45:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\templatetags\custom_filters.py changed, reloading.
++[2025-05-14 10:45:13] Watching for file changes with StatReloader
++[2025-05-14 10:45:20] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:45:21] Watching for file changes with StatReloader
++[2025-05-14 10:51:35] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:52:00] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:53:02] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:53:17] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:53:45] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:53:47] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:54:46] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:57:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:57:41] Watching for file changes with StatReloader
++[2025-05-14 10:57:43] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:57:59] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:58:00] Watching for file changes with StatReloader
++[2025-05-14 10:58:01] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 10:58:07] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 10:58:08] Watching for file changes with StatReloader
++[2025-05-14 10:58:14] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 11:30:18] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 11:30:19] Watching for file changes with StatReloader
++[2025-05-14 11:31:32] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 11:31:33] Watching for file changes with StatReloader
++[2025-05-14 11:31:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\__init__.py changed, reloading.
++[2025-05-14 11:31:41] Watching for file changes with StatReloader
++[2025-05-14 11:32:18] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
++[2025-05-14 11:32:19] Watching for file changes with StatReloader
++[2025-05-14 11:32:22] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
++[2025-05-14 11:32:23] Watching for file changes with StatReloader
++[2025-05-14 11:32:37] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
++[2025-05-14 11:32:38] Watching for file changes with StatReloader
++[2025-05-14 11:35:01] Internal Server Error: /cmis/knowledge-resources/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 71, in reverse
++    extra, resolver = resolver.namespace_dict[ns]
++KeyError: 'app_general'
++
++During handling of the above exception, another exception occurred:
++
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 218, in cmi_knowledge_resources
++    return render(request, "pages/cmi-knowledge-resources.html", context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
++    content = loader.render_to_string(template_name, context, request, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
++    return template.render(context, request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
++    return self.template.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
++    return self._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
++    return compiled_parent._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
++    result = block.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
++    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 82, in reverse
++    raise NoReverseMatch("%s is not a registered namespace" % key)
++django.urls.exceptions.NoReverseMatch: 'app_general' is not a registered namespace
++[2025-05-14 11:35:01] Not Found: /favicon.ico
++[2025-05-14 11:35:47] Internal Server Error: /cmis/knowledge-resources/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 218, in cmi_knowledge_resources
++    return render(request, "pages/cmi-knowledge-resources.html", context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
++    content = loader.render_to_string(template_name, context, request, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
++    return template.render(context, request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
++    return self.template.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
++    return self._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
++    return compiled_parent._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
++    result = block.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
++    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'bookmark-resource' with no arguments not found. 1 pattern(s) tried: ['cmis/resource/(?P<slug>[-a-zA-Z0-9_]+)/bookmark/\\Z']
++[2025-05-14 11:36:09] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
++[2025-05-14 11:36:10] Watching for file changes with StatReloader
++[2025-05-14 13:41:49] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 13:41:50] Watching for file changes with StatReloader
++[2025-05-14 13:42:26] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:42:30] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:46:13] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:46:23] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:46:26] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:48:23] Internal Server Error: /cmis/knowledge-resources/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 276, in cmi_knowledge_resources
++    return render(request, "pages/cmi-knowledge-resources.html", context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
++    content = loader.render_to_string(template_name, context, request, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 61, in render_to_string
++    template = get_template(template_name, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 15, in get_template
++    return engine.get_template(template_name)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 33, in get_template
++    return Template(self.engine.get_template(template_name), self)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 175, in get_template
++    template, origin = self.find_template(template_name)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
++    template = loader.get_template(name, skip=skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
++    template = super().get_template(template_name, skip)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
++    return Template(
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
++    self.nodelist = self.compile_nodelist()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
++    return parser.parse()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
++    raise self.error(token, e)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
++    compiled_result = compile_func(self, token)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
++    nodelist = parser.parse()
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
++    raise self.error(token, e)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
++    compiled_result = compile_func(self, token)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
++    nodelist = parser.parse(("endblock",))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
++    raise self.error(token, e)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
++    compiled_result = compile_func(self, token)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 238, in do_block
++    parser.invalid_block_tag(endblock, "endblock", acceptable_endblocks)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 558, in invalid_block_tag
++    raise self.error(
++django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 1237: 'endblock', expected 'endblock' or 'endblock extra_js'. Did you forget to register or load this tag?
++[2025-05-14 13:48:23] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:49:24] Internal Server Error: /cmis/knowledge-resources/
++Traceback (most recent call last):
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
++    response = get_response(request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
++    response = wrapped_callback(request, *callback_args, **callback_kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 276, in cmi_knowledge_resources
++    return render(request, "pages/cmi-knowledge-resources.html", context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
++    content = loader.render_to_string(template_name, context, request, using=using)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
++    return template.render(context, request)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
++    return self.template.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
++    return self._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
++    return compiled_parent._render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
++    return self.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
++    result = block.nodelist.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
++    return SafeString("".join([node.render_annotated(context) for node in self]))
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
++    return self.render(context)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
++    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
++    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
++  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
++    raise NoReverseMatch(msg)
++django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
++[2025-05-14 13:49:24] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:49:46] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:50:39] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:50:58] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:53:33] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:53:52] Not Found: /resource/bookmark/toggle/
++[2025-05-14 13:55:31] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
++[2025-05-14 13:55:32] Watching for file changes with StatReloader
++[2025-05-14 13:55:54] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:55:58] Not Found: /cmis/knowledge-resources/knowledge-resource/bookmark/
++[2025-05-14 13:56:12] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:56:17] Not Found: /cmis/knowledge-resources/bookmark/
++[2025-05-14 13:57:13] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 13:57:19] Forbidden (CSRF token missing.): /cmis/knowledge-resource/bookmark/
++[2025-05-14 13:59:26] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:02:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:03:56] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:05:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:05:27] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:07:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:07:21] Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /cmis/knowledge-resource/bookmark/
++[2025-05-14 14:10:33] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:10:39] Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /cmis/knowledge-resource/bookmark/
++[2025-05-14 14:12:15] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:12:21] Bad Request: /cmis/knowledge-resource/bookmark/
++[2025-05-14 14:15:01] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 14:15:02] Watching for file changes with StatReloader
++[2025-05-14 14:15:03] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:15:07] Bad Request: /cmis/knowledge-resource/bookmark/
++[2025-05-14 14:15:33] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 14:15:34] Watching for file changes with StatReloader
++[2025-05-14 14:17:27] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
++[2025-05-14 14:17:29] Watching for file changes with StatReloader
++[2025-05-14 14:17:39] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:17:46] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:18:00] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:21:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:21:21] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:21:37] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:24:32] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:24:49] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:24:55] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-14 14:44:28] Not Found: /favicon.ico
++[2025-05-14 16:28:24] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\views\request_new_activation_code_view.py changed, reloading.
++[2025-05-14 16:28:25] Watching for file changes with StatReloader
++[2025-05-14 16:44:55] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\views\__init__.py changed, reloading.
++[2025-05-14 16:44:56] Watching for file changes with StatReloader
++[2025-05-14 16:45:31] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\urls\__init__.py changed, reloading.
++[2025-05-14 16:45:32] Watching for file changes with StatReloader
++[2025-05-14 16:52:10] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\urls\__init__.py changed, reloading.
++[2025-05-14 16:52:11] Watching for file changes with StatReloader
++[2025-05-14 16:53:46] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\urls\cmi_change_pass_url.py changed, reloading.
++[2025-05-14 16:53:47] Watching for file changes with StatReloader
++[2025-05-14 16:54:27] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\urls\cmi_change_pass_url.py changed, reloading.
++[2025-05-14 16:54:28] Watching for file changes with StatReloader
++[2025-05-14 16:55:34] Not Found: /accounts/send-reset-password-link/
++[2025-05-14 16:56:44] Not Found: /.well-known/appspecific/com.chrome.devtools.json
++[2025-05-15 08:53:09] Watching for file changes with StatReloader
++[2025-05-15 09:01:28] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\views\cmi_change_pass_view.py changed, reloading.
++[2025-05-15 09:01:29] Watching for file changes with StatReloader
++[2025-05-15 09:01:52] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\views\cmi_change_pass_view.py changed, reloading.
++[2025-05-15 09:01:53] Watching for file changes with StatReloader
++[2025-05-15 09:02:09] Password reset requested for user: raise.wesmin@wmsu.edu.ph (ID: 3)
++[2025-05-15 09:02:09] Reset token created for user raise.wesmin@wmsu.edu.ph: UID=Mw, token valid at 127.0.0.1:8000
++[2025-05-15 09:02:13] Password reset email sent to raise.wesmin@wmsu.edu.ph: Success
++[2025-05-15 09:02:18] Password reset requested for user: raise.wesmin@wmsu.edu.ph (ID: 3)
++[2025-05-15 09:02:18] Reset token created for user raise.wesmin@wmsu.edu.ph: UID=Mw, token valid at 127.0.0.1:8000
++[2025-05-15 09:02:22] Password reset email sent to raise.wesmin@wmsu.edu.ph: Success
++[2025-05-15 09:03:17] Not Found: /favicon.ico
+diff --git a/utils/__pycache__/__init__.cpython-310.pyc b/utils/__pycache__/__init__.cpython-310.pyc
+index d05c9e7..5994dd2 100644
+Binary files a/utils/__pycache__/__init__.cpython-310.pyc and b/utils/__pycache__/__init__.cpython-310.pyc differ
+diff --git a/utils/__pycache__/get_models.cpython-310.pyc b/utils/__pycache__/get_models.cpython-310.pyc
+index 86de779..87432dc 100644
+Binary files a/utils/__pycache__/get_models.cpython-310.pyc and b/utils/__pycache__/get_models.cpython-310.pyc differ
+diff --git a/utils/get_models.py b/utils/get_models.py
+index 725b2c2..97ad610 100644
+--- a/utils/get_models.py
++++ b/utils/get_models.py
+@@ -1,8 +1,8 @@
+-from appAdmin.models import Commodity, KnowledgeResources, UsefulLinks, CMI
+-from appAccounts.models import CustomUser
+-
+-
+ def get_active_models():
++    from appAdmin.models import Commodity, KnowledgeResources, UsefulLinks, CMI
++    from appCmi.models import MessageToAdmin
++    from appAccounts.models import CustomUser
++
+     """
+     Fetch all active records from Commodity, KnowledgeResources, and  Useful links models.
+     Returns a dictionary containing the results.
+@@ -13,4 +13,5 @@ def get_active_models():
+         "useful_links": UsefulLinks.objects.filter(status="active"),
+         "cmis": CMI.objects.filter(status="active"),
+         "accounts": CustomUser.objects.filter(user_type="cmi"),
++        "notifications": MessageToAdmin.objects.filter(status="pending"),
+     }

@@ -173,3 +173,47 @@ class MessageToAdmin(models.Model):
             self.replied_at = timezone.now()
             self.status = "replied"
         super(MessageToAdmin, self).save(*args, **kwargs)
+
+
+class ResourceView(models.Model):
+    id = models.AutoField(primary_key=True)
+    resource = models.ForeignKey(
+        "appAdmin.ResourceMetadata", on_delete=models.CASCADE, related_name="views"
+    )
+    user = models.ForeignKey(
+        "appAccounts.CustomUser",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,  # Allow anonymous views
+        related_name="resource_views",
+    )
+    ip_address = models.GenericIPAddressField(
+        blank=True, null=True
+    )  # For anonymous users
+    viewed_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "tbl_knowledge_resources_views_count"
+
+    def __str__(self):
+        return f"{self.resource.title} viewed at {self.viewed_at}"
+
+
+class ResourceBookmark(models.Model):
+    id = models.AutoField(primary_key=True)
+    resource = models.ForeignKey(
+        "appAdmin.ResourceMetadata", on_delete=models.CASCADE, related_name="bookmarks"
+    )
+    user = models.ForeignKey(
+        "appAccounts.CustomUser",
+        on_delete=models.CASCADE,
+        related_name="resource_bookmarks",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "tbl_knowledge_resources_bookmarks"
+        unique_together = ("resource", "user")  # Prevent duplicate bookmarks
+
+    def __str__(self):
+        return f"{self.user.username}'s bookmark of {self.resource.title}"
