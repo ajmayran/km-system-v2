@@ -12,6 +12,16 @@ urlpatterns = (
             cmi_knowledge_resources_view.cmi_knowledge_resources,
             name="all-knowledge-resources",
         ),
+        path(
+            "knowledge-resources/<slug:slug>/view/",
+            cmi_knowledge_resources_view.record_resource_view,
+            name="record-resource-view",
+        ),
+        path(
+            "knowledge-resource/bookmark/",
+            cmi_knowledge_resources_view.toggle_bookmark,
+            name="bookmark-resource",
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

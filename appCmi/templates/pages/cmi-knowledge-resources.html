@@ -129,20 +129,16 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                         </div>
                     </div>
                     <div class="resource-footer">
-                        <a href=" " class="resource-button">
-                            <i class="fas fa-eye"></i> View Details
-                        </a>
+                        <button type="button" class="resource-button" data-toggle="modal" data-target="#resourcesData" data-slug="{{ resource.slug }}" data-url="{% url 'appCmi:record-resource-view' slug=resource.slug %}">
+                            Open Modal
+                          </button>
                         <div class="resource-actions">
-                            {% if resource.resource_type in 'publication,policy,technology' %}
-                            <a href="#" class="action-button" title="Download">
-                                <i class="fas fa-download"></i>
-                            </a>
-                            {% endif %}
-                            <button class="action-button bookmark-button" title="Bookmark" data-id="{{ resource.id }}">
-                                <i class="far fa-bookmark"></i>
-                            </button>
-                            <button class="action-button share-button" title="Share" data-id="{{ resource.id }}" data-url="">
-                                <i class="fas fa-share-alt"></i>
+                            <button class="action-button bookmark-button" title="Bookmark" data-slug="{{ resource.slug }}">
+                                {% if resource.is_bookmarked %}
+                                    <i class="fas fa-bookmark"></i>  <!-- Solid bookmark icon for bookmarked resources -->
+                                {% else %}
+                                    <i class="far fa-bookmark"></i>  <!-- Regular bookmark icon for non-bookmarked resources -->
+                                {% endif %}
                             </button>
                         </div>
                     </div>
@@ -280,7 +276,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href="" class="resource-button">
                         <i class="fas fa-eye"></i> View Details
                     </a>
                     <div class="resource-actions">
@@ -324,7 +320,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href="" class="resource-button">
                         <i class="fas fa-eye"></i> View Details
                     </a>
                 </div>
@@ -363,7 +359,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href="" class="resource-button">
                         <i class="fas fa-external-link-alt"></i> Access System
                     </a>
                 </div>
@@ -392,7 +388,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href=" " class="resource-button">
                         <i class="fas fa-map"></i> View Map
                     </a>
                 </div>
@@ -431,7 +427,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href=" " class="resource-button">
                         <i class="fas fa-play-circle"></i> View Media
                     </a>
                 </div>
@@ -470,7 +466,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href=" " class="resource-button">
                         <i class="fas fa-eye"></i> View Policy
                     </a>
                     <div class="resource-actions">
@@ -514,7 +510,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href=" " class="resource-button">
                         <i class="fas fa-project-diagram"></i> Project Details
                     </a>
                 </div>
@@ -553,7 +549,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100}} </p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href=" " class="resource-button">
                         <i class="fas fa-microchip"></i> Technology Details
                     </a>
                     <div class="resource-actions">
@@ -597,7 +593,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href=" " class="resource-button">
                         <i class="fas fa-chalkboard-teacher"></i> Training Details
                     </a>
                 </div>
@@ -636,7 +632,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href=" " class="resource-button">
                         <i class="fas fa-video"></i> Webinar Details
                     </a>
                 </div>
@@ -675,7 +671,7 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                     <p class="resource-description">{{ resource.description|truncatechars:100 }}</p>
                 </div>
                 <div class="resource-footer">
-                    <a href="{{ resource.get_absolute_url }}" class="resource-button">
+                    <a href=" " class="resource-button">
                         <i class="fas fa-shopping-cart"></i> Product Details
                     </a>
                 </div>
@@ -691,14 +687,90 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
     {% endif %}
     
     <!-- Resource Detail Modal -->
-    <div class="modal-backdrop" id="resource-modal">
-        <div class="modal-content">
+    <div class="modal fade" id="resourcesData" tabindex="-1" role="dialog" aria-labelledby="resourcesDataLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+    
+            <!-- Modal Header -->
             <div class="modal-header">
-                <h2 class="modal-title">Resource Title</h2>
-                <p class="modal-subtitle">Resource type</p>
-                <button class="modal-close" id="modal-close"><i class="fas fa-times"></i></button>
+              <h5 class="modal-title" id="resourcesDataLabel">Resource Title</h5>
             </div>
+    
+            <!-- Modal Body -->
             <div class="modal-body">
+            </div>
+    
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+    
+          </div>
+        </div>
+      </div>
+</main>
+{% endblock content %}
+
+{% block script %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // Initialize DOM elements
+        const filterButton = document.getElementById('filter-button');
+        const filterMenu = document.getElementById('filter-menu');
+        const categoryPills = document.querySelectorAll('.category-pill');
+        const resourceModal = document.getElementById('resource-modal');
+        const modalClose = document.getElementById('modal-close');
+
+        $('#resourcesData').on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget); // Button that triggered the modal
+            const resourceSlug = button.data('slug');
+            const resourceUrl = button.data('url');
+            const modal = $(this);
+            
+            // Show loading state in the modal
+            modal.find('.modal-body').html('<div class="text-center py-4"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div><p class="mt-2">Loading resource details...</p></div>');
+            
+            // Record the view and get resource data
+            fetch(resourceUrl, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Populate the modal with resource data
+                populateResourceModal(modal, data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Show error message in modal
+                modal.find('.modal-body').html(`
+                    <div class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">Error!</h4>
+                        <p>Failed to load resource details. Please try again later.</p>
+                    </div>
+                `);
+            });
+        });
+
+        function populateResourceModal(modal, data) {
+            const resource = data.resource;
+            const specificData = data.specific_data;
+            
+            // Set modal title
+            modal.find('.modal-title').text(resource.title);
+            
+            // Restore modal content structure
+            modal.find('.modal-body').html(`
                 <div class="resource-detail-grid">
                     <div class="resource-detail-section">
                         <h3 class="detail-section-title">Description</h3>
@@ -734,280 +806,315 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <div class="resource-meta" id="modal-meta">
-                    <!-- Will be dynamically populated -->
+            `);
+            
+            // Set description
+            modal.find('.resource-description-full').text(
+            resource.description.charAt(0).toUpperCase() + resource.description.slice(1)
+            );
+
+            // Set basic details
+            modal.find('#modal-type').text(formatResourceType(resource.resource_type));
+            modal.find('#modal-created').text(resource.created_at);
+            modal.find('#modal-updated').text(resource.updated_at || 'N/A');
+            modal.find('#modal-author').text(resource.created_by || 'N/A');
+            
+            // Populate tags
+            const tagsContainer = modal.find('#modal-tags');
+            tagsContainer.empty();
+            
+            if (resource.tags && resource.tags.length > 0) {
+                resource.tags.forEach(tag => {
+                    tagsContainer.append(`<span class="resource-tag">${tag.name}</span>`);
+                });
+            } else {
+                tagsContainer.append('<span class="resource-tag muted">No tags</span>');
+            }
+            
+            // Populate resource-specific details
+            const specificDetailsContainer = modal.find('#resource-specific-details');
+            specificDetailsContainer.empty();
+            
+            if (specificData && Object.keys(specificData).length > 0) {
+                // Create a header for the specific details section
+                specificDetailsContainer.append(`
+                    <h3 class="detail-section-title">${formatResourceType(resource.resource_type)} Details</h3>
+                `);
+                
+                // Add each specific field
+                for (const [key, value] of Object.entries(specificData)) {
+                    if (value) {
+                        const displayValue = typeof value === 'boolean' ? (value ? 'Yes' : 'No') : value;
+                        
+                        specificDetailsContainer.append(`
+                            <div class="detail-item">
+                                <p class="detail-label">${formatFieldName(key)}</p>
+                                <p class="detail-value">${displayValue}</p>
+                            </div>
+                        `);
+                    }
+                }
+            }
+        }
+
+        // Helper function to format resource type strings
+        function formatResourceType(type) {
+            if (!type) return 'Unknown';
+            
+            // Map of resource types to display names
+            const typeMap = {
+                'event': 'Event',
+                'info_system': 'Information System',
+                'map': 'Map',
+                'media': 'Media',
+                'news': 'News',
+                'policy': 'Policy',
+                'project': 'Project',
+                'publication': 'Publication',
+                'technology': 'Technology',
+                'training': 'Training/Seminar',
+                'webinar': 'Webinar',
+                'product': 'Product'
+            };
+            
+            return typeMap[type] || type.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+        
+        // Helper function to format field names
+        function formatFieldName(name) {
+            if (!name) return '';
+            
+            // Special cases for common abbreviations
+            const specialCases = {
+                'doi': 'DOI',
+                'isbn': 'ISBN',
+                'url': 'URL'
+            };
+            
+            if (specialCases[name.toLowerCase()]) {
+                return specialCases[name.toLowerCase()];
+            }
+            
+            // Convert snake_case to Title Case
+            return name.replace(/_/g, ' ')
+                .replace(/\b\w/g, l => l.toUpperCase());
+        }
+        
+        // Function to show toast notifications
+        function showToast(message) {
+            // Remove existing toasts
+            $('.toast').remove();
+            
+            // Create Bootstrap toast
+            const toast = $(`
+                <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="3000">
+                    <div class="toast-header">
+                        <strong class="mr-auto">Notification</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        ${message}
+                    </div>
                 </div>
-                <div class="modal-actions">
-                    <a href="#" class="modal-button secondary-button" id="modal-download">
-                        <i class="fas fa-download"></i> Download
-                    </a>
-                    <a href="#" class="modal-button primary-button" id="modal-view">
-                        <i class="fas fa-external-link-alt"></i> View Resource
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-{% endblock content %}
+            `);
+            
+            // Add toast container if it doesn't exist
+            if (!$('.toast-container').length) {
+                $('body').append('<div class="toast-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div>');
+            }
+            
+            // Add toast to container and show it
+            $('.toast-container').append(toast);
+            toast.toast('show');
+        }
+            
+            // Filter menu toggle
+            if (filterButton && filterMenu) {
+                filterButton.addEventListener('click', function() {
+                    filterMenu.classList.toggle('show');
+                    // Close when clicking outside
+                    document.addEventListener('click', function closeMenu(e) {
+                        if (!filterButton.contains(e.target) && !filterMenu.contains(e.target)) {
+                            filterMenu.classList.remove('show');
+                            document.removeEventListener('click', closeMenu);
+                        }
+                    });
+                });
+            }
 
-{% block script %}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-         // Debug: Get and log all resource card values
-    getAndLogResourceCardValues();
+            // Category pill selection
+            categoryPills.forEach(pill => {
+                pill.addEventListener('click', function(e) {
+                    // If this is a normal link (not a filter-in-page action), let it proceed normally
+                    if (this.getAttribute('href') && !e.ctrlKey && !e.metaKey) {
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    
+                    // Remove active class from all pills
+                    categoryPills.forEach(p => p.classList.remove('active'));
+                    
+                    // Add active class to clicked pill
+                    this.classList.add('active');
+                    
+                    // Get category
+                    const category = this.getAttribute('data-category');
+                    
+                    // Filter resources
+                    filterResources(category);
+                });
+            });
 
-        // Initialize DOM elements
-        const filterButton = document.getElementById('filter-button');
-        const filterMenu = document.getElementById('filter-menu');
-        const categoryPills = document.querySelectorAll('.category-pill');
-        const resourceModal = document.getElementById('resource-modal');
-        const modalClose = document.getElementById('modal-close');
-
-        // Filter menu toggle
-        if (filterButton && filterMenu) {
-            filterButton.addEventListener('click', function() {
-                filterMenu.classList.toggle('show');
-                // Close when clicking outside
-                document.addEventListener('click', function closeMenu(e) {
-                    if (!filterButton.contains(e.target) && !filterMenu.contains(e.target)) {
-                        filterMenu.classList.remove('show');
-                        document.removeEventListener('click', closeMenu);
+            // Filter resources in the grid
+            function filterResources(category) {
+                const resourceCards = document.querySelectorAll('.resource-card');
+                console.log("Filtering by category:", category);
+                
+                resourceCards.forEach(card => {
+                    const cardValue = card.getAttribute('value');
+                    console.log("Card value:", cardValue, "Should display:", (category === 'all' || cardValue === category));
+                    
+                    if (category === 'all' || cardValue === category) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
                     }
                 });
-            });
-        }
-
-        // Category pill selection
-        categoryPills.forEach(pill => {
-            pill.addEventListener('click', function(e) {
-                // If this is a normal link (not a filter-in-page action), let it proceed normally
-                if (this.getAttribute('href') && !e.ctrlKey && !e.metaKey) {
-                    return;
-                }
-                
-                e.preventDefault();
-                
-                // Remove active class from all pills
-                categoryPills.forEach(p => p.classList.remove('active'));
-                
-                // Add active class to clicked pill
-                this.classList.add('active');
-                
-                // Get category
-                const category = this.getAttribute('data-category');
-                
-                // Filter resources
-                filterResources(category);
-            });
-        });
-
-        // Modal close
-        if (modalClose && resourceModal) {
-            modalClose.addEventListener('click', function() {
-                resourceModal.classList.remove('show');
-            });
-
-            // Close modal when clicking outside
-            resourceModal.addEventListener('click', function(e) {
-                if (e.target === resourceModal) {
-                    resourceModal.classList.remove('show');
-                }
-            });
-        }
-
-        // Resource detail view
-        document.querySelectorAll('.resource-button').forEach(button => {
-            button.addEventListener('click', function(e) {
-                // If this is a normal link (not a modal-in-page action), let it proceed normally
-                if (this.getAttribute('href') && this.getAttribute('href') !== '#' && !e.ctrlKey && !e.metaKey) {
-                    return;
-                }
-                
-                e.preventDefault();
-                
-                const card = this.closest('.resource-card');
-                if (!card) return;
-                
-                const resourceId = card.getAttribute('data-id');
-                const resourceType = card.getAttribute('data-type');
-                
-                // Here you would normally fetch resource details via AJAX
-                // For now, we'll simulate with what's available in the DOM
-                const title = card.querySelector('.resource-title').textContent;
-                const type = card.querySelector('.resource-type').textContent;
-                const description = card.querySelector('.resource-description').textContent;
-                
-                // Set modal content
-                document.querySelector('.modal-title').textContent = title;
-                document.querySelector('.modal-subtitle').textContent = type;
-                document.querySelector('.resource-description-full').textContent = description;
-                
-                // Show modal
-                resourceModal.classList.add('show');
-            });
-        });
-
-        // Bookmark functionality
-        document.querySelectorAll('.bookmark-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const resourceId = this.getAttribute('data-id');
-                this.innerHTML = '<i class="fas fa-bookmark"></i>';
-                showToast(`Resource added to your bookmarks`);
-                
-                // You can implement AJAX to save bookmarks in user session or database
-            });
-        });
-
-        // Share functionality
-        document.querySelectorAll('.share-button').forEach(button => {
-            button.addEventListener('click', function() {
-                const url = this.getAttribute('data-url');
-                
-                // Copy to clipboard
-                navigator.clipboard.writeText(url)
-                    .then(() => {
-                        showToast('Link copied to clipboard');
-                    })
-                    .catch(() => {
-                        showToast('Failed to copy link', 'error');
-                    });
-            });
-        });
-
-        // Filter resources in the grid
-        function filterResources(category) {
-            const resourceCards = document.querySelectorAll('.resource-card');
-            console.log("Filtering by category:", category);
-            
-            resourceCards.forEach(card => {
-                const cardValue = card.getAttribute('value');
-                console.log("Card value:", cardValue, "Should display:", (category === 'all' || cardValue === category));
-                
-                if (category === 'all' || cardValue === category) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
-
-        function getAndLogResourceCardValues() {
-            const resourceCards = document.querySelectorAll('.resource-card');
-            console.log("Found", resourceCards.length, "resource cards");
-            
-            // Create an object to store counts of each value
-            const valueCounts = {};
-            
-            // Loop through all resource cards
-            resourceCards.forEach((card, index) => {
-                const value = card.getAttribute('value') || '(empty)';
-                const dataType = card.getAttribute('data-type') || '(empty)';
-                const title = card.querySelector('.resource-title')?.textContent?.trim() || 'Unknown';
-                const type = card.querySelector('.resource-type')?.textContent?.trim() || 'Unknown';
-                
-                console.log(`Card #${index + 1}:`, {
-                    title: title,
-                    displayType: type,
-                    value: value,
-                    dataType: dataType
-                });
-                
-                // Count occurrences of each value
-                valueCounts[value] = (valueCounts[value] || 0) + 1;
-            });
-            
-            // Log summary of values
-            console.log("=== Value Counts ===");
-            for (const [value, count] of Object.entries(valueCounts)) {
-                console.log(`${value}: ${count} cards`);
             }
-            console.log("=====================");
-            
-            // Get all category pills for comparison
-            const categoryPills = document.querySelectorAll('.category-pill');
-            console.log("Category pills:");
-            categoryPills.forEach((pill, index) => {
-                const category = pill.getAttribute('data-category') || '(empty)';
-                const text = pill.textContent.trim();
-                console.log(`Pill #${index + 1}: Category=${category}, Text=${text}`);
-            });
-        }
 
-        // Toast notification
-        function showToast(message, type = 'success') {
-            // Create toast container if it doesn't exist
-            let toastContainer = document.querySelector('.toast-container');
-            if (!toastContainer) {
-                toastContainer = document.createElement('div');
-                toastContainer.className = 'toast-container';
-                document.body.appendChild(toastContainer);
-            }
-            
-            // Create toast
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = `
-                <div class="toast-icon">
-                    <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
-                </div>
-                <div class="toast-content">
-                    <p>${message}</p>
-                </div>
-                <button class="toast-close">
-                    <i class="fas fa-times"></i>
-                </button>
-            `;
-            
-            // Add to container
-            toastContainer.appendChild(toast);
-            
-            // Show toast
-            setTimeout(() => {
-                toast.classList.add('show');
-            }, 10);
-            
-            // Close toast
-            toast.querySelector('.toast-close').addEventListener('click', function() {
-                toast.classList.remove('show');
+            // Toast notification
+            function showToast(message, type = 'success') {
+                // Create toast container if it doesn't exist
+                let toastContainer = document.querySelector('.toast-container');
+                if (!toastContainer) {
+                    toastContainer = document.createElement('div');
+                    toastContainer.className = 'toast-container';
+                    document.body.appendChild(toastContainer);
+                }
+                
+                // Create toast
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.innerHTML = `
+                    <div class="toast-icon">
+                        <i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i>
+                    </div>
+                    <div class="toast-content">
+                        <p>${message}</p>
+                    </div>
+                    <button class="toast-close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                // Add to container
+                toastContainer.appendChild(toast);
+                
+                // Show toast
                 setTimeout(() => {
-                    toast.remove();
-                }, 300);
-            });
-            
-            // Auto close after 3 seconds
-            setTimeout(() => {
-                if (toast && toast.parentNode) {
+                    toast.classList.add('show');
+                }, 10);
+                
+                // Close toast
+                toast.querySelector('.toast-close').addEventListener('click', function() {
                     toast.classList.remove('show');
                     setTimeout(() => {
                         toast.remove();
                     }, 300);
-                }
-            }, 3000);
-        }
+                });
+                
+                // Auto close after 3 seconds
+                setTimeout(() => {
+                    if (toast && toast.parentNode) {
+                        toast.classList.remove('show');
+                        setTimeout(() => {
+                            toast.remove();
+                        }, 300);
+                    }
+                }, 3000);
+            }
 
-        // URL parameter handling for direct resource access
-        function checkUrlParameters() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const resourceId = urlParams.get('id');
-            
-            if (resourceId) {
-                // You can implement AJAX to fetch resource details and open modal
-                // For now, we'll try to find it in the DOM
-                const card = document.querySelector(`.resource-card[data-id="${resourceId}"]`);
-                if (card) {
-                    const viewButton = card.querySelector('.resource-button');
-                    if (viewButton) {
-                        viewButton.click();
+            // URL parameter handling for direct resource access
+            function checkUrlParameters() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const resourceId = urlParams.get('id');
+                
+                if (resourceId) {
+                    // You can implement AJAX to fetch resource details and open modal
+                    // For now, we'll try to find it in the DOM
+                    const card = document.querySelector(`.resource-card[data-id="${resourceId}"]`);
+                    if (card) {
+                        const viewButton = card.querySelector('.resource-button');
+                        if (viewButton) {
+                            viewButton.click();
+                        }
                     }
                 }
             }
-        }
 
-        // Check URL parameters on load
-        checkUrlParameters();
-    });
+            // Check URL parameters on load
+            checkUrlParameters();
+
+
+            $(document).on('click', '.bookmark-button', function(e) {
+                e.preventDefault();
+            
+                const bookmarkButton = $(this);
+                const resourceSlug = bookmarkButton.data('slug');
+                
+                // Show loading state
+                bookmarkButton.addClass('loading');
+                
+                // Get CSRF token
+                function getCookie(name) {
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            const cookie = cookies[i].trim();
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+                
+                const csrfToken = getCookie('csrftoken');
+                
+                // Send AJAX request to toggle bookmark
+                $.ajax({
+                    url: '{% url "appCmi:bookmark-resource" %}',
+                    type: 'POST',
+                    data: {
+                        resource_slug: resourceSlug
+                    },
+                    // Note: No contentType specified, so jQuery will use application/x-www-form-urlencoded
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRFToken': csrfToken
+                    },
+                    success: function(data) {
+                        // Remove loading state
+                        bookmarkButton.removeClass('loading');
+                        
+                        if (data.status === 'success') {
+                            console.log(data.message);
+                            window.location.reload();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        // Remove loading state
+                        bookmarkButton.removeClass('loading');
+                        console.error('Error toggling bookmark:', error);
+                        console.log('Response:', xhr.responseText);
+                    }
+                });
+            });
+        });
 </script>
 {% endblock script %}

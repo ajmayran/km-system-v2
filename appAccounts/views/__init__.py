@@ -21,3 +21,4 @@ from .reset_password_view import reset_password  # ✅ Import the reset_password
 from .update_password_view import (
     update_password,
 )  # ✅ Import the update_password function
+from .cmi_change_pass_view import send_reset_password_link

@@ -216,7 +216,7 @@
     background-color: #ffebee;
 }
 
-.edit-profile-btn {
+.edit-profile-btn, .change-pass-btn {
     background-color: white;
     border: none;
     padding: 10px 20px;
@@ -231,7 +231,7 @@
     transition: var(--transition-fast);
 }
 
-.edit-profile-btn:hover {
+.edit-profile-btn:hover, .change-pass-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }

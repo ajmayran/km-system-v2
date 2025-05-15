@@ -3027,3 +3027,849 @@ django.template.exceptions.TemplateSyntaxError: Invalid filter: 'toupper'
 [2025-05-08 16:24:38] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_message_url.py changed, reloading.
 [2025-05-08 16:24:39] Watching for file changes with StatReloader
 [2025-05-08 16:30:16] Not Found: /favicon.ico
+[2025-05-09 09:24:45] Watching for file changes with StatReloader
+[2025-05-09 09:24:48] Internal Server Error: /admin/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 28, in dashboard
+    return render(request, "pages/dashboard.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 1482, in do_with
+    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1116, in token_kwargs
+    kwargs[key] = parser.compile_filter(value)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 673, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse some characters: messages_to_admin.filter.status|="pending"||length
+[2025-05-09 09:24:49] Not Found: /favicon.ico
+[2025-05-09 09:28:29] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\get_models.py changed, reloading.
+[2025-05-09 09:28:30] Watching for file changes with StatReloader
+[2025-05-09 09:28:46] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\__init__.py changed, reloading.
+[2025-05-09 09:28:47] Watching for file changes with StatReloader
+[2025-05-09 09:36:03] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\get_models.py changed, reloading.
+[2025-05-09 09:36:04] Watching for file changes with StatReloader
+[2025-05-09 09:36:08] Internal Server Error: /admin/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 28, in dashboard
+    return render(request, "pages/dashboard.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 1482, in do_with
+    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1116, in token_kwargs
+    kwargs[key] = parser.compile_filter(value)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 673, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse some characters: messages_to_admin.filter.status|="pending"||length
+[2025-05-09 09:36:11] Internal Server Error: /admin/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 28, in dashboard
+    return render(request, "pages/dashboard.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 1482, in do_with
+    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1116, in token_kwargs
+    kwargs[key] = parser.compile_filter(value)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 673, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse some characters: messages_to_admin.filter.status|="pending"||length
+[2025-05-09 09:36:50] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
+[2025-05-09 09:36:51] Watching for file changes with StatReloader
+[2025-05-09 09:38:35] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\get_models.py changed, reloading.
+[2025-05-09 09:38:36] Watching for file changes with StatReloader
+[2025-05-09 09:39:16] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\get_models.py changed, reloading.
+[2025-05-09 09:39:18] Watching for file changes with StatReloader
+[2025-05-09 09:39:49] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
+[2025-05-09 09:39:50] Watching for file changes with StatReloader
+[2025-05-09 09:41:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
+[2025-05-09 09:41:12] Watching for file changes with StatReloader
+[2025-05-09 10:48:34] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
+[2025-05-09 10:48:36] Watching for file changes with StatReloader
+[2025-05-09 10:48:53] Internal Server Error: /admin/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 33, in dashboard
+    return render(request, "pages/dashboard.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 132, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 129, in get_parent
+    return self.find_template(parent, context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 107, in find_template
+    template, origin = context.template.engine.find_template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 1482, in do_with
+    extra_context = token_kwargs(remaining_bits, parser, support_legacy=True)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1116, in token_kwargs
+    kwargs[key] = parser.compile_filter(value)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 673, in __init__
+    raise TemplateSyntaxError(
+django.template.exceptions.TemplateSyntaxError: Could not parse some characters: messages_to_admin.filter|(status="pending")||length
+[2025-05-09 10:50:03] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py changed, reloading.
+[2025-05-09 10:50:04] Watching for file changes with StatReloader
+[2025-05-09 10:50:15] Internal Server Error: /admin/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+KeyError: 'admin'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\views\dashboard_view.py", line 35, in dashboard
+    return render(request, "pages/dashboard.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'admin' is not a registered namespace
+[2025-05-14 08:53:29] Watching for file changes with StatReloader
+[2025-05-14 08:53:41] Not Found: /favicon.ico
+[2025-05-14 09:14:30] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAdmin\models.py changed, reloading.
+[2025-05-14 09:14:31] Watching for file changes with StatReloader
+[2025-05-14 09:17:10] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-05-14 09:17:10] Watching for file changes with StatReloader
+[2025-05-14 09:17:43] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-05-14 09:18:27] Watching for file changes with StatReloader
+[2025-05-14 09:18:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\models.py changed, reloading.
+[2025-05-14 09:18:41] Watching for file changes with StatReloader
+[2025-05-14 09:19:11] Watching for file changes with StatReloader
+[2025-05-14 09:26:15] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:26:17] Watching for file changes with StatReloader
+[2025-05-14 09:26:28] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\__init__.py changed, reloading.
+[2025-05-14 09:26:29] Watching for file changes with StatReloader
+[2025-05-14 09:27:29] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
+[2025-05-14 09:27:30] Watching for file changes with StatReloader
+[2025-05-14 09:27:41] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
+[2025-05-14 09:27:42] Watching for file changes with StatReloader
+[2025-05-14 09:30:58] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:33:51] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:34:11] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:34:12] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:34:26] Watching for file changes with StatReloader
+[2025-05-14 09:34:28] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:35:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
+[2025-05-14 09:35:12] Watching for file changes with StatReloader
+[2025-05-14 09:35:16] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:36:41] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:36:43] Watching for file changes with StatReloader
+[2025-05-14 09:36:43] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 256, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:36:47] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 256, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:38:37] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:38:38] Watching for file changes with StatReloader
+[2025-05-14 09:38:48] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
+[2025-05-14 09:38:49] Watching for file changes with StatReloader
+[2025-05-14 09:39:06] Internal Server Error: /cmis/knowledge-resources/RCL6bJgfSK7t/view/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (41)_detail' not found. 'KnowledgeResources object (41)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:43:24] Internal Server Error: /cmis/knowledge-resources/nzCgfnzjb4Vg/view/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 255, in record_resource_view
+    return HttpResponseRedirect(reverse(view_name, kwargs={"slug": slug}))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'KnowledgeResources object (44)_detail' not found. 'KnowledgeResources object (44)_detail' is not a valid view function or pattern name.
+[2025-05-14 09:45:39] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:45:40] Watching for file changes with StatReloader
+[2025-05-14 09:45:49] Internal Server Error: /cmis/knowledge-resources/RCL6bJgfSK7t/view/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+ValueError: The view appCmi.views.cmi_knowledge_resources_view.record_resource_view didn't return an HttpResponse object. It returned None instead.
+[2025-05-14 09:45:59] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:46:00] Watching for file changes with StatReloader
+[2025-05-14 09:46:20] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:46:21] Watching for file changes with StatReloader
+[2025-05-14 09:46:29] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:46:30] Watching for file changes with StatReloader
+[2025-05-14 09:46:33] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:46:34] Watching for file changes with StatReloader
+[2025-05-14 09:50:50] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:50:51] Watching for file changes with StatReloader
+[2025-05-14 09:51:32] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:51:33] Watching for file changes with StatReloader
+[2025-05-14 09:53:02] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 09:53:03] Watching for file changes with StatReloader
+[2025-05-14 10:00:09] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:00:11] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:00:34] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:03:58] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:03:59] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:06:09] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:11:48] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:11:50] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:12:15] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:32:14] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:32:16] Watching for file changes with StatReloader
+[2025-05-14 10:33:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:33:12] Watching for file changes with StatReloader
+[2025-05-14 10:34:00] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:34:01] Watching for file changes with StatReloader
+[2025-05-14 10:34:05] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:34:09] Not Found: /cmis/knowledge-resources
+[2025-05-14 10:34:10] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:34:10] Not Found: /favicon.ico
+[2025-05-14 10:34:14] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:34:30] Not Found: /resource/RCL6bJgfSK7t/
+[2025-05-14 10:34:30] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:34:50] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:34:50] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:35:58] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:35:59] Watching for file changes with StatReloader
+[2025-05-14 10:36:00] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:36:45] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:36:46] Watching for file changes with StatReloader
+[2025-05-14 10:37:12] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:37:13] Watching for file changes with StatReloader
+[2025-05-14 10:37:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:37:42] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:37:44] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:37:46] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:37:53] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:38:21] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:38:22] Watching for file changes with StatReloader
+[2025-05-14 10:38:22] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:40:39] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:40:41] Watching for file changes with StatReloader
+[2025-05-14 10:41:10] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:41:11] Watching for file changes with StatReloader
+[2025-05-14 10:41:13] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:43:10] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:43:11] Watching for file changes with StatReloader
+[2025-05-14 10:43:15] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:43:16] Watching for file changes with StatReloader
+[2025-05-14 10:43:18] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:43:21] Internal Server Error: /cmis/knowledge-resources/RCL6bJgfSK7t/view/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 280, in record_resource_view
+    "resource_type": resource.resource_type | get_knowledge_title,
+TypeError: unsupported operand type(s) for |: 'str' and 'function'
+[2025-05-14 10:45:11] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\templatetags\custom_filters.py changed, reloading.
+[2025-05-14 10:45:13] Watching for file changes with StatReloader
+[2025-05-14 10:45:20] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:45:21] Watching for file changes with StatReloader
+[2025-05-14 10:51:35] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:52:00] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:53:02] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:53:17] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:53:45] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:53:47] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:54:46] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:57:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:57:41] Watching for file changes with StatReloader
+[2025-05-14 10:57:43] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:57:59] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:58:00] Watching for file changes with StatReloader
+[2025-05-14 10:58:01] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 10:58:07] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 10:58:08] Watching for file changes with StatReloader
+[2025-05-14 10:58:14] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 11:30:18] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 11:30:19] Watching for file changes with StatReloader
+[2025-05-14 11:31:32] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 11:31:33] Watching for file changes with StatReloader
+[2025-05-14 11:31:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\__init__.py changed, reloading.
+[2025-05-14 11:31:41] Watching for file changes with StatReloader
+[2025-05-14 11:32:18] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
+[2025-05-14 11:32:19] Watching for file changes with StatReloader
+[2025-05-14 11:32:22] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
+[2025-05-14 11:32:23] Watching for file changes with StatReloader
+[2025-05-14 11:32:37] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
+[2025-05-14 11:32:38] Watching for file changes with StatReloader
+[2025-05-14 11:35:01] Internal Server Error: /cmis/knowledge-resources/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+KeyError: 'app_general'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 218, in cmi_knowledge_resources
+    return render(request, "pages/cmi-knowledge-resources.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'app_general' is not a registered namespace
+[2025-05-14 11:35:01] Not Found: /favicon.ico
+[2025-05-14 11:35:47] Internal Server Error: /cmis/knowledge-resources/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 218, in cmi_knowledge_resources
+    return render(request, "pages/cmi-knowledge-resources.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'bookmark-resource' with no arguments not found. 1 pattern(s) tried: ['cmis/resource/(?P<slug>[-a-zA-Z0-9_]+)/bookmark/\\Z']
+[2025-05-14 11:36:09] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
+[2025-05-14 11:36:10] Watching for file changes with StatReloader
+[2025-05-14 13:41:49] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 13:41:50] Watching for file changes with StatReloader
+[2025-05-14 13:42:26] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:42:30] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:46:13] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:46:23] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:46:26] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:48:23] Internal Server Error: /cmis/knowledge-resources/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 276, in cmi_knowledge_resources
+    return render(request, "pages/cmi-knowledge-resources.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 238, in do_block
+    parser.invalid_block_tag(endblock, "endblock", acceptable_endblocks)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 558, in invalid_block_tag
+    raise self.error(
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 1237: 'endblock', expected 'endblock' or 'endblock extra_js'. Did you forget to register or load this tag?
+[2025-05-14 13:48:23] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:49:24] Internal Server Error: /cmis/knowledge-resources/
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py", line 276, in cmi_knowledge_resources
+    return render(request, "pages/cmi-knowledge-resources.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-05-14 13:49:24] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:49:46] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:50:39] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:50:58] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:53:33] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:53:52] Not Found: /resource/bookmark/toggle/
+[2025-05-14 13:55:31] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\urls\cmi_knowledge_resources_url.py changed, reloading.
+[2025-05-14 13:55:32] Watching for file changes with StatReloader
+[2025-05-14 13:55:54] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:55:58] Not Found: /cmis/knowledge-resources/knowledge-resource/bookmark/
+[2025-05-14 13:56:12] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:56:17] Not Found: /cmis/knowledge-resources/bookmark/
+[2025-05-14 13:57:13] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 13:57:19] Forbidden (CSRF token missing.): /cmis/knowledge-resource/bookmark/
+[2025-05-14 13:59:26] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:02:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:03:56] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:05:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:05:27] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:07:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:07:21] Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /cmis/knowledge-resource/bookmark/
+[2025-05-14 14:10:33] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:10:39] Forbidden (CSRF token from the 'X-Csrftoken' HTTP header has incorrect length.): /cmis/knowledge-resource/bookmark/
+[2025-05-14 14:12:15] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:12:21] Bad Request: /cmis/knowledge-resource/bookmark/
+[2025-05-14 14:15:01] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 14:15:02] Watching for file changes with StatReloader
+[2025-05-14 14:15:03] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:15:07] Bad Request: /cmis/knowledge-resource/bookmark/
+[2025-05-14 14:15:33] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 14:15:34] Watching for file changes with StatReloader
+[2025-05-14 14:17:27] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\cmi_knowledge_resources_view.py changed, reloading.
+[2025-05-14 14:17:29] Watching for file changes with StatReloader
+[2025-05-14 14:17:39] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:17:46] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:18:00] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:21:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:21:21] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:21:37] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:24:32] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:24:49] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:24:55] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-14 14:44:28] Not Found: /favicon.ico
+[2025-05-14 16:28:24] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\views\request_new_activation_code_view.py changed, reloading.
+[2025-05-14 16:28:25] Watching for file changes with StatReloader
+[2025-05-14 16:44:55] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\views\__init__.py changed, reloading.
+[2025-05-14 16:44:56] Watching for file changes with StatReloader
+[2025-05-14 16:45:31] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\urls\__init__.py changed, reloading.
+[2025-05-14 16:45:32] Watching for file changes with StatReloader
+[2025-05-14 16:52:10] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\urls\__init__.py changed, reloading.
+[2025-05-14 16:52:11] Watching for file changes with StatReloader
+[2025-05-14 16:53:46] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\urls\cmi_change_pass_url.py changed, reloading.
+[2025-05-14 16:53:47] Watching for file changes with StatReloader
+[2025-05-14 16:54:27] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\urls\cmi_change_pass_url.py changed, reloading.
+[2025-05-14 16:54:28] Watching for file changes with StatReloader
+[2025-05-14 16:55:34] Not Found: /accounts/send-reset-password-link/
+[2025-05-14 16:56:44] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-15 08:53:09] Watching for file changes with StatReloader
+[2025-05-15 09:01:28] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\views\cmi_change_pass_view.py changed, reloading.
+[2025-05-15 09:01:29] Watching for file changes with StatReloader
+[2025-05-15 09:01:52] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appAccounts\views\cmi_change_pass_view.py changed, reloading.
+[2025-05-15 09:01:53] Watching for file changes with StatReloader
+[2025-05-15 09:02:09] Password reset requested for user: raise.wesmin@wmsu.edu.ph (ID: 3)
+[2025-05-15 09:02:09] Reset token created for user raise.wesmin@wmsu.edu.ph: UID=Mw, token valid at 127.0.0.1:8000
+[2025-05-15 09:02:13] Password reset email sent to raise.wesmin@wmsu.edu.ph: Success
+[2025-05-15 09:02:18] Password reset requested for user: raise.wesmin@wmsu.edu.ph (ID: 3)
+[2025-05-15 09:02:18] Reset token created for user raise.wesmin@wmsu.edu.ph: UID=Mw, token valid at 127.0.0.1:8000
+[2025-05-15 09:02:22] Password reset email sent to raise.wesmin@wmsu.edu.ph: Success
+[2025-05-15 09:03:17] Not Found: /favicon.ico
