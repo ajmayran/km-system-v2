@@ -5,8 +5,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseNotAllowed
 from django.urls import reverse
+from utils.user_control import user_access_required
 
 
+@user_access_required("admin")
 def admin_knowledge_resources(request):
     knowledge_resources = KnowledgeResources.objects.filter(status="active")
     total_knowledge_resources = knowledge_resources.count()
@@ -18,6 +20,7 @@ def admin_knowledge_resources(request):
     return render(request, "pages/knowledge-resources.html", context)
 
 
+@user_access_required("admin")
 def admin_add_knowledge_resource(request):
     if request.method == "POST":
         form = KnowledgeForm(request.POST)
@@ -34,6 +37,7 @@ def admin_add_knowledge_resource(request):
     return render(request, "pages/knowledge-resources.html", {"form": form})
 
 
+@user_access_required("admin")
 def admin_edit_knowledge_resource(request, slug):
     # Get the knowledge resource or return 404
     knowledge = get_object_or_404(KnowledgeResources, slug=slug)
@@ -59,6 +63,7 @@ def admin_edit_knowledge_resource(request, slug):
     )
 
 
+@user_access_required("admin")
 def admin_delete_knowledge_resource(request, slug):
     knowledge = get_object_or_404(
         KnowledgeResources, slug=slug

@@ -9,10 +9,12 @@ from appAdmin.models import Commodity
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from utils.user_control import user_access_required
 
 logger = logging.getLogger(__name__)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def cmi_forum(request):
     """Handles forum data aggregation and rendering for the forum page."""
 
@@ -49,6 +51,7 @@ def cmi_forum(request):
     return render(request, "pages/cmi-forum.html", context)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def forum_post_question(request):
     if request.method == "POST":
         form = ForumForm(request.POST)
@@ -91,6 +94,7 @@ def forum_post_question(request):
     return render(request, "pages/cmi-forum.html", {"form": ForumForm()})
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def _associate_commodities_with_forum(forum, commodity_ids_string):
     """
     Helper function to associate commodities with a forum post.
@@ -113,6 +117,7 @@ def _associate_commodities_with_forum(forum, commodity_ids_string):
         forum.commodity_id.add(*selected_commodities)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def display_forum(request, slug):
     models = get_active_models()  # Fetch active models
     useful_links = models.get("useful_links", [])
@@ -146,6 +151,7 @@ def display_forum(request, slug):
     return render(request, "pages/cmi-display-forum.html", context)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def forum_add_comment(request, slug):
     forum_post = get_object_or_404(Forum, slug=slug)
 
@@ -170,6 +176,7 @@ def forum_add_comment(request, slug):
     return render(request, "cmi-display-forum.html", context)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 @login_required
 def toggle_forum_like(request, slug):
     try:
@@ -189,6 +196,7 @@ def toggle_forum_like(request, slug):
         return JsonResponse({"success": False, "error": str(e)}, status=400)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 @login_required
 def toggle_forum_bookmark(request, slug):
     try:

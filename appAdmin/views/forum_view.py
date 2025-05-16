@@ -3,8 +3,10 @@ from appCmi.models import Forum, ForumComment, FilteredCommodityFrequency
 from appAdmin.models import Commodity
 from django.db.models import Count, Sum
 from django.utils import timezone
+from utils.user_control import user_access_required
 
 
+@user_access_required("admin")
 def manage_forum(request):
     """Dashboard for admin forum management"""
 
@@ -62,6 +64,7 @@ def manage_forum(request):
     return render(request, "pages/admin-forum.html", context)
 
 
+@user_access_required("admin")
 def get_comments_per_forum_post(request, slug):
     """Get comments for a specific forum post"""
     forum_post = get_object_or_404(Forum, slug=slug)

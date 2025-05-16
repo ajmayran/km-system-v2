@@ -3,8 +3,10 @@ from appAdmin.models import UsefulLinks
 from appAdmin.forms import UsefulLinksForm
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from utils.user_control import user_access_required
 
 
+@user_access_required("admin")
 def admin_useful_links(request):
     links = UsefulLinks.objects.all()
     latest_links = links.order_by("-date_created")
@@ -16,6 +18,7 @@ def admin_useful_links(request):
     return render(request, "pages/useful-links.html", context)
 
 
+@user_access_required("admin")
 def admin_add_useful_link(request):
     if request.method == "POST":
         form = UsefulLinksForm(request.POST)
@@ -34,6 +37,7 @@ def admin_add_useful_link(request):
     return render(request, "pages/useful-links.html")
 
 
+@user_access_required("admin")
 def admin_edit_useful_link(request, id):
     link_instance = UsefulLinks.objects.get(link_id=id)
 
@@ -54,6 +58,7 @@ def admin_edit_useful_link(request, id):
     return render(request, "pages/useful-links.html")
 
 
+@user_access_required("admin")
 def admin_delete_useful_link(request, id):
     link_instance = UsefulLinks.objects.get(link_id=id)
     link_instance.delete()

@@ -2,8 +2,10 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from utils.get_models import get_active_models
 from appCmi.models import Forum
+from utils.user_control import user_access_required
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def all_commodities(request):
     """
     View function for displaying all commodities.
@@ -36,6 +38,7 @@ def all_commodities(request):
     return render(request, "pages/cmi-commodities.html", context)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def display_commodity(request, slug):
     models = get_active_models()  # Fetch active models
     useful_links = models.get("useful_links", [])

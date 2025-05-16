@@ -4,8 +4,10 @@ from appAdmin.models import About, AboutFooter, UploadVideo
 from appAdmin.forms import AboutForm, AboutFooterForm, UploadForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
+from utils.user_control import user_access_required
 
 
+@user_access_required("admin")
 def admin_about_page(request):
     videos = UploadVideo.objects.last()
     about_content = About.objects.all()
@@ -42,6 +44,7 @@ def admin_about_page(request):
     return render(request, "pages/about.html", context)
 
 
+@user_access_required("admin")
 def admin_about_footer(request):
     footer_content = AboutFooter.objects.all()
     existing_instance = AboutFooter.objects.first()
@@ -75,6 +78,7 @@ def admin_about_footer(request):
     )
 
 
+@user_access_required("admin")
 def admin_about_page_edit(request):
     about_instance = get_object_or_404(About)
     form = AboutForm(request.POST or None, instance=about_instance)
@@ -90,6 +94,7 @@ def admin_about_page_edit(request):
     return render(request, "pages/about.html", {"form": form})
 
 
+@user_access_required("admin")
 def admin_about_footer_edit(request):
     footer_instance = get_object_or_404(AboutFooter)
     form = AboutFooterForm(request.POST or None, instance=footer_instance)
@@ -105,6 +110,7 @@ def admin_about_footer_edit(request):
     return render(request, "pages/about.html", {"form": form})
 
 
+@user_access_required("admin")
 def admin_upload_video(request):
     form = UploadForm(request.POST or None, request.FILES or None)
 

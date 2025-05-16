@@ -44,8 +44,10 @@ from appAdmin.forms import (
     CommoditySelectForm,
     TagForm,
 )
+from utils.user_control import user_access_required
 
 
+@user_access_required("admin")
 def admin_resources_post(request):
     """
     View function to display all resource posts with filtering options.
@@ -153,6 +155,7 @@ def admin_resources_post(request):
     return render(request, "pages/resources-post.html", context)
 
 
+@user_access_required("admin")
 @transaction.atomic
 def admin_add_resources_post(request):
     """
@@ -269,6 +272,7 @@ def admin_add_resources_post(request):
     )
 
 
+@user_access_required("admin")
 def create_resource_specific_data(request, resource_machine_name, metadata):
     """
     Helper function to create specific resource data based on machine name.
@@ -300,6 +304,7 @@ def create_resource_specific_data(request, resource_machine_name, metadata):
 # The following functions handle specific resource types
 
 
+@user_access_required("admin")
 def create_event(request, metadata):
     Event.objects.create(
         metadata=metadata,
@@ -312,6 +317,7 @@ def create_event(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_information_system(request, metadata):
     InformationSystem.objects.create(
         metadata=metadata,
@@ -321,6 +327,7 @@ def create_information_system(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_map(request, metadata):
     Map.objects.create(
         metadata=metadata,
@@ -331,6 +338,7 @@ def create_map(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_media(request, metadata):
     Media.objects.create(
         metadata=metadata,
@@ -341,6 +349,7 @@ def create_media(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_news(request, metadata):
     News.objects.create(
         metadata=metadata,
@@ -352,6 +361,7 @@ def create_news(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_policy(request, metadata):
     Policy.objects.create(
         metadata=metadata,
@@ -364,6 +374,7 @@ def create_policy(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_project(request, metadata):
     Project.objects.create(
         metadata=metadata,
@@ -377,6 +388,7 @@ def create_project(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_publication(request, metadata):
     Publication.objects.create(
         metadata=metadata,
@@ -390,6 +402,7 @@ def create_publication(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_technology(request, metadata):
     Technology.objects.create(
         metadata=metadata,
@@ -400,6 +413,7 @@ def create_technology(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_training_seminar(request, metadata):
     TrainingSeminar.objects.create(
         metadata=metadata,
@@ -411,6 +425,7 @@ def create_training_seminar(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_webinar(request, metadata):
     Webinar.objects.create(
         metadata=metadata,
@@ -421,6 +436,7 @@ def create_webinar(request, metadata):
     )
 
 
+@user_access_required("admin")
 def create_product(request, metadata):
     Product.objects.create(
         metadata=metadata,
@@ -431,5 +447,6 @@ def create_product(request, metadata):
     )
 
 
+@user_access_required("admin")
 def admin_edit_resources_post(request, slug):
     return render(request, "pages/resources-post.html")

@@ -43,7 +43,7 @@
                 <span id="sparklinedash2"></span>
               </div>
               <div class="peer">
-                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">
+                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500">
                 {{total_commodities|default:"0"}}
                 </span>
               </div>
@@ -63,7 +63,7 @@
                 <span id="sparklinedash3"></span>
               </div>
               <div class="peer">
-                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-purple-50 c-purple-500">
+                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">
                {{total_cmis|default:"0"}}
                 </span>
               </div>
@@ -83,8 +83,8 @@
                 <span id="sparklinedash4"></span>
               </div>
               <div class="peer">
-                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-blue-50 c-blue-500">
-                {{total_knowledge_resources|default:"0"}}
+                <span class="d-ib lh-0 va-m fw-600 bdrs-10em pX-15 pY-15 bgc-red-50 c-red-500">
+                {{total_resources|default:"0"}}
                 </span>
               </div>
             </div>
@@ -93,6 +93,130 @@
       </div>
     </div>
   </div>
+
+  <div class="masonry-item col-md-6">
+    <div class="bd bgc-white">
+      <div class="layers">
+        <div class="layer w-100 pX-20 pT-20">
+          <h6 class="lh-1">Forum Posts Monthly Count</h6>
+        </div>
+        <div class="layer w-100 p-20">
+          <canvas id="line-chart" height="220"></canvas>
+        </div>
+        
+        <div class="layer bdT p-20 w-100">
+          <div class="peers ai-c jc-c gapX-20">
+            <div class="peer">
+              <span class="fsz-def fw-600 mR-10 c-grey-800">{{ stats.total_posts }}
+                <i class="fa fa-level-{% if stats.total_trend == 'up' %}up c-green-500{% else %}down c-red-500{% endif %}"></i>
+              </span>
+              <small class="c-grey-500 fw-600">TOTAL</small>
+            </div>
+            <div class="peer fw-600">
+              <span class="fsz-def fw-600 mR-10 c-grey-800">{{ stats.avg_percentage }}% 
+                <i class="fa fa-level-{% if stats.avg_trend == 'up' %}up c-green-500{% else %}down c-red-500{% endif %}"></i>
+              </span>
+              <small class="c-grey-500 fw-600">Average</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Latest Messages Section with Outlines -->
+  <div class="masonry-item col-md-6">
+    <div class="bd bgc-white p-20">
+      <div class="layers">
+        <div class="layer w-100 mB-10">
+          <h6 class="lh-1">Latest Messages</h6>
+        </div>
+        <div class="layer w-100">
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle mb-0">
+              <tbody>
+                <!-- Message 1 -->
+                <tr>
+                  <td style="border: 1px solid #dee2e6; padding: 12px;">
+                    <div class="d-flex align-items-center">
+                      <div>
+                        <p class="fw-bold mb-1">John Doe</p>
+                        <p class="text-muted mb-0 small">May 15, 2025 • 10:45 AM</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-end" style="border: 1px solid #dee2e6; width: 120px; padding: 12px;">
+                    <span class="badge rounded-pill" style="background-color: #4CAF50; padding: 6px 12px;">Active</span>
+                  </td>
+                </tr>
+                
+                <!-- Message 2 -->
+                <tr>
+                  <td style="border: 1px solid #dee2e6; padding: 12px;">
+                    <div class="d-flex align-items-center">
+                      <div>
+                        <p class="fw-bold mb-1">Maria Santos</p>
+                        <p class="text-muted mb-0 small">May 14, 2025 • 3:22 PM</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-end" style="border: 1px solid #dee2e6; width: 120px; padding: 12px;">
+                    <span class="badge rounded-pill" style="background-color: #2196F3; padding: 6px 12px;">Processing</span>
+                  </td>
+                </tr>
+                
+                <!-- Message 3 -->
+                <tr>
+                  <td style="border: 1px solid #dee2e6; padding: 12px;">
+                    <div class="d-flex align-items-center">
+                      <div>
+                        <p class="fw-bold mb-1">Alex Rodriguez</p>
+                        <p class="text-muted mb-0 small">May 13, 2025 • 9:15 AM</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-end" style="border: 1px solid #dee2e6; width: 120px; padding: 12px;">
+                    <span class="badge rounded-pill" style="background-color: #FF9800; color: #212529; padding: 6px 12px;">Pending</span>
+                  </td>
+                </tr>
+                
+                <!-- Message 4 -->
+                <tr>
+                  <td style="border: 1px solid #dee2e6; padding: 12px;">
+                    <div class="d-flex align-items-center">
+                      <div>
+                        <p class="fw-bold mb-1">Lisa Tan</p>
+                        <p class="text-muted mb-0 small">May 12, 2025 • 2:30 PM</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-end" style="border: 1px solid #dee2e6; width: 120px; padding: 12px;">
+                    <span class="badge rounded-pill" style="background-color: #00BCD4; padding: 6px 12px;">Reviewing</span>
+                  </td>
+                </tr>
+                
+                <!-- Message 5 -->
+                <tr>
+                  <td style="border: 1px solid #dee2e6; padding: 12px;">
+                    <div class="d-flex align-items-center">
+                      <div>
+                        <p class="fw-bold mb-1">Ryan Martinez</p>
+                        <p class="text-muted mb-0 small">May 11, 2025 • 11:05 AM</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-end" style="border: 1px solid #dee2e6; width: 120px; padding: 12px;">
+                    <span class="badge rounded-pill" style="background-color: #9E9E9E; padding: 6px 12px;">Completed</span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="masonry-item col-12">
     <div class="bd bgc-white">
       <div class="peers fxw-nw@lg+ ai-s">
@@ -110,423 +234,25 @@
           <div class="layers">
             <div class="layer w-100">
               <div class="layers">
+                <h5 class="mB-5">Top 10 Tagged Commodities</h5>
+                {% for commodity in top_10_commodities %}
                 <div class="layer w-100">
-                  <h5 class="mB-5">Top 10 Tagged Commodities</h5>
-                  <small class="fw-600 c-grey-700">Commodity 1</small>
-                  <span class="pull-right c-grey-600 fsz-sm">50%</span>
+                  <small class="fw-600 c-grey-700">{{commodity.commodity_name}}</small>
+                  <span class="pull-right c-grey-600 fsz-sm">{{ commodity.total_tags }}%</span>
                   <div class="progress mT-10">
-                    <div class="progress-bar bgc-deep-purple-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%;">
-                      <span class="visually-hidden">50% Complete</span>
+                    <div class="progress-bar bgc-deep-purple-500" role="progressbar" aria-valuenow="{{ commodity.total_tags }}" aria-valuemin="0" aria-valuemax="100" style="width:{{ commodity.total_tags }}%;">
+                      <span class="visually-hidden">{{ commodity.total_tags }}% Complete</span>
                     </div>
                   </div>
                 </div>
-                <div class="layer w-100 mT-15">
-                  <small class="fw-600 c-grey-700">Commodity 2</small>
-                  <span class="pull-right c-grey-600 fsz-sm">80%</span>
-                  <div class="progress mT-10">
-                    <div class="progress-bar bgc-green-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:80%;">
-                      <span class="visually-hidden">80% Complete</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="layer w-100 mT-15">
-                  <small class="fw-600 c-grey-700">Commodity 3</small>
-                  <span class="pull-right c-grey-600 fsz-sm">40%</span>
-                  <div class="progress mT-10">
-                    <div class="progress-bar bgc-light-blue-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:40%;">
-                      <span class="visually-hidden">40% Complete</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="layer w-100 mT-15">
-                  <small class="fw-600 c-grey-700">Commodity 4</small>
-                  <span class="pull-right c-grey-600 fsz-sm">90%</span>
-                  <div class="progress mT-10">
-                    <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:90%;">
-                      <span class="visually-hidden">90% Complete</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="layer w-100 mT-15">
-                  <small class="fw-600 c-grey-700">Commodity 5</small>
-                  <span class="pull-right c-grey-600 fsz-sm">90%</span>
-                  <div class="progress mT-10">
-                    <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:90%;">
-                      <span class="visually-hidden">90% Complete</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="layer w-100 mT-15">
-                  <small class="fw-600 c-grey-700">Commodity 6</small>
-                  <span class="pull-right c-grey-600 fsz-sm">90%</span>
-                  <div class="progress mT-10">
-                    <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:90%;">
-                      <span class="visually-hidden">90% Complete</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="layer w-100 mT-15">
-                  <small class="fw-600 c-grey-700">Commodity 7</small>
-                  <span class="pull-right c-grey-600 fsz-sm">90%</span>
-                  <div class="progress mT-10">
-                    <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:90%;">
-                      <span class="visually-hidden">90% Complete</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="layer w-100 mT-15">
-                  <small class="fw-600 c-grey-700">Commodity 8</small>
-                  <span class="pull-right c-grey-600 fsz-sm">90%</span>
-                  <div class="progress mT-10">
-                    <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:90%;">
-                      <span class="visually-hidden">90% Complete</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="layer w-100 mT-15">
-                  <small class="fw-600 c-grey-700">Commodity 9</small>
-                  <span class="pull-right c-grey-600 fsz-sm">90%</span>
-                  <div class="progress mT-10">
-                    <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:90%;">
-                      <span class="visually-hidden">90% Complete</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="layer w-100 mT-15">
-                  <small class="fw-600 c-grey-700">Commodity 10</small>
-                  <span class="pull-right c-grey-600 fsz-sm">90%</span>
-                  <div class="progress mT-10">
-                    <div class="progress-bar bgc-blue-grey-500" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:90%;">
-                      <span class="visually-hidden">90% Complete</span>
-                    </div>
-                  </div>
-                </div>
+                {% endfor %}
               </div>
-              {% comment %} <div class="peers pT-20 mT-20 bdT fxw-nw@lg+ jc-sb ta-c gap-10">
-                <div class="peer">
-                  <div class="easy-pie-chart" data-size="80" data-percent="75" data-bar-color="#f44336">
-                    <span></span>
-                  </div>
-                  <h6 class="fsz-sm">New Users</h6>
-                </div>
-                <div class="peer">
-                  <div class="easy-pie-chart" data-size="80" data-percent="50" data-bar-color="#2196f3">
-                    <span></span>
-                  </div>
-                  <h6 class="fsz-sm">New Purchases</h6>
-                </div>
-                <div class="peer">
-                  <div class="easy-pie-chart" data-size="80" data-percent="90" data-bar-color="#ff9800">
-                    <span></span>
-                  </div>
-                  <h6 class="fsz-sm">Bounce Rate</h6>
-                </div>
-              </div> {% endcomment %}
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="masonry-item col-md-6">
-    <div class="bd bgc-white">
-      <div class="layers">
-        <div class="layer w-100 pX-20 pT-20">
-          <h6 class="lh-1">Forum Posts Monthly Count</h6>
-        </div>
-        <div class="layer w-100 p-20">
-          <canvas id="line-chart" height="220"></canvas>
-        </div>
-        <div class="layer bdT p-20 w-100">
-          <div class="peers ai-c jc-c gapX-20">
-            <div class="peer">
-              <span class="fsz-def fw-600 mR-10 c-grey-800">10% <i class="fa fa-level-up c-green-500"></i></span>
-              <small class="c-grey-500 fw-600">TOTAL</small>
-            </div>
-            <div class="peer fw-600">
-              <span class="fsz-def fw-600 mR-10 c-grey-800">2% <i class="fa fa-level-down c-red-500"></i></span>
-              <small class="c-grey-500 fw-600">Average</small>
-            </div>
-            {% comment %} <div class="peer fw-600">
-              <span class="fsz-def fw-600 mR-10 c-grey-800">15% <i class="fa fa-level-up c-green-500"></i></span>
-              <small class="c-grey-500 fw-600">Sales</small>
-            </div>
-            <div class="peer fw-600">
-              <span class="fsz-def fw-600 mR-10 c-grey-800">8% <i class="fa fa-level-down c-red-500"></i></span>
-              <small class="c-grey-500 fw-600">Profit</small>
-            </div> {% endcomment %}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="masonry-item col-md-6">
-    <div class="bd bgc-white p-20">
-      <div class="layers">
-        <div class="layer w-100 mB-10">
-          <h6 class="lh-1">System Rating</h6>
-        </div>
-        <div class="layer w-100">
-          <div class="peers pT-20 mT-20 bdT fxw-nw@lg+ ta-c gap-10" style="display: flex; justify-content: center; align-items: center;">
-            <div class="peer" style="margin-right: 20px;">
-              <div class="easy-pie-chart" data-size="80" data-percent="75" data-bar-color="#2196f3">
-                <span></span>
-              </div>
-              <h6 class="fsz-sm">Good Rating</h6>
-            </div>
-            <div class="peer" style="margin-left: 20px;">
-              <div class="easy-pie-chart" data-size="80" data-percent="50" data-bar-color="#f44336">
-                <span></span>
-              </div>
-              <h6 class="fsz-sm">Bad Rating</h6>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="masonry-item col-md-6">
-    <div class="bd bgc-white">
-      <div class="layers">
-        {% comment %} <div class="layer w-100 p-20">
-          <h6 class="lh-1">Sales Report</h6>
-        </div> {% endcomment %}
-        <div class="layer w-100">
-          <div class="bgc-light-blue-500 c-white p-20">
-            <div class="peers ai-c jc-sb gap-40">
-              <div class="peer peer-greed">
-                <h5>Users Account Category Count</h5>
-              </div>
-              <div class="peer">
-                <h3 class="text-end">1000</h3>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive p-20">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="bdwT-0">Name</th>
-                  <th class="bdwT-0">Institution</th>
-                  <th class="bdwT-0">Account Type</th>
-                  <th class="bdwT-0">Date Joined</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="fw-600">Item #1 Name</td>
-                  <td>
-                    WESMAARRDEC
-                  </td>
-                  <td>
-                    <span class="badge bgc-deep-purple-50 c-deep-purple-700 p-10 lh-0 tt-c rounded-pill">General</span>
-                  </td>
-                  <td>
-                    <span class="text-success">Nov 18</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="fw-600">Item #2 Name</td>
-                  <td>
-                    DOST-IX
-                  </td>
-                  <td>
-                    <span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c rounded-pill">CMI</span>
-                  </td>
-                  <td>
-                    <span class="text-info">Nov 19</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="fw-600">Item #3 Name</td>
-                  <td>
-                    JRMSU
-                  </td>
-                  <td>
-                    <span class="badge bgc-orange-50 c-orange-700 p-10 lh-0 tt-c rounded-pill">Secretariat</span>
-                  </td>
-                  <td>
-                    <span class="text-danger">Nov 20</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="fw-600">Item #4 Name</td>
-                  <td>
-                    ZPPSU
-                  </td>
-                  <td>
-                    <span class="badge bgc-deep-purple-50 c-deep-purple-700 p-10 lh-0 tt-c rounded-pill">General</span>
-                  </td>
-                  <td>
-                    <span class="text-success">Nov 21</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="fw-600">Item #5 Name</td>
-                  <td>
-                    WESMAARRDEC
-                  </td>
-                  <td>
-                    <span class="badge bgc-orange-50 c-orange-700 p-10 lh-0 tt-c rounded-pill">Secretariat</span>
-                  </td>
-                  <td>
-                    <span class="text-success">Nov 22</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="fw-600">Item #6 Name</td>
-                  <td>
-                    WMSU
-                  </td>
-                  <td>
-                    <span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c rounded-pill">CMI</span>
-                  </td>
-                  <td>
-                    <span class="text-danger">Nov 23</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="fw-600">Item #7 Name</td>
-                  <td>
-                    PRRI
-                  </td>
-                  <td>
-                    <span class="badge bgc-green-50 c-green-700 p-10 lh-0 tt-c rounded-pill">CMI</span>
-                  </td>
-                  <td>
-                    <span class="text-success">Nov 22</span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      <div class="ta-c bdT w-100 p-20">
-        <a href="#">See more</a>
-      </div>
-    </div>
-  </div>
-  <div class="masonry-item col-md-6">
-    <div class="bd bgc-white p-20">
-      <div class="layers">
-        <div class="layer w-100 mB-20">
-          <h6 class="lh-1">Calendar</h6>
-        </div>
-        <div class="layer w-100">
-          <div class="peers ai-c jc-sb fxw-nw">
-            <div class="peer peer-greed">
-              <div class="layers">
-                <div class="layer w-100">
-                  <div class="peers fxw-nw ai-c">
-                    <div class="peer mR-20">
-                      <h3>32<sup>°F</sup></h3>
-                    </div>
-                    <div class="peer">
-                      <canvas class="sleet" width="44" height="44"></canvas>
-                    </div>
-                  </div>
-                </div>
-                <div class="layer w-100">
-                  <span class="fw-600 c-grey-600">Partly Clouds</span>
-                </div>
-              </div>
-            </div>
-            <div class="peer">
-              <div class="layers ai-fe">
-                <div class="layer">
-                  <h5 class="mB-5">Monday</h5>
-                </div>
-                <div class="layer">
-                  <span class="fw-600 c-grey-600">Nov, 01 2017</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="layer w-100 mY-30">
-          <div class="layers bdB">
-            <div class="layer w-100 bdT pY-5">
-              <div class="peers ai-c jc-sb fxw-nw">
-                <div class="peer">
-                  <span>Wind</span>
-                </div>
-                <div class="peer ta-r">
-                  <span class="fw-600 c-grey-800">10km/h</span>
-                </div>
-              </div>
-            </div>
-            <div class="layer w-100 bdT pY-5">
-              <div class="peers ai-c jc-sb fxw-nw">
-                <div class="peer">
-                  <span>Sunrise</span>
-                </div>
-                <div class="peer ta-r">
-                  <span class="fw-600 c-grey-800">05:00 AM</span>
-                </div>
-              </div>
-            </div>
-            <div class="layer w-100 bdT pY-5">
-              <div class="peers ai-c jc-sb fxw-nw">
-                <div class="peer">
-                  <span>Pressure</span>
-                </div>
-                <div class="peer ta-r">
-                  <span class="fw-600 c-grey-800">1B</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="layer w-100">
-          <div class="peers peers-greed ai-fs ta-c">
-            <div class="peer">
-              <h6 class="mB-10">MON</h6>
-              <canvas class="sleet" width="30" height="30"></canvas>
-              <span class="d-b fw-600">32<sup>°F</sup></span>
-            </div>
-            <div class="peer">
-              <h6 class="mB-10">TUE</h6>
-              <canvas class="clear-day" width="30" height="30"></canvas>
-              <span class="d-b fw-600">30<sup>°F</sup></span>
-            </div>
-            <div class="peer">
-              <h6 class="mB-10">WED</h6>
-              <canvas class="partly-cloudy-day" width="30" height="30"></canvas>
-              <span class="d-b fw-600">28<sup>°F</sup></span>
-            </div>
-            <div class="peer">
-              <h6 class="mB-10">THR</h6>
-              <canvas class="cloudy" width="30" height="30"></canvas>
-              <span class="d-b fw-600">32<sup>°F</sup></span>
-            </div>
-            <div class="peer">
-              <h6 class="mB-10">FRI</h6>
-              <canvas class="snow" width="30" height="30"></canvas>
-              <span class="d-b fw-600">24<sup>°F</sup></span>
-            </div>
-            <div class="peer">
-              <h6 class="mB-10">SAT</h6>
-              <canvas class="wind" width="30" height="30"></canvas>
-              <span class="d-b fw-600">28<sup>°F</sup></span>
-            </div>
-            <div class="peer">
-              <h6 class="mB-10">SUN</h6>
-              <canvas class="sleet" width="30" height="30"></canvas>
-              <span class="d-b fw-600">32<sup>°F</sup></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
 {% endblock %}
 
 {% block script %}
@@ -544,7 +270,6 @@
       {% endif %}
     {% endfor %}
   {% endif %}
-  <script src="{% static "style/js/admin.dashboard.charts.js" %}"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       // Initialize the map centered on the Philippines
@@ -566,6 +291,77 @@
       
       // Add scale control
       L.control.scale().addTo(map);
+
+      // Get the canvas element
+      const ctx = document.getElementById('line-chart').getContext('2d');
+          
+      // Chart data
+      const monthLabels = [
+          {% for month in stats.months_data %}
+              '{{ month.month_name }}',
+          {% endfor %}
+      ];
+      
+      const postCounts = [
+          {% for month in stats.months_data %}
+              {{ month.total }},
+          {% endfor %}
+      ];
+      
+      // Create the chart
+      new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: monthLabels,
+              datasets: [{
+                  label: 'Forum Posts',
+                  data: postCounts,
+                  borderColor: '#3e95cd',
+                  backgroundColor: 'rgba(62, 149, 205, 0.1)',
+                  borderWidth: 2,
+                  tension: 0.4,
+                  fill: true,
+                  pointBackgroundColor: '#3e95cd',
+                  pointRadius: 4,
+                  pointHoverRadius: 6
+              }]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                  legend: {
+                      display: false
+                  },
+                  tooltip: {
+                      mode: 'index',
+                      intersect: false,
+                      callbacks: {
+                          title: function(tooltipItems) {
+                              return tooltipItems[0].label + ' {{ current_year }}';
+                          }
+                      }
+                  }
+              },
+              scales: {
+                  y: {
+                      beginAtZero: true,
+                      ticks: {
+                          precision: 0
+                      },
+                      grid: {
+                          drawBorder: false
+                      }
+                  },
+                  x: {
+                      grid: {
+                          display: false,
+                          drawBorder: false
+                      }
+                  }
+              }
+          }
+      });
     });
   </script>
 {% endblock %}
