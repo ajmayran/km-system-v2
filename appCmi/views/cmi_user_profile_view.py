@@ -5,9 +5,11 @@ from appAccounts.forms import ProfileForm, CustomUserUpdateForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
+from utils.user_control import user_access_required
 
 
 # Create your views here.
+@user_access_required(["admin", "cmi"], error_type=404)
 def display_cmi_profile(request):
     models = get_active_models()  # Fetch active models
     useful_links = models.get("useful_links", [])
@@ -33,6 +35,7 @@ def display_cmi_profile(request):
     return render(request, "pages/cmi-user-profile.html", context)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def upload_profile_picture(request):
     """View function to handle profile picture uploads using ProfileForm."""
     if request.method == "POST":
@@ -89,6 +92,7 @@ def upload_profile_picture(request):
     return redirect("profile")
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def update_user_info(request):
     """
     View function to handle user information updates.

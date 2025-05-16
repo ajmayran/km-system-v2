@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     "appAccounts",  # app
     "appAdmin",  # app
     "appCmi",  # app
+    "appErrors",  # app
     "embed_video",
     "corsheaders",
     # "django_extensions",

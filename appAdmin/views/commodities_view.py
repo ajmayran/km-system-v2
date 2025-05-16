@@ -12,10 +12,12 @@ from appAdmin.forms import CommodityForm
 from django.contrib import messages
 import logging
 from django.urls import reverse
+from utils.user_control import user_access_required
 
 logger = logging.getLogger(__name__)  # Set up logging
 
 
+@user_access_required("admin")
 def admin_commodities(request):
     # Fetch all commodities with status categorization
     commodities = Commodity.objects.all()
@@ -76,6 +78,7 @@ def admin_commodities(request):
     )
 
 
+@user_access_required("admin")
 def admin_add_commodity(request):  # Add commodity
     form = CommodityForm(request.POST or None, request.FILES or None)
 
@@ -92,6 +95,7 @@ def admin_add_commodity(request):  # Add commodity
     return render(request, "pages/commodities.html", {"form": form})
 
 
+@user_access_required("admin")
 def admin_edit_commodity(request, slug):
     commodity = get_object_or_404(Commodity, slug=slug)  # Fetch commodity using slug
     if request.method == "POST":
@@ -106,6 +110,7 @@ def admin_edit_commodity(request, slug):
     return render(request, "pages/commodities.html", {"form": form})
 
 
+@user_access_required("admin")
 def admin_delete_commodity(request, slug):
     commodity = get_object_or_404(
         Commodity, slug=slug

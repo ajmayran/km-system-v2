@@ -8,6 +8,7 @@ from .knowledge_resources_url import urlpatterns as knowledge_resources_urlpatte
 from .about_url import urlpatterns as about_urlpatterns
 from .useful_links_url import urlpatterns as useful_links_urlpatterns
 from .resources_post_url import urlpatterns as resources_post_urlpatterns
+from .message_url import urlpatterns as message_url_patterns
 
 urlpatterns = (
     dashboard_urlpatterns
@@ -20,4 +21,5 @@ urlpatterns = (
     + about_urlpatterns
     + useful_links_urlpatterns
     + resources_post_urlpatterns
+    + message_url_patterns
 )

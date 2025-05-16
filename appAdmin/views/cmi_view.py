@@ -4,8 +4,10 @@ from django.contrib import messages
 from django.http import HttpResponseNotAllowed
 from appAdmin.models import CMI
 from appAdmin.forms import CMIForm
+from utils.user_control import user_access_required
 
 
+@user_access_required("admin")
 def admin_cmi(request):
     cmis = CMI.objects.filter(status="active")
     latest_resource = cmis.order_by("-date_created").first()
@@ -23,6 +25,7 @@ def admin_cmi(request):
     return render(request, "pages/cmi.html", context)
 
 
+@user_access_required("admin")
 def admin_add_cmi(request):
     if request.method == "POST":
         form = CMIForm(request.POST, request.FILES)
@@ -38,6 +41,7 @@ def admin_add_cmi(request):
     return render(request, "pages/cmi.html")
 
 
+@user_access_required("admin")
 def admin_edit_cmi(request, slug):
     cmi = get_object_or_404(CMI, slug=slug)  # Handle object not found properly
 
@@ -57,6 +61,7 @@ def admin_edit_cmi(request, slug):
     return render(request, "pages/cmi.html", {"form": form, "cmi": cmi})
 
 
+@user_access_required("admin")
 def admin_delete_cmi(request, slug):
     cmi = get_object_or_404(CMI, slug=slug)  # Fetch object by slug instead of ID
     cmi.delete()

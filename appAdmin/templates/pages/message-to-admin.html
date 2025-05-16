@@ -1,0 +1,1052 @@
+{% extends 'base/admin-index.html' %}
+{% load static %}
+{% block title %}
+Admin Messages | AANR Knowledge Hub
+{% endblock %}
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'style/css/admin.message.css' %}" />
+{% endblock %}
+
+{% block content %}
+    <!-- Main Container -->
+    <div class="masonry-item col-12">
+      <!-- Page Header -->
+        <div class="page-header">
+            <div class="header-title">
+            <h1>Message Management</h1>
+            <p>Manage and respond to user messages</p>
+            </div>
+        </div>
+
+        <!-- Filter Controls -->
+        <div class="filter-controls">
+            <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" class="search-input" placeholder="Search by subject, user, or content...">
+            </div>
+            <div class="filter-dropdown">
+            <select class="filter-select">
+                <option value="all">All Categories</option>
+                <option value="general">General Inquiry</option>
+                <option value="technical">Technical Support</option>
+                <option value="feedback">Feedback</option>
+                <option value="report">Report an Issue</option>
+                <option value="other">Other</option>
+            </select>
+            </div>
+            <div class="filter-dropdown">
+            <select class="filter-select">
+                <option value="all">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="read">Read</option>
+                <option value="replied">Replied</option>
+                <option value="closed">Closed</option>
+                <option value="archived">Archived</option>
+            </select>
+            </div>
+        </div>
+
+        <!-- Message Stats -->
+        <div class="message-stats">
+            <div class="stat-card">
+            <div class="stat-icon bg-pending">
+                <i class="fas fa-clock"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-value">16</div>
+                <div class="stat-label">Pending</div>
+            </div>
+            </div>
+            <div class="stat-card">
+            <div class="stat-icon bg-read">
+                <i class="fas fa-eye"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Read</div>
+            </div>
+            </div>
+            <div class="stat-card">
+            <div class="stat-icon bg-replied">
+                <i class="fas fa-reply"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-value">24</div>
+                <div class="stat-label">Replied</div>
+            </div>
+            </div>
+            <div class="stat-card">
+            <div class="stat-icon bg-closed">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="stat-info">
+                <div class="stat-value">12</div>
+                <div class="stat-label">Closed</div>
+            </div>
+            </div>
+        </div>
+
+        <!-- Messages Table -->
+        <div class="messages-container">
+            <table class="messages-table">
+            <thead>
+                <tr>
+                <th width="40">
+                    <input type="checkbox" class="message-checkbox" id="select-all">
+                </th>
+                <th>User</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th width="100">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Message row (unread) -->
+                <tr class="unread" data-id="1">
+                <td>
+                    <input type="checkbox" class="message-checkbox">
+                </td>
+                <td>
+                    <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="User">
+                    </div>
+                    <div>
+                        <div class="user-name">Maria Santos</div>
+                        <div class="user-email">maria@example.com</div>
+                    </div>
+                    </div>
+                </td>
+                <td>Cannot access resource files</td>
+                <td>
+                    <div class="message-preview">I'm trying to download some PDF resources but keep getting an error message saying "Access denied". I've tried...</div>
+                </td>
+                <td>
+                    <span class="category-badge">Technical Support</span>
+                </td>
+                <td>
+                    <span class="status-badge badge-pending">Pending</span>
+                </td>
+                <td>
+                    <div class="message-date">May 14, 2025</div>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                    <button class="action-button view-button" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="reply-button">
+                        <i class="fas fa-reply"></i> Reply
+                    </button>
+                    </div>
+                </td>
+                </tr>
+                
+                <!-- Message row (replied) -->
+                <tr data-id="2">
+                <td>
+                    <input type="checkbox" class="message-checkbox">
+                </td>
+                <td>
+                    <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="User">
+                    </div>
+                    <div>
+                        <div class="user-name">Carlos Rivera</div>
+                        <div class="user-email">carlos.rivera@example.com</div>
+                    </div>
+                    </div>
+                </td>
+                <td>Feedback on new resource categories</td>
+                <td>
+                    <div class="message-preview">I really appreciate the recent updates to the resource categories. The new classification system makes it much easier to find...</div>
+                </td>
+                <td>
+                    <span class="category-badge">Feedback</span>
+                </td>
+                <td>
+                    <span class="status-badge badge-replied">Replied</span>
+                </td>
+                <td>
+                    <div class="message-date">May 13, 2025</div>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                    <button class="action-button view-button" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="reply-button">
+                        <i class="fas fa-reply"></i> Reply
+                    </button>
+                    </div>
+                </td>
+                </tr>
+                
+                <!-- Message row (read) -->
+                <tr data-id="3">
+                <td>
+                    <input type="checkbox" class="message-checkbox">
+                </td>
+                <td>
+                    <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="User">
+                    </div>
+                    <div>
+                        <div class="user-name">Anna Mendoza</div>
+                        <div class="user-email">anna.m@example.com</div>
+                    </div>
+                    </div>
+                </td>
+                <td>Question about uploading research papers</td>
+                <td>
+                    <div class="message-preview">I am a researcher from WMSU and I would like to contribute some of my research papers to the knowledge hub. Is there a specific format...</div>
+                </td>
+                <td>
+                    <span class="category-badge">General Inquiry</span>
+                </td>
+                <td>
+                    <span class="status-badge badge-read">Read</span>
+                </td>
+                <td>
+                    <div class="message-date">May 12, 2025</div>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                    <button class="action-button view-button" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="reply-button">
+                        <i class="fas fa-reply"></i> Reply
+                    </button>
+                    </div>
+                </td>
+                </tr>
+
+                <!-- Message row (closed) -->
+                <tr data-id="4">
+                <td>
+                    <input type="checkbox" class="message-checkbox">
+                </td>
+                <td>
+                    <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="User">
+                    </div>
+                    <div>
+                        <div class="user-name">Raymond Cruz</div>
+                        <div class="user-email">raymond@example.com</div>
+                    </div>
+                    </div>
+                </td>
+                <td>Forum posting issue resolved</td>
+                <td>
+                    <div class="message-preview">Thank you for your quick response to my previous message about the forum posting issue. The problem has been resolved and I can now...</div>
+                </td>
+                <td>
+                    <span class="category-badge">Technical Support</span>
+                </td>
+                <td>
+                    <span class="status-badge badge-closed">Closed</span>
+                </td>
+                <td>
+                    <div class="message-date">May 10, 2025</div>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                    <button class="action-button view-button" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="reply-button">
+                        <i class="fas fa-reply"></i> Reply
+                    </button>
+                    </div>
+                </td>
+                </tr>
+
+                <!-- Additional message rows -->
+                <tr data-id="5">
+                <td>
+                    <input type="checkbox" class="message-checkbox">
+                </td>
+                <td>
+                    <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/42.jpg" alt="User">
+                    </div>
+                    <div>
+                        <div class="user-name">Patricia Lim</div>
+                        <div class="user-email">p.lim@example.com</div>
+                    </div>
+                    </div>
+                </td>
+                <td>Suggestion for new commodity data</td>
+                <td>
+                    <div class="message-preview">I noticed that the database doesn't include detailed information about seaweed farming, which is becoming increasingly important in our region...</div>
+                </td>
+                <td>
+                    <span class="category-badge">Feedback</span>
+                </td>
+                <td>
+                    <span class="status-badge badge-pending">Pending</span>
+                </td>
+                <td>
+                    <div class="message-date">May 9, 2025</div>
+                </td>
+                <td>
+                    <div class="action-buttons">
+                    <button class="action-button view-button" title="View Details">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="reply-button">
+                        <i class="fas fa-reply"></i> Reply
+                    </button>
+                    </div>
+                </td>
+                </tr>
+            </tbody>
+            </table>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+            <div class="page-info">
+                Showing 1 to 5 of 60 messages
+            </div>
+            <div class="page-buttons">
+                <button class="page-button" disabled>
+                <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="page-button active">1</button>
+                <button class="page-button">2</button>
+                <button class="page-button">3</button>
+                <button class="page-button">4</button>
+                <button class="page-button">5</button>
+                <button class="page-button">
+                <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            </div>
+        </div>
+
+      <!-- Message Detail Modal -->
+        <div class="modal-backdrop" id="messageModal">
+            <div class="modal-dialog">
+            <div class="modal-header">
+                <h2 class="modal-title">Message Details</h2>
+                <button class="modal-close" id="closeModal">
+                <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="message-detail">
+                <h3 id="messageSubject">Cannot access resource files</h3>
+                
+                <div class="message-meta">
+                    <div class="meta-item">
+                    <i class="fas fa-user"></i>
+                    <span class="meta-label">From:</span>
+                    <span id="messageUser">Maria Santos (maria@example.com)</span>
+                    </div>
+                    <div class="meta-item">
+                    <i class="fas fa-calendar"></i>
+                    <span class="meta-label">Date:</span>
+                    <span id="messageDate">May 14, 2025, 2:34 PM</span>
+                    </div>
+                    <div class="meta-item">
+                    <i class="fas fa-tag"></i>
+                    <span class="meta-label">Category:</span>
+                    <span id="messageCategory">Technical Support</span>
+                    </div>
+                    <div class="meta-item">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="meta-label">Status:</span>
+                    <span id="messageStatus">Pending</span>
+                    </div>
+                </div>
+                
+                <div class="message-content" id="messageContent">
+                    I'm trying to download some PDF resources but keep getting an error message saying "Access denied". I've tried logging out and back in, clearing my browser cache, and even using a different browser, but the issue persists.
+
+                    The specific resources I'm trying to access are in the Rice Farming Techniques section. Other resources seem to download fine, but anything in this section gives me the error.
+
+                    Could you please help me resolve this issue? I need these resources for my research.
+
+                    Thank you for your assistance!
+                </div>
+                
+                <div class="attachments">
+                    <div class="attachments-title">
+                    <i class="fas fa-paperclip"></i>
+                    Attachments (2)
+                    </div>
+                    <div class="attachments-list">
+                    <div class="attachment-item">
+                        <i class="fas fa-file-image"></i>
+                        <span>error_screenshot.jpg</span>
+                    </div>
+                    <div class="attachment-item">
+                        <i class="fas fa-file-pdf"></i>
+                        <span>browser_log.pdf</span>
+                    </div>
+                    </div>
+                </div>
+                </div>
+                
+                <!-- Previous Reply (if any) -->
+                <div class="previous-reply" id="previousReply" style="display: none;">
+                <div class="reply-header">
+                    <div class="reply-title">
+                    <i class="fas fa-reply"></i>
+                    Your Previous Reply
+                    </div>
+                    <div class="reply-date">May 14, 2025, 3:15 PM</div>
+                </div>
+                <div class="reply-content" id="previousReplyContent">
+                    Thank you for reporting this issue. We're currently investigating the access permissions for the Rice Farming Techniques section. Our technical team is working on resolving this as quickly as possible.
+
+                    In the meantime, I can email you the specific resources you need directly. Please let me know which documents you're trying to access, and I'll send them to you within the next hour.
+
+                    We apologize for the inconvenience.
+                </div>
+                </div>
+                
+                <!-- Reply Section -->
+                <div class="reply-section">
+                <h4>Your Reply</h4>
+                <textarea class="reply-textarea" id="replyContent" placeholder="Type your reply here..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="modal-action-buttons">
+                <button class="modal-button btn-secondary" id="markAsRead">
+                    <i class="fas fa-eye"></i>
+                    Mark as Read
+                </button>
+                <button class="modal-button btn-secondary" id="closeMessage">
+                    <i class="fas fa-check-circle"></i>
+                    Close Issue
+                </button>
+                <button class="modal-button btn-danger" id="archiveMessage">
+                    <i class="fas fa-archive"></i>
+                    Archive
+                </button>
+                </div>
+                <button class="modal-button btn-primary" id="sendReply">
+                <i class="fas fa-paper-plane"></i>
+                Send Reply
+                </button>
+            </div>
+            </div>
+        </div>
+
+        <!-- Notification -->
+        <div class="notification notification-success" id="notification">
+            <div class="notification-icon">
+            <i class="fas fa-check"></i>
+            </div>
+            <div class="notification-content">
+            <div class="notification-title">Success</div>
+            <div class="notification-message">Your reply has been sent successfully!</div>
+            </div>
+            <button class="notification-close" id="closeNotification">
+            <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block script %}
+
+  <script>
+    // DOM Elements
+    const messageRows = document.querySelectorAll('.messages-table tbody tr');
+    const selectAllCheckbox = document.getElementById('select-all');
+    const messageCheckboxes = document.querySelectorAll('.message-checkbox');
+    const viewButtons = document.querySelectorAll('.view-button');
+    const replyButtons = document.querySelectorAll('.reply-button');
+    const messageModal = document.getElementById('messageModal');
+    const closeModal = document.getElementById('closeModal');
+    const sendReplyButton = document.getElementById('sendReply');
+    const markAsReadButton = document.getElementById('markAsRead');
+    const closeMessageButton = document.getElementById('closeMessage');
+    const archiveMessageButton = document.getElementById('archiveMessage');
+    const replyTextarea = document.getElementById('replyContent');
+    const notification = document.getElementById('notification');
+    const closeNotification = document.getElementById('closeNotification');
+    
+    // Message data (simulated database)
+    const messagesData = [
+      {
+        id: 1,
+        user: {
+          name: "Maria Santos",
+          email: "maria@example.com",
+          avatar: "https://randomuser.me/api/portraits/women/32.jpg"
+        },
+        subject: "Cannot access resource files",
+        content: "I'm trying to download some PDF resources but keep getting an error message saying \"Access denied\". I've tried logging out and back in, clearing my browser cache, and even using a different browser, but the issue persists.\n\nThe specific resources I'm trying to access are in the Rice Farming Techniques section. Other resources seem to download fine, but anything in this section gives me the error.\n\nCould you please help me resolve this issue? I need these resources for my research.\n\nThank you for your assistance!",
+        category: "Technical Support",
+        status: "pending",
+        created_at: "2025-05-14T14:34:00",
+        attachments: [
+          { name: "error_screenshot.jpg", type: "image" },
+          { name: "browser_log.pdf", type: "pdf" }
+        ],
+        reply: null
+      },
+      {
+        id: 2,
+        user: {
+          name: "Carlos Rivera",
+          email: "carlos.rivera@example.com",
+          avatar: "https://randomuser.me/api/portraits/men/45.jpg"
+        },
+        subject: "Feedback on new resource categories",
+        content: "I really appreciate the recent updates to the resource categories. The new classification system makes it much easier to find relevant materials, especially for specific crop varieties.\n\nOne suggestion I have is to possibly add a 'Recently Viewed' section to the dashboard. This would help users quickly access resources they frequently use without having to navigate through the categories each time.\n\nKeep up the great work!",
+        category: "Feedback",
+        status: "replied",
+        created_at: "2025-05-13T10:15:00",
+        attachments: [],
+        reply: {
+          content: "Thank you for your positive feedback on our new resource categorization system. We're glad to hear it's improving your experience with finding relevant materials.\n\nYour suggestion for a 'Recently Viewed' section is excellent, and I'm happy to inform you that this feature is actually already in our development pipeline for the next update scheduled for June. We agree that this will further enhance user experience by providing quicker access to frequently used resources.\n\nWe appreciate your engagement with our platform and welcome any further suggestions you might have.",
+          replied_at: "2025-05-13T11:42:00"
+        }
+      },
+      {
+        id: 3,
+        user: {
+          name: "Anna Mendoza",
+          email: "anna.m@example.com",
+          avatar: "https://randomuser.me/api/portraits/women/28.jpg"
+        },
+        subject: "Question about uploading research papers",
+        content: "I am a researcher from WMSU and I would like to contribute some of my research papers to the knowledge hub. Is there a specific format or process for submitting content?\n\nMy papers focus on sustainable aquaculture practices in Western Mindanao. They've been published in peer-reviewed journals, and I believe they would be valuable additions to your aquaculture resources section.\n\nPlease let me know what steps I should take to contribute these materials.",
+        category: "General Inquiry",
+        status: "read",
+        created_at: "2025-05-12T09:22:00",
+        attachments: [],
+        reply: null
+      },
+      {
+        id: 4,
+        user: {
+          name: "Raymond Cruz",
+          email: "raymond@example.com",
+          avatar: "https://randomuser.me/api/portraits/men/22.jpg"
+        },
+        subject: "Forum posting issue resolved",
+        content: "Thank you for your quick response to my previous message about the forum posting issue. The problem has been resolved and I can now post in the forum without any errors.\n\nI appreciate the technical team's efficiency in addressing this matter. The forum is a valuable resource for connecting with other farmers and researchers in the region.",
+        category: "Technical Support",
+        status: "closed",
+        created_at: "2025-05-10T16:45:00",
+        attachments: [],
+        reply: {
+          content: "You're welcome! We're glad to hear that the forum posting issue has been resolved. Our technical team works hard to address user concerns as quickly as possible.\n\nThank you for being part of our community and for your patience while we resolved this issue. The forum is indeed one of our most valuable features for knowledge sharing and community building.\n\nPlease don't hesitate to reach out if you encounter any other issues or have any questions.",
+          replied_at: "2025-05-10T17:30:00"
+        }
+      },
+      {
+        id: 5,
+        user: {
+          name: "Patricia Lim",
+          email: "p.lim@example.com",
+          avatar: "https://randomuser.me/api/portraits/women/42.jpg"
+        },
+        subject: "Suggestion for new commodity data",
+        content: "I noticed that the database doesn't include detailed information about seaweed farming, which is becoming increasingly important in our region. As a seaweed farmer, I would find it very helpful to have resources specifically dedicated to this area.\n\nSeaweed farming is sustainable and provides good income for coastal communities. I believe adding this category would benefit many users in the Zamboanga Peninsula.\n\nWould it be possible to expand the commodities section to include seaweed farming techniques, market information, and research?",
+        category: "Feedback",
+        status: "pending",
+        created_at: "2025-05-09T11:20:00",
+        attachments: [
+          { name: "seaweed_farm.jpg", type: "image" }
+        ],
+        reply: null
+      }
+    ];
+
+    // Event Listeners
+    document.addEventListener('DOMContentLoaded', function() {
+      // Select all checkbox
+      selectAllCheckbox.addEventListener('change', function() {
+        const isChecked = this.checked;
+        messageCheckboxes.forEach(checkbox => {
+          checkbox.checked = isChecked;
+        });
+      });
+      
+      // Message row click (view message)
+      messageRows.forEach(row => {
+        row.addEventListener('click', function(e) {
+          // Skip if checkbox was clicked
+          if (e.target.classList.contains('message-checkbox') || e.target.closest('.action-buttons')) {
+            return;
+          }
+          
+          const messageId = this.getAttribute('data-id');
+          openMessageModal(messageId);
+          
+          // Mark as read if it was unread
+          if (this.classList.contains('unread')) {
+            this.classList.remove('unread');
+            updateMessageStatus(messageId, 'read');
+          }
+        });
+      });
+      
+      // View button click
+      viewButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const messageId = this.closest('tr').getAttribute('data-id');
+          openMessageModal(messageId);
+          
+          // Mark as read if it was unread
+          if (this.closest('tr').classList.contains('unread')) {
+            this.closest('tr').classList.remove('unread');
+            updateMessageStatus(messageId, 'read');
+          }
+        });
+      });
+      
+      // Reply button click
+      replyButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+          e.stopPropagation();
+          const messageId = this.closest('tr').getAttribute('data-id');
+          openMessageModal(messageId);
+          
+          // Focus on reply textarea
+          setTimeout(() => {
+            replyTextarea.focus();
+          }, 300);
+          
+          // Mark as read if it was unread
+          if (this.closest('tr').classList.contains('unread')) {
+            this.closest('tr').classList.remove('unread');
+            updateMessageStatus(messageId, 'read');
+          }
+        });
+      });
+      
+      // Close modal
+      closeModal.addEventListener('click', function() {
+        messageModal.classList.remove('show');
+      });
+      
+      // Close modal by clicking outside
+      messageModal.addEventListener('click', function(e) {
+        if (e.target === messageModal) {
+          messageModal.classList.remove('show');
+        }
+      });
+      
+      // Send reply
+      sendReplyButton.addEventListener('click', function() {
+        const replyText = replyTextarea.value.trim();
+        
+        if (replyText) {
+          // Get current message ID (would be stored in the modal in a real implementation)
+          const messageId = messageModal.getAttribute('data-id');
+          
+          // Update message data with reply
+          const message = messagesData.find(m => m.id == messageId);
+          if (message) {
+            message.reply = {
+              content: replyText,
+              replied_at: new Date().toISOString()
+            };
+            message.status = 'replied';
+            
+            // Update UI
+            updateMessageStatus(messageId, 'replied');
+            
+            // Close modal
+            messageModal.classList.remove('show');
+            
+            // Show notification
+            showNotification('success', 'Your reply has been sent successfully!');
+            
+            // Clear reply textarea
+            replyTextarea.value = '';
+          }
+        } else {
+          // Show error notification if reply is empty
+          showNotification('error', 'Please enter a reply before sending.');
+        }
+      });
+      
+      // Mark as read
+      markAsReadButton.addEventListener('click', function() {
+        const messageId = messageModal.getAttribute('data-id');
+        updateMessageStatus(messageId, 'read');
+        messageModal.classList.remove('show');
+        showNotification('success', 'Message marked as read.');
+      });
+      
+      // Close issue
+      closeMessageButton.addEventListener('click', function() {
+        const messageId = messageModal.getAttribute('data-id');
+        updateMessageStatus(messageId, 'closed');
+        messageModal.classList.remove('show');
+        showNotification('success', 'Issue has been closed.');
+      });
+      
+      // Archive message
+      archiveMessageButton.addEventListener('click', function() {
+        const messageId = messageModal.getAttribute('data-id');
+        updateMessageStatus(messageId, 'archived');
+        messageModal.classList.remove('show');
+        showNotification('success', 'Message has been archived.');
+      });
+      
+      // Close notification
+      closeNotification.addEventListener('click', function() {
+        notification.classList.remove('show');
+      });
+    });
+
+    // Functions
+    function openMessageModal(messageId) {
+      // Find message data
+      const message = messagesData.find(m => m.id == messageId);
+      if (!message) return;
+      
+      // Populate modal with message data
+      document.getElementById('messageSubject').textContent = message.subject;
+      document.getElementById('messageUser').textContent = `${message.user.name} (${message.user.email})`;
+      
+      // Format date
+      const createdDate = new Date(message.created_at);
+      const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+      document.getElementById('messageDate').textContent = createdDate.toLocaleString('en-US', options);
+      
+      document.getElementById('messageCategory').textContent = message.category;
+      document.getElementById('messageStatus').textContent = message.status.charAt(0).toUpperCase() + message.status.slice(1);
+      document.getElementById('messageContent').textContent = message.content;
+      
+      // Handle attachments
+      const attachmentsSection = document.querySelector('.attachments');
+      if (message.attachments && message.attachments.length > 0) {
+        const attachmentsTitle = document.querySelector('.attachments-title');
+        attachmentsTitle.innerHTML = `
+          <i class="fas fa-paperclip"></i>
+          Attachments (${message.attachments.length})
+        `;
+        
+        const attachmentsList = document.querySelector('.attachments-list');
+        attachmentsList.innerHTML = '';
+        
+        message.attachments.forEach(attachment => {
+          const attachmentItem = document.createElement('div');
+          attachmentItem.className = 'attachment-item';
+          
+          let iconClass = 'fas fa-file';
+          if (attachment.type === 'image') {
+            iconClass = 'fas fa-file-image';
+          } else if (attachment.type === 'pdf') {
+            iconClass = 'fas fa-file-pdf';
+          }
+          
+          attachmentItem.innerHTML = `
+            <i class="${iconClass}"></i>
+            <span>${attachment.name}</span>
+          `;
+          
+          attachmentsList.appendChild(attachmentItem);
+        });
+        
+        attachmentsSection.style.display = 'block';
+      } else {
+        attachmentsSection.style.display = 'none';
+      }
+      
+      // Handle previous reply
+      const previousReplySection = document.getElementById('previousReply');
+      if (message.reply) {
+        const previousReplyContent = document.getElementById('previousReplyContent');
+        previousReplyContent.textContent = message.reply.content;
+        
+        // Format reply date
+        const replyDate = new Date(message.reply.replied_at);
+        document.querySelector('.reply-date').textContent = replyDate.toLocaleString('en-US', options);
+        
+        previousReplySection.style.display = 'block';
+      } else {
+        previousReplySection.style.display = 'none';
+      }
+      
+      // Update button states based on message status
+      if (message.status === 'pending') {
+        markAsReadButton.style.display = 'inline-flex';
+        markAsReadButton.disabled = false;
+      } else {
+        markAsReadButton.style.display = 'none';
+      }
+      
+      if (message.status === 'closed' || message.status === 'archived') {
+        closeMessageButton.disabled = true;
+        sendReplyButton.disabled = true;
+        replyTextarea.disabled = true;
+        replyTextarea.placeholder = "This message is closed and cannot be replied to.";
+      } else {
+        closeMessageButton.disabled = false;
+        sendReplyButton.disabled = false;
+        replyTextarea.disabled = false;
+        replyTextarea.placeholder = "Type your reply here...";
+      }
+      
+      // Store message ID in modal
+      messageModal.setAttribute('data-id', messageId);
+      
+      // Show modal
+      messageModal.classList.add('show');
+    }
+
+    function updateMessageStatus(messageId, status) {
+        // Update in "database"
+        const message = messagesData.find(m => m.id == messageId);
+        if (message) {
+          message.status = status;
+        }
+        
+        // Update in UI
+        const row = document.querySelector(`.messages-table tbody tr[data-id="${messageId}"]`);
+        if (row) {
+          // Remove all status classes
+          row.classList.remove('unread');
+          
+          // Update status badge
+          const statusBadge = row.querySelector('.status-badge');
+          statusBadge.className = 'status-badge'; // Reset classes
+          statusBadge.classList.add(`badge-${status}`);
+          statusBadge.textContent = status.charAt(0).toUpperCase() + status.slice(1);
+          
+          // If message was archived, you might want to remove it from view
+          if (status === 'archived') {
+            // Option 1: Hide the row
+            // row.style.display = 'none';
+            
+            // Option 2: Add a visual indicator
+            row.style.opacity = '0.6';
+          }
+        }
+        
+        // Update stats (this would be more dynamic in a real implementation)
+        updateMessageStats();
+      }
+  
+      function updateMessageStats() {
+        // Count messages by status
+        const counts = {
+          pending: 0,
+          read: 0,
+          replied: 0,
+          closed: 0,
+          archived: 0
+        };
+        
+        messagesData.forEach(message => {
+          if (counts[message.status] !== undefined) {
+            counts[message.status]++;
+          }
+        });
+        
+        // Update stats in UI
+        const statCards = document.querySelectorAll('.stat-card');
+        statCards.forEach(card => {
+          const label = card.querySelector('.stat-label').textContent.toLowerCase();
+          const statusKey = label.toLowerCase();
+          
+          if (counts[statusKey] !== undefined) {
+            card.querySelector('.stat-value').textContent = counts[statusKey];
+          }
+        });
+      }
+  
+      function showNotification(type, message) {
+        // Set notification type
+        notification.className = 'notification';
+        notification.classList.add(`notification-${type}`);
+        
+        // Set icon based on type
+        const iconElement = notification.querySelector('.notification-icon i');
+        iconElement.className = ''; // Reset classes
+        
+        switch (type) {
+          case 'success':
+            iconElement.className = 'fas fa-check';
+            notification.querySelector('.notification-title').textContent = 'Success';
+            break;
+          case 'warning':
+            iconElement.className = 'fas fa-exclamation-triangle';
+            notification.querySelector('.notification-title').textContent = 'Warning';
+            break;
+          case 'error':
+            iconElement.className = 'fas fa-times';
+            notification.querySelector('.notification-title').textContent = 'Error';
+            break;
+        }
+        
+        // Set message
+        notification.querySelector('.notification-message').textContent = message;
+        
+        // Show notification
+        notification.classList.add('show');
+        
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          notification.classList.remove('show');
+        }, 5000);
+      }
+      
+      // Additional functionality for a complete admin experience
+      
+      // Implement search functionality
+      const searchInput = document.querySelector('.search-input');
+      searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        messageRows.forEach(row => {
+          const subject = row.querySelector('td:nth-child(3)').textContent.toLowerCase();
+          const message = row.querySelector('.message-preview').textContent.toLowerCase();
+          const user = row.querySelector('.user-name').textContent.toLowerCase() + 
+                     row.querySelector('.user-email').textContent.toLowerCase();
+          
+          if (subject.includes(searchTerm) || message.includes(searchTerm) || user.includes(searchTerm)) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+      
+      // Implement category filter
+      const categoryFilter = document.querySelector('.filter-select');
+      categoryFilter.addEventListener('change', function() {
+        const selectedCategory = this.value.toLowerCase();
+        
+        if (selectedCategory === 'all') {
+          messageRows.forEach(row => {
+            row.style.display = '';
+          });
+          return;
+        }
+        
+        messageRows.forEach(row => {
+          const category = row.querySelector('.category-badge').textContent.toLowerCase();
+          
+          if (category === selectedCategory) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+      
+      // Implement status filter (second dropdown)
+      const statusFilter = document.querySelectorAll('.filter-select')[1];
+      statusFilter.addEventListener('change', function() {
+        const selectedStatus = this.value.toLowerCase();
+        
+        if (selectedStatus === 'all') {
+          messageRows.forEach(row => {
+            row.style.display = '';
+          });
+          return;
+        }
+        
+        messageRows.forEach(row => {
+          const statusBadge = row.querySelector('.status-badge');
+          const status = statusBadge.textContent.toLowerCase();
+          
+          if (status === selectedStatus) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+      
+      // Implement bulk actions
+      function performBulkAction(action) {
+        const selectedRows = [];
+        
+        messageCheckboxes.forEach(checkbox => {
+          if (checkbox !== selectAllCheckbox && checkbox.checked) {
+            const row = checkbox.closest('tr');
+            if (row) {
+              selectedRows.push(row);
+            }
+          }
+        });
+        
+        if (selectedRows.length === 0) {
+          showNotification('warning', 'Please select at least one message.');
+          return;
+        }
+        
+        selectedRows.forEach(row => {
+          const messageId = row.getAttribute('data-id');
+          updateMessageStatus(messageId, action);
+        });
+        
+        let actionText = action.charAt(0).toUpperCase() + action.slice(1);
+        showNotification('success', `${selectedRows.length} messages ${actionText}.`);
+        
+        // Reset checkboxes
+        selectAllCheckbox.checked = false;
+        messageCheckboxes.forEach(checkbox => {
+          checkbox.checked = false;
+        });
+      }
+      
+      // Add bulk action buttons (these would typically be in the UI)
+      document.addEventListener('keydown', function(e) {
+        // These are keyboard shortcuts for demonstration
+        if (e.ctrlKey) {
+          switch (e.key) {
+            case 'r': // Mark as read
+              e.preventDefault();
+              performBulkAction('read');
+              break;
+            case 'c': // Close
+              e.preventDefault();
+              performBulkAction('closed');
+              break;
+            case 'a': // Archive
+              e.preventDefault();
+              performBulkAction('archived');
+              break;
+          }
+        }
+      });
+      
+      // Handle message row selection
+      messageRows.forEach(row => {
+        row.querySelector('.message-checkbox').addEventListener('change', function() {
+          if (this.checked) {
+            row.classList.add('selected');
+          } else {
+            row.classList.remove('selected');
+            selectAllCheckbox.checked = false;
+          }
+          
+          // Check if all visible checkboxes are checked
+          const visibleCheckboxes = Array.from(messageCheckboxes).filter(cb => 
+            cb !== selectAllCheckbox && 
+            cb.closest('tr').style.display !== 'none'
+          );
+          
+          const allChecked = visibleCheckboxes.every(cb => cb.checked);
+          selectAllCheckbox.checked = allChecked && visibleCheckboxes.length > 0;
+        });
+      });
+      
+      // Initialize the dashboard
+      updateMessageStats();
+    </script>
+ {% endblock script %}

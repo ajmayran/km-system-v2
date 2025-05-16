@@ -3,9 +3,11 @@ from utils.get_models import get_active_models
 from appCmi.forms import MessageToAdminForm
 from appCmi.models import MessageToAdmin
 from django.contrib import messages
+from utils.user_control import user_access_required
 
 
 # Create your views here.
+@user_access_required(["admin", "cmi"], error_type=404)
 def message(request):
     models = get_active_models()  # Fetch active models
     useful_links = models.get("useful_links", [])
@@ -20,6 +22,7 @@ def message(request):
     return render(request, "pages/cmi-message.html", context)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def send_message(request):
     """
     View for sending messages to the admin and displaying message history.

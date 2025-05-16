@@ -500,22 +500,3 @@ class UploadVideo(models.Model):
 
     class Meta:
         db_table = "tbl_about_video"
-
-
-# class Carousel(models.Model):
-#     carousel_id = models.AutoField(primary_key=True)
-#     alt = models.CharField(max_length=255, null=True)
-#     img_path = models.ImageField(upload_to="carousel/", null=True, blank=True)
-#     commodity = models.ForeignKey(Commodity, on_delete=models.CASCADE, null=True)
-
-#     class Meta:
-#         db_table = "tbl_carousel"
-
-# class Events(models.Model):
-#     event_id = models.AutoField(primary_key=True)
-#     name = models.CharField(max_length=255, null=True, blank=True)
-#     start = models.DateField(null=True, blank=True)
-#     end = models.DateField(null=True, blank=True)
-
-#     class Meta:
-#         db_table = "tbl_events"
