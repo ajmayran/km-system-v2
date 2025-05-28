@@ -22,7 +22,7 @@
         <h1 class="hero-title">AANR Knowledge Hub</h1>
         <p class="hero-subtitle">Empowering communities through knowledge sharing and technological advancement in Agriculture, Aquatic, and Natural Resources sectors.</p>
         <div class="search-box">
-          <form action="/search" method="get">
+          <form action="{% url 'appCmi:cmi-search' %}" method="get">
             <input type="text" name="q" placeholder="Search for resources, articles, technologies..." class="search-input">
             <button type="submit" class="search-button">Get Started <i class="fas fa-arrow-right"></i></button>
           </form>
@@ -80,59 +80,6 @@
         </div>
       </div>
     </section>
-
-    <!-- Resources Section -->
-    {% comment %} <section class="resources-section">
-      <h2 class="section-title" data-aos="fade-up">Latest Knowledge Resources</h2>
-      <p class="section-subtitle" data-aos="fade-up">Explore the most recent additions to our knowledge repository</p>
-      
-      <div class="resources-container">
-        <div class="resource-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="resource-image">
-            <img src="" alt="Agriculture Resource">
-          </div>
-          <div class="resource-content">
-            <span class="resource-category">Agriculture</span>
-            <h3 class="resource-title">Sustainable Farming Practices for Tropical Regions</h3>
-            <p class="resource-description">Comprehensive guide on implementing eco-friendly farming techniques suitable for tropical climates.</p>
-            <div class="resource-meta">
-              <span><i class="far fa-calendar"></i> Recent Update</span>
-              <span><i class="far fa-eye"></i> 1,245 views</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="resource-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="resource-image">
-            <img src="" alt="Aquatic Resource">
-          </div>
-          <div class="resource-content">
-            <span class="resource-category">Aquatic</span>
-            <h3 class="resource-title">Advanced Aquaculture Systems for Small-Scale Producers</h3>
-            <p class="resource-description">Innovative approaches to fish farming that maximize yield while minimizing environmental impact.</p>
-            <div class="resource-meta">
-              <span><i class="far fa-calendar"></i> Recent Update</span>
-              <span><i class="far fa-eye"></i> 982 views</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="resource-card" data-aos="fade-up" data-aos-delay="300">
-          <div class="resource-image">
-            <img src="" alt="Natural Resources">
-          </div>
-          <div class="resource-content">
-            <span class="resource-category">Natural Resources</span>
-            <h3 class="resource-title">Ecosystem Restoration Techniques for Degraded Lands</h3>
-            <p class="resource-description">Methods and case studies on successful land rehabilitation projects across different ecosystems.</p>
-            <div class="resource-meta">
-              <span><i class="far fa-calendar"></i> Recent Update</span>
-              <span><i class="far fa-eye"></i> 756 views</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section> {% endcomment %}
 
     <!-- Stats Section -->
     <section class="stats-section">

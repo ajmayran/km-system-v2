@@ -19,6 +19,9 @@ from .cmi_user_profile_url import (
 from .cmi_knowledge_resources_url import (
     urlpatterns as knowledge_resources_url_urlpatterns,
 )
+from .cmi_display_post_url import (
+    urlpatterns as display_post_url_urlpatterns,
+)
 
 urlpatterns = (
     home_url_urlpatterns
@@ -28,4 +31,5 @@ urlpatterns = (
     + message_url_urlpatterns
     + user_profile_url_urlpatterns
     + knowledge_resources_url_urlpatterns
+    + display_post_url_urlpatterns
 )
