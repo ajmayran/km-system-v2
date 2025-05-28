@@ -4679,3 +4679,104 @@ django.template.exceptions.TemplateSyntaxError: Invalid filter: 'mul'
 [2025-05-27 16:40:40] Not Found: /.well-known/appspecific/com.chrome.devtools.json
 [2025-05-27 16:43:39] Not Found: /.well-known/appspecific/com.chrome.devtools.json
 [2025-05-28 09:15:30] Watching for file changes with StatReloader
+[2025-05-28 09:19:49] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\search_function.py changed, reloading.
+[2025-05-28 09:19:50] Watching for file changes with StatReloader
+[2025-05-28 09:23:15] Internal Server Error: /cmis/home/search
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\home_view.py", line 33, in get_input_from_search
+    return render(request, "pages/cmi-search-result.html", context)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader.py", line 15, in get_template
+    return engine.get_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\backends\django.py", line 33, in get_template
+    return Template(self.engine.get_template(template_name), self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 175, in get_template
+    template, origin = self.find_template(template_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\engine.py", line 157, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 200, in compile_nodelist
+    return parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 293, in do_extends
+    nodelist = parser.parse()
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\loader_tags.py", line 232, in do_block
+    nodelist = parser.parse(("endblock",))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 953, in do_if
+    nodelist = parser.parse(("elif", "else", "endif"))
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 513, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 511, in parse
+    compiled_result = compile_func(self, token)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\defaulttags.py", line 853, in do_for
+    nodelist_loop = parser.parse(
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 484, in parse
+    raise self.error(token, e)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 482, in parse
+    filter_expression = self.compile_filter(token.contents)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 600, in compile_filter
+    return FilterExpression(token, self)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 698, in __init__
+    filter_func = parser.find_filter(filter_name)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\template\base.py", line 606, in find_filter
+    raise TemplateSyntaxError("Invalid filter: '%s'" % filter_name)
+django.template.exceptions.TemplateSyntaxError: Invalid filter: 'multiply'
+[2025-05-28 09:23:16] Not Found: /favicon.ico
+[2025-05-28 09:32:40] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\search_function.py changed, reloading.
+[2025-05-28 09:32:42] Watching for file changes with StatReloader
+[2025-05-28 09:33:05] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\search_function.py changed, reloading.
+[2025-05-28 09:33:07] Watching for file changes with StatReloader
+[2025-05-28 09:33:13] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\search_function.py changed, reloading.
+[2025-05-28 09:33:14] Watching for file changes with StatReloader
+[2025-05-28 09:33:33] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\search_function.py changed, reloading.
+[2025-05-28 09:33:35] Watching for file changes with StatReloader
+[2025-05-28 09:33:42] Internal Server Error: /cmis/home/search
+Traceback (most recent call last):
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\km-env\lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\appCmi\views\home_view.py", line 27, in get_input_from_search
+    similar_resources = find_similar_resources(query)
+  File "C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\search_function.py", line 136, in find_similar_resources
+    tabulate(
+NameError: name 'tabulate' is not defined
+[2025-05-28 09:34:10] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\search_function.py changed, reloading.
+[2025-05-28 09:34:12] Watching for file changes with StatReloader
+[2025-05-28 09:36:32] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\search_function.py changed, reloading.
+[2025-05-28 09:36:34] Watching for file changes with StatReloader
+[2025-05-28 09:39:36] C:\Users\qiuqi\Desktop\km-system-v2\kmhub\utils\search_function.py changed, reloading.
+[2025-05-28 09:39:38] Watching for file changes with StatReloader
+[2025-05-28 09:46:59] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-28 09:47:00] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-28 09:47:15] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-28 09:47:20] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-28 09:47:23] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-28 09:47:27] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-28 09:47:32] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-28 09:49:30] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-28 09:50:22] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-05-28 09:50:41] Not Found: /.well-known/appspecific/com.chrome.devtools.json
