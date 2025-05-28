@@ -18,7 +18,7 @@ urlpatterns = (
             name="record-resource-view",
         ),
         path(
-            "knowledge-resource/bookmark/",
+            "knowledge-resources/bookmark/",
             cmi_knowledge_resources_view.toggle_bookmark,
             name="bookmark-resource",
         ),

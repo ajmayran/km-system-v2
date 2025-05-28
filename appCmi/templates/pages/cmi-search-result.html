@@ -1,0 +1,101 @@
+{% extends 'base/cmi-index.html' %}
+
+{% load static %}
+
+{% block title %}
+Search | AANR Knowledge Hub  
+{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+<style>
+    /* Modern Table Container */
+    .search-results-container {
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        padding: 0;
+        margin: 5rem 0 0 5rem;
+        overflow: hidden;
+        color: black;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+  <div class="main-content">
+    <div class="search-results-container" data-aos="fade-up">
+        <div class="results-header">
+            <i class="fas fa-search"></i> Search Results
+            {% if query %}
+                <span class="query-term">{{ query }}</span>
+            {% endif %}
+        </div>
+
+        {% if results %}
+            {% for resource in results %}
+                <a href="{% url 'appCmi:cmi-display-post' slug=resource.slug %}" style="color: black;">{{resource.title|capfirst }}</a><br>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <i class="fas fa-search"></i>
+                <h3>No Results Found</h3>
+                <p>We couldn't find any resources matching your search. Try different keywords or check your spelling.</p>
+            </div>
+        {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  {% if messages %}
+    {% for message in messages %}
+      {% if message.tags == 'success' %}
+        <script>
+          Swal.fire({
+            icon: 'success',
+            title: 'Success!',
+            text: '{{ message }}',
+            timer: 3000,
+            showConfirmButton: false
+          });
+        </script>
+      {% else %}
+        <script>
+          Swal.fire({
+            icon: 'error',
+            title: 'Error!',
+            text: '{{ message }}',
+            timer: 3000,
+            showConfirmButton: false
+          });
+        </script>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script src="{% static 'style/js/home.js' %}"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      AOS.init({
+        duration: 600,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 50
+      });
+
+      // Make entire table rows clickable
+      document.querySelectorAll('.modern-table tbody tr').forEach(row => {
+        row.addEventListener('click', function(e) {
+          if (!e.target.closest('a')) {
+            const link = this.querySelector('.resource-link');
+            if (link) window.open(link.href, '_blank');
+          }
+        });
+        row.style.cursor = 'pointer';
+      });
+    });
+  </script>
+{% endblock %}

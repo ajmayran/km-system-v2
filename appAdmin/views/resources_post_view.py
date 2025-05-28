@@ -64,6 +64,11 @@ def admin_resources_post(request):
     search_query = request.GET.get("search", "")
     approval_status = request.GET.get("approval_status", "")
 
+    total_resources = ResourceMetadata.objects.all().count()
+    total_approved_resources = ResourceMetadata.objects.filter(is_approved=True).count()
+    total_pending_resources = ResourceMetadata.objects.filter(is_approved=False).count()
+    total_featured_resources = ResourceMetadata.objects.filter(is_featured=True).count()
+
     # Start with all resources
     resources = ResourceMetadata.objects.all().order_by("-created_at")
 
@@ -150,6 +155,10 @@ def admin_resources_post(request):
             "search": search_query,
             "approval_status": approval_status,
         },
+        "total_resources": total_resources,
+        "total_approved_resources": total_approved_resources,
+        "total_pending_resources": total_pending_resources,
+        "total_featured_resources": total_featured_resources,
     }
 
     return render(request, "pages/resources-post.html", context)

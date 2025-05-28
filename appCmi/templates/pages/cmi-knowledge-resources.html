@@ -129,9 +129,9 @@ Knowledge Resources | AANR Knowledge Hub {% endblock %}
                         </div>
                     </div>
                     <div class="resource-footer">
-                        <button type="button" class="resource-button" data-toggle="modal" data-target="#resourcesData" data-slug="{{ resource.slug }}" data-url="{% url 'appCmi:record-resource-view' slug=resource.slug %}">
-                            Open Modal
-                          </button>
+                        <a href="{% url 'appCmi:cmi-display-post' slug=resource.slug %}" class="resource-button">
+                            View
+                        </a>
                         <div class="resource-actions">
                             <button class="action-button bookmark-button" title="Bookmark" data-slug="{{ resource.slug }}">
                                 {% if resource.is_bookmarked %}

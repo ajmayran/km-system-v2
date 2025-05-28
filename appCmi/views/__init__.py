@@ -1,4 +1,4 @@
-from .home_view import home  # ✅ Import the home function
+from .home_view import home, get_input_from_search  # ✅ Import the home function
 from .cmi_about_view import about  # ✅ Import the about function
 from .cmi_forum_view import (
     cmi_forum,
@@ -23,3 +23,4 @@ from .cmi_knowledge_resources_view import (
     record_resource_view,
     toggle_bookmark,
 )
+from .cmi_display_post_view import cmi_display_post
