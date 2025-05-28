@@ -6,8 +6,6 @@ import string
 from appAdmin.models import ResourceMetadata
 from django.conf import settings
 import os
-from tabulate import tabulate  # Make sure to install this package if not already
-
 
 STOPWORDS_FILE_PATH = os.path.join(
     settings.BASE_DIR,  # Get the base directory of your Django project
@@ -94,9 +92,13 @@ def find_similar_resources(input_text, threshold=0.0, print_results=True):
     """
     processed_input = preprocess_text(input_text)
 
-    resources = ResourceMetadata.objects.filter(
-        Q(title__isnull=False) | Q(description__isnull=False)
-    ).exclude(Q(title="") & Q(description=""))
+    resources = (
+        ResourceMetadata.objects.filter(
+            Q(title__isnull=False) | Q(description__isnull=False)
+        )
+        .exclude(Q(title="") & Q(description=""))
+        .prefetch_related("tags")
+    )  # Optimize tag fetching
 
     results = []
 
@@ -112,41 +114,21 @@ def find_similar_resources(input_text, threshold=0.0, print_results=True):
         combined_sim = calculate_similarity(processed_input, combined_text)
 
         if combined_sim >= threshold:
+            tag_names = [tag.name for tag in resource.tags.all()]
             results.append(
                 {
+                    "resource": resource,  # Include the entire model instance
                     "title": resource.title,
                     "slug": resource.slug,
                     "title_similarity": title_sim,
                     "description_similarity": desc_sim,
                     "combined_similarity": combined_sim,
-                    "resource_type": str(
-                        resource.resource_type
-                    ),  # Ensures readable text
+                    "resource_type": str(resource.resource_type),
+                    "created_at": resource.created_at.strftime("%Y-%m-%d %H:%M:%S"),
+                    "tags": tag_names,
                 }
             )
 
     results.sort(key=lambda x: x["combined_similarity"], reverse=True)
-
-    if print_results and results:
-        table_data = [
-            [
-                res["title"],
-                res["slug"],
-                f"{res['title_similarity']}%",
-                f"{res['description_similarity']}%",
-                f"{res['combined_similarity']}%",
-                res["resource_type"],
-            ]
-            for res in results
-        ]
-    headers = [
-        "Title",
-        "Slug",
-        "Title Similarity",
-        "Description Similarity",
-        "Combined Similarity",
-        "Type",
-    ]
-    print(tabulate(table_data, headers=headers, tablefmt="grid"))
 
     return results

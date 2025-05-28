@@ -10,92 +10,292 @@ Search | AANR Knowledge Hub
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
 <style>
-    /* Modern Table Container */
     .search-results-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background: #fff;
         border-radius: 12px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        padding: 0;
-        margin: 5rem 0 0 5rem;
-        overflow: hidden;
-        color: black;
     }
 
+    .results-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #f0f0f0;
+        color: #333;
+    }
+
+    .results-header i {
+        font-size: 1.5rem;
+        color: #1F5C38;
+    }
+
+    .query-term {
+        background: #e2e8f0;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 500;
+        color: #1F5C38;
+    }
+
+    .search-results-list {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .result-item {
+        background: #f8fafc;
+        padding: 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        border: 1px solid #e2e8f0;
+    }
+
+    .result-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-color: #1F5C38;
+    }
+
+    .result-item a {
+        color: #2d3748;
+        text-decoration: none;
+        display: block;
+    }
+
+    .result-item h3 {
+        margin: 0 0 0.5rem 0;
+        color: #1F5C38;
+        font-size: 1.2rem;
+    }
+
+    .result-meta {
+        display: flex;
+        gap: 1rem;
+        color: #718096;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: #718096;
+    }
+
+    .empty-state i {
+        font-size: 3rem;
+        color: #cbd5e0;
+        margin-bottom: 1rem;
+    }
+
+    .empty-state h3 {
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+    }
+
+    .empty-state p {
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    .search-filters {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-button {
+        padding: 0.5rem 1rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        background: #fff;
+        color: #4a5568;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .filter-button:hover {
+        background: #1F5C38;
+        color: #fff;
+        border-color: #1F5C38;
+    }
+
+    .filter-button.active {
+        background: #1F5C38;
+        color: #fff;
+        border-color: #1F5C38;
+    }
+
+    .no-results-message {
+        text-align: center;
+        padding: 2rem;
+        color: #718096;
+        display: none;
+    }
+
+    .no-results-message i {
+        font-size: 2rem;
+        color: #cbd5e0;
+        margin-bottom: 1rem;
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-  <div class="main-content">
+<div class="main-content">
     <div class="search-results-container" data-aos="fade-up">
         <div class="results-header">
-            <i class="fas fa-search"></i> Search Results
+            <i class="fas fa-search"></i>
+            <h2>Search Results</h2>
             {% if query %}
                 <span class="query-term">{{ query }}</span>
             {% endif %}
         </div>
 
+        <div class="search-filters">
+            <button class="filter-button active" id="all">All</button>
+            <button class="filter-button" id="agriculture">Agriculture</button>
+            <button class="filter-button" id="aquatic">Aquatic</button>
+            <button class="filter-button" id="natural_resources">Natural Resources</button>
+            <button class="filter-button" id="research">Research</button>
+            <button class="filter-button" id="technology">Technology</button>
+        </div>
+
         {% if results %}
-            {% for resource in results %}
-                <a href="{% url 'appCmi:cmi-display-post' slug=resource.slug %}" style="color: black;">{{resource.title|capfirst }}</a><br>
-            {% endfor %}
+            <div class="search-results-list">
+                {% for resource in results %}
+                    <div class="result-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}" data-tags="{% for tag in resource.resource.tags.all %}{{ tag.name|lower|slugify }}{% if not forloop.last %},{% endif %}{% endfor %}">
+                        <a href="{% url 'appCmi:cmi-display-post' slug=resource.resource.slug %}">
+                            <h3>{{ resource.resource.title|capfirst }}</h3>
+                            <div class="result-meta">
+                                <span><i class="fas fa-calendar"></i> {{ resource.resource.created_at|date:"F d, Y" }}</span>
+                                <span><i class="fas fa-tag"></i> 
+                                    {% for tag in resource.resource.tags.all|slice:':5' %}
+                                        {{ tag.name|default:"Uncategorized" }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </span>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="no-results-message">
+                <i class="fas fa-search"></i>
+                <h3>No Results Found</h3>
+                <p>No resources found for the selected category. Try selecting a different category or search term.</p>
+            </div>
         {% else %}
-            <div class="empty-state">
+            <div class="empty-state" data-aos="fade-up">
                 <i class="fas fa-search"></i>
                 <h3>No Results Found</h3>
                 <p>We couldn't find any resources matching your search. Try different keywords or check your spelling.</p>
             </div>
         {% endif %}
     </div>
-  </div>
+</div>
 {% endblock %}
 
 {% block script %}
-  {% if messages %}
-    {% for message in messages %}
-      {% if message.tags == 'success' %}
-        <script>
-          Swal.fire({
-            icon: 'success',
-            title: 'Success!',
-            text: '{{ message }}',
-            timer: 3000,
-            showConfirmButton: false
-          });
-        </script>
-      {% else %}
-        <script>
-          Swal.fire({
-            icon: 'error',
-            title: 'Error!',
-            text: '{{ message }}',
-            timer: 3000,
-            showConfirmButton: false
-          });
-        </script>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <script>
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success!',
+                        text: '{{ message }}',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                </script>
+            {% else %}
+                <script>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: '{{ message }}',
+                        timer: 3000,
+                        showConfirmButton: false
+                    });
+                </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-  <script src="{% static 'style/js/home.js' %}"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      AOS.init({
-        duration: 600,
-        easing: 'ease-out-cubic',
-        once: true,
-        offset: 50
-      });
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="{% static 'style/js/home.js' %}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 600,
+                easing: 'ease-out-cubic',
+                once: true,
+                offset: 50
+            });
 
-      // Make entire table rows clickable
-      document.querySelectorAll('.modern-table tbody tr').forEach(row => {
-        row.addEventListener('click', function(e) {
-          if (!e.target.closest('a')) {
-            const link = this.querySelector('.resource-link');
-            if (link) window.open(link.href, '_blank');
-          }
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const resultItems = document.querySelectorAll('.result-item');
+            const noResultsMessage = document.querySelector('.no-results-message');
+            const searchResultsList = document.querySelector('.search-results-list');
+
+            function filterResults(category) {
+                let hasResults = false;
+                
+                resultItems.forEach(item => {
+                    // Normalize tags to use underscores
+                    const tags = item.getAttribute('data-tags').split(',').map(t => t.replace(/[-\s]+/g, '_'));
+                    const normalizedCategory = category.toLowerCase().replace(/[-\s]+/g, '_');
+                    console.log('data-tags:', tags, 'normalizedCategory:', normalizedCategory);
+                    const shouldShow = category === 'all' || tags.includes(normalizedCategory);
+                    
+                    if (shouldShow) {
+                        item.style.display = 'block';
+                        hasResults = true;
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+
+                // Show/hide no results message
+                if (!hasResults) {
+                    noResultsMessage.style.display = 'block';
+                    searchResultsList.style.display = 'none';
+                } else {
+                    noResultsMessage.style.display = 'none';
+                    searchResultsList.style.display = 'grid';
+                }
+
+                // Reinitialize AOS for visible items
+                AOS.refresh();
+            }
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Filter results based on the selected category
+                    filterResults(this.id);
+                });
+            });
+
+            // Add hover effect to result items
+            resultItems.forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                item.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
         });
-        row.style.cursor = 'pointer';
-      });
-    });
-  </script>
+    </script>
 {% endblock %}
