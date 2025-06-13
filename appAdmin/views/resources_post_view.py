@@ -9,6 +9,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.template.loader import render_to_string
 import uuid
 from utils.get_models import get_active_models
+import json
 
 from appAdmin.models import (
     ResourceMetadata,
@@ -458,4 +459,28 @@ def create_product(request, metadata):
 
 @user_access_required("admin")
 def admin_edit_resources_post(request, slug):
-    return render(request, "pages/resources-post.html")
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            new_status = data.get("status")
+
+            resource = ResourceMetadata.objects.get(slug=slug)
+            resource.is_approved = new_status == "approved"
+            resource.save()
+
+            return JsonResponse({"success": True})
+        except ResourceMetadata.DoesNotExist:
+            return JsonResponse({"success": False, "error": "Resource not found"})
+        except Exception as e:
+            return JsonResponse({"success": False, "error": str(e)})
+
+    return JsonResponse({"success": False, "error": "Invalid request method"})
+
+
+@user_access_required("admin")
+def admin_delete_resources_post(request, slug):
+    resource_metadata_instance = ResourceMetadata.objects.get(slug=slug)
+    resource_metadata_instance.delete()
+    success_message = "Deleted successfully!"
+    messages.success(request, success_message)
+    return redirect("appAdmin:display-resources-post")

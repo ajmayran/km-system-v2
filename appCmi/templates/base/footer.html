@@ -4,48 +4,72 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
-
-body {
+  }
+  
+  body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
-}
-
-/* Animation keyframes */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 0 0 rgba(78, 177, 121, 0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(78, 177, 121, 0); }
-    100% { box-shadow: 0 0 0 0 rgba(78, 177, 121, 0); }
-}
-
-@keyframes floatUpDown {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-5px); }
-    100% { transform: translateY(0); }
-}
-
-@keyframes borderPulse {
-    0% { border-color: rgba(255, 255, 255, 0.3); }
-    50% { border-color: rgba(255, 255, 255, 0.9); }
-    100% { border-color: rgba(255, 255, 255, 0.3); }
-}
-
-/* Footer styles */
-.footer {
-    background-color: #2C6E49;
+  }
+  
+  /* Animation keyframes */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes pulseGlow {
+    0% {
+      box-shadow: 0 0 0 0 rgba(78, 177, 121, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(78, 177, 121, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(78, 177, 121, 0);
+    }
+  }
+  
+  @keyframes floatUpDown {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes borderPulse {
+    0% {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+    50% {
+      border-color: rgba(255, 255, 255, 0.9);
+    }
+    100% {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  
+  /* Footer styles */
+  .footer {
+    background-color: #2c6e49;
     color: #ffffff;
     padding: 3rem 0;
     position: relative;
     overflow: hidden;
-}
-
-/* Animated background element */
-.footer::before {
+  }
+  
+  /* Animated background element */
+  .footer::before {
     content: '';
     position: absolute;
     top: 0;
@@ -54,109 +78,117 @@ body {
     height: 10px;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     animation: shine 3s infinite linear;
-}
-
-@keyframes shine {
-    0% { transform: translateX(-30%); }
-    100% { transform: translateX(30%); }
-}
-
-.footer-container {
+  }
+  
+  @keyframes shine {
+    0% {
+      transform: translateX(-30%);
+    }
+    100% {
+      transform: translateX(30%);
+    }
+  }
+  
+  .footer-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
-}
-
-/* Logo and about section */
-.footer-about {
+  }
+  
+  /* Logo and about section */
+  .footer-about {
     animation: fadeIn 0.6s ease-out forwards;
-}
-
-.footer-about img {
+  }
+  
+  .footer-about img {
     height: 50px;
     margin-bottom: 1rem;
     transition: transform 0.3s ease;
-}
-
-.footer-about img:hover {
+  }
+  
+  .footer-about img:hover {
     transform: scale(1.05);
-}
-
-.footer-about p {
+  }
+  
+  .footer-about p {
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
     opacity: 0.9;
-}
-
-/* Footer navigation */
-.footer-nav {
+  }
+  
+  /* Footer navigation */
+  .footer-nav {
     animation: fadeIn 0.6s ease-out 0.2s forwards;
     opacity: 0;
-}
-
-.footer-contact {
+  }
+  
+  .footer-contact {
     animation: fadeIn 0.6s ease-out 0.4s forwards;
     opacity: 0;
-}
-
-.footer-subscribe {
+  }
+  
+  .footer-subscribe {
     animation: fadeIn 0.6s ease-out 0.6s forwards;
     opacity: 0;
-}
-
-.footer-nav h3,
-.footer-contact h3,
-.footer-subscribe h3 {
+  }
+  
+  .footer-nav h3,
+  .footer-contact h3,
+  .footer-subscribe h3 {
     font-size: 1.2rem;
     font-weight: 600;
     margin-bottom: 1.2rem;
     position: relative;
     padding-bottom: 0.5rem;
-}
-
-.footer-nav h3:after,
-.footer-contact h3:after,
-.footer-subscribe h3:after {
+  }
+  
+  .footer-nav h3:after,
+  .footer-contact h3:after,
+  .footer-subscribe h3:after {
     content: '';
     position: absolute;
     left: 0;
     bottom: 0;
     width: 50px;
     height: 2px;
-    background-color: #4EB179;
+    background-color: #4eb179;
     animation: widthPulse 2s infinite alternate;
-}
-
-@keyframes widthPulse {
-    0% { width: 30px; }
-    100% { width: 50px; }
-}
-
-.footer-nav ul {
+  }
+  
+  @keyframes widthPulse {
+    0% {
+      width: 30px;
+    }
+    100% {
+      width: 50px;
+    }
+  }
+  
+  .footer-nav ul {
     list-style: none;
-}
-
-.footer-nav ul li {
+  }
+  
+  .footer-nav ul li {
     margin-bottom: 0.7rem;
     transition: transform 0.3s ease;
-}
-
-.footer-nav ul li:hover {
+  }
+  
+  .footer-nav ul li:hover {
     transform: translateX(5px);
-}
-
-.footer-nav ul li a {
+  }
+  
+  .footer-nav ul li a {
     color: #ffffff;
     text-decoration: none;
     transition: all 0.3s ease;
     opacity: 0.9;
     position: relative;
-}
-
-.footer-nav ul li a::after {
+  }
+  
+  .footer-nav ul li a::after {
     content: '';
     position: absolute;
     width: 0;
@@ -165,47 +197,47 @@ body {
     left: 0;
     background-color: #ffffff;
     transition: width 0.3s ease;
-}
-
-.footer-nav ul li a:hover {
+  }
+  
+  .footer-nav ul li a:hover {
     opacity: 1;
-}
-
-.footer-nav ul li a:hover::after {
+  }
+  
+  .footer-nav ul li a:hover::after {
     width: 100%;
-}
-
-/* Contact information */
-.contact-info {
+  }
+  
+  /* Contact information */
+  .contact-info {
     margin-bottom: 1.5rem;
-}
-
-.contact-info p {
+  }
+  
+  .contact-info p {
     display: flex;
     align-items: center;
     margin-bottom: 0.7rem;
     font-size: 0.9rem;
     opacity: 0.9;
     transition: transform 0.3s ease;
-}
-
-.contact-info p:hover {
+  }
+  
+  .contact-info p:hover {
     transform: translateX(5px);
-}
-
-.contact-info i {
+  }
+  
+  .contact-info i {
     margin-right: 0.8rem;
     font-size: 1.1rem;
     animation: floatUpDown 2s ease infinite;
-}
-
-/* Social media links */
-.social-links {
+  }
+  
+  /* Social media links */
+  .social-links {
     display: flex;
     gap: 1rem;
-}
-
-.social-links a {
+  }
+  
+  .social-links a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -218,15 +250,15 @@ body {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-}
-
-.social-links a:hover {
-    background-color: #4EB179;
+  }
+  
+  .social-links a:hover {
+    background-color: #4eb179;
     transform: translateY(-3px);
     animation: pulseGlow 1.5s infinite;
-}
-
-.social-links a::before {
+  }
+  
+  .social-links a::before {
     content: '';
     position: absolute;
     top: 0;
@@ -235,19 +267,19 @@ body {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: 0.5s;
-}
-
-.social-links a:hover::before {
+  }
+  
+  .social-links a:hover::before {
     left: 100%;
-}
-
-/* Newsletter form */
-.newsletter-form {
+  }
+  
+  /* Newsletter form */
+  .newsletter-form {
     margin-top: 1rem;
     position: relative;
-}
-
-.newsletter-form input {
+  }
+  
+  .newsletter-form input {
     width: 100%;
     padding: 0.8rem;
     border: none;
@@ -256,17 +288,17 @@ body {
     outline: none;
     transition: all 0.3s ease;
     border: 2px solid transparent;
-}
-
-.newsletter-form input:focus {
-    border-color: #4EB179;
+  }
+  
+  .newsletter-form input:focus {
+    border-color: #4eb179;
     animation: borderPulse 1.5s infinite;
-}
-
-.newsletter-form button {
+  }
+  
+  .newsletter-form button {
     width: 100%;
     padding: 0.8rem;
-    background-color: #4EB179;
+    background-color: #4eb179;
     color: white;
     border: none;
     border-radius: 0 0 4px 4px;
@@ -274,9 +306,9 @@ body {
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-}
-
-.newsletter-form button::before {
+  }
+  
+  .newsletter-form button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -285,20 +317,20 @@ body {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transition: 0.5s;
-}
-
-.newsletter-form button:hover::before {
+  }
+  
+  .newsletter-form button:hover::before {
     left: 100%;
-}
-
-.newsletter-form button:hover {
-    background-color: #3D9366;
+  }
+  
+  .newsletter-form button:hover {
+    background-color: #3d9366;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Copyright section */
-.footer-bottom {
+  }
+  
+  /* Copyright section */
+  .footer-bottom {
     text-align: center;
     padding-top: 2rem;
     margin-top: 2rem;
@@ -312,9 +344,9 @@ body {
     padding-right: 2rem;
     animation: fadeIn 0.6s ease-out 0.8s forwards;
     opacity: 0;
-}
-
-.message-button button {
+  }
+  
+  .message-button button {
     display: inline-block;
     background-color: #2c6e49;
     color: white;
@@ -328,78 +360,90 @@ body {
     width: 100%;
     margin-top: 10px;
     text-align: center;
-}
-
-.message-button button:hover {
+  }
+  
+  .message-button button:hover {
     background-color: #1a5632;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.message-button {
+  }
+  
+  .message-button {
     display: block;
     text-decoration: none;
-}
-
-/* Responsive design */
-@media (max-width: 992px) {
+  }
+  
+  /* Responsive design */
+  @media (max-width: 992px) {
     .footer-container {
-        grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr);
     }
-}
-
-@media (max-width: 576px) {
+  }
+  
+  @media (max-width: 576px) {
     .footer-container {
-        grid-template-columns: 1fr;
+      grid-template-columns: 1fr;
     }
-}
+  }
 </style>
 
 <footer class="footer">
   <div class="footer-container">
-      <!-- About section -->
-      <div class="footer-about">
-          <img src="" alt="AANR Logo">
-          <p>AANR Knowledge Management System provides comprehensive resources and tools for agricultural research and innovation across regions and sectors.</p>
-          <div class="social-links">
-              <a href="https://www.facebook.com/people/RAISE-Western-Mindanao/61571647590407/#" target="_blank"><i class="fab fa-facebook-f"></i></a>
-              <a href="https://www.youtube.com/@wesmaarrdecofficial5030" target="_blank"><i class="fab fa-youtube"></i></a>
-          </div>
+    <!-- About section -->
+    <div class="footer-about">
+      <!-- <img src="" alt="AANR Logo"> -->
+      <p>AANR Knowledge Management System provides comprehensive resources and tools for agricultural research and innovation across regions and sectors.</p>
+      <div class="social-links">
+        <a href="https://www.facebook.com/people/RAISE-Western-Mindanao/61571647590407/#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.youtube.com/@wesmaarrdecofficial5030" target="_blank"><i class="fab fa-youtube"></i></a>
       </div>
-      
-      <!-- Quick Links -->
-      <div class="footer-nav">
-          <h3>Quick Links</h3>
-          <ul>
-              <li><a href="{% url 'appCmi:home' %}">Home</a></li>
-              <li><a href="{% url 'appCmi:cmi-about' %}">About Us</a></li>
-              <li><a href="{% url 'appCmi:cmi-forum' %}">Forum</a></li>
-          </ul>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-nav">
+      <h3>Quick Links</h3>
+      <ul>
+        <li>
+          <a href="{% url 'appCmi:home' %}">Home</a>
+        </li>
+        <li>
+          <a href="{% url 'appCmi:cmi-about' %}">About Us</a>
+        </li>
+        <li>
+          <a href="{% url 'appCmi:cmi-forum' %}">Forum</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="footer-contact">
+      <h3>Contact Us</h3>
+      <div class="contact-info">
+        <p>
+          <i class="fas fa-map-marker-alt"></i> Normal Rd., Baliwasan, Zamboanga City, 7000
+        </p>
+        <p>
+          <i class="fas fa-phone"></i> +639917263902
+        </p>
+        <p>
+          <i class="fas fa-envelope"></i> raise.wesmin@wmsu.edu.ph
+        </p>
+        <p>
+          <i class="fas fa-clock"></i> Monday-Friday: 8:00 AM - 5:00 PM
+        </p>
       </div>
-      
-      <!-- Contact Information -->
-      <div class="footer-contact">
-          <h3>Contact Us</h3>
-          <div class="contact-info">
-              <p><i class="fas fa-map-marker-alt"></i> Normal Rd., Baliwasa, Zamboanga City</p>
-              <p><i class="fas fa-phone"></i> +63 (2) 8123 4567</p>
-              <p><i class="fas fa-envelope"></i> raise.wesmin@wmsu.edu.ph</p>
-              <p><i class="fas fa-clock"></i> Monday-Friday: 8:00 AM - 5:00 PM</p>
-          </div>
-      </div>
-      
-        <!-- Message to Admin Section (Replaced Newsletter Subscription) -->
-        <div class="footer-subscribe">
-            <h3>Contact Administration</h3>
-            <p>Have questions or suggestions? Reach out to our administration team through our messaging system.</p>
-            <a href="{% url 'appCmi:message' %}" class="message-button">
-                <button type="button">Send Message to Admin</button>
-            </a>
-        </div>
-     </div>
-  
+    </div>
+
+    <!-- Message to Admin Section (Replaced Newsletter Subscription) -->
+    <div class="footer-subscribe">
+      <h3>Contact Administration</h3>
+      <p>Have questions or suggestions? Reach out to our administration team through our messaging system.</p>
+      <a href="{% url 'appCmi:message' %}" class="message-button"><button type="button">Send Message to Admin</button></a>
+    </div>
+  </div>
+
   <!-- Copyright Section -->
   <div class="footer-bottom">
-      <p>&copy; 2025 AANR Knowledge Management System. All Rights Reserved. | Privacy Policy | Terms of Use</p>
+    <p>&copy; 2025 AANR Knowledge Management System. All Rights Reserved. | Privacy Policy | Terms of Use</p>
   </div>
 </footer>

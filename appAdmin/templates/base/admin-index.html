@@ -111,7 +111,6 @@
       }
     </style>
     {% endblock %}
-    <script defer="defer" src="{% static 'main.js' %}"></script>
   </head>
 
   <body class="app">
@@ -276,6 +275,7 @@
     <script src="{% static 'assets/js/leaflet.browser.print.min.js' %}"></script>
     <script src="{% static 'assets/js/Leaflet.BigImage.min.js' %}"></script>
 
+    <script src="{% static "main.js" %}"></script>
     {% block script %}
 
     {% endblock %}

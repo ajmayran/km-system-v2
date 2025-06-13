@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        :root {
+            --primary-color: #0C356A;
+            --sidebar-width: 240px;
+            --sidebar-collapsed: 60px;
+            --header-height: 60px;
+            --border-radius: 12px;
+            --box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            --box-shadow-hover: 0 4px 16px rgba(0,0,0,0.15);
+            --transition: all 0.3s ease;
+        }
+
+        /* Base Layout */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: var(--sidebar-width);
+            background-color: var(--primary-color);
+            transition: var(--transition);
+            z-index: 1000;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed);
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            min-height: var(--header-height);
+        }
+
+        .sidebar-brand {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .sidebar-brand:hover {
+            color: white;
+            text-decoration: none;
+        }
+
+        .sidebar-brand img {
+            width: 35px;
+            height: 35px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            transition: var(--transition);
+        }
+
+        .brand-text .main {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .brand-text .sub {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+        .sidebar.collapsed .brand-text {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .sidebar-nav {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            padding-top: 1rem;
+        }
+
+        .nav-item {
+            margin: 0.25rem 0;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: var(--transition);
+            border-radius: 8px;
+            margin: 0 0.5rem;
+            position: relative;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background-color: white;
+            border-radius: 0 3px 3px 0;
+        }
+
+        .nav-icon {
+            width: 20px;
+            text-align: center;
+            margin-right: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        .sidebar.collapsed .nav-text {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .sidebar.collapsed .nav-icon {
+            margin-right: 0;
+        }
+
+        /* Dropdown */
+        .dropdown-menu {
+            background-color: rgba(255,255,255,0.05);
+            border: none;
+            border-radius: 8px;
+            margin: 0.25rem 0.5rem;
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.3s ease;
+        }
+
+        .dropdown-menu.show {
+            max-height: 300px;
+        }
+
+        .dropdown-item {
+            padding: 0.5rem 1rem 0.5rem 3rem;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            text-decoration: none;
+        }
+
+        .dropdown-arrow {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-toggle.show .dropdown-arrow {
+            transform: rotate(90deg);
+        }
+
+        /* Main Content */
+        .main-wrapper {
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s ease;
+            min-height: 100vh;
+        }
+
+        .main-wrapper.expanded {
+            margin-left: var(--sidebar-collapsed);
+        }
+
+        /* Header */
+        .main-header {
+            background: white;
+            height: var(--header-height);
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .sidebar-toggle:hover {
+            background-color: #f8f9fa;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-box input {
+            border: 1px solid #e9ecef;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            width: 300px;
+            transition: var(--transition);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(12, 53, 106, 0.1);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .notification-badge {
+            position: relative;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .notification-badge:hover {
+            background-color: #f8f9fa;
+        }
+
+        .notification-badge .badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background-color: #dc3545;
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        /* Main Content Area */
+        .main-content {
+            padding: 1.5rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--box-shadow-hover);
+        }
+
+        .stat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: #212529;
+        }
+
+        .stat-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .bg-green { background-color: #d4edda; color: #155724; }
+        .bg-purple { background-color: #e2d9f3; color: #6f42c1; }
+        .bg-blue { background-color: #cce7ff; color: #0056b3; }
+        .bg-red { background-color: #f8d7da; color: #721c24; }
+
+        /* Chart Container */
+        .chart-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .chart-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 0;
+            color: #212529;
+        }
+
+        .chart-stats {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+            color: #212529;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 0.25rem;
+        }
+
+        /* Two Column Layout */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Messages Table */
+        .messages-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .messages-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .messages-table th,
+        .messages-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .messages-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .messages-table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .message-user {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: #212529;
+        }
+
+        .message-date {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-active { background-color: #d4edda; color: #155724; }
+        .status-processing { background-color: #cce7ff; color: #0056b3; }
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-reviewing { background-color: #d1ecf1; color: #0c5460; }
+        .status-completed { background-color: #e2e6ea; color: #383d41; }
+
+        /* Map and Commodities Layout */
+        .map-commodities-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .map-container,
+        .commodities-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            box-shadow: var(--box-shadow);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        #cmi-map {
+            height: 400px;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+        }
+
+        .commodity-item {
+            margin-bottom: 1rem;
+        }
+
+        .commodity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .commodity-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .commodity-percentage {
+            font-size: 0.8rem;
+            color: #6c757d;
+            font-weight: 600;
+        }
+
+        .progress {
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(45deg, #6f42c1, #9c27b0);
+            height: 100%;
+            transition: width 1s ease-in-out;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: var(--sidebar-width);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-wrapper {
+                margin-left: 0;
+            }
+
+            .main-wrapper.expanded {
+                margin-left: 0;
+            }
+
+            .sidebar-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                z-index: 999;
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .sidebar-overlay.show {
+                display: block;
+                opacity: 1;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .map-commodities-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .chart-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .chart-stats {
+                justify-content: space-around;
+                width: 100%;
+            }
+
+            .messages-table {
+                font-size: 0.9rem;
+            }
+
+            .messages-table th,
+            .messages-table td {
+                padding: 0.75rem 0.5rem;
+            }
+
+            #cmi-map {
+                height: 300px;
+            }
+
+            .search-box input {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .main-content {
+                padding: 1rem;
+            }
+
+            .stat-card {
+                padding: 1rem;
+            }
+
+            .chart-container,
+            .messages-container,
+            .map-container,
+            .commodities-container {
+                padding: 1rem;
+            }
+
+            .messages-table th,
+            .messages-table td {
+                padding: 0.5rem 0.25rem;
+            }
+
+            .chart-stats {
+                gap: 1rem;
+            }
+
+            #cmi-map {
+                height: 250px;
+            }
+
+            .search-box {
+                display: none;
+            }
+
+            .header-right {
+                gap: 0.5rem;
+            }
+
+            .stat-value {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        /* Chart Wrapper */
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+        }
+
+        /* Footer */
+        .main-footer {
+            background: white;
+            border-top: 1px solid #e9ecef;
+            padding: 1rem;
+            text-align: center;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        /* Utility Classes */
+        .text-success { color: #28a745 !important; }
+        .text-danger { color: #dc3545 !important; }
+        .text-warning { color: #ffc107 !important; }
+        .text-info { color: #17a2b8 !important; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a1a1a1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="#" class="sidebar-brand">
+                <img src="https://via.placeholder.com/35x35/0C356A/white?text=KM" alt="Logo">
+                <div class="brand-text">
+                    <span class="main">km4aanr</span>
+                    <span class="sub">in Western</span>
+                    <span class="sub">Mindanao</span>
+                </div>
+            </a>
+        </div>
+
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-home nav-icon"></i>
+                    <span class="nav-text">CMI Home</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="fas fa-tachometer-alt nav-icon"></i>
+                    <span class="nav-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-users nav-icon"></i>
+                    <span class="nav-text">Accounts</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-map-marked-alt nav-icon"></i>
+                    <span class="nav-text">Map</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-comments nav-icon"></i>
+                    <span class="nav-text">Resources Post</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-comments nav-icon"></i>
+                    <span class="nav-text">Discussion Modules</span>
+                    <i class="fas fa-chevron-right dropdown-arrow"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">Forum</a>
+                    <a href="#" class="dropdown-item">System Ratings</a>
+                    <a href="#" class="dropdown-item">Messages</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-folder nav-icon"></i>
+                    <span class="nav-text">Resource Modules</span>
+                    <i class="fas fa-chevron-right dropdown-arrow"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">CMI</a>
+                    <a href="#" class="dropdown-item">Commodities</a>
+                    <a href="#" class="dropdown-item">Knowledge Resources</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+                    <i class="fas fa-list nav-icon"></i>
+                    <span class="nav-text">Content Modules</span>
+                    <i class="fas fa-chevron-right dropdown-arrow"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">About</a>
+                    <a href="#" class="dropdown-item">Links</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Wrapper -->
+    <div class="main-wrapper" id="mainWrapper">
+        <!-- Header -->
+        <header class="main-header">
+            <div class="header-left">
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="search-box d-none d-md-block">
+                    <input type="text" class="form-control" placeholder="Search...">
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="notification-badge">
+                    <i class="fas fa-envelope"></i>
+                    <span class="badge">5</span>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" data-bs-toggle="dropdown">
+                        <img src="https://via.placeholder.com/32x32/007bff/white?text=A" alt="User" class="rounded-circle me-2" width="32" height="32">
+                        <span class="d-none d-md-inline">Admin User</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Stats Cards -->
+            <div class="stats-grid fade-in">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h6 class="stat-title">User Accounts</h6>
+                    </div>
+                    <div class="stat-value">1,234</div>
+                    <div class="stat-badge bg-green">Active</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h6 class="stat-title">Commodities</h6>
+                    </div>
+                    <div class="stat-value">89</div>
+                    <div class="stat-badge bg-purple">Total</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h6 class="stat-title">CMI's</h6>
+                    </div>
+                    <div class="stat-value">45</div>
+                    <div class="stat-badge bg-blue">Registered</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <h6 class="stat-title">Knowledge Resources</h6>
+                    </div>
+                    <div class="stat-value">567</div>
+                    <div class="stat-badge bg-red">Available</div>
+                </div>
+            </div>
+
+            <!-- Charts and Messages Grid -->
+            <div class="content-grid fade-in">
+                <!-- Chart Container -->
+                <div class="chart-container">
+                    <div class="chart-header">
+                        <h5 class="chart-title">Forum Posts Monthly Count</h5>
+                        <div class="chart-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">
+                                    248
+                                    <i class="fas fa-arrow-up text-success"></i>
+                                </div>
+                                <div class="stat-label">Total</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">
+                                    12.5%
+                                    <i class="fas fa-arrow-up text-success"></i>
+                                </div>
+                                <div class="stat-label">Average</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-wrapper">
+                        <canvas id="forumChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Messages Container -->
+                <div class="messages-container">
+                    <h5 class="mb-3">Latest Messages</h5>
+                    <div class="table-responsive">
+                        <table class="messages-table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="message-user">John Doe</div>
+                                        <div class="message-date">May 15, 2025 • 10:45 AM</div>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="status-badge status-active">Active</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="message-user">Maria Santos</div>
+                                        <div class="message-date">May 14, 2025 • 3:22 PM</div>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="status-badge status-processing">Processing</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="message-user">Alex Rodriguez</div>
+                                        <div class="message-date">May 13, 2025 • 9:15 AM</div>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="status-badge status-pending">Pending</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="message-user">Lisa Tan</div>
+                                        <div class="message-date">May 12, 2025 • 2:30 PM</div>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="status-badge status-reviewing">Reviewing</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="message-user">Ryan Martinez</div>
+                                        <div class="message-date">May 11, 2025 • 11:05 AM</div>
+                                    </td>
+                                    <td class="text-end">
+                                        <span class="status-badge status-completed">Completed</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map and Commodities Grid -->
+            <div class="map-commodities-grid fade-in">
+                <!-- Map Container -->
+                <div class="map-container">
+                    <h5 class="mb-3">Consortium Member Institution (CMI) Map</h5>
+                    <div id="cmi-map"></div>
+                </div>
+
+                <!-- Top Commodities -->
+                <div class="commodities-container">
+                    <h5 class="mb-3">Top 10 Tagged Commodities</h5>
+                    <div class="commodities-list">
+                        <div class="commodity-item">
+                            <div class="commodity-header">
+                                <span class="commodity-name">Rice</span>
+                                <span class="commodity-percentage">85%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div class="commodity-item">
+                            <div class="commodity-header">
+                                <span class="commodity-name">Corn</span>
+                                <span class="commodity-percentage">72%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 72%"></div>
+                            </div>
+                        </div>
+                        <div class="commodity-item">
+                            <div class="commodity-header">
+                                <span class="commodity-name">Coconut</span>
+                                <span class="commodity-percentage">68%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 68%"></div>
+                            </div>
+                        </div>
+                        <div class="commodity-item">
+                            <div class="commodity-header">
+                                <span class="commodity-name">Banana</span>
+                                <span class="commodity-percentage">65%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        <div class="commodity-item">
+                            <div class="commodity-header">
+                                <span class="commodity-name">Sugarcane</span>
+                                <span class="commodity-percentage">58%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 58%"></div>
+                            </div>
+                        </div>
+                        <div class="commodity-item">
+                            <div class="commodity-header">
+                                <span class="commodity-name">Mango</span>
+                                <span class="commodity-percentage">45%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div class="commodity-item">
+                            <div class="commodity-header">
+                                <span class="commodity-name">Coffee</span>
+                                <span class="commodity-percentage">38%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 38%"></div>
+                            </div>
+                        </div>
+                        <div class="commodity-item">
+                            <div class="commodity-header">
+                                <span class="commodity-name">Cacao</span>
+                                <span class="commodity-percentage">32%</span>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar" style="width: 32%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <span>Copyright © 2024 Developed by <a href="#" target="_blank" rel="nofollow noopener noreferrer" title="KM">KM Team</a>. All rights reserved.</span>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById('sidebar');
+        const mainWrapper = document.getElementById('mainWrapper');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function toggleSidebar() {
+            if (window.innerWidth <= 768) {
+                // Mobile behavior
+                sidebar.classList.toggle('show');
+                sidebarOverlay.classList.toggle('show');
+                document.body.style.overflow = sidebar.classList.contains('show') ? 'hidden' : '';
+            } else {
+                // Desktop behavior
+                sidebar.classList.toggle('collapsed');
+                mainWrapper.classList.toggle('expanded');
+                
+                // Store the collapsed state in localStorage
+                localStorage.setItem('sidebarCollapsed', sidebar.classList.contains('collapsed'));
+            }
+        }
+
+        // Initialize sidebar state from localStorage
+        window.addEventListener('DOMContentLoaded', () => {
+            const isCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (isCollapsed && window.innerWidth > 768) {
+                sidebar.classList.add('collapsed');
+                mainWrapper.classList.add('expanded');
+            }
+        });
+
+        sidebarToggle.addEventListener('click', toggleSidebar);
+
+        // Close sidebar when overlay is clicked (mobile)
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('show');
+            sidebarOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('show');
+                sidebarOverlay.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Dropdown functionality
+        document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+            toggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const dropdownMenu = this.nextElementSibling;
+                const isShown = dropdownMenu.classList.contains('show');
+                
+                // Close all dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                    toggle.classList.remove('show');
+                });
+                
+                // Toggle current dropdown
+                if (!isShown) {
+                    dropdownMenu.classList.add('show');
+                    this.classList.add('show');
+                }
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-item')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+                    toggle.classList.remove('show');
+                });
+            }
+        });
+
+        // Initialize Chart
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('forumChart');
+            if (ctx) {
+                const chartContext = ctx.getContext('2d');
+                
+                // Sample data - replace with your actual data
+                const monthLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                const postCounts = [12, 19, 15, 25, 22, 30, 28, 35, 40, 45, 38, 42];
+                
+                new Chart(chartContext, {
+                    type: 'line',
+                    data: {
+                        labels: monthLabels,
+                        datasets: [{
+                            label: 'Forum Posts',
+                            data: postCounts,
+                            borderColor: '#3e95cd',
+                            backgroundColor: 'rgba(62, 149, 205, 0.1)',
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            pointBackgroundColor: '#3e95cd',
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 2,
+                            pointRadius: 5,
+                            pointHoverRadius: 8,
+                            pointHoverBackgroundColor: '#3e95cd',
+                            pointHoverBorderColor: '#fff',
+                            pointHoverBorderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                backgroundColor: 'rgba(0,0,0,0.8)',
+                                titleColor: 'white',
+                                bodyColor: 'white',
+                                borderColor: '#3e95cd',
+                                borderWidth: 1,
+                                cornerRadius: 8,
+                                displayColors: false,
+                                callbacks: {
+                                    title: function(tooltipItems) {
+                                        return tooltipItems[0].label + ' 2025';
+                                    },
+                                    label: function(context) {
+                                        return 'Posts: ' + context.parsed.y;
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    precision: 0,
+                                    color: '#6c757d'
+                                },
+                                grid: {
+                                    color: 'rgba(0,0,0,0.05)',
+                                    drawBorder: false
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#6c757d'
+                                },
+                                grid: {
+                                    display: false,
+                                    drawBorder: false
+                                }
+                            }
+                        },
+                        interaction: {
+                            intersect: false,
+                            mode: 'index'
+                        }
+                    }
+                });
+            }
+
+            // Initialize Map
+            initializeMap();
+
+            // Add fade-in animation to elements as they come into view
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all fade-in elements
+            document.querySelectorAll('.fade-in').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+
+        function initializeMap() {
+            const mapElement = document.getElementById('cmi-map');
+            if (!mapElement) return;
+
+            try {
+                // Initialize the map centered on the Philippines
+                const map = L.map('cmi-map').setView([12.099740, 122.244865], 6);
+                
+                // Add the OpenStreetMap tiles
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    maxZoom: 19,
+                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                }).addTo(map);
+                
+                // Sample CMI locations - replace with your actual data
+                const cmiLocations = [
+                    {
+                        name: "Western Mindanao State University",
+                        lat: 6.9214,
+                        lng: 122.0790,
+                        address: "Zamboanga City, Philippines"
+                    },
+                    {
+                        name: "Mindanao State University",
+                        lat: 8.1553,
+                        lng: 124.2135,
+                        address: "Marawi City, Philippines"
+                    },
+                    {
+                        name: "University of Southern Philippines",
+                        lat: 6.1164,
+                        lng: 125.1716,
+                        address: "Davao City, Philippines"
+                    },
+                    {
+                        name: "Ateneo de Zamboanga University",
+                        lat: 6.9095,
+                        lng: 122.0736,
+                        address: "Zamboanga City, Philippines"
+                    },
+                    {
+                        name: "Notre Dame University",
+                        lat: 7.0731,
+                        lng: 125.6128,
+                        address: "Cotabato City, Philippines"
+                    }
+                ];
+                
+                // Add markers for each CMI
+                const markers = [];
+                cmiLocations.forEach(cmi => {
+                    const marker = L.marker([cmi.lat, cmi.lng]).addTo(map);
+                    marker.bindPopup(`
+                        <div class="popup-content">
+                            <h6 class="mb-2">${cmi.name}</h6>
+                            <p class="mb-0 small text-muted">${cmi.address}</p>
+                        </div>
+                    `);
+                    markers.push(marker);
+                });
+                
+                // Add scale control
+                L.control.scale({
+                    position: 'bottomright',
+                    imperial: false
+                }).addTo(map);
+
+                // Fit bounds to show all markers
+                if (markers.length > 0) {
+                    const group = new L.featureGroup(markers);
+                    map.fitBounds(group.getBounds().pad(0.1));
+                }
+
+                // Handle map resize on sidebar toggle
+                const resizeMap = () => {
+                    setTimeout(() => {
+                        map.invalidateSize();
+                    }, 300);
+                };
+
+                sidebarToggle.addEventListener('click', resizeMap);
+                window.addEventListener('resize', resizeMap);
+
+            } catch (error) {
+                console.error('Error initializing map:', error);
+                mapElement.innerHTML = '<div class="d-flex align-items-center justify-content-center h-100 text-muted">Map could not be loaded</div>';
+            }
+        }
+
+        // Animate progress bars on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.progress-bar').forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    bar.style.transition = 'width 1s ease-in-out';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 500);
+        });
+
+        // Add hover effects to stat cards
+        document.querySelectorAll('.stat-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px)';
+                this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
+            });
+        });
+
+        // Search functionality
+        const searchInput = document.querySelector('.search-box input');
+        if (searchInput) {
+            searchInput.addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                // Implement search logic here
+                console.log('Searching for:', searchTerm);
+                
+                // Example: Filter sidebar navigation
+                const navItems = document.querySelectorAll('.nav-text');
+                navItems.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    const navItem = item.closest('.nav-item');
+                    if (text.includes(searchTerm) || searchTerm === '') {
+                        navItem.style.display = 'block';
+                    } else {
+                        navItem.style.display = 'none';
+                    }
+                });
+            });
+        }
+
+        // Notification badge animation
+        const notificationBadge = document.querySelector('.notification-badge');
+        if (notificationBadge) {
+            notificationBadge.addEventListener('click', function() {
+                const badge = this.querySelector('.badge');
+                badge.style.animation = 'pulse 0.5s ease';
+                setTimeout(() => {
+                    badge.style.animation = '';
+                }, 500);
+                
+                // Example: Show notification dropdown
+                console.log('Notification clicked');
+            });
+        }
+
+        // Real-time updates simulation
+        function simulateRealTimeUpdates() {
+            // Update notification count randomly
+            const badge = document.querySelector('.notification-badge .badge');
+            if (badge) {
+                setInterval(() => {
+                    const currentCount = parseInt(badge.textContent);
+                    const newCount = Math.max(0, currentCount + Math.floor(Math.random() * 3) - 1);
+                    badge.textContent = newCount;
+                    
+                    if (newCount > currentCount) {
+                        badge.style.animation = 'pulse 0.5s ease';
+                        setTimeout(() => {
+                            badge.style.animation = '';
+                        }, 500);
+                    }
+                }, 30000); // Update every 30 seconds
+            }
+        }
+
+        // Initialize real-time updates
+        simulateRealTimeUpdates();
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + B to toggle sidebar
+            if ((e.ctrlKey || e.metaKey) && e.key === 'b') {
+                e.preventDefault();
+                toggleSidebar();
+            }
+            
+            // Escape to close dropdowns
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.dropdown-menu.show').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.dropdown-toggle.show').forEach(toggle => {
+                    toggle.classList.remove('show');
+                });
+                
+                // Close mobile sidebar
+                if (sidebar.classList.contains('show')) {
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+
+        // Dark mode toggle (optional)
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Initialize dark mode from localStorage
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Error handling for failed requests
+        window.addEventListener('error', function(e) {
+            console.error('An error occurred:', e.error);
+        });
+
+        // Performance monitoring
+        window.addEventListener('load', function() {
+            if ('performance' in window) {
+                const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+                console.log('Page load time:', loadTime + 'ms');
+            }
+        });
+    </script>
+
+    <!-- Custom Popup Styles -->
+    <style>
+        .popup-content h6 {
+            color: #0C356A;
+            font-weight: 600;
+        }
+        
+        .leaflet-popup-content-wrapper {
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Dark mode styles (optional) */
+        .dark-mode {
+            background-color: #1a1a1a;
+            color: #e9ecef;
+        }
+
+        .dark-mode .main-header,
+        .dark-mode .stat-card,
+        .dark-mode .chart-container,
+        .dark-mode .messages-container,
+        .dark-mode .map-container,
+        .dark-mode .commodities-container {
+            background-color: #2d2d2d;
+            border-color: #404040;
+        }
+
+        .dark-mode .main-footer {
+            background-color: #2d2d2d;
+            border-color: #404040;
+        }
+    </style>
+</body>
+</html>

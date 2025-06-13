@@ -8,7 +8,7 @@ from django.contrib import messages
 from appAdmin.models import Commodity
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.db.models import Count, Q
 from utils.user_control import user_access_required
 
 logger = logging.getLogger(__name__)
@@ -24,28 +24,56 @@ def cmi_forum(request):
     commodities = models.get("commodities", [])
     knowledge_resources = models.get("knowledge_resources", [])
 
-    # Get all forums for display
-    forums = Forum.objects.all().order_by("-date_posted")
+    # Get all forums for display with annotations for counts
+    forums = Forum.objects.annotate(
+        total_likes=Count("likes"),
+        comments_count=Count("post_comments", filter=Q(post_comments__status="active")),
+    ).order_by("-date_posted")
+
+    # Add like status for each forum if user is authenticated
+    if request.user.is_authenticated:
+        for forum in forums:
+            forum.is_liked_by = forum.likes.filter(id=request.user.id).exists()
+            forum.is_bookmarked_by = forum.bookmark.filter(id=request.user.id).exists()
 
     # Get popular forums based on like count
-    # Using annotate to count likes and order by that count
-    popular_forums = Forum.objects.annotate(like_count=Count("likes")).order_by(
-        "-like_count"
-    )[
-        :10
-    ]  # Limiting to top 5, adjust as needed
+    popular_forums = Forum.objects.annotate(
+        like_count=Count("likes"),
+        comments_count=Count("post_comments", filter=Q(post_comments__status="active")),
+    ).order_by("-like_count")[:10]
 
-    # Get posts created by the logged-in user
+    # Add like status for popular forums if user is authenticated
+    if request.user.is_authenticated:
+        for forum in popular_forums:
+            forum.is_liked_by = forum.likes.filter(id=request.user.id).exists()
+            forum.is_bookmarked_by = forum.bookmark.filter(id=request.user.id).exists()
+
+    # Get posts created by the logged-in user with counts
     logged_in_user = request.user
-    user_forums = Forum.objects.filter(author=logged_in_user).order_by("-date_posted")
+    user_forums = (
+        Forum.objects.annotate(
+            total_likes=Count("likes"),
+            comments_count=Count(
+                "post_comments", filter=Q(post_comments__status="active")
+            ),
+        )
+        .filter(author=logged_in_user)
+        .order_by("-date_posted")
+    )
+
+    # Add like status for user forums if user is authenticated
+    if request.user.is_authenticated:
+        for forum in user_forums:
+            forum.is_liked_by = forum.likes.filter(id=request.user.id).exists()
+            forum.is_bookmarked_by = forum.bookmark.filter(id=request.user.id).exists()
 
     context = {
         "commodities": commodities,
         "useful_links": useful_links,
         "knowledge_resources": knowledge_resources,
         "forums": forums,
-        "user_forums": user_forums,  # Add the user's forums to the context
-        "popular_forums": popular_forums,  # Add popular forums to the context
+        "user_forums": user_forums,
+        "popular_forums": popular_forums,
     }
 
     return render(request, "pages/cmi-forum.html", context)

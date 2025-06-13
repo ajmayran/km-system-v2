@@ -2,177 +2,164 @@
 <header>
   <nav class="navbar">
     <div class="inner_navbar">
-      <!-- Logo Section -->
-      <div class="logo-container">
-        <a href="{% url 'appCmi:home' %}">
-          <img src="{% static 'assets/images/RAISE-Logo.png' %}" alt="RAISE Logo" class="navbar-logo-raise" />
-        </a>
+      <!-- Desktop Logo (visible only on desktop) -->
+      <a href="{% url 'appCmi:home' %}" class="desktop-logo desktop-menu">
+        <img src="{% static 'assets/images/RAISE-Logo.png' %}" alt="RAISE Logo" class="navbar-logo-raise" />
         <div class="text-container">
           <h1 class="t1">km4aanr</h1>
           <h3 class="t2">in WESTERN MINDANAO</h3>
         </div>
+      </a>
+
+      <!-- Mobile Header (visible only on mobile) -->
+      <div class="mobile-header">
+        <a href="{% url 'appCmi:home' %}" class="logo-container">
+          <img src="{% static 'assets/images/RAISE-Logo.png' %}" alt="RAISE Logo" class="navbar-logo-raise" />
+          <div class="text-container">
+            <h1 class="t1">km4aanr</h1>
+            <h3 class="t2">in WESTERN MINDANAO</h3>
+          </div>
+        </a>
+        <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
 
-      <!-- Center Navigation -->
-      <div class="navbar-center">
+      <!-- Desktop Menu -->
+      <div class="navbar-center desktop-menu">
         <ul>
-          <li>
-            <a href="{% url 'appCmi:home' %}">Home</a>
-          </li>
-          <li>
-            <a href="{% url 'appCmi:cmi-about' %}">About</a>
-          </li>
+          <li><a href="{% url 'appCmi:home' %}">Home</a></li>
+          <li><a href="{% url 'appCmi:cmi-about' %}">About</a></li>
+          
+          <!-- Useful Links Dropdown -->
           <li>
             <div class="dropdown">
-              <a class="dropdown-fa-toggle-down" id="dropdownLinks" data-toggle="dropdown" aria-haspopup="true">
-                Useful Links <i class="fa-solid fa-circle-chevron-down"></i>
+              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
+                Useful Links 
+                <i class="fa-solid fa-circle-chevron-down"></i>
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownLinks" id="useful-links-container">
+              <div class="dropdown-menu" role="menu">
                 {% if useful_links %}
-                {% for link in useful_links %}
-                <a href="{{link.link}}" class="dropdown-item" target="_blank">{{link.link_title}}</a>
-                {% endfor %}
+                  {% for link in useful_links %}
+                    <a href="{{ link.link }}" class="dropdown-item" target="_blank" rel="noopener noreferrer" role="menuitem">{{ link.link_title }}</a>
+                  {% endfor %}
                 {% else %}
-                <a href="#" class="dropdown-item">No Links Yet</a>
+                  <a href="#" class="dropdown-item" role="menuitem">No Links Yet</a>
                 {% endif %}
               </div>
             </div>
           </li>
+          
+          <!-- Commodities Dropdown -->
           <li>
             <div class="dropdown">
-              <a class="dropdown-fa-toggle-down" id="dropdownCommodities" data-toggle="dropdown" aria-haspopup="true">
-                Commodities <i class="fa-solid fa-circle-chevron-down"></i>
+              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
+                Commodities 
+                <i class="fa-solid fa-circle-chevron-down"></i>
               </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownCommodities" id="commodities-container">
-                <a href="{% url "appCmi:all-commodities" %}" class="dropdown-item">All Commodities</a>
-
+              <div class="dropdown-menu" role="menu">
+                <a href="{% url 'appCmi:all-commodities' %}" class="dropdown-item" role="menuitem">All Commodities</a>
                 {% if commodities %}
-                {% for commodity in commodities %}
-                <a href="{% url "appCmi:display-commodity" commodity.slug %}" class="dropdown-item">{{commodity.commodity_name}}</a>
-                {% endfor %}
+                  {% for commodity in commodities %}
+                    <a href="{% url 'appCmi:display-commodity' commodity.slug %}" class="dropdown-item" role="menuitem">{{ commodity.commodity_name }}</a>
+                  {% endfor %}
                 {% else %}
-                <a href="#" class="dropdown-item">No Commodities Yet</a>
+                  <a href="#" class="dropdown-item" role="menuitem">No Commodities Yet</a>
                 {% endif %}
               </div>
             </div>
           </li>
-          <li>
-            <a href="{% url "appCmi:cmi-forum" %}">Forum</a>
-          </li>
-          <li>
-            <a href="{% url 'appCmi:all-knowledge-resources' %}">Knowledge Resources</a>
-            {% comment %} <div class="dropdown">
-              <a class="dropdown-fa-toggle-down" id="dropdownResources" data-toggle="dropdown" aria-haspopup="true">
-                Knowledge Resources <i class="fa-solid fa-circle-chevron-down"></i>
-              </a>
-              <div class="dropdown-menu" aria-labelledby="dropdownResources" id="resources-container">
-                <a href="{% url 'appCmi:all-knowledge-resources' %}" class="dropdown-item">All Knowledge Resources</a>
-                {% if knowledge_resources %}
-                {% for knowledge in knowledge_resources %}
-                <a href="#" class="dropdown-item">{{knowledge.knowledge_title}}</a>
-                {% endfor %}
-                {% else %}
-                <a href="#" class="dropdown-item">No Knowledge Resources Yet</a>
-                {% endif %}
-              </div>
-            </div> {% endcomment %}
-          </li>
+          
+          <li><a href="{% url 'appCmi:cmi-forum' %}">Forum</a></li>
+          <li><a href="{% url 'appCmi:all-knowledge-resources' %}">Knowledge Resources</a></li>
         </ul>
       </div>
 
-      <!-- Right Section (Profile Dropdown) -->
-      <div class="navbar-right">
+      <!-- Profile Dropdown (Desktop) -->
+      <div class="navbar-right desktop-menu">
         <div class="dropdown">
-          <a class="dropdown-fa-toggle-down profile-toggle" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true">
-            <img src="{% static 'assets/images/default_profile.png' %}" alt="Profile" class="profile-image">
+          <a href="#" class="profile-toggle" role="button" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
+            <img src="{% static 'assets/images/default_profile.png' %}" alt="Profile" class="profile-image" />
           </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
-            <a class="dropdown-item" href="{% url "appCmi:cmi-profile" %}">
+          <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item" href="{% url 'appCmi:cmi-profile' %}" role="menuitem">
               <i class="fas fa-user"></i> Profile
             </a>
+            {% if user.user_type == 'admin' %}
+              <a class="dropdown-item" href="{% url 'appAdmin:dashboard' %}" role="menuitem">
+                <i class="fas fa-shield-alt"></i> Admin Dashboard
+              </a>
+            {% endif %}
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'appAccounts:logout' %}">
+            <a class="dropdown-item" href="{% url 'appAccounts:logout' %}" role="menuitem">
               <i class="fas fa-sign-out-alt"></i> Logout
             </a>
           </div>
         </div>
       </div>
-
-      <!-- Hamburger Menu -->
-      <button class="hamburger">
-        <i class="fas fa-bars"></i>
-      </button>
     </div>
 
     <!-- Mobile Menu -->
-    <div class="mobileView" id="mobileView">
-      <ul>
-        <li><a href="{% url 'appCmi:home' %}">Home</a></li>
-        <li><a href="{% url 'appCmi:cmi-about' %}">About</a></li>
-        <li>
-          <div class="dropdown">
-            <a class="dropdown-fa-toggle-down" id="mobileDropdownLinks" data-toggle="dropdown" aria-haspopup="true">
-              Useful Links <i class="fa-solid fa-circle-chevron-down"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="mobileDropdownLinks">
-              {% if useful_links %}
-              {% for link in useful_links %}
-              <a href="#" class="dropdown-item">{{link.link_title}}</a>
-              {% endfor %}
-              {% else %}
-              <a href="#" class="dropdown-item">No Links Yet</a>
-              {% endif %}
-            </div>
-          </div>
-        </li>
-        <li>
-          <div class="dropdown">
-            <a class="dropdown-fa-toggle-down" id="mobileDropdownCommodities" data-toggle="dropdown" aria-haspopup="true">
-              Commodities <i class="fa-solid fa-circle-chevron-down"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="mobileDropdownCommodities">
-              {% if commodities %}
-              {% for commodity in commodities %}
-              <a href="#" class="dropdown-item">{{commodity.commodity_name}}</a>
-              {% endfor %}
-              {% else %}
-              <a href="#" class="dropdown-item">No Commodities Yet</a>
-              {% endif %}
-            </div>
-          </div>
-        </li>
-        <li><a href="{% url 'appCmi:cmi-forum' %}">Forum</a></li>
-        <li>
-          <div class="dropdown">
-            <a class="dropdown-fa-toggle-down" id="mobileDropdownResources" data-toggle="dropdown" aria-haspopup="true">
-              Knowledge Resources <i class="fa-solid fa-circle-chevron-down"></i>
-            </a>
-            <div class="dropdown-menu" aria-labelledby="mobileDropdownResources">
-              {% if knowledge_resources %}
-              {% for knowledge in knowledge_resources %}
-              <a href="#" class="dropdown-item">{{knowledge.knowledge_title}}</a>
-              {% endfor %}
-              {% else %}
-              <a href="#" class="dropdown-item">No Knowledge Resources Yet</a>
-              {% endif %}
-            </div>
-          </div>
-        </li>
-        <!-- Mobile Profile Section -->
-        <li class="mobile-profile-section">
-          <div class="mobile-profile-header">
-            <img src="{% static 'assets/images/default_profile.png' %}" alt="Profile" class="mobile-profile-image">
-            <span>User Profile</span>
-          </div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-user"></i> Profile
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="{% url 'appAccounts:logout' %}" class="dropdown-item">
-            <i class="fas fa-sign-out-alt"></i> Logout
-          </a>
-        </li>
-      </ul>
-    </div>
+    <nav class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+      <a href="{% url 'appCmi:home' %}">
+        <i class="fas fa-home"></i> Home
+      </a>
+      <a href="{% url 'appCmi:cmi-about' %}">
+        <i class="fas fa-info-circle"></i> About
+      </a>
+      
+      <!-- Mobile Useful Links Dropdown -->
+      <div class="mobile-dropdown">
+        <button class="mobile-dropdown-toggle" aria-expanded="false" aria-controls="mobile-useful-links">
+          <span><i class="fas fa-link"></i> Useful Links</span>
+          <i class="fas fa-chevron-down mobile-dropdown-icon"></i>
+        </button>
+        <div class="mobile-dropdown-content" id="mobile-useful-links">
+          {% if useful_links %}
+            {% for link in useful_links %}
+              <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">{{ link.link_title }}</a>
+            {% endfor %}
+          {% else %}
+            <a href="#">No Links Yet</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Mobile Commodities Dropdown -->
+      <div class="mobile-dropdown">
+        <button class="mobile-dropdown-toggle" aria-expanded="false" aria-controls="mobile-commodities">
+          <span><i class="fas fa-seedling"></i> Commodities</span>
+          <i class="fas fa-chevron-down mobile-dropdown-icon"></i>
+        </button>
+        <div class="mobile-dropdown-content" id="mobile-commodities">
+          <a href="{% url 'appCmi:all-commodities' %}">All Commodities</a>
+          {% if commodities %}
+            {% for commodity in commodities %}
+              <a href="{% url 'appCmi:display-commodity' commodity.slug %}">{{ commodity.commodity_name }}</a>
+            {% endfor %}
+          {% else %}
+            <a href="#">No Commodities Yet</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <a href="{% url 'appCmi:cmi-forum' %}">
+        <i class="fas fa-comments"></i> Forum
+      </a>
+      <a href="{% url 'appCmi:all-knowledge-resources' %}">
+        <i class="fas fa-book"></i> Knowledge Resources
+      </a>
+      <a href="{% url 'appCmi:cmi-profile' %}">
+        <i class="fas fa-user"></i> Profile
+      </a>
+      {% if user.user_type == 'admin' %}
+        <a href="{% url 'appAdmin:dashboard' %}">
+          <i class="fas fa-shield-alt"></i> Admin Dashboard
+        </a>
+      {% endif %}
+      <a href="{% url 'appAccounts:logout' %}">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </nav>
   </nav>
 </header>
