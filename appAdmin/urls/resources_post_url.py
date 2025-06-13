@@ -22,6 +22,11 @@ urlpatterns = (
             resources_post_view.admin_edit_resources_post,
             name="update-resources-post",
         ),
+        path(
+            "delete-resources-post/<str:slug>/",
+            resources_post_view.admin_delete_resources_post,
+            name="delete-resources-post",
+        ),
     ]
     + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

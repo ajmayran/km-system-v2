@@ -87,16 +87,16 @@
                     <p class="forum-question-text">{{ forum.forum_question|linebreaksbr|safe }}</p>
                   </div>
                   <div class="post-interactions">
-                    <div class="interaction-item">
-                      <i class="far fa-thumbs-up"></i>
-                      <span class="interaction-count">24</span>
+                    <div class="interaction-item like-button" data-slug="{{ forum.slug }}" onclick="toggleLike(this)">
+                      <i class="far fa-thumbs-up{% if forum.is_liked_by %} liked-icon{% endif %}"></i>
+                      <span class="interaction-count">{{ forum.total_likes|default:'0' }}</span>
                     </div>
-                    <div class="interaction-item">
+                    <div class="interaction-item" onclick="window.location.href='{% url 'appCmi:display-forum' slug=forum.slug %}'">
                       <i class="far fa-comment-dots"></i>
-                      <span class="interaction-count">18</span>
+                      <span class="interaction-count">{{ forum.comments_count|default:'0' }}</span>
                     </div>
-                    <div class="interaction-item">
-                      <i class="far fa-bookmark"></i>
+                    <div class="interaction-item bookmark-button" data-slug="{{ forum.slug }}" onclick="toggleBookmark(this)">
+                      <i class="far fa-bookmark{% if forum.is_bookmarked_by %} bookmarked-icon{% endif %}"></i>
                       <span>Save</span>
                     </div>
                     <div class="interaction-item">
@@ -137,16 +137,16 @@
                     <p class="forum-question-text">{{ forum.forum_question|linebreaksbr|safe }}</p>
                   </div>
                   <div class="post-interactions">
-                    <div class="interaction-item">
-                      <i class="far fa-thumbs-up"></i>
-                      <span class="interaction-count">24</span>
+                    <div class="interaction-item like-button" data-slug="{{ forum.slug }}" onclick="toggleLike(this)">
+                      <i class="far fa-thumbs-up{% if forum.is_liked_by %} liked-icon{% endif %}"></i>
+                      <span class="interaction-count">{{ forum.total_likes|default:'0' }}</span>
                     </div>
-                    <div class="interaction-item">
+                    <div class="interaction-item" onclick="window.location.href='{% url 'appCmi:display-forum' slug=forum.slug %}'">
                       <i class="far fa-comment-dots"></i>
-                      <span class="interaction-count">18</span>
+                      <span class="interaction-count">{{ forum.comments_count|default:'0' }}</span>
                     </div>
-                    <div class="interaction-item">
-                      <i class="far fa-bookmark"></i>
+                    <div class="interaction-item bookmark-button" data-slug="{{ forum.slug }}" onclick="toggleBookmark(this)">
+                      <i class="far fa-bookmark{% if forum.is_bookmarked_by %} bookmarked-icon{% endif %}"></i>
                       <span>Save</span>
                     </div>
                     <div class="interaction-item">
@@ -186,16 +186,16 @@
                     <p class="forum-question-text">{{ forum.forum_question|linebreaksbr|safe }}</p>
                   </div>
                   <div class="post-interactions">
-                    <div class="interaction-item">
-                      <i class="far fa-thumbs-up"></i>
+                    <div class="interaction-item like-button" data-slug="{{ forum.slug }}" onclick="toggleLike(this)">
+                      <i class="far fa-thumbs-up{% if forum.is_liked_by %} liked-icon{% endif %}"></i>
                       <span class="interaction-count">{{ forum.total_likes|default:'0' }}</span>
                     </div>
-                    <div class="interaction-item">
+                    <div class="interaction-item" onclick="window.location.href='{% url 'appCmi:display-forum' slug=forum.slug %}'">
                       <i class="far fa-comment-dots"></i>
                       <span class="interaction-count">{{ forum.comments_count|default:'0' }}</span>
                     </div>
-                    <div class="interaction-item">
-                      <i class="far fa-bookmark"></i>
+                    <div class="interaction-item bookmark-button" data-slug="{{ forum.slug }}" onclick="toggleBookmark(this)">
+                      <i class="far fa-bookmark{% if forum.is_bookmarked_by %} bookmarked-icon{% endif %}"></i>
                       <span>Save</span>
                     </div>
                     <div class="interaction-item">
@@ -644,6 +644,79 @@
     document.addEventListener('DOMContentLoaded', function () {
       initSearchFunctionality()
     })
+
+    // Function to handle like toggling for icon-based UI
+    async function toggleLike(element) {
+      const slug = element.dataset.slug
+      const icon = element.querySelector('i')
+      const countSpan = element.querySelector('.interaction-count')
+      try {
+        const response = await fetch(`/cmi/forum/${slug}/like/`, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json'
+          }
+        })
+        const data = await response.json()
+        if (data.success) {
+          // Toggle icon color
+          if (data.is_liked) {
+            icon.classList.add('liked-icon')
+          } else {
+            icon.classList.remove('liked-icon')
+          }
+          // Update count
+          countSpan.textContent = data.total_likes
+          showNotification(data.is_liked ? 'Post liked!' : 'Post unliked!', 'success')
+        }
+      } catch (error) {
+        showNotification('Error updating like status', 'error')
+      }
+    }
+
+    // Function to handle bookmark toggling for icon-based UI
+    async function toggleBookmark(element) {
+      const slug = element.dataset.slug
+      const icon = element.querySelector('i')
+      try {
+        const response = await fetch(`/cmi/forum/${slug}/bookmark/`, {
+          method: 'POST',
+          headers: {
+            'X-CSRFToken': getCookie('csrftoken'),
+            'Content-Type': 'application/json'
+          }
+        })
+        const data = await response.json()
+        if (data.success) {
+          // Toggle icon color
+          if (data.is_bookmarked) {
+            icon.classList.add('bookmarked-icon')
+          } else {
+            icon.classList.remove('bookmarked-icon')
+          }
+          showNotification(data.is_bookmarked ? 'Post bookmarked!' : 'Post unbookmarked!', 'success')
+        }
+      } catch (error) {
+        showNotification('Error updating bookmark status', 'error')
+      }
+    }
+
+    // Helper function to get CSRF token
+    function getCookie(name) {
+      let cookieValue = null
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';')
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim()
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
+            break
+          }
+        }
+      }
+      return cookieValue
+    }
   </script>
   <script src="{% static 'style/js/cmi-forum.js' %}"></script>
 {% endblock %}

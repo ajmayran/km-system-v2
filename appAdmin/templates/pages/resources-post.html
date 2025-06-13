@@ -1,5 +1,6 @@
 {% extends 'base/admin-index.html' %}
 {% load static %}
+{% load custom_filters %}
 {% block title %}
   Admin Knowledge Management
 {% endblock %}
@@ -260,7 +261,7 @@
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="resource-type publication">{{ resource }}</span></td>
+                            <td><span class="resource-type publication">{{ resource.resource_type|get_knowledge_title }}</span></td>
                             <td>{{resource.created_at}}</td>
                             <td>
                                 {% if resource.is_approved %}
@@ -272,16 +273,14 @@
                                 {% endif %}
                             </td>
                             <td class="action-buttons">
-                                <button class="btn btn-sm btn-outline-primary" onclick="viewResource('pub-001')">
+                                <button class="btn btn-sm btn-outline-primary" onclick="viewResource('{{ resource.slug }}')">
                                     <i class="fas fa-eye"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-warning" onclick="editResource('pub-001')">
-                                    <i class="fas fa-edit"></i>
+                            
+                                <button class="btn btn-sm btn-outline-success" onclick="confirmStatusUpdate('{{ resource.slug }}', '{{ resource.is_approved }}')">
+                                    <i class="fas {% if resource.is_approved %}fas fa-edit{% else %}fas fa-edit{% endif %}"></i>
                                 </button>
-                                <button class="btn btn-sm btn-outline-success" onclick="toggleFeatured('pub-001')">
-                                    <i class="far fa-star"></i>
-                                </button>
-                                <button class="btn btn-sm btn-outline-danger" onclick="confirmDelete('pub-001')">
+                                <button onclick="confirmDelete('{{ resource.slug }}')" class="btn btn-sm btn-outline-danger">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </td>
@@ -320,6 +319,94 @@
 {% block script %}
 <script src="{% static 'style/js/admin.resource-post.js' %}"></script>
 <script src="{% static 'style/js/admin.resource-post-control.js' %}"></script>
+
+<script>
+function confirmStatusUpdate(slug, currentStatus) {
+    const newStatus = currentStatus === 'True' ? 'pending' : 'approved';
+    const statusText = newStatus === 'approved' ? 'Approve' : 'Set to Pending';
+    
+    Swal.fire({
+        title: 'Update Status',
+        text: `Are you sure you want to ${statusText} this resource?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: `Yes, ${statusText}!`
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Send AJAX request to update status
+            fetch("{% url 'appAdmin:update-resources-post' slug=0 %}".replace('0', slug), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({
+                    status: newStatus
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: `Resource has been ${newStatus}!`,
+                        icon: 'success'
+                    }).then(() => {
+                        window.location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: data.error || 'Failed to update status',
+                        icon: 'error'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error!',
+                    text: 'An error occurred while updating status',
+                    icon: 'error'
+                });
+            });
+        }
+    });
+}
+
+function confirmDelete(slug) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "{% url 'appAdmin:delete-resources-post' slug=0 %}".replace('0', slug);
+        }
+    });
+}
+
+// Function to get CSRF token from cookies
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
 
 {% if messages %}
 {% for message in messages %}

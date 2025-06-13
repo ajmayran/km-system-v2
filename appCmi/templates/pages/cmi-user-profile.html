@@ -17,227 +17,228 @@
         
         <div class="container">
             <div class="profile-card">
-            <!-- Profile header/banner -->
-            <div class="profile-header">
-                <div class="profile-avatar-container">
-                <div class="profile-avatar">
-                    {% if user_profile and user_profile.picture %}
-                        <img id="profile-image" src="{{ user_profile.picture.url }}" alt="Profile Image">
-                    {% else %}
-                        <img id="profile-image" src="{% static default_profile_image %}" alt="Default Profile Image">
-                    {% endif %}
-                </div>
-                
-                <!-- Camera icon for photo upload -->
-                <label for="profile-upload" class="camera-icon">
-                    <i class="fas fa-camera"></i>
-                    <form id="profile-picture-form" action="{% url 'appCmi:upload-profile' %}" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                    <input type="file" id="profile-upload" name="picture" accept="image/*" onchange="submitProfileForm(this)">
-                    </form>
-                </label>
-                </div>
-                
-                
-                <!-- Edit profile button -->
-                <button id="edit-profile-btn" class="edit-profile-btn" data-url="{% url 'appCmi:update_user_info' %}">
-                    <i class="fas fa-edit"></i>
-                    <span>Edit Profile</span>
-                </button>
+                <!-- Profile header/banner -->
+                <div class="profile-header">
+                    <div class="profile-avatar-container">
+                    <div class="profile-avatar">
+                        {% if user_profile and user_profile.picture %}
+                            <img id="profile-image" src="{{ user_profile.picture.url }}" alt="Profile Image">
+                        {% else %}
+                            <img id="profile-image" src="{% static default_profile_image %}" alt="Default Profile Image">
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Camera icon for photo upload -->
+                    <label for="profile-upload" class="camera-icon">
+                        <i class="fas fa-camera"></i>
+                        <form id="profile-picture-form" action="{% url 'appCmi:upload-profile' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                        <input type="file" id="profile-upload" name="picture" accept="image/*" onchange="submitProfileForm(this)">
+                        </form>
+                    </label>
+                    </div>
+                    
+                    
+                    <!-- Edit profile button -->
+                    <button id="edit-profile-btn" class="edit-profile-btn" data-url="{% url 'appCmi:update_user_info' %}">
+                        <i class="fas fa-edit"></i>
+                        <span>Edit Profile</span>
+                    </button>
 
-                <button id="change-pass-btn" class="change-pass-btn" style="margin-left: 5px;">
-                    <i class="fa-solid fa-lock"></i>
-                    <span>Change Password</span>
-                </button>
-            </div>
+                    <button id="change-pass-btn" class="change-pass-btn" style="margin-left: 5px;">
+                        <i class="fa-solid fa-lock"></i>
+                        <span>Change Password</span>
+                    </button>
+                </div>
             
-            <!-- Profile content -->
-            <div class="profile-content">
-                <div class="profile-grid">
-                <!-- Left column - Basic info -->
-                <div class="profile-section">
-                    <div class="section-container">
-                    <h2 class="section-title">Basic Information</h2>
-                    
-                    <div id="basic-info-display" class="info-display">
-                        <div class="info-item">
-                        <i class="fas fa-user"></i>
-                        <div>
-                            <h3 class="info-value" id="full-name">{{user.first_name}} {{user.last_name}}</h3>
-                            <p class="info-label">Full Name</p>
+                <!-- Profile content -->
+                <div class="profile-content">
+                    <div class="profile-grid">
+                    <!-- Left column - Basic info -->
+                    <div class="profile-section">
+                        <div class="section-container">
+                        <h2 class="section-title">Basic Information</h2>
+                        
+                        <div id="basic-info-display" class="info-display">
+                            <div class="info-item">
+                            <i class="fas fa-user"></i>
+                            <div>
+                                <h3 class="info-value" id="full-name">{{user.first_name}} {{user.last_name}}</h3>
+                                <p class="info-label">Full Name</p>
+                            </div>
+                            </div>
+                            <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h3 class="info-value" id="email-display">{{user.email}}</h3>
+                                <p class="info-label">Email</p>
+                            </div>
+                            </div>
+                            <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <div>
+                                <h3 class="info-value" id="dob-display">{{user.date_birth}}</h3>
+                                <p class="info-label">Date of Birth</p>
+                            </div>
+                            </div>
+                            <div class="info-item">
+                            <i class="fas fa-venus-mars"></i>
+                            <div>
+                                <h3 class="info-value" id="sex-display">{{user.sex}}</h3>
+                                <p class="info-label">Sex</p>
+                            </div>
+                            </div>
+                            <div class="info-item">
+                            <div class="icon-text">G</div>
+                            <div>
+                                <h3 class="info-value" id="gender-display">{{user.gender}}</h3>
+                                <p class="info-label">Gender</p>
+                            </div>
+                            </div>
                         </div>
-                        </div>
-                        <div class="info-item">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <h3 class="info-value" id="email-display">{{user.email}}</h3>
-                            <p class="info-label">Email</p>
-                        </div>
-                        </div>
-                        <div class="info-item">
-                        <i class="fas fa-calendar"></i>
-                        <div>
-                            <h3 class="info-value" id="dob-display">{{user.date_birth}}</h3>
-                            <p class="info-label">Date of Birth</p>
-                        </div>
-                        </div>
-                        <div class="info-item">
-                        <i class="fas fa-venus-mars"></i>
-                        <div>
-                            <h3 class="info-value" id="sex-display">{{user.sex}}</h3>
-                            <p class="info-label">Sex</p>
-                        </div>
-                        </div>
-                        <div class="info-item">
-                        <div class="icon-text">G</div>
-                        <div>
-                            <h3 class="info-value" id="gender-display">{{user.gender}}</h3>
-                            <p class="info-label">Gender</p>
-                        </div>
-                        </div>
-                    </div>
-                    
-                    <div id="basic-info-edit" class="info-edit hidden">
-                        <div class="form-group">
-                        <label for="first-name">First Name</label>
-                        <input type="text" id="first-name" value="{{user.first_name}}" name="first_name">
-                        </div>
-                        <div class="form-group">
-                        <label for="middle-name">Middle Name</label>
-                        <input type="text" id="middle-name" value="{{user.middle_name}}" name="middle_name">
-                        </div>
-                        <div class="form-group">
-                        <label for="last-name">Last Name</label>
-                        <input type="text" id="last-name" value="{{user.last_name}}" name="last_name">
-                        </div>
-                        <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" value="{{user.email}}" name="email">
-                        </div>
-                        <div class="form-group">
-                        <label for="date-birth">Date of Birth</label>
-                        <input type="date" id="date-birth" value="{{user.date_birth}}" name="date_birth">
-                        </div>
-                        <div class="form-group">
-                        <label for="sex">Sex</label>
-                        <select id="sex">
-                            <option value="Female" selected>Female</option>
-                            <option value="Male">Male</option>
-                            <option value="Other">Other</option>
-                        </select>
-                        </div>
-                        <div class="form-group">
-                        <label for="gender">Gender</label>
-                        <input type="text" id="gender" value="Female">
-                        </div>
-                    </div>
-                    </div>
-                </div>
-                
-                <!-- Middle column - Professional info -->
-                <div class="profile-section">
-                    <div class="section-container">
-                    <h2 class="section-title">Professional Information</h2>
-                    
-                    <div id="prof-info-display" class="info-display">
-                        <div class="info-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <h3 class="info-value" id="institution-display">{{user.institution}}</h3>
-                            <p class="info-label">Institution</p>
-                        </div>
-                        </div>
-                        <div class="info-item">
-                        <i class="fas fa-briefcase"></i>
-                        <div>
-                            <h3 class="info-value" id="position-display">{{user.position}}</h3>
-                            <p class="info-label">Position</p>
-                        </div>
-                        </div>
-                        <div class="info-item">
-                        <i class="fas fa-award"></i>
-                        <div>
-                            <h3 class="info-value" id="specialization-display">{{user.specialization}}</h3>
-                            <p class="info-label">Specialization</p>
-                        </div>
-                        </div>
-                        <div class="info-item">
-                        <i class="fas fa-graduation-cap"></i>
-                        <div>
-                            <h3 class="info-value" id="education-display">{{user.highest_educ}}</h3>
-                            <p class="info-label">Highest Education</p>
-                        </div>
-                        </div>
-                        <div class="info-item">
-                        <div class="icon-text">T</div>
-                        <div>
-                            <h3 class="info-value" id="user-type-display">{{user.user_type}}</h3>
-                            <p class="info-label">User Type</p>
+                        
+                        <div id="basic-info-edit" class="info-edit hidden">
+                            <div class="form-group">
+                            <label for="first-name">First Name</label>
+                            <input type="text" id="first-name" value="{{user.first_name}}" name="first_name">
+                            </div>
+                            <div class="form-group">
+                            <label for="middle-name">Middle Name</label>
+                            <input type="text" id="middle-name" value="{{user.middle_name}}" name="middle_name">
+                            </div>
+                            <div class="form-group">
+                            <label for="last-name">Last Name</label>
+                            <input type="text" id="last-name" value="{{user.last_name}}" name="last_name">
+                            </div>
+                            <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" value="{{user.email}}" name="email">
+                            </div>
+                            <div class="form-group">
+                            <label for="date-birth">Date of Birth</label>
+                            <input type="date" id="date-birth" value="{{user.date_birth}}" name="date_birth">
+                            </div>
+                            <div class="form-group">
+                            <label for="sex">Sex</label>
+                            <select id="sex">
+                                <option value="Female" selected>Female</option>
+                                <option value="Male">Male</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            </div>
+                            <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <input type="text" id="gender" value="Female">
+                            </div>
                         </div>
                         </div>
                     </div>
                     
-                    <div id="prof-info-edit" class="info-edit hidden">
-                        <div class="form-group">
-                        <label for="institution">Institution</label>
-                        <input type="text" id="institution" value="{{user.institution}}" name="institution">
+                    <!-- Middle column - Professional info -->
+                    <div class="profile-section">
+                        <div class="section-container">
+                        <h2 class="section-title">Professional Information</h2>
+                        
+                        <div id="prof-info-display" class="info-display">
+                            <div class="info-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h3 class="info-value" id="institution-display">{{user.institution}}</h3>
+                                <p class="info-label">Institution</p>
+                            </div>
+                            </div>
+                            <div class="info-item">
+                            <i class="fas fa-briefcase"></i>
+                            <div>
+                                <h3 class="info-value" id="position-display">{{user.position}}</h3>
+                                <p class="info-label">Position</p>
+                            </div>
+                            </div>
+                            <div class="info-item">
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <h3 class="info-value" id="specialization-display">{{user.specialization}}</h3>
+                                <p class="info-label">Specialization</p>
+                            </div>
+                            </div>
+                            <div class="info-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <h3 class="info-value" id="education-display">{{user.highest_educ}}</h3>
+                                <p class="info-label">Highest Education</p>
+                            </div>
+                            </div>
+                            <div class="info-item">
+                            <div class="icon-text">T</div>
+                            <div>
+                                <h3 class="info-value" id="user-type-display">{{user.user_type}}</h3>
+                                <p class="info-label">User Type</p>
+                            </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                        <label for="position">Position</label>
-                        <input type="text" id="position" value="{{user.position}}" name="position">
+                        
+                        <div id="prof-info-edit" class="info-edit hidden">
+                            <div class="form-group">
+                            <label for="institution">Institution</label>
+                            <input type="text" id="institution" value="{{user.institution}}" name="institution">
+                            </div>
+                            <div class="form-group">
+                            <label for="position">Position</label>
+                            <input type="text" id="position" value="{{user.position}}" name="position">
+                            </div>
+                            <div class="form-group">
+                            <label for="specialization">Specialization</label>
+                            <input type="text" id="specialization" value="{{user.specialization}}" name="specialization">
+                            </div>
+                            <div class="form-group">
+                            <label for="highest-educ">Highest Education</label>
+                            <select id="highest-educ">
+                                <option value="Bachelors">Bachelors Degree</option>
+                                <option value="Masters" selected>Masters Degree</option>
+                                <option value="Doctorate">Doctorate Degree</option>
+                                <option value="Post-Doctorate">Post-Doctorate</option>
+                            </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                        <label for="specialization">Specialization</label>
-                        <input type="text" id="specialization" value="{{user.specialization}}" name="specialization">
-                        </div>
-                        <div class="form-group">
-                        <label for="highest-educ">Highest Education</label>
-                        <select id="highest-educ">
-                            <option value="Bachelors">Bachelors Degree</option>
-                            <option value="Masters" selected>Masters Degree</option>
-                            <option value="Doctorate">Doctorate Degree</option>
-                            <option value="Post-Doctorate">Post-Doctorate</option>
-                        </select>
                         </div>
                     </div>
-                    </div>
-                </div>
-                
-                <!-- Right column - Contact & Account -->
-                <div class="profile-section">
-                    <div class="section-container contact-section">
-                    <h2 class="section-title">Contact Information</h2>
                     
-                    <div id="contact-info-display" class="info-display">
-                        <div class="info-item">
-                        <i class="fas fa-phone"></i>
-                        <div>
-                            <h3 class="info-value" id="contact-num-display">{{user.contact_num}}</h3>
-                            <p class="info-label">Contact Number</p>
+                    <!-- Right column - Contact & Account -->
+                    <div class="profile-section">
+                        <div class="section-container contact-section">
+                            <h2 class="section-title">Contact Information</h2>
+                            
+                            <div id="contact-info-display" class="info-display">
+                                <div class="info-item">
+                                <i class="fas fa-phone"></i>
+                                <div>
+                                    <h3 class="info-value" id="contact-num-display">{{user.contact_num}}</h3>
+                                    <p class="info-label">Contact Number</p>
+                                </div>
+                                </div>
+                            </div>
+                            
+                            <div id="contact-info-edit" class="info-edit hidden">
+                                <div class="form-group">
+                                <label for="contact-num">Contact Number</label>
+                                <input type="text" id="contact-num" value="{{user.contact_num}}" name="contact_num">
+                                </div>
+                            </div>
                         </div>
+                        
+                        <div class="section-container">
+                            <h2 class="section-title">Account Information</h2>
+                            
+                            <div class="info-display">
+                                <div class="info-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <div>
+                                        <h3 class="info-value">{{user.date_created}}</h3>
+                                        <p class="info-label">Member Since</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    
-                    <div id="contact-info-edit" class="info-edit hidden">
-                        <div class="form-group">
-                        <label for="contact-num">Contact Number</label>
-                        <input type="text" id="contact-num" value="{{user.contact_num}}" name="contact_num">
-                        </div>
-                    </div>
-                    </div>
-                    
-                    <div class="section-container">
-                    <h2 class="section-title">Account Information</h2>
-                    
-                    <div class="info-display">
-                        <div class="info-item">
-                        <i class="fas fa-calendar"></i>
-                        <div>
-                            <h3 class="info-value">{{user.date_created}}</h3>
-                            <p class="info-label">Member Since</p>
-                        </div>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
@@ -248,6 +249,7 @@
   {% endblock content %}
 
   {% block script %}
+<script src="{% static "style/js/cmi-profile.js" %}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Auto-dismiss alerts after 5 seconds
@@ -300,9 +302,7 @@
             });
         }
     });
-</script>
-<script src="{% static "style/js/cmi-profile.js" %}"></script>
-<script>
+
     function submitProfileForm(input) {
         if (input.files && input.files[0]) {
             // Create loading indicator

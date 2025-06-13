@@ -42,6 +42,7 @@ from .resources_post_view import (
     admin_resources_post,
     admin_add_resources_post,
     admin_edit_resources_post,
+    admin_delete_resources_post,
 )
 
 from .message_view import message_from_cmi

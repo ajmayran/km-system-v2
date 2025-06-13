@@ -1,0 +1,118 @@
+{% load static %}
+
+<div class="sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-logo">
+      <div class="peers ai-c fxw-nw">
+        <div class="peer peer-greed">
+          <a class="sidebar-link td-n" href="index.html">
+            <div class="peers ai-c fxw-nw" style="display: flex; align-items: center;">
+              <div class="peer">
+                <div class="logo" style="display: flex; align-items: center; margin: 0px 0px 0px 20px;">
+                  <img src="{% static 'assets/images/raise-logo.png' %}" style="width: 45px; height: 45px;" />
+                </div>
+              </div>
+              <div class="peer peer-greed" style="margin: 0 35px 0 10px;">
+                <h5 class="lh-1 mB-0 logo-text" style="font-weight: bold; font-size: 14px; margin: 0;">km4aanr</h5>
+                <h5 class="lh-1 mB-0 logo-text" style="font-size: 11px; margin: 0;">in Western</h5>
+                <h5 class="lh-1 mB-0 logo-text" style="font-size: 12px; margin: 0;">Mindanao</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="peer">
+          <div class="mobile-toggle sidebar-toggle">
+            <a href class="td-n"><i class="ti-arrow-circle-left"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="sidebar-menu scrollable pos-r">
+      <li class="nav-item mT-30 actived">
+        <a class="sidebar-link" href="{% url 'appCmi:home' %}">
+          <span class="icon-holder"><i class="c-blue-500 ti-home"></i></span>
+          <span class="title">CMI Home</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="sidebar-link" href="{% url 'appAdmin:dashboard' %}">
+          <span class="icon-holder"><i class="c-blue-500 ti-dashboard"></i></span>
+          <span class="title">Dashboard</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="sidebar-link" href="{% url 'appAdmin:display-users' %}">
+          <span class="icon-holder"><i class="c-brown-500 ti-email"></i></span>
+          <span class="title">Accounts</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="sidebar-link" href="{% url 'appAdmin:display-map' %}">
+          <span class="icon-holder"><i class="c-brown-500 fas fa-map-marked-alt"></i></span>
+          <span class="title">Map</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="sidebar-link" href="{% url 'appAdmin:display-resources-post' %}">
+          <span class="icon-holder"><i class="c-orange-500 ti-comments"></i></span>
+          <span class="title">Resources Post</span>
+        </a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="dropdown-toggle" href="javascript:void(0);">
+          <span class="icon-holder"><i class="c-orange-500 ti-comments"></i></span>
+          <span class="title">Discussion Modules</span>
+          <span class="arrow"><i class="ti-angle-right"></i></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a class="sidebar-link" href="{% url 'appAdmin:manage-forum' %}" style="text-decoration: underline;">Forum</a>
+          </li>
+          <li>
+            <a class="sidebar-link" href="" style="text-decoration: underline;">System Ratings</a>
+          </li>
+          <li>
+            <a class="sidebar-link" href="{% url 'appAdmin:message-from-cmi' %}" style="text-decoration: underline;">Messages</a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="dropdown-toggle" href="javascript:void(0);">
+          <span class="icon-holder"><i class="c-purple-500 ti-folder"></i></span>
+          <span class="title">Resource Modules</span>
+          <span class="arrow"><i class="ti-angle-right"></i></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="{% url 'appAdmin:display-cmi' %}" style="text-decoration: underline;">CMI</a>
+          </li>
+          <li>
+            <a href="{% url 'appAdmin:display-commodities' %}" style="text-decoration: underline;">Commodities</a>
+          </li>
+          <li>
+            <a href="{% url 'appAdmin:display-knowledge-resources' %}" style="text-decoration: underline;">Knowledge Resources</a>
+          </li>
+        </ul>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="dropdown-toggle" href="javascript:void(0);">
+          <span class="icon-holder"><i class="c-purple-500 ti-view-list-alt"></i></span>
+          <span class="title">Content Modules</span>
+          <span class="arrow"><i class="ti-angle-right"></i></span>
+        </a>
+        <ul class="dropdown-menu">
+          <li>
+            <a href="{% url 'appAdmin:about-page' %}" style="text-decoration: underline;">About</a>
+          </li>
+          <li>
+            <a href="{% url 'appAdmin:admin-useful-links' %}" style="text-decoration: underline;">Links</a>
+          </li>
+        </ul>
+      </li>
+      
+    </ul>
+  </div>
+</div>
