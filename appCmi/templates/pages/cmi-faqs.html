@@ -1,0 +1,401 @@
+{% extends 'base/cmi-index.html' %}
+{% load static %}
+
+{% block title %}
+FAQs | AANR Knowledge Hub
+{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'style/css/cmi-faqs.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="faq-hero-section">
+    <div class="hero-content-wrapper">
+        <h1 class="faq-hero-title">Frequently Asked Questions</h1>
+        <p class="faq-hero-subtitle">Find answers to common questions about the AANR Knowledge Hub</p>
+    </div>
+</section>
+
+<!-- Main FAQ Section with Sidebar Layout -->
+<section class="faq-main-section">
+    <div class="container-fluid">
+        <div class="faq-layout">
+            <!-- Left Sidebar -->
+            <aside class="faq-sidebar">
+                <div class="sidebar-content">
+                    <!-- Filter Categories -->
+                    <div class="filter-section">
+                        <h3 class="filter-title">
+                            <i class="fas fa-filter"></i>
+                            Filter by Topic
+                        </h3>
+
+                        <!-- Topic Pills -->
+                        <div class="topic-filters">
+                            <div class="topic-pill active" data-tag="all">
+                                <i class="fas fa-th-large"></i>
+                                <span>All Topics</span>
+                                <span class="count">8</span>
+                            </div>
+                            <div class="topic-pill" data-tag="general">
+                                <i class="fas fa-info-circle"></i>
+                                <span>General</span>
+                                <span class="count">2</span>
+                            </div>
+                            <div class="topic-pill" data-tag="account">
+                                <i class="fas fa-user"></i>
+                                <span>Account</span>
+                                <span class="count">3</span>
+                            </div>
+                            <div class="topic-pill" data-tag="resources">
+                                <i class="fas fa-folder"></i>
+                                <span>Resources</span>
+                                <span class="count">4</span>
+                            </div>
+                            <div class="topic-pill" data-tag="technical">
+                                <i class="fas fa-cog"></i>
+                                <span>Technical</span>
+                                <span class="count">2</span>
+                            </div>
+                            <div class="topic-pill" data-tag="agriculture">
+                                <i class="fas fa-seedling"></i>
+                                <span>Agriculture</span>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="topic-pill" data-tag="aquatic">
+                                <i class="fas fa-fish"></i>
+                                <span>Aquatic</span>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="topic-pill" data-tag="natural-resources">
+                                <i class="fas fa-tree"></i>
+                                <span>Natural Resources</span>
+                                <span class="count">1</span>
+                            </div>
+                            <div class="topic-pill" data-tag="research">
+                                <i class="fas fa-microscope"></i>
+                                <span>Research</span>
+                                <span class="count">2</span>
+                            </div>
+                        </div>
+
+                        <!-- Clear Filters -->
+                        <div class="clear-filters">
+                            <button class="clear-btn" id="faq-clear-filters">
+                                <i class="fas fa-undo"></i>
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="sidebar-stats">
+                        <div class="stat-item">
+                            <div class="stat-number" id="total-faqs">8</div>
+                            <div class="stat-label">Total FAQs</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number" id="showing-faqs">8</div>
+                            <div class="stat-label">Showing</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="faq-content">
+                <!-- Main Search Section -->
+                <div class="main-search-section">
+                    <div class="main-search-wrapper">
+                        <div class="search-container">
+                            <span class="search-icon"><i class="fas fa-search"></i></span>
+                            <input type="text" id="faq-search-input" class="main-search-input" placeholder="Search through all FAQs...">
+                            <button class="search-clear-btn" type="button" style="display: none;">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Header -->
+                <div class="content-header">
+                    <div class="header-info">
+                        <h2 class="content-title">
+                            <span id="current-filter">All Questions</span>
+                        </h2>
+                        <p class="content-subtitle">
+                            Browse through our comprehensive FAQ collection
+                        </p>
+                    </div>
+
+                    <!-- Results Counter -->
+                    <div class="results-info">
+                        <span class="results-text">
+                            Showing <span id="visible-count">8</span> of <span id="total-count">8</span> questions
+                        </span>
+                    </div>
+                </div>
+
+                <!-- FAQ Accordion -->
+                <div class="faq-accordion" id="faq-accordion">
+                    <!-- FAQ Item 1 -->
+                    <div class="faq-card" data-tags="general,account" data-question="What is the AANR Knowledge Hub?"
+                        data-answer="platform for sharing and accessing knowledge resources">
+                        <div class="card-header">
+                            <button class="btn-link" type="button" data-toggle="collapse" data-target="#faq1"
+                                aria-expanded="false" aria-controls="faq1">
+                                <div class="question-content">
+                                    <div class="question-text">What is the AANR Knowledge Hub?</div>
+                                    <div class="posted-by">
+                                        <span class="posted-label">Posted by:</span>
+                                        <span class="posted-name">Experts</span>
+                                        <span class="posted-date">• March 15, 2024</span>
+                                    </div>
+                                </div>
+                                <div class="question-meta">
+                                    <div class="question-tags">
+                                        <span class="tag">General</span>
+                                        <span class="tag">Account</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down toggle-icon"></i>
+                                </div>
+                            </button>
+                        </div>
+                        <div id="faq1" class="collapse" data-parent="#faq-accordion">
+                            <div class="card-body">
+                                <div class="answer-content">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut porta, diam a pharetra
+                                    dictum, dui
+                                    dui posuere ipsum, ac pharetra orci felis vel turpis. Phasellus laoreet in mauris
+                                    nec suscipit.
+                                    Praesent imperdiet volutpat velit, ut ullamcorper leo egestas id. Quisque lobortis
+                                    ex a arcu
+                                    suscipit vestibulum. Mauris tristique ultrices eros vel eleifend. Nam ut turpis
+                                    dapibus,
+                                    ultricies nisi nec, gravida turpis. Duis urna leo, placerat at pharetra in,
+                                    convallis mollis
+                                    turpis.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div class="faq-card" data-tags="account,technical" data-question="How do I create an account?"
+                        data-answer="account creation process">
+                        <div class="card-header">
+                            <button class="btn-link" type="button" data-toggle="collapse" data-target="#faq2"
+                                aria-expanded="false" aria-controls="faq2">
+                                <div class="question-content">
+                                    <div class="question-text">How do I create an account?</div>
+                                    <div class="posted-by">
+                                        <span class="posted-label">Posted by:</span>
+                                        <span class="posted-name">Admin Team</span>
+                                        <span class="posted-date">• March 10, 2024</span>
+                                    </div>
+                                </div>
+                                <div class="question-meta">
+                                    <div class="question-tags">
+                                        <span class="tag">Account</span>
+                                        <span class="tag">Technical</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down toggle-icon"></i>
+                                </div>
+                            </button>
+                        </div>
+                        <div id="faq2" class="collapse" data-parent="#faq-accordion">
+                            <div class="card-body">
+                                <div class="answer-content">
+                                    Donec lacinia bibendum quam, ut tempor orci venenatis at. Donec fringilla quis
+                                    turpis vel
+                                    blandit. Nam malesuada tristique facilisis. Curabitur facilisis erat est, nec
+                                    dapibus ex
+                                    fringilla aliquet. Donec ut urna ut metus commodo ullamcorper ultricies a dolor.
+                                    Curabitur at
+                                    magna nec tellus suscipit suscipit. Orci varius natoque penatibus et magnis dis
+                                    parturient
+                                    montes, nascetur ridiculus mus. Praesent dapibus pulvinar magna.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div class="faq-card" data-tags="resources,research"
+                        data-question="What types of resources are available?"
+                        data-answer="types of available resources">
+                        <div class="card-header">
+                            <button class="btn-link" type="button" data-toggle="collapse" data-target="#faq3"
+                                aria-expanded="false" aria-controls="faq3">
+                                <div class="question-content">
+                                    <div class="question-text">What types of resources are available?</div>
+                                    <div class="posted-by">
+                                        <span class="posted-label">Posted by:</span>
+                                        <span class="posted-name">Experts</span>
+                                        <span class="posted-date">• March 8, 2024</span>
+                                    </div>
+                                </div>
+                                <div class="question-meta">
+                                    <div class="question-tags">
+                                        <span class="tag">Resources</span>
+                                        <span class="tag">Research</span>
+                                    </div>
+                                    <i class="fas fa-chevron-down toggle-icon"></i>
+                                </div>
+                            </button>
+                        </div>
+                        <div id="faq3" class="collapse" data-parent="#faq-accordion">
+                            <div class="card-body">
+                                <div class="answer-content">
+                                    Cras viverra hendrerit lacus eu congue. Nulla facilisi. Maecenas mi sapien, congue
+                                    ut turpis ut,
+                                    dignissim aliquam orci. Nulla sed turpis condimentum, iaculis dui id, posuere
+                                    tortor. Phasellus
+                                    pulvinar ex dignissim, feugiat lacus sit amet, placerat enim. Maecenas molestie
+                                    neque porta,
+                                    finibus nisi sit amet, malesuada massa.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No Results State -->
+                <div class="no-results" id="faq-no-results">
+                    <div class="no-results-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3 class="no-results-title">No results found</h3>
+                    <p class="no-results-message">Try adjusting your search terms or selecting a different topic filter.
+                    </p>
+                </div>
+            </main>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Initialize elements
+        const searchInput = document.getElementById('faq-search-input');
+        const searchClearBtn = document.querySelector('.search-clear-btn');
+        const topicPills = document.querySelectorAll('.topic-pill');
+        const clearFiltersBtn = document.getElementById('faq-clear-filters');
+        const faqCards = document.querySelectorAll('.faq-card');
+        const noResultsDiv = document.getElementById('faq-no-results');
+        const visibleCountSpan = document.getElementById('visible-count');
+        const totalCountSpan = document.getElementById('total-count');
+        const showingCountSpan = document.getElementById('showing-faqs');
+        const currentFilterSpan = document.getElementById('current-filter');
+
+        let currentSearchTerm = '';
+        let currentTag = 'all';
+
+        // Set initial counts
+        totalCountSpan.textContent = faqCards.length;
+        updateVisibleCount();
+
+        // Search functionality
+        searchInput.addEventListener('input', function () {
+            currentSearchTerm = this.value.toLowerCase();
+            filterFAQs();
+            
+            // Show/hide clear button
+            if (this.value.length > 0) {
+                searchClearBtn.style.display = 'flex';
+            } else {
+                searchClearBtn.style.display = 'none';
+            }
+        });
+
+        // Search clear button functionality
+        searchClearBtn.addEventListener('click', function () {
+            searchInput.value = '';
+            currentSearchTerm = '';
+            this.style.display = 'none';
+            searchInput.focus();
+            filterFAQs();
+        });
+
+        // Topic filtering
+        topicPills.forEach(pill => {
+            pill.addEventListener('click', function () {
+                // Remove active class from all pills
+                topicPills.forEach(p => p.classList.remove('active'));
+                // Add active class to clicked pill
+                this.classList.add('active');
+
+                currentTag = this.getAttribute('data-tag');
+
+                // Update current filter text
+                const filterText = this.querySelector('span').textContent;
+                currentFilterSpan.textContent = filterText;
+
+                filterFAQs();
+            });
+        });
+
+        // Clear filters
+        clearFiltersBtn.addEventListener('click', function () {
+            searchInput.value = '';
+            currentSearchTerm = '';
+            currentTag = 'all';
+            searchClearBtn.style.display = 'none';
+
+            // Reset active tag
+            topicPills.forEach(p => p.classList.remove('active'));
+            document.querySelector('[data-tag="all"]').classList.add('active');
+
+            // Reset filter text
+            currentFilterSpan.textContent = 'All Questions';
+
+            filterFAQs();
+        });
+
+        // Posted by functionality
+        document.querySelectorAll('[data-toggle="collapse"]').forEach(button => {
+            button.addEventListener('click', function () {
+                const postedByDiv = this.querySelector('.posted-by');
+
+                // Check if collapse is currently shown
+                const isCurrentlyExpanded = this.getAttribute('aria-expanded') === 'true';
+
+                if (postedByDiv) {
+                    if (isCurrentlyExpanded) {
+                        // Collapse is open, will close - hide posted by
+                        postedByDiv.classList.remove('show');
+                    } else {
+                        // Collapse is closed, will open - show posted by
+                        setTimeout(() => {
+                            postedByDiv.classList.add('show');
+                        }, 150);
+                    }
+                }
+            });
+        });
+
+        // Handle Bootstrap collapse events
+        document.querySelectorAll('.collapse').forEach(collapse => {
+            collapse.addEventListener('shown.bs.collapse', function () {
+                const button = document.querySelector(`[data-target="#${this.id}"]`);
+                const postedByDiv = button.querySelector('.posted-by');
+                if (postedByDiv) {
+                    postedByDiv.classList.add('show');
+                }
+            });
+
+            collapse.addEventListener('hidden.bs.collapse', function () {
+                const button = document.querySelector(`[data-target="#${this.id}"]`);
+                const postedByDiv = button.querySelector('.posted-by');
+                if (postedByDiv) {
+                    postedByDiv.classList.remove('show');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
