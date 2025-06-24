@@ -1,5 +1,6 @@
 from django import template
 from appAdmin.models import KnowledgeResources
+from django.contrib.auth.models import AnonymousUser
 
 register = template.Library()
 
@@ -40,3 +41,10 @@ def get_machine_name(value):
         # If we can't extract a machine name, convert the string to a
         # valid machine-readable format (lowercase with underscores)
         return str(value).lower().replace(" ", "_")
+
+@register.filter
+def is_reacted_by_user(faq, user):
+    """Check if user has reacted to this FAQ"""
+    if isinstance(user, AnonymousUser) or not user.is_authenticated:
+        return False
+    return faq.is_reacted_by(user)
