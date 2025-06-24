@@ -2,6 +2,8 @@ from django.db import models
 from django.utils import timezone
 from utils.slug_generator import generate_random_slug
 from django.urls import reverse
+from django import forms
+from django.contrib.auth import get_user_model
 
 # CMI models
 
@@ -217,3 +219,115 @@ class ResourceBookmark(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s bookmark of {self.resource.title}"
+
+
+class FAQ(models.Model):
+    faq_id = models.AutoField(primary_key=True)
+    question = models.CharField(max_length=500, db_collation="utf8mb4_unicode_ci")
+    answer = models.TextField()
+    is_active = models.BooleanField(default=True)  # For admin to hide/show
+    created_by = models.ForeignKey(
+        "appAccounts.CustomUser", 
+        on_delete=models.CASCADE, 
+        related_name="created_faqs"
+    )
+    updated_by = models.ForeignKey(
+        "appAccounts.CustomUser", 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True,
+        related_name="updated_faqs"
+    )
+    slug = models.CharField(
+        max_length=12, unique=True, default=generate_random_slug, editable=False
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        db_table = "tbl_faq"
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.question
+
+    def total_reactions(self):
+        return self.reactions.count()
+
+    def is_reacted_by(self, user):
+        return self.reactions.filter(user=user).exists()
+    
+    def get_images(self):
+        """Get all images for this FAQ"""
+        return self.images.all() 
+
+    def get_first_image(self):
+        """Get the first image for display"""
+        return self.images.first()
+
+    def get_additional_images_count(self):
+        """Get count of additional images beyond the first one"""
+        total_images = self.images.count()
+        return max(0, total_images - 1)
+
+class FAQImage(models.Model):
+    image_id = models.AutoField(primary_key=True)
+    faq = models.ForeignKey(FAQ, on_delete=models.CASCADE, related_name="images")
+    image = models.ImageField(upload_to='faq_images/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "tbl_faq_images"
+        ordering = ["uploaded_at"]
+
+    def __str__(self):
+        return f"Image for {self.faq.question}"
+    
+class FAQReaction(models.Model):
+    reaction_id = models.AutoField(primary_key=True)
+    faq = models.ForeignKey(FAQ, on_delete=models.CASCADE, related_name="reactions")
+    user = models.ForeignKey(
+        "appAccounts.CustomUser", 
+        on_delete=models.CASCADE, 
+        related_name="faq_reactions"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "tbl_faq_reactions"
+        unique_together = ("faq", "user")  # Prevent duplicate reactions
+
+    def __str__(self):
+        return f"{self.user.username} reacted to {self.faq.question}"
+    
+class FAQTag(models.Model):
+    tag_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.SlugField(max_length=50, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "tbl_faq_tags"
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+class FAQTagAssignment(models.Model):
+    assignment_id = models.AutoField(primary_key=True)
+    faq = models.ForeignKey(FAQ, on_delete=models.CASCADE, related_name="tag_assignments")
+    tag = models.ForeignKey(FAQTag, on_delete=models.CASCADE, related_name="faq_assignments")
+    assigned_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        db_table = "tbl_faq_tag_assignments"
+        unique_together = ("faq", "tag")
+
+    def __str__(self):
+        return f"{self.faq.question} - {self.tag.name}"
