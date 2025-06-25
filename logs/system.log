@@ -5730,3 +5730,23 @@ django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is
 [2025-06-24 11:18:29] Backend wasn't recognised (``)
 [2025-06-24 11:18:44] Backend wasn't recognised (``)
 [2025-06-24 11:18:50] Backend wasn't recognised (``)
+[2025-06-24 11:36:08] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-06-24 11:36:11] Watching for file changes with StatReloader
+[2025-06-24 11:36:24] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-06-24 11:36:25] Watching for file changes with StatReloader
+[2025-06-24 11:36:38] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-06-24 11:36:39] Watching for file changes with StatReloader
+[2025-06-24 11:39:33] Not Found: /favicon.ico
+[2025-06-24 11:56:13] Not Found: /admin/users/email.html
+[2025-06-24 11:57:01] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-06-24 12:02:21] Not Found: /admin/map/index.html
+[2025-06-24 12:02:24] Not Found: /admin/map/index.html
+[2025-06-24 12:02:27] Not Found: /admin/map/index.html
+[2025-06-24 12:02:29] Not Found: /admin/map/index.html
+[2025-06-24 13:09:22] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-06-24 13:11:50] Not Found: /favicon.ico
+[2025-06-24 14:42:37] Watching for file changes with StatReloader
+[2025-06-24 14:42:42] Not Found: /favicon.ico
+[2025-06-24 14:59:34] Backend wasn't recognised (``)
+[2025-06-24 15:05:11] Backend wasn't recognised (``)
+[2025-06-24 15:07:11] Backend wasn't recognised (``)

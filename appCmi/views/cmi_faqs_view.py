@@ -79,6 +79,7 @@ def add_faq(request):
         question = request.POST.get('question', '').strip()
         answer = request.POST.get('answer', '').strip()
         tag_ids = request.POST.getlist('tags')
+        custom_tags = request.POST.get('custom_tags', '').strip()
         images = request.FILES.getlist('images')
         
         if not question or not answer:
@@ -96,7 +97,7 @@ def add_faq(request):
         for image in images:
             FAQImage.objects.create(faq=faq, image=image)
         
-        # Add tags
+        # Add existing tags
         for tag_id in tag_ids:
             try:
                 tag = FAQTag.objects.get(tag_id=tag_id)
@@ -104,12 +105,36 @@ def add_faq(request):
             except FAQTag.DoesNotExist:
                 continue
         
-        messages.success(request, f'✅ FAQ "{question[:50]}..." has been added successfully!')
+        # Handle custom tags
+        if custom_tags:
+            # Split custom tags by comma and clean them
+            custom_tag_names = [tag.strip() for tag in custom_tags.split(',') if tag.strip()]
+            
+            for tag_name in custom_tag_names:
+                if len(tag_name) > 50:  # Check max length constraint
+                    continue
+                
+                # Create or get the tag
+                tag, created = FAQTag.objects.get_or_create(
+                    name__iexact=tag_name,
+                    defaults={'name': tag_name}
+                )
+                
+                # Create assignment if it doesn't exist
+                FAQTagAssignment.objects.get_or_create(faq=faq, tag=tag)
+        
+        success_message = f'✅ FAQ "{question[:50]}..." has been added successfully!'
+        if custom_tags:
+            custom_tag_count = len([tag.strip() for tag in custom_tags.split(',') if tag.strip()])
+            success_message += f' 🏷️ {custom_tag_count} custom tag(s) added!'
+        
+        messages.success(request, success_message)
         
     except Exception as e:
         messages.error(request, f'❌ Error adding FAQ: {str(e)}')
     
     return redirect('appCmi:faqs')
+
 
 @user_access_required(["admin", "cmi"], error_type=404)
 @require_POST
@@ -126,6 +151,7 @@ def edit_faq(request, faq_id):
         question = request.POST.get('question', '').strip()
         answer = request.POST.get('answer', '').strip()
         tag_ids = request.POST.getlist('tags')
+        custom_tags = request.POST.get('custom_tags', '').strip()
         new_images = request.FILES.getlist('new_images')
         delete_image_ids = request.POST.getlist('delete_images')
         
@@ -152,9 +178,11 @@ def edit_faq(request, faq_id):
         for image in new_images:
             FAQImage.objects.create(faq=faq, image=image)
         
-        # Update tags
+        # Update tags - clear existing assignments first
         faq.tag_assignments.all().delete()
         tags_added = 0
+        
+        # Add existing tags
         for tag_id in tag_ids:
             try:
                 tag = FAQTag.objects.get(tag_id=tag_id)
@@ -162,6 +190,26 @@ def edit_faq(request, faq_id):
                 tags_added += 1
             except FAQTag.DoesNotExist:
                 continue
+        
+        # Handle custom tags
+        custom_tags_added = 0
+        if custom_tags:
+            # Split custom tags by comma and clean them
+            custom_tag_names = [tag.strip() for tag in custom_tags.split(',') if tag.strip()]
+            
+            for tag_name in custom_tag_names:
+                if len(tag_name) > 50:  # Check max length constraint
+                    continue
+                
+                # Create or get the tag
+                tag, created = FAQTag.objects.get_or_create(
+                    name__iexact=tag_name,
+                    defaults={'name': tag_name}
+                )
+                
+                # Create assignment if it doesn't exist
+                FAQTagAssignment.objects.get_or_create(faq=faq, tag=tag)
+                custom_tags_added += 1
         
         # Create detailed success message
         success_parts = [f'✅ FAQ "{original_question[:50]}..." has been updated successfully!']
@@ -172,8 +220,11 @@ def edit_faq(request, faq_id):
         if delete_image_ids:
             success_parts.append(f'🗑️ Removed {len(delete_image_ids)} image(s)')
             
-        if tags_added > 0:
-            success_parts.append(f'🏷️ Updated {tags_added} tag(s)')
+        if tags_added > 0 or custom_tags_added > 0:
+            success_parts.append(f'🏷️ Updated {tags_added + custom_tags_added} tag(s)')
+            
+        if custom_tags_added > 0:
+            success_parts.append(f'✨ {custom_tags_added} custom tag(s) created!')
         
         messages.success(request, ' • '.join(success_parts))
         
@@ -181,6 +232,7 @@ def edit_faq(request, faq_id):
         messages.error(request, f'❌ Error updating FAQ: {str(e)}')
     
     return redirect('appCmi:faqs')
+
 
 @user_access_required(["admin", "cmi"], error_type=404)
 def delete_faq(request, faq_id):
