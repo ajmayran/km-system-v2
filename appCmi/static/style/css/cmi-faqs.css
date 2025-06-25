@@ -592,6 +592,26 @@
     transition: var(--transition);
 }
 
+.custom-tags-section {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #f8f9fa;
+}
+
+.custom-tags-input-container {
+    margin-top: 8px;
+}
+
+.custom-tags-input-container .form-control {
+    border-radius: 6px;
+}
+
+.custom-tags-input-container .form-text {
+    margin-top: 5px;
+    font-size: 0.875rem;
+}
+
 .no-results.show {
     display: block;
     opacity: 1;

@@ -182,14 +182,14 @@
                               <span class="no-update">No updates yet</span>
                             {% endif %}
                           </span>
-                          <span class="updated-date">
+                          {% comment %} <span class="updated-date">
                             {% if faq.updated_by %}
                               • {{ faq.updated_at|date:'F d, Y' }}
                             {% endif %}
-                          </span>
+                          </span> {% endcomment %}
                         </div>
                         <div class="last-update admin-only">
-                          <span class="last-update-label">Last Date Update:</span>
+                          <span class="last-update-label">Last Date Updated:</span>
                           <span class="last-update-date">{{ faq.updated_at|date:'F d, Y \a\t g:i A' }}</span>
                         </div>
                       {% endif %}
@@ -367,7 +367,7 @@
               </div>
             </div>
 
-            <div class="form-group">
+                 <div class="form-group">
               <label class="font-weight-bold">Tags/Topics</label>
               <div class="row">
                 {% for tag in all_tags %}
@@ -378,6 +378,23 @@
                     </div>
                   </div>
                 {% endfor %}
+                <!-- Add Others checkbox -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="othersTag" />
+                    <label class="form-check-label" for="othersTag">Others</label>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Custom tags input (hidden by default) -->
+              <div class="custom-tags-section" id="customTagsSection" style="display: none; margin-top: 15px;">
+                <label class="font-weight-bold">Specify Custom Tags</label>
+                <div class="custom-tags-input-container">
+                  <input type="text" class="form-control" id="customTagsInput" placeholder="Enter custom tags separated by commas" />
+                  <div class="form-text text-muted">Separate multiple tags with commas. Each tag will be created if it doesn't exist.</div>
+                </div>
+                <input type="hidden" name="custom_tags" id="customTagsHidden" />
               </div>
             </div>
           </div>
@@ -432,7 +449,7 @@
               </div>
             </div>
 
-            <div class="form-group">
+                <div class="form-group">
               <label class="font-weight-bold">Tags/Topics</label>
               <div class="row">
                 {% for tag in all_tags %}
@@ -443,6 +460,23 @@
                     </div>
                   </div>
                 {% endfor %}
+                <!-- Add Others checkbox for edit modal -->
+                <div class="col-md-6 col-lg-4">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="editOthersTag" />
+                    <label class="form-check-label" for="editOthersTag">Others</label>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Custom tags input for edit modal -->
+              <div class="custom-tags-section" id="editCustomTagsSection" style="display: none; margin-top: 15px;">
+                <label class="font-weight-bold">Specify Custom Tags</label>
+                <div class="custom-tags-input-container">
+                  <input type="text" class="form-control" id="editCustomTagsInput" placeholder="Enter custom tags separated by commas" />
+                  <div class="form-text text-muted">Separate multiple tags with commas. Each tag will be created if it doesn't exist.</div>
+                </div>
+                <input type="hidden" name="custom_tags" id="editCustomTagsHidden" />
               </div>
             </div>
           </div>

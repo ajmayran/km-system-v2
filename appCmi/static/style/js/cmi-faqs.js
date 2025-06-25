@@ -2,6 +2,59 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeFAQs();
 });
 
+document.getElementById('othersTag').addEventListener('change', function() {
+    const customTagsSection = document.getElementById('customTagsSection');
+    const customTagsInput = document.getElementById('customTagsInput');
+    
+    if (this.checked) {
+        customTagsSection.style.display = 'block';
+        customTagsInput.focus();
+    } else {
+        customTagsSection.style.display = 'none';
+        customTagsInput.value = '';
+        document.getElementById('customTagsHidden').value = '';
+    }
+});
+
+document.getElementById('editOthersTag').addEventListener('change', function() {
+    const customTagsSection = document.getElementById('editCustomTagsSection');
+    const customTagsInput = document.getElementById('editCustomTagsInput');
+    
+    if (this.checked) {
+        customTagsSection.style.display = 'block';
+        customTagsInput.focus();
+    } else {
+        customTagsSection.style.display = 'none';
+        customTagsInput.value = '';
+        document.getElementById('editCustomTagsHidden').value = '';
+    }
+});
+
+// Handle custom tags input for Add FAQ
+document.getElementById('customTagsInput').addEventListener('input', function() {
+    document.getElementById('customTagsHidden').value = this.value;
+});
+
+// Handle custom tags input for Edit FAQ
+document.getElementById('editCustomTagsInput').addEventListener('input', function() {
+    document.getElementById('editCustomTagsHidden').value = this.value;
+});
+
+// Reset Others checkbox when modals are closed
+$('#addFAQModal').on('hidden.bs.modal', function () {
+    document.getElementById('othersTag').checked = false;
+    document.getElementById('customTagsSection').style.display = 'none';
+    document.getElementById('customTagsInput').value = '';
+    document.getElementById('customTagsHidden').value = '';
+});
+
+$('#editFAQModal').on('hidden.bs.modal', function () {
+    document.getElementById('editOthersTag').checked = false;
+    document.getElementById('editCustomTagsSection').style.display = 'none';
+    document.getElementById('editCustomTagsInput').value = '';
+    document.getElementById('editCustomTagsHidden').value = '';
+});
+
 function initializeFAQs() {
     const searchInput = document.getElementById('faq-search-input');
     const searchClearBtn = document.querySelector('.search-clear-btn');
