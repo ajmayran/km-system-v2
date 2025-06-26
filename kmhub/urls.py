@@ -7,6 +7,7 @@ urlpatterns = [
     path("cmis/", include(("appCmi.urls", "appCmi"))),
     path("admin/", include(("appAdmin.urls", "appAdmin"))),
     path("errors/", include(("appErrors.urls", "appErrors"))),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 
 # Serve static files during development

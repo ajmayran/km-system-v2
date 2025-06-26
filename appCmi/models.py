@@ -4,6 +4,7 @@ from utils.slug_generator import generate_random_slug
 from django.urls import reverse
 from django import forms
 from django.contrib.auth import get_user_model
+from ckeditor.widgets import CKEditorWidget
 
 # CMI models
 
@@ -219,6 +220,7 @@ class ResourceBookmark(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s bookmark of {self.resource.title}"
+
 
 
 class FAQ(models.Model):

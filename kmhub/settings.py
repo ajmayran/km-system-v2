@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     "appErrors",  # app
     "embed_video",
     "corsheaders",
+    "ckeditor",  # Rich text editor
     # "django_extensions",
 ]
 
@@ -192,6 +193,46 @@ LOGGING = {
         "handlers": ["file"],
         "level": "DEBUG",
     },
+}
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source'],
+            ['TextColor', 'BGColor'],
+            ['Format', 'Font', 'FontSize'],
+        ],
+        'height': 200,
+        'width': '100%',
+        'removePlugins': 'stylesheetparser',
+        'allowedContent': True,
+    },
+    'faq': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['TextColor', 'BGColor'],
+            ['Format', 'FontSize'],
+            ['RemoveFormat', 'Source'],
+        ],
+        'height': 250,
+        'width': '100%',
+        'removePlugins': 'stylesheetparser',
+        'allowedContent': True,
+        'extraPlugins': 'justify',
+        'contentsCss': ['/static/style/css/ckeditor-custom.css'],
+    }
 }
 
 # Ensure logs directory exists

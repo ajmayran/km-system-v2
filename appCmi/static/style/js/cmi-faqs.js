@@ -318,7 +318,14 @@ function handleEditClick() {
 function populateEditModal(data, faqId) {
     // Populate form fields
     document.getElementById('edit_question').value = data.question;
-    document.getElementById('edit_answer').value = data.answer;
+    
+    // Set CKEditor data instead of textarea value
+    if (typeof editAnswerEditor !== 'undefined' && editAnswerEditor) {
+        editAnswerEditor.setData(data.answer);
+    } else {
+        // Fallback if CKEditor isn't ready
+        document.getElementById('edit_answer').value = data.answer;
+    }
     
     // Set form action
     document.getElementById('editFAQForm').action = editFaqUrl.replace('0', faqId);
