@@ -8,6 +8,7 @@
 
 {% block stylesheet %}
   <link rel="stylesheet" href="{% static 'style/css/cmi-faqs.css' %}" />
+  {{ form.media.css }}
 {% endblock %}
 
 {% block content %}
@@ -211,7 +212,7 @@
                     <div class="faq-content-container">
                       <!-- Answer Section -->
                       <div class="answer-section">
-                        <div class="answer-content">{{ faq.answer|linebreaks }}</div>
+                          <div class="answer-content">{{ faq.answer|safe }}</div>
                       </div>
 
                       <!-- Images Section -->
@@ -242,20 +243,9 @@
                     <div class="faq-actions mt-3">
                       <!-- Reaction Button -->
                       <button class="btn btn-sm {% if faq|is_reacted_by_user:user %}
-                          
-                          
                           btn-primary
-
-
-
-                        {% else %}
-                          
-                          
-                          
+                        {% else %}                       
                           btn-outline-primary
-
-
-
                         {% endif %} reaction-btn"
                         data-faq-id="{{ faq.faq_id }}"
                         data-user-reacted="{{ faq|is_reacted_by_user:user }}">
@@ -336,7 +326,7 @@
           <h5 class="modal-title" id="addFAQModalLabel">Add New FAQ</h5>
           <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
-        <form action="{% url 'appCmi:add-faq' %}" method="POST" enctype="multipart/form-data">
+        <form action="{% url 'appCmi:add-faq' %}" method="POST" enctype="multipart/form-data" id="addFAQForm">
           {% csrf_token %}
           <div class="modal-body">
             <div class="form-group">
@@ -491,6 +481,7 @@
 {% endblock %}
 
 {% block script %}
+  {{ form.media }}
   <script>
     const faqsUrl = '{% url "appCmi:faqs" %}'
     const toggleReactionUrl = '{% url "appCmi:toggle-faq-reaction" 0 %}'
@@ -499,6 +490,114 @@
     const deleteFaqUrl = '{% url "appCmi:delete-faq" 0 %}'
     const toggleStatusUrl = '{% url "appCmi:toggle-faq-status" 0 %}'
     const csrfToken = '{{ csrf_token }}'
+
+    let answerEditor, editAnswerEditor;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize CKEditor for Add FAQ modal
+      answerEditor = CKEDITOR.replace('answer', {
+        {% if 'faq' in CKEDITOR_CONFIGS %}
+          ...{{ CKEDITOR_CONFIGS.faq|safe }}
+        {% else %}
+          toolbar: [
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['TextColor', 'BGColor'],
+            ['Format', 'FontSize'],
+            ['RemoveFormat']
+          ],
+          height: 250,
+          removePlugins: 'resize',
+          allowedContent: true,
+          extraPlugins: 'justify'
+        {% endif %}
+      });
+
+      // Initialize CKEditor for Edit FAQ modal
+      editAnswerEditor = CKEDITOR.replace('edit_answer', {
+        {% if 'faq' in CKEDITOR_CONFIGS %}
+          ...{{ CKEDITOR_CONFIGS.faq|safe }}
+        {% else %}
+          toolbar: [
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['TextColor', 'BGColor'],
+            ['Format', 'FontSize'],
+            ['RemoveFormat']
+          ],
+          height: 250,
+          removePlugins: 'resize',
+          allowedContent: true,
+          extraPlugins: 'justify'
+        {% endif %}
+      });
+
+      // Handle Add FAQ form submission - SIMPLIFIED VERSION
+      document.getElementById('addFAQForm').addEventListener('submit', function(e) {
+        // Update CKEditor data before form submission
+        answerEditor.updateElement();
+        
+        const question = document.getElementById('question').value.trim();
+        const answerContent = answerEditor.getData().trim();
+        
+        if (!question || !answerContent) {
+          e.preventDefault();
+          Swal.fire({
+            icon: 'warning',
+            title: 'Missing Information',
+            text: 'Please fill in both question and answer fields.',
+            confirmButtonText: 'OK'
+          });
+          return;
+        }
+
+        // REMOVED: The formatting code that was adding Q&A structure
+        // Let the answer be stored as-is from the CKEditor
+      });
+
+      // Handle Edit FAQ form
+      document.getElementById('editFAQForm').addEventListener('submit', function(e) {
+        editAnswerEditor.updateElement();
+      });
+    });
+
+    // Reset editors when modals are closed
+    $('#addFAQModal').on('hidden.bs.modal', function () {
+      if (answerEditor) {
+        answerEditor.setData('');
+      }
+      document.getElementById('addFAQForm').reset();
+    });
+
+    $('#editFAQModal').on('hidden.bs.modal', function () {
+      if (editAnswerEditor) {
+        editAnswerEditor.setData('');
+      }
+    });
+
+    // Function to populate edit modal
+    function populateEditModal(data, faqId) {
+      document.getElementById('edit_question').value = data.question;
+      
+      // Set the answer in CKEditor
+      if (editAnswerEditor) {
+        editAnswerEditor.setData(data.answer);
+      }
+      
+      document.getElementById('editFAQForm').action = editFaqUrl.replace('0', faqId);
+      
+      // Update checkboxes
+      document.querySelectorAll('.edit-tag-checkbox').forEach(checkbox => {
+        checkbox.checked = data.tag_ids.includes(parseInt(checkbox.value));
+      });
+
+      // Handle existing images
+      populateExistingImages(data.images);
+    }
   </script>
 
   <!-- Include the FAQ JavaScript file -->

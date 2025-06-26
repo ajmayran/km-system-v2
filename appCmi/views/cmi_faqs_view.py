@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from utils.user_control import user_access_required
 from utils.get_models import get_active_models
 from appCmi.models import FAQ, FAQTag, FAQTagAssignment, FAQReaction, FAQImage
+from appCmi.forms import FAQForm
 import json
 
 @user_access_required(["admin", "cmi"], error_type=404)
@@ -16,14 +17,13 @@ def faqs_view(request):
     useful_links = models.get("useful_links", [])
     commodities = models.get("commodities", [])
     knowledge_resources = models.get("knowledge_resources", [])
+
+    form = FAQForm()
     
-    # Get search query
     search_query = request.GET.get('q', '').strip()
     
-    # Get tag filter
     tag_filter = request.GET.get('tag', 'all')
     
-    # Get FAQs based on user type - MODIFIED LOGIC
     if request.user.user_type == 'admin':
         # Admins can see all FAQs (active and inactive)
         faqs = FAQ.objects.all().select_related('created_by').prefetch_related('tag_assignments__tag', 'images')
@@ -31,30 +31,26 @@ def faqs_view(request):
         # Regular users only see active FAQs
         faqs = FAQ.objects.filter(is_active=True).select_related('created_by').prefetch_related('tag_assignments__tag', 'images')
     
-    # Apply search filter
     if search_query:
         faqs = faqs.filter(
             Q(question__icontains=search_query) | 
             Q(answer__icontains=search_query)
         )
-    
-    # Apply tag filter
+
     if tag_filter and tag_filter != 'all':
         faqs = faqs.filter(tag_assignments__tag__slug=tag_filter)
     
-    # Get all tags with FAQ counts - also update for admin view
     if request.user.user_type == 'admin':
         tags_with_counts = FAQTag.objects.annotate(
-            faq_count=Count('faq_assignments')  # Count all FAQs for admin
+            faq_count=Count('faq_assignments') 
         ).filter(faq_count__gt=0).order_by('name')
-        total_faqs = FAQ.objects.count()  # All FAQs for admin
+        total_faqs = FAQ.objects.count() 
     else:
         tags_with_counts = FAQTag.objects.annotate(
             faq_count=Count('faq_assignments', filter=Q(faq_assignments__faq__is_active=True))
         ).filter(faq_count__gt=0).order_by('name')
-        total_faqs = FAQ.objects.filter(is_active=True).count()  # Only active FAQs for users
+        total_faqs = FAQ.objects.filter(is_active=True).count() 
     
-    # Get all tags for the modal
     all_tags = FAQTag.objects.all().order_by('name')
     
     context = {
@@ -68,6 +64,7 @@ def faqs_view(request):
         "total_faqs": total_faqs,
         "current_search": search_query,
         "current_tag": tag_filter,
+        "form": form, 
     }
     return render(request, "pages/cmi-faqs.html", context)
 
