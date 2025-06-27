@@ -160,7 +160,7 @@
                   <button class="btn-link" type="button" data-toggle="collapse" data-target="#faq{{ faq.faq_id }}" aria-expanded="false" aria-controls="faq{{ faq.faq_id }}">
                     <div class="question-content">
                       <div class="question-text">
-                        {{ faq.question }}
+                          {{ faq.question|safe }}
                         <!-- Admin-only inactive indicator -->
                         {% if user.user_type == 'admin' and not faq.is_active %}
                           <span class="inactive-badge">Hidden</span>
@@ -331,7 +331,7 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="question" class="font-weight-bold">Question <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="question" name="question" required placeholder="Enter your question here..." />
+              <textarea class="form-control" id="question" name="question" rows="3" required placeholder="Enter your question here..."></textarea>
             </div>
 
             <div class="form-group">
@@ -410,7 +410,7 @@
           <div class="modal-body">
             <div class="form-group">
               <label for="edit_question" class="font-weight-bold">Question <span class="text-danger">*</span></label>
-              <input type="text" class="form-control" id="edit_question" name="question" required />
+              <textarea class="form-control" id="edit_question" name="question" rows="3" required></textarea>
             </div>
 
             <div class="form-group">
@@ -491,60 +491,110 @@
     const toggleStatusUrl = '{% url "appCmi:toggle-faq-status" 0 %}'
     const csrfToken = '{{ csrf_token }}'
 
-    let answerEditor, editAnswerEditor;
+    let answerEditor, editAnswerEditor, questionEditor, editQuestionEditor;
 
     document.addEventListener('DOMContentLoaded', function() {
-      // Initialize CKEditor for Add FAQ modal
+      // Initialize CKEditor for Question field in Add FAQ modal
+      questionEditor = CKEDITOR.replace('question', {
+        toolbar: [
+          ['Format'],
+          ['Bold', 'Italic'],
+          ['FontSize'],
+          ['Undo', 'Redo'],
+          ['RemoveFormat']
+        ],
+        height: 100,
+        removePlugins: 'resize',
+        allowedContent: true,
+        format_tags: 'p;h1;h2;h3;h4;h5;h6',
+        startupMode: 'wysiwyg'
+      });
+
+      // Initialize CKEditor for Answer field in Add FAQ modal
       answerEditor = CKEDITOR.replace('answer', {
         {% if 'faq' in CKEDITOR_CONFIGS %}
           ...{{ CKEDITOR_CONFIGS.faq|safe }}
         {% else %}
           toolbar: [
+            ['Format'],
             ['Bold', 'Italic', 'Underline', 'Strike'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
             ['TextColor', 'BGColor'],
-            ['Format', 'FontSize'],
+            ['FontSize'],
+            ['Table'],
+            ['Undo', 'Redo'],
             ['RemoveFormat']
           ],
           height: 250,
           removePlugins: 'resize',
           allowedContent: true,
-          extraPlugins: 'justify'
+          extraPlugins: 'justify,table',
+          format_tags: 'p;h1;h2;h3;h4;h5;h6'
         {% endif %}
       });
 
-      // Initialize CKEditor for Edit FAQ modal
+      // Initialize CKEditor for Question field in Edit FAQ modal
+      editQuestionEditor = CKEDITOR.replace('edit_question', {
+        toolbar: [
+          ['Format'],
+          ['Bold', 'Italic'],
+          ['FontSize'],
+          ['Undo', 'Redo'],
+          ['RemoveFormat']
+        ],
+        height: 100,
+        removePlugins: 'resize',
+        allowedContent: true,
+        format_tags: 'p;h1;h2;h3;h4;h5;h6',
+        startupMode: 'wysiwyg'
+      });
+
+      // Initialize CKEditor for Answer field in Edit FAQ modal
       editAnswerEditor = CKEDITOR.replace('edit_answer', {
         {% if 'faq' in CKEDITOR_CONFIGS %}
           ...{{ CKEDITOR_CONFIGS.faq|safe }}
         {% else %}
           toolbar: [
+            ['Format'],
             ['Bold', 'Italic', 'Underline', 'Strike'],
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
             ['TextColor', 'BGColor'],
-            ['Format', 'FontSize'],
+            ['FontSize'],
+            ['Table'],
+            ['Undo', 'Redo'],
             ['RemoveFormat']
           ],
           height: 250,
           removePlugins: 'resize',
           allowedContent: true,
-          extraPlugins: 'justify'
+          extraPlugins: 'justify,table',
+          format_tags: 'p;h1;h2;h3;h4;h5;h6'
         {% endif %}
       });
 
-      // Handle Add FAQ form submission - SIMPLIFIED VERSION
+      // Handle Add FAQ form submission
       document.getElementById('addFAQForm').addEventListener('submit', function(e) {
         // Update CKEditor data before form submission
+        questionEditor.updateElement();
         answerEditor.updateElement();
         
-        const question = document.getElementById('question').value.trim();
+        // Get the actual content from CKEditor instances
+        const questionContent = questionEditor.getData().trim();
         const answerContent = answerEditor.getData().trim();
         
-        if (!question || !answerContent) {
+        // Remove HTML tags and check for actual text content
+        const questionText = questionContent.replace(/<[^>]*>/g, '').trim();
+        const answerText = answerContent.replace(/<[^>]*>/g, '').trim();
+        
+        // Also check if content is just empty paragraphs or whitespace
+        const isQuestionEmpty = !questionText || questionText === '' || questionContent === '<p>&nbsp;</p>' || questionContent === '<p></p>';
+        const isAnswerEmpty = !answerText || answerText === '' || answerContent === '<p>&nbsp;</p>' || answerContent === '<p></p>';
+        
+        if (isQuestionEmpty || isAnswerEmpty) {
           e.preventDefault();
           Swal.fire({
             icon: 'warning',
@@ -554,19 +604,43 @@
           });
           return;
         }
-
-        // REMOVED: The formatting code that was adding Q&A structure
-        // Let the answer be stored as-is from the CKEditor
       });
 
       // Handle Edit FAQ form
-      document.getElementById('editFAQForm').addEventListener('submit', function(e) {
+           document.getElementById('editFAQForm').addEventListener('submit', function(e) {
+        editQuestionEditor.updateElement();
         editAnswerEditor.updateElement();
+        
+        // Get the actual content from CKEditor instances
+        const questionContent = editQuestionEditor.getData().trim();
+        const answerContent = editAnswerEditor.getData().trim();
+        
+        // Remove HTML tags and check for actual text content
+        const questionText = questionContent.replace(/<[^>]*>/g, '').trim();
+        const answerText = answerContent.replace(/<[^>]*>/g, '').trim();
+        
+        // Also check if content is just empty paragraphs or whitespace
+        const isQuestionEmpty = !questionText || questionText === '' || questionContent === '<p>&nbsp;</p>' || questionContent === '<p></p>';
+        const isAnswerEmpty = !answerText || answerText === '' || answerContent === '<p>&nbsp;</p>' || answerContent === '<p></p>';
+        
+        if (isQuestionEmpty || isAnswerEmpty) {
+          e.preventDefault();
+          Swal.fire({
+            icon: 'warning',
+            title: 'Missing Information',
+            text: 'Please fill in both question and answer fields.',
+            confirmButtonText: 'OK'
+          });
+          return;
+        }
       });
     });
 
     // Reset editors when modals are closed
     $('#addFAQModal').on('hidden.bs.modal', function () {
+      if (questionEditor) {
+        questionEditor.setData('');
+      }
       if (answerEditor) {
         answerEditor.setData('');
       }
@@ -574,6 +648,9 @@
     });
 
     $('#editFAQModal').on('hidden.bs.modal', function () {
+      if (editQuestionEditor) {
+        editQuestionEditor.setData('');
+      }
       if (editAnswerEditor) {
         editAnswerEditor.setData('');
       }
@@ -581,7 +658,10 @@
 
     // Function to populate edit modal
     function populateEditModal(data, faqId) {
-      document.getElementById('edit_question').value = data.question;
+      // Set the question in CKEditor
+      if (editQuestionEditor) {
+        editQuestionEditor.setData(data.question);
+      }
       
       // Set the answer in CKEditor
       if (editAnswerEditor) {
