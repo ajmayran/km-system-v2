@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from datetime import timedelta
 from .models import ChatSession, ChatMessage
 from .services import chatbot_service
 from appAdmin.models import ResourceMetadata
@@ -21,21 +22,37 @@ def chat_message(request):
         if not message:
             return JsonResponse({'error': 'Message is required'}, status=400)
         
-        # Get or create chat session
+        # Clean up expired sessions periodically
+        if timezone.now().hour == 0 and timezone.now().minute < 5:  # Run cleanup once daily
+            ChatSession.cleanup_expired_sessions()
+        
+        # Get or create chat session with proper expiry handling
+        chat_session = None
+        
         if session_id:
             try:
                 chat_session = ChatSession.objects.get(session_id=session_id)
+                
+                # Check if session has expired
+                if chat_session.is_expired():
+                    # Delete expired session and create new one
+                    chat_session.delete()
+                    chat_session = None
+                else:
+                    # Extend session activity
+                    chat_session.last_activity = timezone.now()
+                    chat_session.save()
+                    
             except ChatSession.DoesNotExist:
-                chat_session = ChatSession.objects.create(
-                    session_id=str(uuid.uuid4()),
-                    user=request.user if request.user.is_authenticated else None,
-                    nlp_model_used='intelligent_ai_local'
-                )
-        else:
+                chat_session = None
+        
+        # Create new session if none exists or expired
+        if not chat_session:
             chat_session = ChatSession.objects.create(
                 session_id=str(uuid.uuid4()),
                 user=request.user if request.user.is_authenticated else None,
-                nlp_model_used='intelligent_ai_local'
+                nlp_model_used='intelligent_ai_local',
+                expires_at=timezone.now() + timedelta(hours=24)
             )
         
         # Generate intelligent response using local AI
@@ -77,12 +94,14 @@ def chat_message(request):
             tfidf_score=ai_scores.get('tfidf_score', 0.0),
             confidence_level=bot_response.get('confidence', 'medium'),
             processed_query_length=len(message.split()),
-            semantic_keywords_found=len(message.split())  # Simplified
+            semantic_keywords_found=len(message.split())
         )
         
-        # Prepare enhanced response with AI intelligence indicators
+        # Prepare enhanced response with session info
         response_data = {
             'session_id': chat_session.session_id,
+            'session_expires_at': chat_session.expires_at.isoformat(),
+            'session_created_at': chat_session.created_at.isoformat(),
             'message_id': chat_message_obj.id,
             'response': bot_response['response'],
             'confidence': bot_response.get('confidence', 'medium'),
@@ -93,7 +112,8 @@ def chat_message(request):
             'ai_powered': bot_response.get('ai_powered', True),
             'local_ai': bot_response.get('local_ai', True),
             'intelligent_processing': True,
-            'intent_detected': True
+            'intent_detected': True,
+            'session_persistent': True
         }
         
         # Add matched resources with enhanced data
@@ -129,6 +149,66 @@ def chat_message(request):
     except Exception as e:
         print(f"Intelligent Chatbot error: {e}")
         return JsonResponse({'error': 'Internal server error'}, status=500)
+
+@csrf_exempt
+def get_session_history(request):
+    """Get chat history for a specific session"""
+    try:
+        session_id = request.GET.get('session_id')
+        if not session_id:
+            return JsonResponse({'error': 'Session ID required'}, status=400)
+        
+        try:
+            chat_session = ChatSession.objects.get(session_id=session_id)
+            
+            # Check if session has expired
+            if chat_session.is_expired():
+                return JsonResponse({
+                    'session_expired': True,
+                    'message': 'Session has expired',
+                    'messages': []
+                })
+            
+            # Get all messages for this session
+            messages = chat_session.messages.all().order_by('timestamp')
+            
+            message_history = []
+            for msg in messages:
+                message_data = {
+                    'id': msg.id,
+                    'message': msg.message,
+                    'response': msg.response,
+                    'timestamp': msg.timestamp.isoformat(),
+                    'similarity_score': msg.similarity_score,
+                    'confidence_level': msg.confidence_level,
+                    'matched_resource': {
+                        'id': msg.matched_resource.id,
+                        'title': msg.matched_resource.title,
+                        'slug': msg.matched_resource.slug,
+                        'resource_type': msg.matched_resource.resource_type
+                    } if msg.matched_resource else None
+                }
+                message_history.append(message_data)
+            
+            return JsonResponse({
+                'session_id': chat_session.session_id,
+                'session_expires_at': chat_session.expires_at.isoformat(),
+                'session_created_at': chat_session.created_at.isoformat(),
+                'total_queries': chat_session.total_queries,
+                'messages': message_history,
+                'session_expired': False,
+                'session_persistent': True
+            })
+            
+        except ChatSession.DoesNotExist:
+            return JsonResponse({
+                'session_expired': True,
+                'message': 'Session not found',
+                'messages': []
+            })
+            
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 def debug_ai_status(request):
     """Debug endpoint to check AI model status"""

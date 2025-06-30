@@ -1,6 +1,8 @@
 class IntelligentChatbot {
     constructor() {
         this.sessionId = null;
+        this.sessionExpiresAt = null;
+        this.sessionCreatedAt = null;
         this.isOpen = false;
         this.isMinimized = false;
         this.messageHistory = [];
@@ -9,6 +11,7 @@ class IntelligentChatbot {
         this.bindEvents();
         this.loadFromStorage();
         this.addWelcomeMessage();
+        this.loadSessionHistory();
     }
 
     initializeElements() {
@@ -21,6 +24,89 @@ class IntelligentChatbot {
         this.typing = document.getElementById('chatbot-typing');
         this.minimizeBtn = document.getElementById('chatbot-minimize');
         this.closeBtn = document.getElementById('chatbot-close');
+    }
+
+    async loadSessionHistory() {
+        // Check if we have a stored session ID
+        const savedState = this.getStoredState();
+        if (savedState && savedState.sessionId) {
+            try {
+                const response = await fetch(`/chatbot/session-history/?session_id=${savedState.sessionId}`);
+                const data = await response.json();
+
+                if (response.ok && !data.session_expired) {
+                    // Session is still valid, restore chat history
+                    this.sessionId = data.session_id;
+                    this.sessionExpiresAt = new Date(data.session_expires_at);
+                    this.sessionCreatedAt = new Date(data.session_created_at);
+
+                    // Clear existing messages and restore from server
+                    this.messages.innerHTML = '';
+
+                    // Add welcome message first
+                    this.addWelcomeMessage();
+
+                    // Restore all messages from session
+                    for (const msg of data.messages) {
+                        this.addMessage(msg.message, 'user', {}, false); // Don't save to storage
+                        this.addMessage(msg.response, 'bot', {
+                            confidence: msg.confidence_level,
+                            ai_powered: true,
+                            restored: true
+                        }, false);
+                    }
+
+                    console.log(`🔄 Restored ${data.messages.length} messages from session ${this.sessionId}`);
+                    console.log(`⏰ Session expires at: ${this.sessionExpiresAt.toLocaleString()}`);
+
+                    // Start session expiry checker
+                    this.startSessionExpiryChecker();
+
+                } else {
+                    // Session expired or not found, clear stored session
+                    console.log('🕐 Previous session expired, starting fresh');
+                    this.clearStoredSession();
+                    this.addWelcomeMessage();
+                }
+            } catch (error) {
+                console.error('Error loading session history:', error);
+                this.addWelcomeMessage();
+            }
+        } else {
+            // No previous session, add welcome message
+            this.addWelcomeMessage();
+        }
+    }
+
+    startSessionExpiryChecker() {
+        // Check session expiry every minute
+        if (this.sessionExpiryTimer) {
+            clearInterval(this.sessionExpiryTimer);
+        }
+
+        this.sessionExpiryTimer = setInterval(() => {
+            if (this.sessionExpiresAt && new Date() > this.sessionExpiresAt) {
+                this.handleSessionExpiry();
+            }
+        }, 60000); // Check every minute
+    }
+
+    handleSessionExpiry() {
+        console.log('🕐 Session expired, clearing chat');
+        this.clearStoredSession();
+        this.messages.innerHTML = '';
+        this.addMessage(
+            '⏰ Your chat session has expired (24 hours). Starting a fresh conversation!',
+            'bot',
+            { confidence: 'high', system_message: true }
+        );
+        setTimeout(() => {
+            this.addWelcomeMessage();
+        }, 1000);
+
+        if (this.sessionExpiryTimer) {
+            clearInterval(this.sessionExpiryTimer);
+        }
     }
 
     addWelcomeMessage() {
@@ -39,6 +125,119 @@ class IntelligentChatbot {
             `, 'bot', { ai_powered: true, local_ai: true });
         }
     }
+
+    async sendMessage() {
+        const message = this.input.value.trim();
+        if (!message) return;
+
+        this.messageHistory.push({ type: 'user', content: message, timestamp: new Date() });
+
+        this.input.value = '';
+        this.sendBtn.disabled = true;
+        this.clearSuggestions();
+
+        this.addMessage(message, 'user');
+        this.showTyping();
+
+        try {
+            const response = await fetch('/chatbot/chat/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': this.getCSRFToken(),
+                },
+                body: JSON.stringify({
+                    message: message,
+                    session_id: this.sessionId
+                })
+            });
+
+            const data = await response.json();
+            this.hideTyping();
+
+            if (response.ok) {
+                // Update session information
+                this.sessionId = data.session_id;
+                if (data.session_expires_at) {
+                    this.sessionExpiresAt = new Date(data.session_expires_at);
+                }
+                if (data.session_created_at) {
+                    this.sessionCreatedAt = new Date(data.session_created_at);
+                }
+
+                // Start expiry checker if not already running
+                if (!this.sessionExpiryTimer) {
+                    this.startSessionExpiryChecker();
+                }
+
+                this.messageHistory.push({
+                    type: 'bot',
+                    content: data.response,
+                    confidence: data.confidence,
+                    ai_powered: data.ai_powered,
+                    local_ai: data.local_ai,
+                    timestamp: new Date()
+                });
+
+                // Add bot message with typing animation and AI indicators
+                this.addBotMessageWithTyping(data.response, data, () => {
+                    // Show AI status if available
+                    if (data.ai_powered) {
+                        this.addAIStatusIndicator(data);
+                    }
+
+                    // Show suggestions
+                    if (data.suggestions && data.suggestions.length > 0) {
+                        setTimeout(() => {
+                            this.showSuggestions(data.suggestions);
+                        }, 500);
+                    }
+
+                    // Show related resources
+                    if (data.matched_resources && data.matched_resources.length > 0) {
+                        setTimeout(() => {
+                            this.addRelatedResourceCards(data.matched_resources);
+                        }, 1000);
+                    }
+                });
+
+            } else {
+                this.addMessage('Sorry, I encountered an error. Please try again.', 'bot');
+                console.error('Intelligent Chatbot API error:', data);
+            }
+        } catch (error) {
+            console.error('Intelligent Chatbot error:', error);
+            this.hideTyping();
+            this.addMessage('Sorry, I\'m having trouble connecting. Please check your internet connection and try again.', 'bot');
+        }
+
+        this.saveToStorage();
+    }
+
+    getStoredState() {
+        try {
+            const saved = localStorage.getItem('chatbot-state');
+            return saved ? JSON.parse(saved) : null;
+        } catch (e) {
+            console.warn('Could not load chatbot state:', e);
+            return null;
+        }
+    }
+
+    clearStoredSession() {
+        this.sessionId = null;
+        this.sessionExpiresAt = null;
+        this.sessionCreatedAt = null;
+        this.messageHistory = [];
+
+        if (this.sessionExpiryTimer) {
+            clearInterval(this.sessionExpiryTimer);
+        }
+
+        localStorage.removeItem('chatbot-state');
+    }
+
+
 
     bindEvents() {
         if (!this.toggle || !this.sendBtn || !this.input) {
@@ -174,7 +373,7 @@ class IntelligentChatbot {
                     if (data.ai_powered) {
                         this.addAIStatusIndicator(data);
                     }
-                    
+
                     // Show suggestions
                     if (data.suggestions && data.suggestions.length > 0) {
                         setTimeout(() => {
@@ -203,12 +402,20 @@ class IntelligentChatbot {
         this.saveToStorage();
     }
 
-    addMessage(text, sender, data = {}) {
+    addMessage(text, sender, data = {}, saveToStorage = true) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `chatbot-message ${sender}-message`;
 
         if (sender === 'bot' && data.confidence) {
             messageDiv.classList.add(`confidence-${data.confidence}`);
+        }
+
+        if (data.system_message) {
+            messageDiv.classList.add('system-message');
+        }
+
+        if (data.restored) {
+            messageDiv.classList.add('restored-message');
         }
 
         const avatar = document.createElement('div');
@@ -234,6 +441,10 @@ class IntelligentChatbot {
 
         this.messages.appendChild(messageDiv);
         this.scrollToBottom();
+
+        if (saveToStorage) {
+            this.saveToStorage();
+        }
     }
 
     addBotMessageWithTyping(text, data = {}, onComplete = null) {
@@ -267,14 +478,14 @@ class IntelligentChatbot {
     typeText(element, text, onComplete) {
         element.classList.add('typing');
         element.innerHTML = '';
-        
+
         let index = 0;
         const speed = 20; // Faster typing for better UX
 
         const typeChar = () => {
             if (index < text.length) {
                 const char = text.charAt(index);
-                
+
                 if (text.substr(index, 4) === '<br>') {
                     element.innerHTML += '<br>';
                     index += 4;
@@ -294,7 +505,7 @@ class IntelligentChatbot {
                     element.innerHTML += char;
                     index++;
                 }
-                
+
                 this.scrollToBottom();
                 setTimeout(typeChar, speed);
             } else {
@@ -310,8 +521,8 @@ class IntelligentChatbot {
         if (!resources || resources.length === 0) return;
 
         // Filter out resources that don't have good relevance
-        const relevantResources = resources.filter(resource => 
-            resource.title && resource.description && 
+        const relevantResources = resources.filter(resource =>
+            resource.title && resource.description &&
             resource.title.length > 0 && resource.description.length > 0
         );
 
@@ -372,8 +583,8 @@ class IntelligentChatbot {
             };
 
             const icon = typeIcons[resource.type] || '📋';
-            const truncatedDesc = resource.description.length > 100 
-                ? resource.description.substring(0, 100) + '...' 
+            const truncatedDesc = resource.description.length > 100
+                ? resource.description.substring(0, 100) + '...'
                 : resource.description;
 
             card.innerHTML = `
@@ -408,7 +619,7 @@ class IntelligentChatbot {
             card.addEventListener('click', () => {
                 // Create a detailed response for the clicked resource
                 let detailedResponse = `**${resource.title}**\n\n${resource.description}`;
-                
+
                 // Add type-specific information
                 if (resource.type === 'faq') {
                     detailedResponse = `❓ **FAQ: ${resource.title}**\n\n${resource.description}`;
@@ -449,18 +660,18 @@ class IntelligentChatbot {
                 }
 
                 // Add as new bot message with AI indicators
-                this.addBotMessageWithTyping(detailedResponse, { 
-                    confidence: 'high', 
-                    ai_powered: true, 
-                    local_ai: true 
+                this.addBotMessageWithTyping(detailedResponse, {
+                    confidence: 'high',
+                    ai_powered: true,
+                    local_ai: true
                 }, () => {
-                    this.addAIStatusIndicator({ 
-                        ai_powered: true, 
-                        local_ai: true, 
-                        intent_detected: true 
+                    this.addAIStatusIndicator({
+                        ai_powered: true,
+                        local_ai: true,
+                        intent_detected: true
                     });
                 });
-                
+
                 // Clear suggestions and scroll to bottom
                 this.clearSuggestions();
             });
@@ -488,10 +699,10 @@ class IntelligentChatbot {
             chip.dataset.message = suggestion;
             chip.style.cursor = 'pointer';
             chip.style.animationDelay = `${index * 0.1}s`;
-            
+
             // Add AI intelligence indicator to suggestions
             chip.title = 'AI-powered suggestion - Click to use';
-            
+
             this.suggestions.appendChild(chip);
         });
     }
@@ -504,7 +715,27 @@ class IntelligentChatbot {
 
     showTyping() {
         if (this.typing) {
+            // Clear any existing content
+            this.typing.innerHTML = '';
+
+            // Create proper structure matching bot messages
+            const avatar = document.createElement('div');
+            avatar.className = 'typing-avatar';
+            avatar.innerHTML = '<i class="fas fa-robot"></i>';
+
+            const content = document.createElement('div');
+            content.className = 'typing-content';
+
+            // Add typing dots
+            for (let i = 0; i < 3; i++) {
+                const dot = document.createElement('span');
+                content.appendChild(dot);
+            }
+
+            this.typing.appendChild(avatar);
+            this.typing.appendChild(content);
             this.typing.style.display = 'flex';
+
             this.scrollToBottom();
         }
     }
@@ -512,6 +743,7 @@ class IntelligentChatbot {
     hideTyping() {
         if (this.typing) {
             this.typing.style.display = 'none';
+            this.typing.innerHTML = ''; 
         }
     }
 
@@ -546,8 +778,11 @@ class IntelligentChatbot {
                 isOpen: this.isOpen,
                 isMinimized: this.isMinimized,
                 sessionId: this.sessionId,
+                sessionExpiresAt: this.sessionExpiresAt?.toISOString(),
+                sessionCreatedAt: this.sessionCreatedAt?.toISOString(),
                 messageHistory: this.messageHistory.slice(-10),
-                aiEnabled: this.aiEnabled
+                aiEnabled: this.aiEnabled,
+                persistentSession: true
             };
             localStorage.setItem('chatbot-state', JSON.stringify(state));
         } catch (e) {
@@ -557,16 +792,21 @@ class IntelligentChatbot {
 
     loadFromStorage() {
         try {
-            const saved = localStorage.getItem('chatbot-state');
+            const saved = this.getStoredState();
             if (saved) {
-                const state = JSON.parse(saved);
-                this.sessionId = state.sessionId;
-                this.messageHistory = state.messageHistory || [];
-                this.aiEnabled = state.aiEnabled !== false; // Default to true
+                this.sessionId = saved.sessionId;
+                if (saved.sessionExpiresAt) {
+                    this.sessionExpiresAt = new Date(saved.sessionExpiresAt);
+                }
+                if (saved.sessionCreatedAt) {
+                    this.sessionCreatedAt = new Date(saved.sessionCreatedAt);
+                }
+                this.messageHistory = saved.messageHistory || [];
+                this.aiEnabled = saved.aiEnabled !== false;
 
-                if (state.isOpen) {
+                if (saved.isOpen) {
                     this.openChatbot();
-                    if (state.isMinimized) {
+                    if (saved.isMinimized) {
                         this.toggleMinimize();
                     }
                 }
@@ -583,8 +823,7 @@ document.addEventListener('DOMContentLoaded', function () {
         try {
             window.chatbot = new IntelligentChatbot();
             console.log('🤖 Intelligent Chatbot initialized successfully with local AI capabilities');
-            
-            // Add AI status to console for debugging
+
             setTimeout(() => {
                 fetch('/chatbot/debug-ai-status/')
                     .then(response => response.json())
@@ -598,10 +837,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                     .catch(e => console.log('Could not fetch AI status:', e));
             }, 1000);
-            
+
         } catch (e) {
             console.error('Failed to initialize intelligent chatbot:', e);
-            // Fallback to basic chatbot if needed
         }
     }
 });
