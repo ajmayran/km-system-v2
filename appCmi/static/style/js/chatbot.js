@@ -1,9 +1,10 @@
-class Chatbot {
+class IntelligentChatbot {
     constructor() {
         this.sessionId = null;
         this.isOpen = false;
         this.isMinimized = false;
         this.messageHistory = [];
+        this.aiEnabled = true;
         this.initializeElements();
         this.bindEvents();
         this.loadFromStorage();
@@ -24,19 +25,18 @@ class Chatbot {
 
     addWelcomeMessage() {
         const existingBotMessages = this.messages.querySelectorAll('.bot-message');
-        if (existingBotMessages.length === 1) {
-            const welcomeMessage = existingBotMessages[0];
-            const messageContent = welcomeMessage.querySelector('.message-content p');
-            if (messageContent) {
-                messageContent.innerHTML = `
-                    👋 Hello! I'm your AANR Knowledge Assistant.<br><br>
-                    I can help you with:<br>
-                    🌾 Agriculture & Farming<br>
-                    🐟 Aquatic Resources<br>
-                    🌲 Natural Resources<br><br>
-                    What would you like to know?
-                `;
-            }
+        if (existingBotMessages.length === 0) {
+            // Add initial welcome message with AI branding
+            this.addMessage(`
+                🤖 Hello! I'm your <strong>intelligent AI assistant</strong> for AANR Knowledge Hub.<br><br>
+                <em>✨ Powered by local AI models - your data stays secure!</em><br><br>
+                I can intelligently help you with:<br>
+                🌾 Agriculture & Farming Resources<br>
+                🐟 Aquatic & Natural Resources<br>
+                💬 Forum Discussions & Expert Advice<br>
+                🏢 CMI Locations & Services<br><br>
+                Try asking me: <em>"Give me sample 1 FAQ"</em> or <em>"Show me farming resources"</em>
+            `, 'bot', { ai_powered: true, local_ai: true });
         }
     }
 
@@ -163,21 +163,26 @@ class Chatbot {
                     type: 'bot',
                     content: data.response,
                     confidence: data.confidence,
+                    ai_powered: data.ai_powered,
+                    local_ai: data.local_ai,
                     timestamp: new Date()
                 });
 
-                // Add bot message with typing animation
+                // Add bot message with typing animation and AI indicators
                 this.addBotMessageWithTyping(data.response, data, () => {
-                    // After typing is complete, show other elements
+                    // Show AI status if available
+                    if (data.ai_powered) {
+                        this.addAIStatusIndicator(data);
+                    }
                     
-                    // Show suggestions first
+                    // Show suggestions
                     if (data.suggestions && data.suggestions.length > 0) {
                         setTimeout(() => {
                             this.showSuggestions(data.suggestions);
                         }, 500);
                     }
 
-                    // Show related resources as clickable cards (not links)
+                    // Show related resources
                     if (data.matched_resources && data.matched_resources.length > 0) {
                         setTimeout(() => {
                             this.addRelatedResourceCards(data.matched_resources);
@@ -187,10 +192,10 @@ class Chatbot {
 
             } else {
                 this.addMessage('Sorry, I encountered an error. Please try again.', 'bot');
-                console.error('Chatbot API error:', data);
+                console.error('Intelligent Chatbot API error:', data);
             }
         } catch (error) {
-            console.error('Chatbot error:', error);
+            console.error('Intelligent Chatbot error:', error);
             this.hideTyping();
             this.addMessage('Sorry, I\'m having trouble connecting. Please check your internet connection and try again.', 'bot');
         }
@@ -198,7 +203,6 @@ class Chatbot {
         this.saveToStorage();
     }
 
-    
     addMessage(text, sender, data = {}) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `chatbot-message ${sender}-message`;
@@ -217,16 +221,14 @@ class Chatbot {
         content.className = 'message-content';
 
         const p = document.createElement('p');
-        if (text.includes('<br>') || text.includes('<strong>')) {
+        if (text.includes('<br>') || text.includes('<strong>') || text.includes('<em>')) {
             p.innerHTML = text;
         } else {
             p.style.whiteSpace = 'pre-wrap';
             p.textContent = text;
         }
         content.appendChild(p);
-        
-        // REMOVED: NLP scores section - no more technical details
-        
+
         messageDiv.appendChild(avatar);
         messageDiv.appendChild(content);
 
@@ -262,13 +264,12 @@ class Chatbot {
         this.typeText(p, text, onComplete);
     }
 
-    // Updated typing function to accept callback
     typeText(element, text, onComplete) {
         element.classList.add('typing');
         element.innerHTML = '';
         
         let index = 0;
-        const speed = 30; // Typing speed in milliseconds
+        const speed = 20; // Faster typing for better UX
 
         const typeChar = () => {
             if (index < text.length) {
@@ -283,43 +284,12 @@ class Chatbot {
                 } else if (text.substr(index, 9) === '</strong>') {
                     element.innerHTML += '</strong>';
                     index += 9;
-                } else {
-                    element.innerHTML += char;
-                    index++;
-                }
-                
-                this.scrollToBottom();
-                setTimeout(typeChar, speed);
-            } else {
-                element.classList.remove('typing');
-                if (onComplete) onComplete();
-            }
-        };
-
-        typeChar();
-    }
-
-    // NEW: Typing animation function
-    typeText(element, text, onComplete) {
-        element.classList.add('typing');
-        element.innerHTML = '';
-        
-        let index = 0;
-        const speed = 30; // Typing speed in milliseconds
-
-        const typeChar = () => {
-            if (index < text.length) {
-                const char = text.charAt(index);
-                
-                if (text.substr(index, 4) === '<br>') {
-                    element.innerHTML += '<br>';
+                } else if (text.substr(index, 4) === '<em>') {
+                    element.innerHTML += '<em>';
                     index += 4;
-                } else if (text.substr(index, 8) === '<strong>') {
-                    element.innerHTML += '<strong>';
-                    index += 8;
-                } else if (text.substr(index, 9) === '</strong>') {
-                    element.innerHTML += '</strong>';
-                    index += 9;
+                } else if (text.substr(index, 5) === '</em>') {
+                    element.innerHTML += '</em>';
+                    index += 5;
                 } else {
                     element.innerHTML += char;
                     index++;
@@ -396,7 +366,9 @@ class Chatbot {
                 'media': '🎥',
                 'forum': '💬',
                 'cmi': '🏢',
-                'faq': '❓'
+                'faq': '❓',
+                'commodity': '🌾',
+                'category': '📚'
             };
 
             const icon = typeIcons[resource.type] || '📋';
@@ -410,6 +382,9 @@ class Chatbot {
                     <div style="flex: 1;">
                         <div style="font-weight: 600; color: #2d3748; margin-bottom: 4px; font-size: 0.9em;">${resource.title}</div>
                         <div style="color: #666; font-size: 0.8em; line-height: 1.3;">${truncatedDesc}</div>
+                        <div style="color: #999; font-size: 0.7em; margin-top: 4px; text-transform: capitalize;">
+                            ${resource.type}${resource.resource_type ? ` • ${resource.resource_type}` : ''}
+                        </div>
                     </div>
                 </div>
             `;
@@ -419,12 +394,14 @@ class Chatbot {
                 card.style.backgroundColor = '#e3f2fd';
                 card.style.borderColor = '#1976d2';
                 card.style.transform = 'translateY(-1px)';
+                card.style.boxShadow = '0 2px 8px rgba(0,0,0,0.1)';
             });
 
             card.addEventListener('mouseleave', () => {
                 card.style.backgroundColor = '#f8f9fa';
                 card.style.borderColor = '#e9ecef';
                 card.style.transform = 'translateY(0)';
+                card.style.boxShadow = 'none';
             });
 
             // When clicked, make it a new chatbot response
@@ -434,13 +411,14 @@ class Chatbot {
                 
                 // Add type-specific information
                 if (resource.type === 'faq') {
-                    detailedResponse = `**${resource.title}**\n\n${resource.description}`;
+                    detailedResponse = `❓ **FAQ: ${resource.title}**\n\n${resource.description}`;
                 } else if (resource.type === 'forum') {
                     detailedResponse += `\n\n💬 **Forum Discussion**`;
                     if (resource.author) {
                         detailedResponse += `\n👤 **Author:** ${resource.author}`;
                     }
                 } else if (resource.type === 'cmi') {
+                    detailedResponse = `🏢 **CMI: ${resource.title}**\n\n${resource.description}`;
                     if (resource.location) {
                         detailedResponse += `\n\n📍 **Location:** ${resource.location}`;
                     }
@@ -461,6 +439,8 @@ class Chatbot {
                     };
                     const resourceType = typeLabels[resource.resource_type] || resource.resource_type;
                     detailedResponse += `\n\n📋 **Type:** ${resourceType}`;
+                } else if (resource.type === 'commodity') {
+                    detailedResponse = `🌾 **Commodity: ${resource.title}**\n\n${resource.description}`;
                 }
 
                 // Add link if available
@@ -468,12 +448,21 @@ class Chatbot {
                     detailedResponse += `\n\n🔗 [View Full Details](${resource.url})`;
                 }
 
-                // Add as new bot message
-                this.addMessage(detailedResponse, 'bot', { confidence: 'high' });
+                // Add as new bot message with AI indicators
+                this.addBotMessageWithTyping(detailedResponse, { 
+                    confidence: 'high', 
+                    ai_powered: true, 
+                    local_ai: true 
+                }, () => {
+                    this.addAIStatusIndicator({ 
+                        ai_powered: true, 
+                        local_ai: true, 
+                        intent_detected: true 
+                    });
+                });
                 
                 // Clear suggestions and scroll to bottom
                 this.clearSuggestions();
-                this.scrollToBottom();
             });
 
             cardsContainer.appendChild(card);
@@ -499,6 +488,10 @@ class Chatbot {
             chip.dataset.message = suggestion;
             chip.style.cursor = 'pointer';
             chip.style.animationDelay = `${index * 0.1}s`;
+            
+            // Add AI intelligence indicator to suggestions
+            chip.title = 'AI-powered suggestion - Click to use';
+            
             this.suggestions.appendChild(chip);
         });
     }
@@ -553,7 +546,8 @@ class Chatbot {
                 isOpen: this.isOpen,
                 isMinimized: this.isMinimized,
                 sessionId: this.sessionId,
-                messageHistory: this.messageHistory.slice(-10)
+                messageHistory: this.messageHistory.slice(-10),
+                aiEnabled: this.aiEnabled
             };
             localStorage.setItem('chatbot-state', JSON.stringify(state));
         } catch (e) {
@@ -568,6 +562,7 @@ class Chatbot {
                 const state = JSON.parse(saved);
                 this.sessionId = state.sessionId;
                 this.messageHistory = state.messageHistory || [];
+                this.aiEnabled = state.aiEnabled !== false; // Default to true
 
                 if (state.isOpen) {
                     this.openChatbot();
@@ -582,14 +577,31 @@ class Chatbot {
     }
 }
 
-// Initialize when DOM is ready
+// Initialize the intelligent chatbot when DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('chatbot-container')) {
         try {
-            window.chatbot = new Chatbot();
-            console.log('Chatbot initialized successfully with typing animation');
+            window.chatbot = new IntelligentChatbot();
+            console.log('🤖 Intelligent Chatbot initialized successfully with local AI capabilities');
+            
+            // Add AI status to console for debugging
+            setTimeout(() => {
+                fetch('/chatbot/debug-ai-status/')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('🧠 AI Status:', data);
+                        if (data.ai_models_loaded) {
+                            console.log('✅ Local AI models are active and running');
+                        } else {
+                            console.log('⚠️ AI models not loaded, using fallback processing');
+                        }
+                    })
+                    .catch(e => console.log('Could not fetch AI status:', e));
+            }, 1000);
+            
         } catch (e) {
-            console.error('Failed to initialize chatbot:', e);
+            console.error('Failed to initialize intelligent chatbot:', e);
+            // Fallback to basic chatbot if needed
         }
     }
 });
