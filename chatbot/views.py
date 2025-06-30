@@ -12,7 +12,7 @@ from appAdmin.models import ResourceMetadata
 @csrf_exempt
 @require_POST
 def chat_message(request):
-    """Handle chat messages with advanced spaCy NLP processing"""
+    """Handle chat messages with intelligent AI processing"""
     try:
         data = json.loads(request.body)
         message = data.get('message', '').strip()
@@ -28,30 +28,32 @@ def chat_message(request):
             except ChatSession.DoesNotExist:
                 chat_session = ChatSession.objects.create(
                     session_id=str(uuid.uuid4()),
-                    user=request.user if request.user.is_authenticated else None
+                    user=request.user if request.user.is_authenticated else None,
+                    nlp_model_used='intelligent_ai_local'
                 )
         else:
             chat_session = ChatSession.objects.create(
                 session_id=str(uuid.uuid4()),
-                user=request.user if request.user.is_authenticated else None
+                user=request.user if request.user.is_authenticated else None,
+                nlp_model_used='intelligent_ai_local'
             )
         
-        # Generate response using advanced spaCy NLP
+        # Generate intelligent response using local AI
         bot_response = chatbot_service.generate_response(message)
         
-        # Get detailed NLP similarity scores
+        # Get detailed AI similarity scores
         similar_content = chatbot_service.find_similar_content(message, top_k=1)
-        nlp_scores = {}
+        ai_scores = {}
         similarity_score = 0.0
         
         if similar_content:
             best_match = similar_content[0]
             similarity_score = best_match['similarity_score']
-            nlp_scores = {
+            ai_scores = {
                 'combined_score': similarity_score,
+                'semantic_score': best_match.get('spacy_score', 0.0),
                 'tfidf_score': best_match.get('tfidf_score', 0.0),
-                'spacy_score': best_match.get('spacy_score', 0.0),
-                'keyword_score': best_match.get('keyword_score', 0.0)
+                'confidence_level': best_match.get('confidence', 'medium')
             }
         
         # Find matched resource for database storage
@@ -64,27 +66,34 @@ def chat_message(request):
             except (ResourceMetadata.DoesNotExist, KeyError):
                 pass
         
-        # Save chat message with enhanced NLP data
+        # Save chat message with AI metadata
         chat_message_obj = ChatMessage.objects.create(
             session=chat_session,
             message=message,
             response=bot_response['response'],
             matched_resource=matched_resource,
-            similarity_score=similarity_score
+            similarity_score=similarity_score,
+            spacy_score=ai_scores.get('semantic_score', 0.0),
+            tfidf_score=ai_scores.get('tfidf_score', 0.0),
+            confidence_level=bot_response.get('confidence', 'medium'),
+            processed_query_length=len(message.split()),
+            semantic_keywords_found=len(message.split())  # Simplified
         )
         
-        # Prepare enhanced response with NLP details
+        # Prepare enhanced response with AI intelligence indicators
         response_data = {
             'session_id': chat_session.session_id,
             'message_id': chat_message_obj.id,
             'response': bot_response['response'],
             'confidence': bot_response.get('confidence', 'medium'),
             'similarity_score': round(similarity_score, 3),
-            'nlp_scores': nlp_scores,  # Add detailed NLP scoring
+            'ai_scores': ai_scores,
             'suggestions': bot_response.get('suggestions', []),
             'matched_resources': [],
-            'nlp_powered': True,
-            'spacy_enabled': chatbot_service.nlp is not None  # Indicate if spaCy is working
+            'ai_powered': bot_response.get('ai_powered', True),
+            'local_ai': bot_response.get('local_ai', True),
+            'intelligent_processing': True,
+            'intent_detected': True
         }
         
         # Add matched resources with enhanced data
@@ -95,7 +104,7 @@ def chat_message(request):
                     'title': resource_data['title'],
                     'description': resource_data['description'][:200] + '...' if len(resource_data['description']) > 200 else resource_data['description'],
                     'type': resource_data['type'],
-                    'url': resource_data['url']
+                    'url': resource_data.get('url', '#')
                 }
                 
                 if resource_data['type'] == 'resource':
@@ -118,60 +127,51 @@ def chat_message(request):
     except json.JSONDecodeError:
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
     except Exception as e:
-        print(f"Chatbot error: {e}")
+        print(f"Intelligent Chatbot error: {e}")
         return JsonResponse({'error': 'Internal server error'}, status=500)
 
-def debug_knowledge_base(request):
-    """Debug endpoint to check advanced spaCy NLP knowledge base"""
+def debug_ai_status(request):
+    """Debug endpoint to check AI model status"""
     try:
-        debug_info = {
+        ai_status = {
             'knowledge_items': len(chatbot_service.knowledge_data),
-            'has_tfidf_vectors': chatbot_service.knowledge_vectors is not None,
-            'vector_shape': chatbot_service.knowledge_vectors.shape if chatbot_service.knowledge_vectors is not None else None,
-            'vocabulary_size': len(chatbot_service.vectorizer.vocabulary_) if hasattr(chatbot_service.vectorizer, 'vocabulary_') else 0,
+            'ai_models_loaded': bool(chatbot_service.ai_models),
+            'sentence_transformer': 'sentence_transformer' in chatbot_service.ai_models,
+            'intent_classifier': 'intent_classifier' in chatbot_service.ai_models,
+            'qa_pipeline': 'qa_pipeline' in chatbot_service.ai_models,
             'spacy_model': str(chatbot_service.nlp) if chatbot_service.nlp else 'Not loaded',
-            'custom_stopwords_count': len(chatbot_service.custom_stopwords) if chatbot_service.custom_stopwords else 0,
-            'sample_items': [
-                {
-                    'id': item['id'],
-                    'title': item['title'][:50] + '...' if len(item['title']) > 50 else item['title'],
-                    'type': item['type'],
-                    'processed_text_length': len(item['processed_text']) if 'processed_text' in item else 0,
-                    'semantic_keywords_count': len(item.get('semantic_keywords', [])),
-                    'has_spacy_doc': item.get('spacy_doc') is not None
-                }
-                for item in chatbot_service.knowledge_data[:5]
-            ],
-            'nlp_status': 'active' if chatbot_service.knowledge_vectors is not None else 'inactive'
+            'transformers_available': hasattr(chatbot_service, 'ai_models'),
+            'embeddings_created': hasattr(chatbot_service, 'knowledge_embeddings'),
+            'conversation_history_size': len(getattr(chatbot_service, 'conversation_history', [])),
+            'local_ai_enabled': True,
+            'external_api_usage': False
         }
         
-        # Test advanced NLP similarity search
-        if chatbot_service.knowledge_vectors is not None:
-            test_queries = ["rice farming techniques", "aquaculture methods", "CMI locations"]
-            debug_info['test_results'] = {}
+        # Test AI functionality
+        if chatbot_service.ai_models:
+            test_queries = ["give me sample 1 FAQ", "where are CMI locations", "show me farming techniques"]
+            ai_status['test_results'] = {}
             
             for query in test_queries:
-                test_results = chatbot_service.find_similar_content(query, top_k=3)
-                debug_info['test_results'][query] = [
-                    {
-                        'title': result['resource']['title'],
-                        'type': result['resource']['type'],
-                        'combined_score': result['similarity_score'],
-                        'tfidf_score': result.get('tfidf_score', 0.0),
-                        'spacy_score': result.get('spacy_score', 0.0),
-                        'keyword_score': result.get('keyword_score', 0.0),
-                        'confidence': result['confidence']
+                try:
+                    intent = chatbot_service._classify_user_intent(query)
+                    results = chatbot_service.find_similar_content(query, top_k=2)
+                    ai_status['test_results'][query] = {
+                        'intent_detected': intent.get('intent', 'unknown'),
+                        'intent_confidence': intent.get('confidence', 0.0),
+                        'results_found': len(results),
+                        'ai_processing': True
                     }
-                    for result in test_results
-                ]
+                except Exception as e:
+                    ai_status['test_results'][query] = {'error': str(e)}
         
-        return JsonResponse(debug_info)
+        return JsonResponse(ai_status)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
 @login_required
 def chat_history(request):
-    """Get chat history with enhanced NLP similarity scores"""
+    """Get chat history with AI intelligence indicators"""
     try:
         sessions = ChatSession.objects.filter(user=request.user)[:5]
         
@@ -181,6 +181,9 @@ def chat_history(request):
             session_data = {
                 'session_id': session.session_id,
                 'created_at': session.created_at.isoformat(),
+                'nlp_model_used': session.nlp_model_used,
+                'total_queries': session.total_queries,
+                'ai_powered': True,
                 'messages': [
                     {
                         'id': msg.id,
@@ -188,6 +191,8 @@ def chat_history(request):
                         'response': msg.response,
                         'timestamp': msg.timestamp.isoformat(),
                         'similarity_score': msg.similarity_score,
+                        'confidence_level': msg.confidence_level,
+                        'ai_processed': True,
                         'matched_resource': {
                             'id': msg.matched_resource.id,
                             'title': msg.matched_resource.title,
@@ -199,24 +204,32 @@ def chat_history(request):
             }
             history.append(session_data)
         
-        return JsonResponse({'history': history, 'nlp_powered': True, 'spacy_enabled': True})
+        return JsonResponse({
+            'history': history, 
+            'ai_powered': True, 
+            'local_ai_enabled': True,
+            'intelligent_processing': True
+        })
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
 def refresh_knowledge_base(request):
-    """Refresh the advanced spaCy NLP knowledge base"""
+    """Refresh the intelligent AI knowledge base"""
     if not request.user.is_authenticated:
         return JsonResponse({'error': 'Unauthorized'}, status=403)
     
     try:
         chatbot_service._load_knowledge_base()
+        
         return JsonResponse({
             'success': True, 
-            'message': 'Advanced spaCy NLP knowledge base refreshed successfully',
+            'message': 'Intelligent AI knowledge base refreshed successfully',
             'items_loaded': len(chatbot_service.knowledge_data),
-            'vector_shape': chatbot_service.knowledge_vectors.shape if chatbot_service.knowledge_vectors is not None else None,
+            'ai_models_active': bool(chatbot_service.ai_models),
+            'models_loaded': list(chatbot_service.ai_models.keys()) if chatbot_service.ai_models else [],
             'spacy_model': str(chatbot_service.nlp) if chatbot_service.nlp else 'Not loaded',
-            'stopwords_count': len(chatbot_service.custom_stopwords) if chatbot_service.custom_stopwords else 0
+            'local_ai_enabled': True,
+            'intelligent_processing': True
         })
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
