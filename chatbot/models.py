@@ -1,11 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils import timezone
+from datetime import timedelta
 
 class ChatSession(models.Model):
     user = models.ForeignKey('appAccounts.CustomUser', on_delete=models.CASCADE, null=True, blank=True)
     session_id = models.CharField(max_length=100, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    last_activity = models.DateTimeField(auto_now=True) 
+    expires_at = models.DateTimeField()  
     is_active = models.BooleanField(default=True)
+
     
     # Enhanced NLP tracking
     nlp_model_used = models.CharField(max_length=50, default='spacy_tfidf_hybrid', help_text='NLP model/approach used')
@@ -16,6 +21,30 @@ class ChatSession(models.Model):
 
     def __str__(self):
         return f"Session {self.session_id} - {self.user.username if self.user else 'Anonymous'}"
+    
+    def save(self, *args, **kwargs):
+        # Set expiry to 24 hours from creation if not set
+        if not self.expires_at:
+            self.expires_at = timezone.now() + timedelta(hours=24)
+        super().save(*args, **kwargs)
+
+    def is_expired(self):
+        """Check if session has expired"""
+        return timezone.now() > self.expires_at
+
+    def extend_session(self):
+        """Extend session by 24 hours from now"""
+        self.expires_at = timezone.now() + timedelta(hours=24)
+        self.last_activity = timezone.now()
+        self.save()
+
+    @classmethod
+    def cleanup_expired_sessions(cls):
+        """Clean up expired sessions"""
+        expired_sessions = cls.objects.filter(expires_at__lt=timezone.now())
+        count = expired_sessions.count()
+        expired_sessions.delete()
+        return count
 
 class ChatMessage(models.Model):
     session = models.ForeignKey(ChatSession, on_delete=models.CASCADE, related_name='messages')
