@@ -18,12 +18,25 @@ def chat_message(request):
         data = json.loads(request.body)
         message = data.get('message', '').strip()
         session_id = data.get('session_id')
+        source_click = data.get('source_click', False)
+        clicked_resource_id = data.get('clicked_resource_id')
+        clicked_resource_type = data.get('clicked_resource_type')
         
         if not message:
             return JsonResponse({'error': 'Message is required'}, status=400)
         
+        if source_click and clicked_resource_id:
+            bot_response = chatbot_service.generate_source_response(
+                message, 
+                clicked_resource_id, 
+                clicked_resource_type
+            )
+        else:
+            # Regular chatbot processing
+            bot_response = chatbot_service.generate_response(message)
+        
         # Clean up expired sessions periodically
-        if timezone.now().hour == 0 and timezone.now().minute < 5:  # Run cleanup once daily
+        if timezone.now().hour == 0 and timezone.now().minute < 5: 
             ChatSession.cleanup_expired_sessions()
         
         # Get or create chat session with proper expiry handling
@@ -39,9 +52,21 @@ def chat_message(request):
                     chat_session.delete()
                     chat_session = None
                 else:
-                    # Extend session activity
-                    chat_session.last_activity = timezone.now()
-                    chat_session.save()
+                    # IMPORTANT: Verify session ownership
+                    if request.user.is_authenticated:
+                        if chat_session.user != request.user:
+                            print(f"Session {session_id} belongs to different user, creating new session")
+                            chat_session = None
+                    else:
+                        # For anonymous users, check if session was created by anonymous user
+                        if chat_session.user is not None:
+                            print(f"Session {session_id} belongs to authenticated user, creating anonymous session")
+                            chat_session = None
+                    
+                    if chat_session:
+                        # Extend session activity
+                        chat_session.last_activity = timezone.now()
+                        chat_session.save()
                     
             except ChatSession.DoesNotExist:
                 chat_session = None
@@ -54,6 +79,7 @@ def chat_message(request):
                 nlp_model_used='intelligent_ai_local',
                 expires_at=timezone.now() + timedelta(hours=24)
             )
+            print(f"Created new session {chat_session.session_id} for user {request.user if request.user.is_authenticated else 'Anonymous'}")
         
         # Generate intelligent response using local AI
         bot_response = chatbot_service.generate_response(message)
@@ -113,7 +139,10 @@ def chat_message(request):
             'local_ai': bot_response.get('local_ai', True),
             'intelligent_processing': True,
             'intent_detected': True,
-            'session_persistent': True
+            'session_persistent': True,
+            'source_click': source_click,
+            'url': bot_response.get('url'),
+            'user_verified': True
         }
         
         # Add matched resources with enhanced data
@@ -149,7 +178,7 @@ def chat_message(request):
     except Exception as e:
         print(f"Intelligent Chatbot error: {e}")
         return JsonResponse({'error': 'Internal server error'}, status=500)
-
+    
 @csrf_exempt
 def get_session_history(request):
     """Get chat history for a specific session"""
@@ -168,6 +197,23 @@ def get_session_history(request):
                     'message': 'Session has expired',
                     'messages': []
                 })
+            
+            # IMPORTANT: Check if session belongs to current user
+            if request.user.is_authenticated:
+                if chat_session.user != request.user:
+                    return JsonResponse({
+                        'session_expired': True,
+                        'message': 'Session belongs to different user',
+                        'messages': []
+                    })
+            else:
+                # For anonymous users, check if session was created by anonymous user
+                if chat_session.user is not None:
+                    return JsonResponse({
+                        'session_expired': True,
+                        'message': 'Session belongs to different user',
+                        'messages': []
+                    })
             
             # Get all messages for this session
             messages = chat_session.messages.all().order_by('timestamp')
@@ -197,7 +243,8 @@ def get_session_history(request):
                 'total_queries': chat_session.total_queries,
                 'messages': message_history,
                 'session_expired': False,
-                'session_persistent': True
+                'session_persistent': True,
+                'user_verified': True
             })
             
         except ChatSession.DoesNotExist:
@@ -209,7 +256,6 @@ def get_session_history(request):
             
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
-
 def debug_ai_status(request):
     """Debug endpoint to check AI model status"""
     try:
