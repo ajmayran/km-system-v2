@@ -7,6 +7,16 @@ from sklearn.metrics.pairwise import cosine_similarity
 import spacy
 from spacy.lang.en.stop_words import STOP_WORDS
 
+from appAdmin.models import (
+    ResourceMetadata, KnowledgeResources, Commodity, 
+    Event, InformationSystem, Map, Media, News, Policy,
+    Project, Publication, Technology, TrainingSeminar, Webinar, Product,
+    CMI  
+)
+from appCmi.models import (
+    Forum, ForumComment, FAQ
+)
+
 # Import for local AI
 try:
     from sentence_transformers import SentenceTransformer
@@ -55,16 +65,6 @@ def find_similar_resources(query, knowledge_data, top_k=5):
     # Sort by similarity and return top results
     results.sort(key=lambda x: x['similarity_score'], reverse=True)
     return results[:top_k]
-
-from appAdmin.models import (
-    ResourceMetadata, KnowledgeResources, Commodity, 
-    Event, InformationSystem, Map, Media, News, Policy,
-    Project, Publication, Technology, TrainingSeminar, Webinar, Product,
-    CMI  
-)
-from appCmi.models import (
-    Forum, ForumComment, FAQ
-)
 
 logger = logging.getLogger(__name__)
 
@@ -235,19 +235,53 @@ class IntelligentChatbotService:
             return self._classify_intent_basic(query)
 
     def _extract_main_topic(self, query):     
-            """Extract the main topic/subject from the query"""
-            # Remove content-type words to find the main topic
-            content_words = ['content', 'information', 'details', 'about', 'on', 'for', 'regarding', 'materials', 'data']
+        """Extract the main topic/subject from the query"""
+        # Remove content-type words AND action words to find the main topic
+        stop_words = {
+            'content', 'information', 'details', 'about', 'on', 'for', 'regarding', 'materials', 'data',
+            'give', 'show', 'tell', 'find', 'get', 'help', 'what', 'how', 'where', 'when', 'why',
+            'me', 'us', 'some', 'any', 'the', 'a', 'an', 'of', 'in', 'to', 'and', 'or', 'all'
+        }
+        
+        # Clean the query
+        words = query.lower().split()
+        
+        # For FAQ requests, look for the topic after "faq"
+        if 'faq' in query.lower():
+            faq_index = words.index('faq') if 'faq' in words else -1
+            if faq_index >= 0 and faq_index < len(words) - 1:
+                for i in range(faq_index + 1, len(words)):
+                    if words[i] not in stop_words and len(words[i]) > 2:
+                        return words[i].upper()
+                        
+        topic_words = [word for word in words if word not in stop_words and len(word) > 2]          
+
+        if topic_words:
+            # First priority: Look for known domain-specific keywords
+            domain_keywords = ['raise', 'agriculture', 'aquaculture', 'cmi', 'aanr', 'abh', 'farming', 'fish', 'crop', 'livestock', 'technology', 'training', 'research']
+            for word in topic_words:
+                if word.lower() in domain_keywords:
+                    return word.upper()
             
-            # Clean the query
-            words = query.lower().split()
-            topic_words = [word for word in words if word not in content_words and len(word) > 2]
+            # Second priority: Look for capitalized words in original query (proper nouns)
+            original_words = query.split()
+            for word in original_words:
+                clean_word = word.strip('.,!?;:"()[]{}')
+                if clean_word.lower() in [tw.lower() for tw in topic_words] and len(clean_word) > 0:
+                    if clean_word[0].isupper(): 
+                        return clean_word.upper()
             
-            # Get the most important topic word (usually the first meaningful word)
-            if topic_words:
-                return topic_words[0].upper()  # Return as uppercase for better matching
+            # Third priority: Take the most meaningful word (usually nouns)
+            # Skip common action words that might appear first
+            action_words = ['give', 'show', 'tell', 'find', 'get', 'want', 'need', 'please']
+            for word in topic_words:
+                if word.lower() not in action_words:
+                    return word.upper()
             
-            return None  
+            # Fallback: take the first topic word
+            return topic_words[0].upper()
+        
+        return None
     
     def _extract_content_type(self, query):
             """Extract what type of content is being requested"""
@@ -366,15 +400,12 @@ class IntelligentChatbotService:
         print(f"🎯 Looking for {content_type} about topic: {main_topic}")
         
         if not main_topic:
-            # Fallback to regular search if no clear topic extracted
             return self._enhanced_semantic_search_fallback(query, top_k)
         
         results = []
-        
-        # First, do exact topic matching
         topic_lower = main_topic.lower()
         
-        # Score items based on topic relevance
+        # Score items based on topic relevance - NO TYPE PREFERENCE
         for item in self.knowledge_data:
             score = 0
             title_lower = item['title'].lower()
@@ -382,23 +413,23 @@ class IntelligentChatbotService:
             
             # High score for exact topic match in title
             if topic_lower in title_lower:
-                score += 3
+                score += 5
             
             # Medium score for topic match in description
             if topic_lower in desc_lower:
-                score += 2
+                score += 3
             
             # Lower score for partial matches
             topic_words = topic_lower.split()
             for word in topic_words:
                 if len(word) > 2:  # Ignore short words
                     if word in title_lower:
-                        score += 1
+                        score += 2
                     elif word in desc_lower:
-                        score += 0.5
+                        score += 1
             
-            # Bonus for certain content types
-            if item['type'] in ['resource', 'faq', 'forum']:
+            # Equal bonus for ALL content types
+            if item['type'] in ['resource', 'faq', 'forum', 'cmi', 'publication', 'technology', 'event', 'training', 'webinar', 'news', 'policy', 'project', 'media', 'map', 'product', 'info_system', 'commodity', 'category']:
                 score += 0.5
             
             if score > 0:
@@ -408,7 +439,7 @@ class IntelligentChatbotService:
                     'tfidf_score': 0.0,
                     'spacy_score': score,
                     'text_score': score,
-                    'confidence': 'high' if score >= 3 else 'medium' if score >= 1.5 else 'low',
+                    'confidence': 'high' if score >= 5 else 'medium' if score >= 2 else 'low',
                     'topic_match': True,
                     'topic_score': score
                 })
@@ -416,14 +447,14 @@ class IntelligentChatbotService:
         # Sort by topic relevance score
         results.sort(key=lambda x: x['similarity_score'], reverse=True)
         
-        # If we have good results, return them
-        if results and results[0]['similarity_score'] >= 1:
+        # Return results without any type filtering
+        if results and results[0]['similarity_score'] >= 0.5:
             return results[:top_k]
         
         # If no good topic matches, fall back to semantic search
         print(f"⚠️ No strong topic matches for '{main_topic}', falling back to semantic search")
         return self._enhanced_semantic_search_fallback(query, top_k)
-    
+
     def _enhanced_semantic_search_fallback(self, query, top_k):
         """Fallback semantic search when topic extraction fails"""
         if not self.ai_models.get('sentence_transformer'):
@@ -690,44 +721,73 @@ class IntelligentChatbotService:
         response_parts = []
         response_parts.append(f"🎯 **{content_type.title()} about {main_topic}:**\n")
         
-        # Type icons and labels
+        # Complete type icons and labels for ALL resource types
         type_info = {
             'faq': {'icon': '❓', 'label': 'Frequently Asked Questions'},
             'forum': {'icon': '💬', 'label': 'Forum Discussions'},
             'resource': {'icon': '📄', 'label': 'Resources & Publications'},
             'commodity': {'icon': '🌾', 'label': 'Commodity Information'},
             'cmi': {'icon': '🏢', 'label': 'CMI Information'},
-            'category': {'icon': '📚', 'label': 'Knowledge Categories'}
+            'category': {'icon': '📚', 'label': 'Knowledge Categories'},
+            'event': {'icon': '📅', 'label': 'Events'},
+            'publication': {'icon': '📖', 'label': 'Publications'},
+            'technology': {'icon': '⚙️', 'label': 'Technologies'},
+            'training': {'icon': '🎓', 'label': 'Training Programs'},
+            'webinar': {'icon': '💻', 'label': 'Webinars'},
+            'news': {'icon': '📰', 'label': 'News'},
+            'policy': {'icon': '📋', 'label': 'Policies'},
+            'project': {'icon': '🚀', 'label': 'Projects'},
+            'media': {'icon': '🎬', 'label': 'Media'},
+            'map': {'icon': '🗺️', 'label': 'Maps'},
+            'product': {'icon': '🛍️', 'label': 'Products'},
+            'info_system': {'icon': '💻', 'label': 'Information Systems'}
         }
         
-        # Display grouped results
+        # Display ALL grouped results without any preference
         for resource_type, matches in grouped_results.items():
             if matches:
                 type_data = type_info.get(resource_type, {'icon': '📌', 'label': resource_type.title()})
-                response_parts.append(f"\n{type_data['icon']} **{type_data['label']}:**")
+                response_parts.append(f"{type_data['icon']} **{type_data['label']}:**")
+                response_parts.append("")  # Add blank line after header
                 
                 for i, match in enumerate(matches[:3], 1):  # Show top 3 per type
                     resource = match['resource']
-                    title = resource['title'][:50] + '...' if len(resource['title']) > 50 else resource['title']
-                    desc = resource['description'][:80] + '...' if len(resource['description']) > 80 else resource['description']
+                    title = resource['title'][:60] + '...' if len(resource['title']) > 60 else resource['title']
+                    desc = resource['description'][:120] + '...' if len(resource['description']) > 120 else resource['description']
                     
                     # Highlight topic matches
-                    if main_topic.lower() in title.lower():
+                    if main_topic and main_topic.lower() in title.lower():
                         title = f"**{title}**"
                     
-                    response_parts.append(f"  {i}. {title}")
+                    response_parts.append(f"  **{i}. {title}**")
                     response_parts.append(f"     {desc}")
+                    response_parts.append("")  # Add blank line between items
         
-        # Add helpful footer
-        response_parts.append(f"\n💡 *Found {len(matched_resources)} results related to {main_topic}. Click any item above for details.*")
+        response_parts.append(f"💡 *Found {len(matched_resources)} results related to {main_topic}. Click any item above for details.*")
         
-        # Generate contextual suggestions
-        suggestions = [
-            f"Tell me more about {main_topic.lower()}",
-            f"Find {main_topic.lower()} examples",
-            f"Show {main_topic.lower()} techniques",
-            "Browse related topics"
-        ]
+        # Generate contextual suggestions based on the actual query, not the topic
+        query_lower = query.lower()
+        if 'website' in query_lower or 'system' in query_lower:
+            suggestions = [
+                "Tell me about CMI services",
+                "What is AANR Knowledge Hub?",
+                "Show me available resources",
+                "How to use this system"
+            ]
+        elif 'about' in query_lower and main_topic:
+            suggestions = [
+                f"Tell me more about {main_topic.lower()}",
+                f"Find {main_topic.lower()} examples",
+                f"Show {main_topic.lower()} techniques",
+                "Browse related topics"
+            ]
+        else:
+            suggestions = [
+                f"Tell me more about {main_topic.lower() if main_topic else 'this topic'}",
+                "Find examples and samples",
+                "Show related information",
+                "Browse available topics"
+            ]
         
         return {
             'response': '\n'.join(response_parts),
@@ -1716,6 +1776,101 @@ class IntelligentChatbotService:
     def generate_response(self, query):
         """Main response generation - now uses AI intelligence"""
         return self.generate_intelligent_response(query)
+
+    def generate_source_response(self, query, resource_id, resource_type):
+        """Generate detailed response for clicked source"""
+        try:
+            # Find the specific resource
+            target_resource = None
+            for item in self.knowledge_data:
+                if (item.get('actual_id') == int(resource_id) and 
+                    item.get('type') == resource_type):
+                    target_resource = item
+                    break
+            
+            if not target_resource:
+                return self._generate_no_results_response(query)
+            
+            # Generate comprehensive response
+            response_parts = []
+            
+            # Add type-specific icon and header
+            type_icons = {
+                'faq': '❓', 'forum': '💬', 'resource': '📄',
+                'commodity': '🌾', 'cmi': '🏢', 'category': '📚',
+                'technology': '⚙️', 'publication': '📄', 'event': '📅',
+                'training': '🎓', 'webinar': '💻', 'news': '📰',
+                'policy': '📜', 'project': '📊', 'product': '🛠️', 'media': '🎥'
+            }
+            
+            icon = type_icons.get(resource_type, '📋')
+            response_parts.append(f"{icon} **{target_resource['title']}**\n")
+            
+            # Add main description
+            response_parts.append(target_resource['description'])
+            
+            # Add type-specific details
+            if resource_type == 'faq':
+                if target_resource.get('created_by'):
+                    response_parts.append(f"\n👤 **Created by:** {target_resource['created_by']}")
+                if target_resource.get('total_reactions'):
+                    response_parts.append(f"👍 **Reactions:** {target_resource['total_reactions']}")
+                    
+            elif resource_type == 'forum':
+                if target_resource.get('author'):
+                    response_parts.append(f"\n👤 **Author:** {target_resource['author']}")
+                if target_resource.get('date_posted'):
+                    response_parts.append(f"📅 **Posted:** {target_resource['date_posted']}")
+                if target_resource.get('commodities'):
+                    response_parts.append(f"🌾 **Related to:** {', '.join(target_resource['commodities'])}")
+                    
+            elif resource_type == 'cmi':
+                if target_resource.get('location'):
+                    response_parts.append(f"\n📍 **Location:** {target_resource['location']}")
+                if target_resource.get('contact'):
+                    response_parts.append(f"📞 **Contact:** {target_resource['contact']}")
+                if target_resource.get('email'):
+                    response_parts.append(f"📧 **Email:** {target_resource['email']}")
+                    
+            elif resource_type == 'resource':
+                if target_resource.get('resource_type'):
+                    response_parts.append(f"\n📋 **Type:** {target_resource['resource_type'].title()}")
+                if target_resource.get('tags'):
+                    response_parts.append(f"🏷️ **Tags:** {', '.join(target_resource['tags'])}")
+                if target_resource.get('commodities'):
+                    response_parts.append(f"🌾 **Commodities:** {', '.join(target_resource['commodities'])}")
+                    
+            elif resource_type == 'event':
+                if target_resource.get('location'):
+                    response_parts.append(f"\n📍 **Location:** {target_resource['location']}")
+                if target_resource.get('organizer'):
+                    response_parts.append(f"👥 **Organizer:** {target_resource['organizer']}")
+                if target_resource.get('start_date'):
+                    response_parts.append(f"📅 **Start Date:** {target_resource['start_date']}")
+                    
+            # Add helpful suggestions
+            suggestions = [
+                f"Find more {resource_type}s",
+                f"Related to {target_resource['title'][:20]}...",
+                "Ask another question",
+                "Browse other topics"
+            ]
+            
+            return {
+                'response': '\n'.join(response_parts),
+                'confidence': 'high',
+                'suggestions': suggestions,
+                'matched_resources': [target_resource],
+                'ai_powered': True,
+                'local_ai': True,
+                'source_response': True,
+                'url': target_resource.get('url', '#')
+            }
+            
+        except Exception as e:
+            print(f"Error generating source response: {e}")
+            return self._generate_fallback_response(query, [])
+
 
 # Create the intelligent chatbot service
 chatbot_service = IntelligentChatbotService()

@@ -190,9 +190,40 @@
     padding: 12px 16px;
     border-radius: 18px;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.5;
     word-wrap: break-word;
     position: relative;
+}
+
+.message-content div {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.message-content strong {
+    font-weight: 600;
+    color: #2d3748;
+}
+
+.message-content em {
+    font-style: italic;
+    color: #4a5568;
+}
+
+.message-content br {
+    line-height: 1.8;
+}
+
+/* Preserve formatting for structured responses */
+.message-content .typing-text {
+    white-space: normal;
+    line-height: 1.5;
+}
+
+.message-content .typing-text br {
+    display: block;
+    margin: 4px 0;
+    content: "";
 }
 
 .user-message .message-content {
@@ -542,4 +573,77 @@
 .ai-status-content {
     font-style: italic;
     color: #6c757d;
+}
+
+.sources-container {
+    margin-top: 12px;
+    padding-top: 8px;
+    border-top: 1px solid #e9ecef;
+}
+
+.clickable-source {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    margin: 4px 0;
+    background: rgba(44, 110, 73, 0.05);
+    border: 1px solid rgba(44, 110, 73, 0.2);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.85em;
+}
+
+.clickable-source:hover {
+    background: rgba(44, 110, 73, 0.1);
+    border-color: rgba(44, 110, 73, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.clickable-source:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* Source response styling */
+.chatbot-message.source-response {
+    background: linear-gradient(135deg, rgba(44, 110, 73, 0.05), rgba(76, 149, 108, 0.05));
+    border-left: 3px solid #2c6e49;
+    margin: 10px 0;
+    border-radius: 8px;
+}
+
+/* URL Links */
+.url-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #2c6e49;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.url-link:hover {
+    background: #4c956c;
+    transform: translateY(-1px);
+    color: white;
+    text-decoration: none;
+}
+
+/* Enhanced styling for clicked sources */
+.chatbot-message.user-message[data-source-click="true"] {
+    background: linear-gradient(135deg, rgba(44, 110, 73, 0.1), rgba(76, 149, 108, 0.1));
+    border-left: 3px solid #4c956c;
+}
+
+.chatbot-message.user-message[data-source-click="true"] .message-content {
+    background: #4c956c;
+    color: white;
 }

@@ -56,6 +56,10 @@ class IntelligentChatbot {
                         }, false);
                     }
 
+                    setTimeout(() => {
+                        this.scrollToBottom();
+                    }, 100);
+
                     console.log(`🔄 Restored ${data.messages.length} messages from session ${this.sessionId}`);
                     console.log(`⏰ Session expires at: ${this.sessionExpiresAt.toLocaleString()}`);
 
@@ -64,12 +68,13 @@ class IntelligentChatbot {
 
                 } else {
                     // Session expired or not found, clear stored session
-                    console.log('🕐 Previous session expired, starting fresh');
+                    console.log('🕐 Previous session expired or belongs to different user, starting fresh');
                     this.clearStoredSession();
                     this.addWelcomeMessage();
                 }
             } catch (error) {
                 console.error('Error loading session history:', error);
+                this.clearStoredSession();
                 this.addWelcomeMessage();
             }
         } else {
@@ -300,6 +305,7 @@ class IntelligentChatbot {
 
         setTimeout(() => {
             if (this.input) this.input.focus();
+            this.scrollToBottom();
         }, 100);
 
         this.saveToStorage();
@@ -427,14 +433,29 @@ class IntelligentChatbot {
         const content = document.createElement('div');
         content.className = 'message-content';
 
-        const p = document.createElement('p');
-        if (text.includes('<br>') || text.includes('<strong>') || text.includes('<em>')) {
-            p.innerHTML = text;
+        const p = document.createElement('div'); // Changed from 'p' to 'div' for better formatting
+
+        // Convert newlines to HTML and preserve formatting
+        if (text.includes('\n') || text.includes('**') || text.includes('<br>') || text.includes('<strong>')) {
+            // Convert markdown-style formatting to HTML
+            let formattedText = text
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold text
+                .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic text
+                .replace(/\n\n/g, '<br><br>') // Double line breaks
+                .replace(/\n/g, '<br>') // Single line breaks
+                .replace(/^(\s+)/gm, (match) => '&nbsp;'.repeat(match.length)); // Preserve indentation
+
+            p.innerHTML = formattedText;
         } else {
             p.style.whiteSpace = 'pre-wrap';
             p.textContent = text;
         }
+
         content.appendChild(p);
+
+        if (data.matched_resources && data.matched_resources.length > 0) {
+            this.addClickableSources(content, data.matched_resources);
+        }
 
         messageDiv.appendChild(avatar);
         messageDiv.appendChild(content);
@@ -447,12 +468,214 @@ class IntelligentChatbot {
         }
     }
 
+    addClickableSources(contentElement, resources) {
+        if (!resources || resources.length === 0) return;
+
+        const sourcesContainer = document.createElement('div');
+        sourcesContainer.className = 'sources-container';
+        sourcesContainer.style.cssText = `
+        margin-top: 12px;
+        padding-top: 8px;
+        border-top: 1px solid #e9ecef;
+    `;
+
+        const sourcesHeader = document.createElement('div');
+        sourcesHeader.innerHTML = '<small><strong>📋 Sources:</strong></small>';
+        sourcesHeader.style.cssText = `
+        color: #666;
+        margin-bottom: 8px;
+        font-size: 0.8em;
+    `;
+        sourcesContainer.appendChild(sourcesHeader);
+
+        resources.slice(0, 3).forEach((resource, index) => {
+            const sourceLink = document.createElement('div');
+            sourceLink.className = 'source-link clickable-source';
+            sourceLink.style.cssText = `
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            margin: 4px 0;
+            background: rgba(44, 110, 73, 0.05);
+            border: 1px solid rgba(44, 110, 73, 0.2);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.85em;
+        `;
+
+            // Type icons
+            const typeIcons = {
+                'faq': '❓',
+                'forum': '💬',
+                'resource': '📄',
+                'commodity': '🌾',
+                'cmi': '🏢',
+                'category': '📚',
+                'technology': '⚙️',
+                'publication': '📄',
+                'event': '📅',
+                'training': '🎓',
+                'webinar': '💻',
+                'news': '📰',
+                'policy': '📜',
+                'project': '📊',
+                'product': '🛠️',
+                'media': '🎥'
+            };
+
+            const icon = typeIcons[resource.type] || '📋';
+            const title = resource.title.length > 40 ?
+                resource.title.substring(0, 40) + '...' :
+                resource.title;
+
+            sourceLink.innerHTML = `
+            <span style="font-size: 1.1em;">${icon}</span>
+            <span style="flex: 1; color: #2c6e49; font-weight: 500;">${title}</span>
+            <span style="color: #999; font-size: 0.8em; text-transform: capitalize;">${resource.type}</span>
+        `;
+
+            // Add hover effects
+            sourceLink.addEventListener('mouseenter', () => {
+                sourceLink.style.backgroundColor = 'rgba(44, 110, 73, 0.1)';
+                sourceLink.style.borderColor = 'rgba(44, 110, 73, 0.4)';
+                sourceLink.style.transform = 'translateY(-1px)';
+                sourceLink.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+            });
+
+            sourceLink.addEventListener('mouseleave', () => {
+                sourceLink.style.backgroundColor = 'rgba(44, 110, 73, 0.05)';
+                sourceLink.style.borderColor = 'rgba(44, 110, 73, 0.2)';
+                sourceLink.style.transform = 'translateY(0)';
+                sourceLink.style.boxShadow = 'none';
+            });
+
+            // Make source clickable - generates new chatbot response
+            sourceLink.addEventListener('click', () => {
+                this.handleSourceClick(resource);
+            });
+
+            // Add tooltip
+            sourceLink.title = `Click to learn more about: ${resource.title}`;
+
+            sourcesContainer.appendChild(sourceLink);
+        });
+
+        contentElement.appendChild(sourcesContainer);
+    }
+
+    async handleSourceClick(resource) {
+        // Create a query based on the clicked resource
+        let query = `Tell me more about "${resource.title}"`;
+
+        // Add this to message history
+        this.messageHistory.push({
+            type: 'user',
+            content: query,
+            timestamp: new Date(),
+            source_click: true,
+            clicked_resource: resource
+        });
+
+        // Clear suggestions
+        this.clearSuggestions();
+
+        // Add user message showing what was clicked
+        this.addMessage(`📋 Tell me more about: ${resource.title}`, 'user', {
+            source_click: true
+        });
+
+        // Show typing indicator
+        this.showTyping();
+
+        try {
+            const response = await fetch('/chatbot/chat/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': this.getCSRFToken(),
+                },
+                body: JSON.stringify({
+                    message: query,
+                    session_id: this.sessionId,
+                    source_click: true,
+                    clicked_resource_id: resource.id,
+                    clicked_resource_type: resource.type
+                })
+            });
+
+            const data = await response.json();
+            this.hideTyping();
+
+            if (response.ok) {
+                // Update session information
+                this.sessionId = data.session_id;
+                if (data.session_expires_at) {
+                    this.sessionExpiresAt = new Date(data.session_expires_at);
+                }
+
+                this.messageHistory.push({
+                    type: 'bot',
+                    content: data.response,
+                    confidence: data.confidence,
+                    ai_powered: data.ai_powered,
+                    local_ai: data.local_ai,
+                    timestamp: new Date(),
+                    source_response: true
+                });
+
+                // Add bot response with enhanced source information
+                this.addBotMessageWithTyping(data.response, {
+                    ...data,
+                    source_response: true
+                }, () => {
+                    // Show AI status
+                    if (data.ai_powered) {
+                        this.addAIStatusIndicator({
+                            ...data,
+                            source_click: true
+                        });
+                    }
+
+                    // Show suggestions
+                    if (data.suggestions && data.suggestions.length > 0) {
+                        setTimeout(() => {
+                            this.showSuggestions(data.suggestions);
+                        }, 500);
+                    }
+
+                    // Show related resources
+                    if (data.matched_resources && data.matched_resources.length > 0) {
+                        setTimeout(() => {
+                            this.addRelatedResourceCards(data.matched_resources);
+                        }, 1000);
+                    }
+                });
+
+            } else {
+                this.addMessage('Sorry, I encountered an error retrieving that information. Please try again.', 'bot');
+                console.error('Source click error:', data);
+            }
+        } catch (error) {
+            console.error('Source click error:', error);
+            this.hideTyping();
+            this.addMessage('Sorry, I\'m having trouble connecting. Please try again.', 'bot');
+        }
+
+        this.saveToStorage();
+    }
+
     addBotMessageWithTyping(text, data = {}, onComplete = null) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `chatbot-message bot-message`;
 
         if (data.confidence) {
             messageDiv.classList.add(`confidence-${data.confidence}`);
+        }
+
+        if (data.source_response) {
+            messageDiv.classList.add('source-response');
         }
 
         const avatar = document.createElement('div');
@@ -462,7 +685,7 @@ class IntelligentChatbot {
         const content = document.createElement('div');
         content.className = 'message-content';
 
-        const p = document.createElement('p');
+        const p = document.createElement('div'); // Changed from 'p' to 'div'
         p.className = 'typing-text';
         content.appendChild(p);
 
@@ -472,35 +695,112 @@ class IntelligentChatbot {
         this.scrollToBottom();
 
         // Start typing animation with callback
-        this.typeText(p, text, onComplete);
+        this.typeText(p, text, () => {
+            // Add clickable sources after typing is complete
+            if (data.matched_resources && data.matched_resources.length > 0) {
+                this.addClickableSources(content, data.matched_resources);
+            }
+
+            // Add URL link if available
+            if (data.url || (data.matched_resources && data.matched_resources[0])) {
+                this.addUrlLink(content, data);
+            }
+
+            if (onComplete) onComplete();
+        });
+    }
+
+    addUrlLink(contentElement, data) {
+        let url = data.url;
+        let linkText = 'View Full Details';
+
+        // Get URL from matched resource if not directly provided
+        if (!url && data.matched_resources && data.matched_resources[0]) {
+            const resource = data.matched_resources[0];
+            url = resource.url;
+            linkText = `View ${resource.type}: ${resource.title}`;
+        }
+
+        if (url && url !== '#') {
+            const urlContainer = document.createElement('div');
+            urlContainer.style.cssText = `
+            margin-top: 10px;
+            padding-top: 8px;
+            border-top: 1px solid #e9ecef;
+        `;
+
+            const urlLink = document.createElement('a');
+            urlLink.href = url;
+            urlLink.target = '_blank';
+            urlLink.rel = 'noopener noreferrer';
+            urlLink.style.cssText = `
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            background: #2c6e49;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        `;
+
+            urlLink.innerHTML = `
+            <i class="fas fa-external-link-alt"></i>
+            <span>${linkText.length > 30 ? linkText.substring(0, 30) + '...' : linkText}</span>
+        `;
+
+            urlLink.addEventListener('mouseenter', () => {
+                urlLink.style.backgroundColor = '#4c956c';
+                urlLink.style.transform = 'translateY(-1px)';
+            });
+
+            urlLink.addEventListener('mouseleave', () => {
+                urlLink.style.backgroundColor = '#2c6e49';
+                urlLink.style.transform = 'translateY(0)';
+            });
+
+            urlContainer.appendChild(urlLink);
+            contentElement.appendChild(urlContainer);
+        }
     }
 
     typeText(element, text, onComplete) {
         element.classList.add('typing');
         element.innerHTML = '';
 
+        // Pre-process text to convert markdown to HTML
+        let processedText = text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold text
+            .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic text
+            .replace(/\n\n/g, '<br><br>') // Double line breaks
+            .replace(/\n/g, '<br>') // Single line breaks
+            .replace(/^(\s+)/gm, (match) => '&nbsp;'.repeat(match.length)); // Preserve indentation
+
         let index = 0;
-        const speed = 20; // Faster typing for better UX
+        const speed = 15; // Faster typing for better UX
 
         const typeChar = () => {
-            if (index < text.length) {
-                const char = text.charAt(index);
+            if (index < processedText.length) {
+                const char = processedText.charAt(index);
 
-                if (text.substr(index, 4) === '<br>') {
-                    element.innerHTML += '<br>';
-                    index += 4;
-                } else if (text.substr(index, 8) === '<strong>') {
-                    element.innerHTML += '<strong>';
-                    index += 8;
-                } else if (text.substr(index, 9) === '</strong>') {
-                    element.innerHTML += '</strong>';
-                    index += 9;
-                } else if (text.substr(index, 4) === '<em>') {
-                    element.innerHTML += '<em>';
-                    index += 4;
-                } else if (text.substr(index, 5) === '</em>') {
-                    element.innerHTML += '</em>';
-                    index += 5;
+                // Handle HTML tags
+                if (char === '<') {
+                    // Find the end of the HTML tag
+                    const tagEnd = processedText.indexOf('>', index);
+                    if (tagEnd !== -1) {
+                        const tag = processedText.substring(index, tagEnd + 1);
+                        element.innerHTML += tag;
+                        index = tagEnd + 1;
+                    } else {
+                        element.innerHTML += char;
+                        index++;
+                    }
+                } else if (processedText.substr(index, 6) === '&nbsp;') {
+                    element.innerHTML += '&nbsp;';
+                    index += 6;
                 } else {
                     element.innerHTML += char;
                     index++;
@@ -743,7 +1043,7 @@ class IntelligentChatbot {
     hideTyping() {
         if (this.typing) {
             this.typing.style.display = 'none';
-            this.typing.innerHTML = ''; 
+            this.typing.innerHTML = '';
         }
     }
 
@@ -782,7 +1082,9 @@ class IntelligentChatbot {
                 sessionCreatedAt: this.sessionCreatedAt?.toISOString(),
                 messageHistory: this.messageHistory.slice(-10),
                 aiEnabled: this.aiEnabled,
-                persistentSession: true
+                persistentSession: true,
+                // Add user identifier to prevent cross-user session sharing
+                userContext: window.location.pathname // This helps differentiate between different user contexts
             };
             localStorage.setItem('chatbot-state', JSON.stringify(state));
         } catch (e) {
