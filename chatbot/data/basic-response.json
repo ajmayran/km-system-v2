@@ -1,0 +1,36 @@
+{
+  "greetings": {
+    "hello": {
+      "patterns": ["hello", "hi", "hey", "good morning", "good afternoon", "good evening", "howdy", "greetings"],
+      "responses": [
+        "👋 Hello! I'm your AI assistant for AANR Knowledge Hub. How can I help you today?",
+        "Hi there! I'm here to help you with agriculture, aquaculture, and natural resources. What would you like to know?",
+        "Hello! Welcome to AANR Knowledge Hub. I can assist you with farming, aquaculture, and CMI services. What are you looking for?"
+      ]
+    },
+    "goodbye": {
+      "patterns": ["bye", "goodbye", "see you", "farewell", "take care", "until next time"],
+      "responses": [
+        "👋 Goodbye! Thank you for using AANR Knowledge Hub. Have a wonderful day!",
+        "See you later! Feel free to return anytime for more assistance.",
+        "Goodbye! Don't hesitate to ask if you need more help with agriculture or aquaculture topics."
+      ]
+    },
+    "thanks": {
+      "patterns": ["thank you", "thanks", "thank u", "thx", "appreciate it", "grateful"],
+      "responses": [
+        "🙏 You're very welcome! Happy to help with your questions.",
+        "You're welcome! I'm glad I could assist you.",
+        "My pleasure! Feel free to ask if you have more questions."
+      ]
+    },
+    "help": {
+      "patterns": ["help", "what can you do", "how can you help", "assist me", "what do you do"],
+      "responses": [
+        "🤖 I can help you with:\n🌾 Agriculture & Farming techniques\n🐟 Aquaculture & Fisheries\n💬 Forum discussions\n🏢 CMI locations & services\n❓ FAQs and expert advice",
+        "I specialize in agriculture, aquaculture, and natural resources. Ask me about farming techniques, fish farming, CMI services, or any specific topics!",
+        "I'm here to assist with AANR Knowledge Hub resources. Try asking about specific crops, aquaculture methods, or CMI office locations."
+      ]
+    }
+  }
+}

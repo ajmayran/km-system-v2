@@ -52,6 +52,10 @@ def faqs_view(request):
         total_faqs = FAQ.objects.filter(is_active=True).count() 
     
     all_tags = FAQTag.objects.all().order_by('name')
+
+    user_faqs_count = 0
+    if request.user.is_authenticated:
+        user_faqs_count = FAQ.objects.filter(created_by=request.user).count()
     
     context = {
         "title": "FAQs",
@@ -65,6 +69,7 @@ def faqs_view(request):
         "current_search": search_query,
         "current_tag": tag_filter,
         "form": form, 
+        'user_faqs_count': user_faqs_count,
     }
     return render(request, "pages/cmi-faqs.html", context)
 
@@ -120,12 +125,7 @@ def add_faq(request):
                 # Create assignment if it doesn't exist
                 FAQTagAssignment.objects.get_or_create(faq=faq, tag=tag)
         
-        success_message = f'✅ FAQ "{question[:50]}..." has been added successfully!'
-        if custom_tags:
-            custom_tag_count = len([tag.strip() for tag in custom_tags.split(',') if tag.strip()])
-            success_message += f' 🏷️ {custom_tag_count} custom tag(s) added!'
-        
-        messages.success(request, success_message)
+        messages.success(request, 'Successfully Added')
         
     except Exception as e:
         messages.error(request, f'❌ Error adding FAQ: {str(e)}')
@@ -208,22 +208,7 @@ def edit_faq(request, faq_id):
                 FAQTagAssignment.objects.get_or_create(faq=faq, tag=tag)
                 custom_tags_added += 1
         
-        # Create detailed success message
-        success_parts = [f'✅ FAQ "{original_question[:50]}..." has been updated successfully!']
-        
-        if new_images_count > 0:
-            success_parts.append(f'📷 Added {new_images_count} new image(s)')
-        
-        if delete_image_ids:
-            success_parts.append(f'🗑️ Removed {len(delete_image_ids)} image(s)')
-            
-        if tags_added > 0 or custom_tags_added > 0:
-            success_parts.append(f'🏷️ Updated {tags_added + custom_tags_added} tag(s)')
-            
-        if custom_tags_added > 0:
-            success_parts.append(f'✨ {custom_tags_added} custom tag(s) created!')
-        
-        messages.success(request, ' • '.join(success_parts))
+        messages.success(request, 'Successfully Updated')
         
     except Exception as e:
         messages.error(request, f'❌ Error updating FAQ: {str(e)}')
@@ -248,11 +233,7 @@ def delete_faq(request, faq_id):
         # Delete the FAQ (images will be deleted due to CASCADE)
         faq.delete()
         
-        success_message = f'🗑️ FAQ "{question[:50]}..." has been deleted successfully!'
-        if images_count > 0:
-            success_message += f' (including {images_count} image(s))'
-            
-        messages.success(request, success_message)
+        messages.success(request, 'Successfully Deleted')
         
     except Exception as e:
         messages.error(request, f'❌ Error deleting FAQ: {str(e)}')
@@ -274,17 +255,7 @@ def toggle_faq_status(request, faq_id):
         faq.is_active = not faq.is_active
         faq.save()
         
-        if faq.is_active:
-            status_text = "shown and is now visible to all users"
-            icon = "👁️"
-        else:
-            status_text = "hidden from regular users (visible to admins only)"
-            icon = "🙈"
-        
-        messages.success(
-            request, 
-            f'{icon} FAQ "{faq.question[:50]}..." is now {status_text}!'
-        )
+        messages.success(request, 'Successfully Updated')
         
     except Exception as e:
         messages.error(request, f'❌ Error updating FAQ status: {str(e)}')

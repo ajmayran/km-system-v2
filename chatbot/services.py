@@ -1,11 +1,12 @@
 import re
+import json
 import logging
+import random
 import numpy as np
 from django.db import models
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import spacy
-from spacy.lang.en.stop_words import STOP_WORDS
 
 from appAdmin.models import (
     ResourceMetadata, KnowledgeResources, Commodity, 
@@ -20,7 +21,7 @@ from appCmi.models import (
 # Import for local AI
 try:
     from sentence_transformers import SentenceTransformer
-    from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
+    from transformers import pipeline
     import torch
     TRANSFORMERS_AVAILABLE = True
     print("✅ Transformers libraries loaded successfully!")
@@ -40,40 +41,66 @@ def preprocess_text(text):
     
     return text
 
-def find_similar_resources(query, knowledge_data, top_k=5):
-    """Basic similarity search function"""
-    results = []
-    query_words = set(preprocess_text(query).split())
+def load_stopwords():
+    """Load custom stopwords from stopwords.txt file"""
+    stopwords = set()
     
-    for item in knowledge_data:
-        text = f"{item['title']} {item['description']}"
-        item_words = set(preprocess_text(text).split())
-        
-        # Calculate simple word overlap
-        overlap = len(query_words.intersection(item_words))
-        if overlap > 0:
-            similarity = overlap / max(len(query_words), len(item_words))
-            results.append({
-                'resource': item,
-                'similarity_score': similarity,
-                'tfidf_score': 0.0,
-                'spacy_score': 0.0,
-                'text_score': similarity,
-                'confidence': 'high' if similarity > 0.3 else 'medium'
-            })
+    try:
+        with open('utils/stopwords/stopwords.txt', 'r', encoding='utf-8') as f:
+            for line in f:
+                word = line.strip().lower()
+                if word and not word.startswith('//'):
+                    stopwords.add(word)
+        print(f"✅ Loaded {len(stopwords)} custom stopwords")
+    except FileNotFoundError:
+        print("⚠️ Custom stopwords file not found, using default English stopwords")
+        stopwords = set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'])
     
-    # Sort by similarity and return top results
-    results.sort(key=lambda x: x['similarity_score'], reverse=True)
-    return results[:top_k]
+    return stopwords
+
+def load_basic_responses():
+    """Load basic responses from JSON file"""
+    try:
+        with open('chatbot/data/basic-response.json', 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print("⚠️ Basic response file not found, using default responses")
+        return {
+            "greetings": {
+                "hello": {
+                    "patterns": ["hello", "hi", "hey", "good morning", "good afternoon"],
+                    "responses": ["👋 Hello! I'm your AI assistant for AANR Knowledge Hub. How can I help you today?"]
+                },
+                "goodbye": {
+                    "patterns": ["bye", "goodbye", "see you"],
+                    "responses": ["👋 Goodbye! Thank you for using AANR Knowledge Hub. Have a wonderful day!"]
+                },
+                "thanks": {
+                    "patterns": ["thank you", "thanks", "thank u"],
+                    "responses": ["🙏 You're very welcome! Happy to help with your questions."]
+                },
+                "help": {
+                    "patterns": ["help", "what can you do", "how can you help"],
+                    "responses": ["🤖 I can help you with agriculture, aquaculture, and natural resources."]
+                }
+            }
+        }
 
 logger = logging.getLogger(__name__)
 
 class IntelligentChatbotService:
+
     def __init__(self):
         self.knowledge_data = []
+        
+        # Load stopwords and basic responses using functions
+        self.stopwords = load_stopwords()
+        self.basic_responses = load_basic_responses()
+        
+        # Initialize TF-IDF vectorizer with custom stopwords
         self.vectorizer = TfidfVectorizer(
             max_features=5000,
-            stop_words='english',
+            stop_words=list(self.stopwords),
             ngram_range=(1, 2),
             min_df=1,
             max_df=0.8
@@ -81,7 +108,7 @@ class IntelligentChatbotService:
         self.knowledge_vectors = None
         self.document_texts = []
         
-        # Initialize spaCy model
+        # Initialize spaCy model for NLP text matching
         try:
             self.nlp = spacy.load("en_core_web_md")
             print("✅ Loaded spaCy model: en_core_web_md")
@@ -93,87 +120,52 @@ class IntelligentChatbotService:
                 print("⚠️ Warning: No spaCy model found. Using basic processing.")
                 self.nlp = None
         
-        # Initialize local AI models
-        self.ai_models = {}
+        # Initialize single AI model for understanding user input
+        self.ai_model = None
         if TRANSFORMERS_AVAILABLE:
-            self._initialize_ai_models()
+            self._initialize_ai_model()
         
-        # Create enhanced stopwords list
-        self.custom_stopwords = self._load_custom_stopwords()
-        
-        self._load_knowledge_base()
+        self.knowledge_base_loaded = False
+        self.knowledge_embeddings = None
+        self._conversation_cache = {}
 
-    def _initialize_ai_models(self):
-        """Initialize local AI models for intelligent processing"""
+    def _initialize_ai_model(self):
+        """Initialize single AI model for user input understanding"""
         try:
-            print("🧠 Loading local AI models...")
+            print("🧠 Loading AI model for user input understanding...")
             
-            self.ai_models['sentence_transformer'] = SentenceTransformer('all-MiniLM-L6-v2')
-            print("✅ Loaded sentence transformer model")
-            
-            # 2. Intent classification pipeline
-            self.ai_models['intent_classifier'] = pipeline(
-                "zero-shot-classification",
-                model="facebook/bart-large-mnli",
-                device=0 if torch.cuda.is_available() else -1
-            )
-            print("✅ Loaded intent classification model")
-            
-            self.ai_models['qa_pipeline'] = pipeline(
-                "question-answering",
-                model="distilbert-base-cased-distilled-squad",
-                device=0 if torch.cuda.is_available() else -1
-            )
-            print("✅ Loaded question-answering model")
-            
-            try:
-                self.ai_models['conversation_tokenizer'] = AutoTokenizer.from_pretrained("microsoft/DialoGPT-small")
-                self.ai_models['conversation_model'] = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-small")
-                print("✅ Loaded conversational tokenizer and model")
-                
-                self.ai_models['conversation_generator'] = pipeline(
-                    "text-generation",
-                    model="microsoft/DialoGPT-small",
-                    tokenizer="microsoft/DialoGPT-small",
-                    device=0 if torch.cuda.is_available() else -1,
-                    max_length=150,
-                    do_sample=True,
-                    temperature=0.7,
-                    pad_token_id=50256
+            # Single model for intent classification and semantic understanding
+            self.ai_model = {
+                'sentence_transformer': SentenceTransformer('all-MiniLM-L6-v2'),
+                'intent_classifier': pipeline(
+                    "zero-shot-classification",
+                    model="facebook/bart-large-mnli",
+                    device=0 if torch.cuda.is_available() else -1
                 )
-                print("✅ Loaded conversation generator")
-                
-            except Exception as e:
-                print(f"⚠️ Could not load conversational model: {e}")
-                print("💡 Using Q&A model for conversations instead")
+            }
             
-            # 5. General text generation pipeline
-            try:
-                self.ai_models['text_generator'] = pipeline(
-                    "text-generation",
-                    model="gpt2",  # Small GPT-2 model for local generation
-                    device=0 if torch.cuda.is_available() else -1,
-                    max_length=150,
-                    do_sample=True,
-                    temperature=0.7,
-                    pad_token_id=50256
-                )
-                print("✅ Loaded text generation model")
-            except Exception as e:
-                print(f"⚠️ Could not load text generation model: {e}")
-            
-            # Initialize conversation history for context
-            self.conversation_history = []
-            
-            print("🎉 All local AI models loaded successfully!")
+            print("✅ AI model loaded successfully!")
             
         except Exception as e:
-            print(f"❌ Error loading AI models: {e}")
+            print(f"❌ Error loading AI model: {e}")
             print("💡 Falling back to basic NLP processing")
+            self.ai_model = None
+
+    def _ensure_knowledge_base_loaded(self):
+        """Lazy load knowledge base only when needed"""
+        if not self.knowledge_base_loaded:
+            print("📚 Loading knowledge base (first time)...")
+            self._load_knowledge_base()
+            self.knowledge_base_loaded = True
 
     def _classify_user_intent(self, query):
-        """Classify user intent using local AI"""
-        if not self.ai_models.get('intent_classifier'):
+        """Classify user intent using AI model"""
+        # First check for basic responses
+        basic_intent = self._check_basic_response(query)
+        if basic_intent:
+            return basic_intent
+        
+        if not self.ai_model:
             return self._classify_intent_basic(query)
         
         try:
@@ -184,17 +176,14 @@ class IntelligentChatbotService:
                 "asking for location or contact details",
                 "requesting farming or agricultural advice",
                 "seeking aquaculture information",
-                "general conversation or greeting",
                 "asking about training programs",
-                "technical support question",
                 "browsing or exploring content",
                 "asking about CMI services",
-                "content discovery for specific topic",  
-                "information request about specific subject"  
+                "content discovery for specific topic"
             ]
             
-            result = self.ai_models['intent_classifier'](query, candidate_labels)
-
+            result = self.ai_model['intent_classifier'](query, candidate_labels)
+            
             main_topic = self._extract_main_topic(query)
             content_type = self._extract_content_type(query)
             
@@ -205,101 +194,97 @@ class IntelligentChatbotService:
                 "asking for location or contact details": "location_query",
                 "requesting farming or agricultural advice": "agriculture_query", 
                 "seeking aquaculture information": "aquaculture_query",
-                "general conversation or greeting": "general_conversation",
                 "asking about training programs": "program_query",
-                "technical support question": "support_query",
                 "browsing or exploring content": "browse_request",
                 "asking about CMI services": "cmi_query",
-                "content discovery for specific topic": "topic_content_request",  
-                "information request about specific subject": "topic_content_request" 
+                "content discovery for specific topic": "topic_content_request"
             }
             
             top_intent = result['labels'][0]
             confidence = result['scores'][0]
             
-            if any(word in query.lower() for word in ['content', 'information', 'details', 'about', 'on']) and confidence < 0.7:
-                detected_intent = "topic_content_request"
-            else:
-                detected_intent = intent_mapping.get(top_intent, "topic_content_request")
+            detected_intent = intent_mapping.get(top_intent, "topic_content_request")
         
             return {
                 'intent': detected_intent,
                 'confidence': confidence,
                 'main_topic': main_topic,
                 'content_type': content_type,
-                'raw_classification': result
+                'is_basic': False
             }
             
         except Exception as e:
             print(f"Intent classification error: {e}")
             return self._classify_intent_basic(query)
 
-    def _extract_main_topic(self, query):     
-        """Extract the main topic/subject from the query"""
-        # Remove content-type words AND action words to find the main topic
-        stop_words = {
-            'content', 'information', 'details', 'about', 'on', 'for', 'regarding', 'materials', 'data',
-            'give', 'show', 'tell', 'find', 'get', 'help', 'what', 'how', 'where', 'when', 'why',
-            'me', 'us', 'some', 'any', 'the', 'a', 'an', 'of', 'in', 'to', 'and', 'or', 'all'
-        }
+    def _check_basic_response(self, query):
+        """Check if query matches basic response patterns"""
+        query_lower = query.lower()
         
-        # Clean the query
-        words = query.lower().split()
-        
-        # For FAQ requests, look for the topic after "faq"
-        if 'faq' in query.lower():
-            faq_index = words.index('faq') if 'faq' in words else -1
-            if faq_index >= 0 and faq_index < len(words) - 1:
-                for i in range(faq_index + 1, len(words)):
-                    if words[i] not in stop_words and len(words[i]) > 2:
-                        return words[i].upper()
-                        
-        topic_words = [word for word in words if word not in stop_words and len(word) > 2]          
-
-        if topic_words:
-            # First priority: Look for known domain-specific keywords
-            domain_keywords = ['raise', 'agriculture', 'aquaculture', 'cmi', 'aanr', 'abh', 'farming', 'fish', 'crop', 'livestock', 'technology', 'training', 'research']
-            for word in topic_words:
-                if word.lower() in domain_keywords:
-                    return word.upper()
-            
-            # Second priority: Look for capitalized words in original query (proper nouns)
-            original_words = query.split()
-            for word in original_words:
-                clean_word = word.strip('.,!?;:"()[]{}')
-                if clean_word.lower() in [tw.lower() for tw in topic_words] and len(clean_word) > 0:
-                    if clean_word[0].isupper(): 
-                        return clean_word.upper()
-            
-            # Third priority: Take the most meaningful word (usually nouns)
-            # Skip common action words that might appear first
-            action_words = ['give', 'show', 'tell', 'find', 'get', 'want', 'need', 'please']
-            for word in topic_words:
-                if word.lower() not in action_words:
-                    return word.upper()
-            
-            # Fallback: take the first topic word
-            return topic_words[0].upper()
-        
+        for category, data in self.basic_responses.get('greetings', {}).items():
+            patterns = data.get('patterns', [])
+            for pattern in patterns:
+                if pattern in query_lower:
+                    return {
+                        'intent': 'basic_response',
+                        'category': category,
+                        'confidence': 0.9,
+                        'is_basic': True
+                    }
         return None
+
+    def _extract_main_topic(self, query):     
+        """Extract the main topic/subject from the query using NLP and stopwords filtering"""
+        if not query:
+            return None
+            
+        # Remove stopwords and extract meaningful terms
+        words = query.lower().split()
+        meaningful_words = [word for word in words if word not in self.stopwords and len(word) > 2]
+        
+        if not meaningful_words:
+            return None
+        
+        # Use spaCy for better entity recognition if available
+        if self.nlp:
+            doc = self.nlp(query)
+            # Look for named entities first
+            for ent in doc.ents:
+                if ent.label_ in ['ORG', 'PRODUCT', 'GPE'] and len(ent.text) > 2:
+                    return ent.text.upper()
+            
+            # Look for nouns
+            nouns = [token.text for token in doc if token.pos_ == 'NOUN' and len(token.text) > 2]
+            if nouns:
+                return nouns[0].upper()
+        
+        # Domain-specific keywords priority
+        domain_keywords = ['raise', 'agriculture', 'aquaculture', 'cmi', 'aanr', 'farming', 'fish', 'crop', 'livestock']
+        for word in meaningful_words:
+            if word.lower() in domain_keywords:
+                return word.upper()
+        
+        # Return first meaningful word
+        return meaningful_words[0].upper() if meaningful_words else None
     
     def _extract_content_type(self, query):
-            """Extract what type of content is being requested"""
-            query_lower = query.lower()
-            
-            if 'content' in query_lower:
-                return 'content'
-            elif 'information' in query_lower:
-                return 'information'
-            elif 'details' in query_lower:
-                return 'details'
-            elif 'materials' in query_lower:
-                return 'materials'
-            elif 'data' in query_lower:
-                return 'data'
-            else:
-                return 'general'
+        """Extract what type of content is being requested"""
+        query_lower = query.lower()
         
+        content_types = {
+            'faq': ['faq', 'question', 'answer'],
+            'forum': ['forum', 'discussion', 'community'],
+            'resource': ['resource', 'document', 'publication'],
+            'training': ['training', 'seminar', 'course'],
+            'event': ['event', 'workshop', 'conference'],
+            'cmi': ['cmi', 'office', 'location']
+        }
+        
+        for content_type, keywords in content_types.items():
+            if any(keyword in query_lower for keyword in keywords):
+                return content_type
+        
+        return 'general'
 
     def _classify_intent_basic(self, query):
         """Basic intent classification using patterns"""
@@ -308,63 +293,40 @@ class IntelligentChatbotService:
         main_topic = self._extract_main_topic(query)
         content_type = self._extract_content_type(query)
         
-        # Topic content requests - NEW PATTERN
-        if any(word in query_lower for word in ['content', 'information', 'details', 'about', 'materials', 'data']) and main_topic:
-            return {
-                'intent': 'topic_content_request', 
-                'confidence': 0.8,
-                'main_topic': main_topic,
-                'content_type': content_type
-            }
-        
-        # Conversational patterns
-        elif any(word in query_lower for word in ['hello', 'hi', 'hey', 'good morning', 'good afternoon', 'bye', 'goodbye', 'thanks', 'thank you', 'help', 'what can you', 'what do you']):
-            return {'intent': 'general_conversation', 'confidence': 0.9}
-        
         # Sample/example requests
-        elif any(word in query_lower for word in ['sample', 'example', 'show me', 'give me']):
-            return {'intent': 'sample_request', 'confidence': 0.8}
+        if any(word in query_lower for word in ['sample', 'example', 'show me', 'give me']):
+            return {'intent': 'sample_request', 'confidence': 0.8, 'main_topic': main_topic, 'content_type': content_type}
         
         # Location requests
         elif any(word in query_lower for word in ['where', 'location', 'address', 'contact']):
-            return {'intent': 'location_query', 'confidence': 0.7}
+            return {'intent': 'location_query', 'confidence': 0.7, 'main_topic': main_topic, 'content_type': content_type}
         
         # Agriculture requests
         elif any(word in query_lower for word in ['farm', 'crop', 'plant', 'agriculture']):
-            return {'intent': 'agriculture_query', 'confidence': 0.7}
-        
-        # FAQ requests
-        elif any(word in query_lower for word in ['faq', 'question', 'answer']):
-            return {'intent': 'faq_request', 'confidence': 0.8}
+            return {'intent': 'agriculture_query', 'confidence': 0.7, 'main_topic': main_topic, 'content_type': content_type}
         
         # Default - if we have a topic, treat as topic request
         elif main_topic:
-            return {
-                'intent': 'topic_content_request', 
-                'confidence': 0.6,
-                'main_topic': main_topic,
-                'content_type': 'general'
-            }
+            return {'intent': 'topic_content_request', 'confidence': 0.6, 'main_topic': main_topic, 'content_type': content_type}
         else:
-            return {'intent': 'general_query', 'confidence': 0.5}
+            return {'intent': 'general_query', 'confidence': 0.5, 'main_topic': main_topic, 'content_type': content_type}
 
-    def _enhanced_semantic_search(self, query, intent_info, top_k=5):
-        """Enhanced semantic search with topic-focused understanding"""
-        if not self.ai_models.get('sentence_transformer'):
-            return self.find_similar_content_topic_focused(query, intent_info, top_k=top_k)
+    def _semantic_search_with_nlp(self, query, intent_info, top_k=5):
+        """Enhanced semantic search using AI model and NLP for text matching"""
+        if not self.ai_model:
+            return self._nlp_text_matching(query, intent_info, top_k)
         
         try:
-            # Handle topic content requests specially
+            # Handle different intents
             if intent_info['intent'] == 'topic_content_request':
                 return self._handle_topic_content_request(query, intent_info, top_k)
             elif intent_info['intent'] == 'sample_request':
                 return self._handle_sample_request(query, top_k)
             
-            # Regular semantic search for other intents
-            query_embedding = self.ai_models['sentence_transformer'].encode([query])
+            # Regular semantic search
+            query_embedding = self.ai_model['sentence_transformer'].encode([query])
             
-            # Create embeddings if not exists
-            if not hasattr(self, 'knowledge_embeddings'):
+            if self.knowledge_embeddings is None:
                 self._create_knowledge_embeddings()
             
             # Calculate similarities
@@ -377,154 +339,133 @@ class IntelligentChatbotService:
             for idx in top_indices:
                 if similarities[idx] > 0.1:
                     item = self.knowledge_data[idx]
+                    
+                    # Use NLP for additional text matching score
+                    nlp_score = self._calculate_nlp_score(query, item)
+                    combined_score = (similarities[idx] * 0.7) + (nlp_score * 0.3)
+                    
                     results.append({
                         'resource': item,
-                        'similarity_score': float(similarities[idx]),
-                        'tfidf_score': 0.0,
-                        'spacy_score': float(similarities[idx]),
-                        'text_score': 0.0,
-                        'confidence': self._get_confidence_level(similarities[idx])
+                        'similarity_score': float(combined_score),
+                        'ai_score': float(similarities[idx]),
+                        'nlp_score': nlp_score,
+                        'confidence': self._get_confidence_level(combined_score)
                     })
             
+            # Sort by combined score
+            results.sort(key=lambda x: x['similarity_score'], reverse=True)
             return results[:top_k]
             
         except Exception as e:
-            print(f"Enhanced semantic search error: {e}")
-            return self.find_similar_content_topic_focused(query, intent_info, top_k=top_k)
-        
-    def _handle_topic_content_request(self, query, intent_info, top_k):
-        """Handle requests for content about a specific topic"""
-        main_topic = intent_info.get('main_topic')
-        content_type = intent_info.get('content_type', 'content')
-        
-        print(f"🎯 Looking for {content_type} about topic: {main_topic}")
-        
-        if not main_topic:
-            return self._enhanced_semantic_search_fallback(query, top_k)
-        
+            print(f"Semantic search error: {e}")
+            return self._nlp_text_matching(query, intent_info, top_k)
+
+    def _nlp_text_matching(self, query, intent_info, top_k=5):
+        """NLP-based text matching for database fetching"""
         results = []
-        topic_lower = main_topic.lower()
+        query_processed = preprocess_text(query)
+        query_words = set(query_processed.split())
         
-        # Score items based on topic relevance - NO TYPE PREFERENCE
+        # Remove stopwords from query
+        query_words = query_words - self.stopwords
+        
+        if not query_words:
+            return []
+        
         for item in self.knowledge_data:
-            score = 0
-            title_lower = item['title'].lower()
-            desc_lower = item['description'].lower()
-            
-            # High score for exact topic match in title
-            if topic_lower in title_lower:
-                score += 5
-            
-            # Medium score for topic match in description
-            if topic_lower in desc_lower:
-                score += 3
-            
-            # Lower score for partial matches
-            topic_words = topic_lower.split()
-            for word in topic_words:
-                if len(word) > 2:  # Ignore short words
-                    if word in title_lower:
-                        score += 2
-                    elif word in desc_lower:
-                        score += 1
-            
-            # Equal bonus for ALL content types
-            if item['type'] in ['resource', 'faq', 'forum', 'cmi', 'publication', 'technology', 'event', 'training', 'webinar', 'news', 'policy', 'project', 'media', 'map', 'product', 'info_system', 'commodity', 'category']:
-                score += 0.5
+            score = self._calculate_nlp_score(query, item)
             
             if score > 0:
                 results.append({
                     'resource': item,
                     'similarity_score': score,
-                    'tfidf_score': 0.0,
-                    'spacy_score': score,
-                    'text_score': score,
-                    'confidence': 'high' if score >= 5 else 'medium' if score >= 2 else 'low',
-                    'topic_match': True,
-                    'topic_score': score
+                    'nlp_score': score,
+                    'confidence': self._get_confidence_level(score)
                 })
         
-        # Sort by topic relevance score
+        # Sort by score and return top results
         results.sort(key=lambda x: x['similarity_score'], reverse=True)
-        
-        # Return results without any type filtering
-        if results and results[0]['similarity_score'] >= 0.5:
-            return results[:top_k]
-        
-        # If no good topic matches, fall back to semantic search
-        print(f"⚠️ No strong topic matches for '{main_topic}', falling back to semantic search")
-        return self._enhanced_semantic_search_fallback(query, top_k)
+        return results[:top_k]
 
-    def _enhanced_semantic_search_fallback(self, query, top_k):
-        """Fallback semantic search when topic extraction fails"""
-        if not self.ai_models.get('sentence_transformer'):
-            return self.find_similar_content(query, top_k=top_k)
+    def _calculate_nlp_score(self, query, item):
+        """Calculate NLP-based similarity score between query and item"""
+        score = 0
+        query_processed = preprocess_text(query)
+        title_processed = preprocess_text(item['title'])
+        desc_processed = preprocess_text(item['description'])
         
-        try:
-            query_embedding = self.ai_models['sentence_transformer'].encode([query])
-            
-            if not hasattr(self, 'knowledge_embeddings'):
-                self._create_knowledge_embeddings()
-            
-            similarities = cosine_similarity(query_embedding, self.knowledge_embeddings)[0]
-            top_indices = np.argsort(similarities)[::-1][:top_k * 2]
-            
-            results = []
-            for idx in top_indices:
-                if similarities[idx] > 0.1:
-                    item = self.knowledge_data[idx]
-                    results.append({
-                        'resource': item,
-                        'similarity_score': float(similarities[idx]),
-                        'tfidf_score': 0.0,
-                        'spacy_score': float(similarities[idx]),
-                        'text_score': 0.0,
-                        'confidence': self._get_confidence_level(similarities[idx])
-                    })
-            
-            return results[:top_k]
-            
-        except Exception as e:
-            print(f"Fallback semantic search error: {e}")
-            return []
-    
-    def find_similar_content_topic_focused(self, query, intent_info, top_k=5):
-        """Topic-focused search fallback without transformers"""
+        # Remove stopwords
+        query_words = set(query_processed.split()) - self.stopwords
+        title_words = set(title_processed.split()) - self.stopwords
+        desc_words = set(desc_processed.split()) - self.stopwords
+        
+        if not query_words:
+            return 0
+        
+        # Calculate word overlap scores
+        title_overlap = len(query_words.intersection(title_words))
+        desc_overlap = len(query_words.intersection(desc_words))
+        
+        # Weight title matches higher
+        score += title_overlap * 3
+        score += desc_overlap * 1
+        
+        # Use spaCy for semantic similarity if available
+        if self.nlp:
+            try:
+                query_doc = self.nlp(query)
+                item_doc = self.nlp(f"{item['title']} {item['description']}")
+                semantic_score = query_doc.similarity(item_doc)
+                score += semantic_score * 2
+            except:
+                pass
+        
+        # Normalize score
+        max_possible_score = len(query_words) * 3 + 2  # Max title + semantic
+        return min(score / max_possible_score, 1.0) if max_possible_score > 0 else 0
+
+    def _handle_topic_content_request(self, query, intent_info, top_k):
+        """Handle requests for content about a specific topic"""
         main_topic = intent_info.get('main_topic')
+        content_type = intent_info.get('content_type', 'general')
         
         if not main_topic:
-            return self.find_similar_content(query, top_k=top_k)
+            return self._nlp_text_matching(query, intent_info, top_k)
         
         results = []
         topic_lower = main_topic.lower()
         
-        for item in self.knowledge_data:
-            text_content = f"{item['title']} {item['description']}".lower()
+        # Filter by content type if specified
+        filtered_data = self.knowledge_data
+        if content_type != 'general':
+            filtered_data = [item for item in self.knowledge_data if item.get('type') == content_type]
+        
+        for item in filtered_data:
+            score = 0
+            title_lower = item['title'].lower()
+            desc_lower = item['description'].lower()
             
-            # Calculate topic relevance
-            topic_score = 0
-            if topic_lower in text_content:
-                # Check where the topic appears
-                if topic_lower in item['title'].lower():
-                    topic_score += 2  # Higher weight for title matches
-                if topic_lower in item['description'].lower():
-                    topic_score += 1  # Lower weight for description matches
+            # Topic matching with higher scores for exact matches
+            if topic_lower in title_lower:
+                score += 5
+            if topic_lower in desc_lower:
+                score += 3
             
-            # Simple word overlap for additional context
-            query_words = set(query.lower().split())
-            content_words = set(text_content.split())
-            overlap = len(query_words.intersection(content_words))
+            # Word-level matching
+            topic_words = topic_lower.split()
+            for word in topic_words:
+                if len(word) > 2 and word not in self.stopwords:
+                    if word in title_lower:
+                        score += 2
+                    elif word in desc_lower:
+                        score += 1
             
-            total_score = topic_score + (overlap * 0.1)
-            
-            if total_score > 0:
+            if score > 0:
                 results.append({
                     'resource': item,
-                    'similarity_score': total_score,
-                    'tfidf_score': total_score,
-                    'spacy_score': 0.0,
-                    'text_score': total_score,
-                    'confidence': 'high' if total_score >= 2 else 'medium'
+                    'similarity_score': score,
+                    'topic_score': score,
+                    'confidence': 'high' if score >= 5 else 'medium' if score >= 2 else 'low'
                 })
         
         results.sort(key=lambda x: x['similarity_score'], reverse=True)
@@ -536,532 +477,121 @@ class IntelligentChatbotService:
         query_lower = query.lower()
         
         # Extract what type of sample they want
+        target_type = None
         if 'faq' in query_lower:
             target_type = 'faq'
-        elif 'forum' in query_lower or 'discussion' in query_lower:
+        elif 'forum' in query_lower:
             target_type = 'forum'
         elif 'resource' in query_lower:
             target_type = 'resource'
         elif 'cmi' in query_lower:
             target_type = 'cmi'
-        else:
-            target_type = None
         
         # Extract number if specified
-        import re
         numbers = re.findall(r'\d+', query)
         requested_count = int(numbers[0]) if numbers else top_k
         
         # Filter by type if specified
+        filtered_items = self.knowledge_data
         if target_type:
             filtered_items = [item for item in self.knowledge_data if item.get('type') == target_type]
-        else:
-            filtered_items = self.knowledge_data
         
         # Return the requested number of samples
         for i, item in enumerate(filtered_items[:requested_count]):
             results.append({
                 'resource': item,
-                'similarity_score': 1.0 - (i * 0.1),  # Decreasing score
-                'tfidf_score': 0.0,
-                'spacy_score': 0.0,
-                'text_score': 1.0 - (i * 0.1),
+                'similarity_score': 1.0 - (i * 0.1),
                 'confidence': 'high'
             })
         
         return results
 
-    def _generate_qa_response(self, query, similar_content):
-        """Generate direct answers using QA model"""
-        if not self.ai_models.get('qa_pipeline'):
-            return self._generate_fallback_response(query, similar_content)
+    def find_similar_content(self, query, top_k=5):
+        """Find similar content using NLP and AI models (for views.py compatibility)"""
+        self._ensure_knowledge_base_loaded()
         
-        try:
-            best_match = similar_content[0]
-            resource = best_match['resource']
+        # Basic intent info for compatibility
+        intent_info = {
+            'intent': 'general_query',
+            'main_topic': self._extract_main_topic(query),
+            'content_type': self._extract_content_type(query)
+        }
+        
+        return self._semantic_search_with_nlp(query, intent_info, top_k)
+
+    def _generate_basic_response(self, intent_info):
+        """Generate response from basic response patterns"""
+        category = intent_info.get('category', 'hello')
+        responses = self.basic_responses.get('greetings', {}).get(category, {}).get('responses', [])
+        
+        if responses:
+            response = random.choice(responses)
             
-            # Prepare context for QA
-            context = f"{resource['title']}. {resource['description']}"
-            if len(context) > 500:  # Limit context length
-                context = context[:500] + "..."
-            
-            # Get AI-generated answer
-            result = self.ai_models['qa_pipeline'](question=query, context=context)
-            ai_answer = result['answer']
-            confidence = result['score']
-            
-            # Enhance the response
-            if confidence > 0.7:
-                response_text = f"**{resource['title']}**\n\n{ai_answer}"
+            # Generate appropriate suggestions based on category
+            suggestions = []
+            if category == 'hello':
+                suggestions = ['What can you help me with?', 'Show me farming resources', 'Find CMI locations']
+            elif category == 'help':
+                suggestions = ['Give me sample 1 FAQ', 'Show me farming techniques', 'Find CMI offices']
             else:
-                response_text = f"**{resource['title']}**\n\n{resource['description']}\n\n💡 *Based on the content above: {ai_answer}*"
-            
-            # Add source information
-            response_text += f"\n\n📋 **Source:** {resource['type'].title()}"
-            if resource.get('author'):
-                response_text += f" by {resource['author']}"
+                suggestions = ['Ask another question', 'Browse available topics', 'Find more resources']
             
             return {
-                'response': response_text,
-                'confidence': 'high' if confidence > 0.7 else 'medium',
-                'suggestions': self._generate_dynamic_suggestions(query, similar_content),
-                'matched_resources': [resource],
-                'ai_powered': True,
-                'local_ai': True
+                'response': response,
+                'confidence': 'high',
+                'suggestions': suggestions,
+                'matched_resources': [],
+                'ai_powered': False,
+                'basic_response': True
             }
-            
-        except Exception as e:
-            print(f"QA generation error: {e}")
-            return self._generate_fallback_response(query, similar_content)
-
-    def _generate_dynamic_suggestions(self, query, similar_content):
-        """Generate contextual suggestions based on AI analysis"""
-        suggestions = []
         
-        # Analyze query intent for better suggestions
-        query_words = query.lower().split()
-        
-        # Domain-specific suggestions
-        if any(word in query_words for word in ['farm', 'crop', 'plant', 'agriculture']):
-            suggestions.extend([
-                "Tell me about sustainable farming practices",
-                "What are the latest agricultural technologies?",
-                "Find crop disease management guides"
-            ])
-        elif any(word in query_words for word in ['fish', 'aqua', 'tilapia', 'pond']):
-            suggestions.extend([
-                "Explain aquaculture best practices",
-                "Show me fish farming techniques",
-                "What are common fish diseases?"
-            ])
-        elif any(word in query_words for word in ['cmi', 'office', 'contact', 'location']):
-            suggestions.extend([
-                "Find all CMI office locations",
-                "How to contact CMI experts?",
-                "What services does CMI provide?"
-            ])
-        
-        # Add suggestions based on similar content
-        for match in similar_content[:2]:
-            resource = match['resource']
-            if resource['type'] == 'faq':
-                suggestions.append(f"More about: {resource['title'][:35]}...")
-            elif resource['type'] == 'forum':
-                suggestions.append(f"Join discussion: {resource['title'][:30]}...")
-        
-        # Fallback suggestions
-        while len(suggestions) < 3:
-            fallback = [
-                "What can you help me with?",
-                "Show me popular topics",
-                "Find expert discussions"
-            ]
-            for sug in fallback:
-                if sug not in suggestions:
-                    suggestions.append(sug)
-                    break
-            break
-        
-        return suggestions[:3]
+        return {
+            'response': "Hello! How can I help you today?",
+            'confidence': 'medium',
+            'suggestions': ['What can you help with?'],
+            'matched_resources': [],
+            'ai_powered': False,
+            'basic_response': True
+        }
 
     def generate_intelligent_response(self, query):
-        """Main method for generating intelligent responses using local AI"""
+        """Main method for generating intelligent responses"""
         query = query.strip()
+        query_lower = query.lower()
+
+        # Check cache first
+        if query_lower in self._conversation_cache:
+            return self._conversation_cache[query_lower]
         
-        # 1. Classify user intent with topic extraction
+        # Classify user intent
         intent_info = self._classify_user_intent(query)
         print(f"🧠 Detected intent: {intent_info}")
         
-        # 2. Handle based on AI-detected intent
-        if intent_info['intent'] == 'general_conversation':
-            return self._generate_conversational_response(query, intent_info)
-        elif intent_info['intent'] == 'sample_request':
-            matched_resources = self._enhanced_semantic_search(query, intent_info, top_k=5)
+        # Handle basic responses
+        if intent_info.get('is_basic'):
+            response = self._generate_basic_response(intent_info)
+            self._conversation_cache[query_lower] = response
+            return response
+        
+        # Load knowledge base for complex queries
+        self._ensure_knowledge_base_loaded()
+        
+        # Handle different intents
+        if intent_info['intent'] == 'sample_request':
+            matched_resources = self._semantic_search_with_nlp(query, intent_info, top_k=5)
             return self._generate_sample_response(query, matched_resources, intent_info)
         elif intent_info['intent'] == 'topic_content_request':
-            # Special handling for topic content requests
-            matched_resources = self._enhanced_semantic_search(query, intent_info, top_k=8)
+            matched_resources = self._semantic_search_with_nlp(query, intent_info, top_k=8)
             return self._generate_topic_content_response(query, matched_resources, intent_info)
         else:
-            # Regular processing for other intents
-            matched_resources = self._enhanced_semantic_search(query, intent_info, top_k=5)
+            # Regular processing
+            matched_resources = self._semantic_search_with_nlp(query, intent_info, top_k=5)
             print(f"🔍 Found {len(matched_resources)} matches")
             
-            if matched_resources and len(matched_resources) > 0:
-                return self._generate_qa_response(query, matched_resources)
+            if matched_resources:
+                return self._generate_detailed_response(query, matched_resources)
             else:
                 return self._generate_no_results_response(query)
-            
-    def _generate_topic_content_response(self, query, matched_resources, intent_info):
-        """Generate response specifically for topic content requests"""
-        main_topic = intent_info.get('main_topic', 'the requested topic')
-        content_type = intent_info.get('content_type', 'content')
-        
-        if not matched_resources:
-            return {
-                'response': f"I couldn't find specific {content_type} about '{main_topic}'. Try asking about related topics or browse our available resources.\n\n🌾 Agricultural resources\n🐟 Aquaculture information\n💬 Forum discussions\n❓ FAQs\n🏢 CMI services",
-                'confidence': 'low',
-                'suggestions': [
-                    f"Tell me about {main_topic.lower()}",
-                    f"Find {main_topic.lower()} resources",
-                    f"Show me {main_topic.lower()} examples",
-                    "Browse available topics"
-                ],
-                'matched_resources': []
-            }
-        
-        # Group results by type for better organization
-        grouped_results = {}
-        for match in matched_resources:
-            resource_type = match['resource']['type']
-            if resource_type not in grouped_results:
-                grouped_results[resource_type] = []
-            grouped_results[resource_type].append(match)
-        
-        response_parts = []
-        response_parts.append(f"🎯 **{content_type.title()} about {main_topic}:**\n")
-        
-        # Complete type icons and labels for ALL resource types
-        type_info = {
-            'faq': {'icon': '❓', 'label': 'Frequently Asked Questions'},
-            'forum': {'icon': '💬', 'label': 'Forum Discussions'},
-            'resource': {'icon': '📄', 'label': 'Resources & Publications'},
-            'commodity': {'icon': '🌾', 'label': 'Commodity Information'},
-            'cmi': {'icon': '🏢', 'label': 'CMI Information'},
-            'category': {'icon': '📚', 'label': 'Knowledge Categories'},
-            'event': {'icon': '📅', 'label': 'Events'},
-            'publication': {'icon': '📖', 'label': 'Publications'},
-            'technology': {'icon': '⚙️', 'label': 'Technologies'},
-            'training': {'icon': '🎓', 'label': 'Training Programs'},
-            'webinar': {'icon': '💻', 'label': 'Webinars'},
-            'news': {'icon': '📰', 'label': 'News'},
-            'policy': {'icon': '📋', 'label': 'Policies'},
-            'project': {'icon': '🚀', 'label': 'Projects'},
-            'media': {'icon': '🎬', 'label': 'Media'},
-            'map': {'icon': '🗺️', 'label': 'Maps'},
-            'product': {'icon': '🛍️', 'label': 'Products'},
-            'info_system': {'icon': '💻', 'label': 'Information Systems'}
-        }
-        
-        # Display ALL grouped results without any preference
-        for resource_type, matches in grouped_results.items():
-            if matches:
-                type_data = type_info.get(resource_type, {'icon': '📌', 'label': resource_type.title()})
-                response_parts.append(f"{type_data['icon']} **{type_data['label']}:**")
-                response_parts.append("")  # Add blank line after header
-                
-                for i, match in enumerate(matches[:3], 1):  # Show top 3 per type
-                    resource = match['resource']
-                    title = resource['title'][:60] + '...' if len(resource['title']) > 60 else resource['title']
-                    desc = resource['description'][:120] + '...' if len(resource['description']) > 120 else resource['description']
-                    
-                    # Highlight topic matches
-                    if main_topic and main_topic.lower() in title.lower():
-                        title = f"**{title}**"
-                    
-                    response_parts.append(f"  **{i}. {title}**")
-                    response_parts.append(f"     {desc}")
-                    response_parts.append("")  # Add blank line between items
-        
-        response_parts.append(f"💡 *Found {len(matched_resources)} results related to {main_topic}. Click any item above for details.*")
-        
-        # Generate contextual suggestions based on the actual query, not the topic
-        query_lower = query.lower()
-        if 'website' in query_lower or 'system' in query_lower:
-            suggestions = [
-                "Tell me about CMI services",
-                "What is AANR Knowledge Hub?",
-                "Show me available resources",
-                "How to use this system"
-            ]
-        elif 'about' in query_lower and main_topic:
-            suggestions = [
-                f"Tell me more about {main_topic.lower()}",
-                f"Find {main_topic.lower()} examples",
-                f"Show {main_topic.lower()} techniques",
-                "Browse related topics"
-            ]
-        else:
-            suggestions = [
-                f"Tell me more about {main_topic.lower() if main_topic else 'this topic'}",
-                "Find examples and samples",
-                "Show related information",
-                "Browse available topics"
-            ]
-        
-        return {
-            'response': '\n'.join(response_parts),
-            'confidence': 'high' if len(matched_resources) >= 3 else 'medium',
-            'suggestions': suggestions,
-            'matched_resources': [match['resource'] for match in matched_resources],
-            'ai_powered': True,
-            'local_ai': True,
-            'topic_focused': True,
-            'main_topic': main_topic
-        }
-
-    def _generate_conversational_response(self, query, intent_info):
-        """Generate natural conversational responses using REAL AI generation"""
-        query_lower = query.lower()
-        
-        # Try to use the conversation generator first (DialoGPT)
-        if self.ai_models.get('conversation_generator'):
-            try:
-                # Format query for DialoGPT
-                conversation_prompt = f"User: {query}\nBot:"
-                
-                # Generate response using DialoGPT
-                result = self.ai_models['conversation_generator'](
-                    conversation_prompt,
-                    max_length=len(conversation_prompt.split()) + 30,
-                    num_return_sequences=1,
-                    do_sample=True,
-                    temperature=0.7,
-                    pad_token_id=50256,
-                    eos_token_id=50256
-                )
-                
-                generated_text = result[0]['generated_text']
-                # Extract just the bot response
-                ai_response = generated_text.replace(conversation_prompt, "").strip()
-                
-                # Clean up the response
-                if ai_response.startswith("Bot:"):
-                    ai_response = ai_response[4:].strip()
-                
-                # Enhance with domain context if the response is too generic
-                if len(ai_response) < 20 or any(word in query_lower for word in ['what are you', 'who are you']):
-                    if any(word in query_lower for word in ['hello', 'hi', 'hey']):
-                        ai_response = "Hello! I'm your AI assistant for AANR Knowledge Hub. I specialize in agriculture, aquaculture, and natural resources. What would you like to explore?"
-                    elif any(word in query_lower for word in ['bye', 'goodbye']):
-                        ai_response = "Goodbye! Thank you for using AANR Knowledge Hub. Have a wonderful day!"
-                    elif any(word in query_lower for word in ['what are you', 'who are you']):
-                        ai_response = "I'm an intelligent AI assistant created specifically for AANR Knowledge Hub. I help with agriculture, aquaculture, and natural resources information using advanced AI models."
-                    elif any(word in query_lower for word in ['thank', 'thanks']):
-                        ai_response = "You're very welcome! I'm glad I could help you with your questions about agriculture and natural resources."
-                    else:
-                        ai_response = f"{ai_response}\n\nI'm here to help with agriculture, aquaculture, and natural resources. What specific information are you looking for?"
-                
-                return {
-                    'response': ai_response,
-                    'confidence': 'high',
-                    'suggestions': self._generate_conversational_suggestions(query_lower),
-                    'matched_resources': [],
-                    'ai_powered': True,
-                    'local_ai': True,
-                    'conversational': True,
-                    'generated': True  
-                }
-                
-            except Exception as e:
-                print(f"DialoGPT conversation error: {e}")
-        
-        # Fallback to using manual conversation handling with raw models
-        if self.ai_models.get('conversation_tokenizer') and self.ai_models.get('conversation_model'):
-            try:
-                import torch
-                
-                # Encode the conversation
-                tokenizer = self.ai_models['conversation_tokenizer']
-                model = self.ai_models['conversation_model']
-                
-                # Format input for DialoGPT
-                input_text = f"{query}{tokenizer.eos_token}"
-                input_ids = tokenizer.encode(input_text, return_tensors='pt')
-                
-                # Generate response
-                with torch.no_grad():
-                    output = model.generate(
-                        input_ids,
-                        max_length=input_ids.shape[1] + 50,
-                        num_beams=2,
-                        temperature=0.7,
-                        do_sample=True,
-                        pad_token_id=tokenizer.eos_token_id,
-                        early_stopping=True
-                    )
-                
-                # Decode response
-                response_ids = output[0][input_ids.shape[1]:]
-                ai_response = tokenizer.decode(response_ids, skip_special_tokens=True).strip()
-                
-                # Enhance with domain-specific context
-                if len(ai_response) < 10:  # If response is too short
-                    ai_response = self._generate_domain_specific_response(query_lower)
-                
-                return {
-                    'response': ai_response,
-                    'confidence': 'high',
-                    'suggestions': self._generate_conversational_suggestions(query_lower),
-                    'matched_resources': [],
-                    'ai_powered': True,
-                    'local_ai': True,
-                    'conversational': True,
-                    'generated': True
-                }
-                
-            except Exception as e:
-                print(f"Manual conversation generation error: {e}")
-        
-        # Fallback to text generation with GPT-2
-        if self.ai_models.get('text_generator'):
-            try:
-                # Create a domain-specific prompt
-                prompt = f"As an AI assistant for agriculture and natural resources, when asked '{query}', I respond: "
-                
-                result = self.ai_models['text_generator'](
-                    prompt,
-                    max_length=len(prompt.split()) + 40,
-                    num_return_sequences=1,
-                    do_sample=True,
-                    temperature=0.7,
-                    pad_token_id=50256
-                )
-                
-                generated_text = result[0]['generated_text']
-                # Extract just the response part
-                ai_response = generated_text.replace(prompt, "").strip()
-                
-                # Clean up common artifacts
-                ai_response = ai_response.split('\n')[0]  # Take first line only
-                if len(ai_response) < 10:
-                    ai_response = self._generate_domain_specific_response(query_lower)
-                
-                return {
-                    'response': ai_response,
-                    'confidence': 'medium',
-                    'suggestions': self._generate_conversational_suggestions(query_lower),
-                    'matched_resources': [],
-                    'ai_powered': True,
-                    'local_ai': True,
-                    'conversational': True,
-                    'generated': True
-                }
-                
-            except Exception as e:
-                print(f"Text generation error: {e}")
-        
-        # Final fallback to Q&A model
-        return self._generate_qa_conversational_response(query, intent_info)     
-
-    def _generate_domain_specific_response(self, query_lower):
-        """Generate domain-specific responses for agriculture/aquaculture topics"""
-        if any(word in query_lower for word in ['hello', 'hi', 'hey']):
-            return "Hello! I'm your intelligent AI assistant for AANR Knowledge Hub. I can help you with agriculture, aquaculture, and natural resources. What would you like to know?"
-        elif any(word in query_lower for word in ['bye', 'goodbye', 'see you']):
-            return "Goodbye! Thank you for using AANR Knowledge Hub. Feel free to return anytime for more assistance with agriculture and aquaculture topics!"
-        elif any(word in query_lower for word in ['what are you', 'who are you']):
-            return "I'm an intelligent AI assistant designed specifically for AANR Knowledge Hub. I use advanced language models to help you find information about agriculture, aquaculture, and natural resources."
-        elif any(word in query_lower for word in ['thank', 'thanks']):
-            return "You're very welcome! I'm glad I could assist you. If you have more questions about agriculture, aquaculture, or natural resources, feel free to ask!"
-        elif any(word in query_lower for word in ['help', 'what can you do']):
-            return "I can help you with a wide range of topics related to agriculture, aquaculture, and natural resources. Try asking me about farming techniques, fish farming, CMI locations, or any specific questions you have!"
-        else:
-            return "I understand you're looking for information. I specialize in agriculture, aquaculture, and natural resources. What specific topic would you like to explore?" 
-
-    def _generate_qa_conversational_response(self, query, intent_info):
-        """Use Q&A model for conversational responses (current implementation)"""
-        # Your existing Q&A-based conversation logic here
-        if not self.ai_models.get('qa_pipeline'):
-            return self._generate_fallback_conversational_response(query.lower())
-        
-        try:
-            chatbot_context = """
-            I am an intelligent AI assistant for AANR Knowledge Hub. I help users find information about:
-            - Agriculture and farming resources and techniques
-            - Aquaculture and fisheries information  
-            - Community forum discussions and expert advice
-            - CMI locations and services
-            - Knowledge resources and publications
-            - Training programs and events
-            
-            I can understand natural language and provide helpful, contextual responses.
-            I use local AI models to ensure data privacy and security.
-            """
-            
-            result = self.ai_models['qa_pipeline'](question=query, context=chatbot_context)
-            ai_response = result['answer']
-            confidence = result['score']
-            
-            return {
-                'response': ai_response,
-                'confidence': 'high' if confidence > 0.5 else 'medium',
-                'suggestions': self._generate_conversational_suggestions(query.lower()),
-                'matched_resources': [],
-                'ai_powered': True,
-                'local_ai': True,
-                'conversational': True
-            }
-            
-        except Exception as e:
-            print(f"Q&A conversational error: {e}")
-            return self._generate_fallback_conversational_response(query.lower())
-
-    def _generate_fallback_conversational_response(self, query_lower):
-        """Fallback conversational responses when AI fails"""
-        if any(greeting in query_lower for greeting in ['hello', 'hi', 'hey']):
-            return {
-                'response': "👋 Hello! I'm your AI assistant for AANR Knowledge Hub. How can I help you today?",
-                'confidence': 'high',
-                'suggestions': ['What can you help with?', 'Show me farming resources', 'Find CMI locations'],
-                'matched_resources': [],
-                'ai_powered': False,
-                'conversational': True
-            }
-        elif any(farewell in query_lower for farewell in ['bye', 'goodbye', 'see you']):
-            return {
-                'response': "👋 Goodbye! Thank you for using AANR Knowledge Hub. Have a wonderful day!",
-                'confidence': 'high', 
-                'suggestions': ['Hello again!', 'What topics are available?'],
-                'matched_resources': [],
-                'ai_powered': False,
-                'conversational': True
-            }
-        elif any(thanks in query_lower for thanks in ['thank', 'thanks']):
-            return {
-                'response': "🙏 You're welcome! Happy to help with your agricultural and natural resource questions.",
-                'confidence': 'high',
-                'suggestions': ['Ask another question', 'Show me more resources'],
-                'matched_resources': [],
-                'ai_powered': False,
-                'conversational': True
-            }
-        else:
-            return {
-                'response': "💬 I understand you're looking to chat. I'm here to help with agriculture, aquaculture, and natural resources. What would you like to know?",
-                'confidence': 'medium',
-                'suggestions': ['What can you help with?', 'Show me popular topics'],
-                'matched_resources': [],
-                'ai_powered': False,
-                'conversational': True
-            }
-
-    def _generate_conversational_suggestions(self, query_lower):
-        """Generate suggestions based on conversational context"""
-        if 'hello' in query_lower or 'hi' in query_lower:
-            return [
-                'What can you help me with?',
-                'Give me sample 1 FAQ',
-                'Show me farming resources'
-            ]
-        elif 'bye' in query_lower or 'goodbye' in query_lower:
-            return [
-                'Hello again!',
-                'What topics are available?',
-                'Show me popular resources'
-            ]
-        elif 'thank' in query_lower:
-            return [
-                'Ask another question',
-                'Find more resources',
-                'Show me different topics'
-            ]
-        else:
-            return [
-                'What can you help with?',
-                'Browse available topics',
-                'Find specific information'
-            ]
 
     def _generate_sample_response(self, query, matched_resources, intent_info):
         """Generate response for sample requests"""
@@ -1069,12 +599,7 @@ class IntelligentChatbotService:
             return {
                 'response': "I couldn't find any samples matching your request. Here are some available options:\n\n📚 Browse our knowledge base\n💬 Check forum discussions\n❓ View frequently asked questions\n🏢 Find CMI locations",
                 'confidence': 'low',
-                'suggestions': [
-                    'Show me popular FAQs',
-                    'Find recent forum posts', 
-                    'Browse knowledge resources',
-                    'What topics are available?'
-                ],
+                'suggestions': ['Show me popular FAQs', 'Find recent forum posts', 'Browse knowledge resources'],
                 'matched_resources': []
             }
         
@@ -1098,7 +623,6 @@ class IntelligentChatbotService:
             resource = match['resource']
             resource_type = resource.get('type', 'item')
             
-            # Add type icon
             type_icons = {
                 'faq': '❓', 'forum': '💬', 'resource': '📄',
                 'commodity': '🌾', 'cmi': '🏢', 'category': '📚'
@@ -1108,52 +632,140 @@ class IntelligentChatbotService:
             title = resource['title'][:60] + '...' if len(resource['title']) > 60 else resource['title']
             response_parts.append(f"{i}. {icon} **{title}**")
             
-            # Add brief description
             desc = resource['description'][:100] + '...' if len(resource['description']) > 100 else resource['description']
             response_parts.append(f"   {desc}")
             response_parts.append("")
         
-        # Generate suggestions
-        suggestions = [
-            "Show me more examples",
-            "Find specific topic samples",
-            "Browse different categories",
-            "What other types are available?"
-        ]
-        
         return {
             'response': '\n'.join(response_parts),
             'confidence': 'high',
-            'suggestions': suggestions,
+            'suggestions': ['Show me more examples', 'Find specific topic samples', 'Browse different categories'],
             'matched_resources': [match['resource'] for match in matched_resources],
             'ai_powered': True,
             'local_ai': True
         }
+
+    def _generate_topic_content_response(self, query, matched_resources, intent_info):
+        """Generate response specifically for topic content requests"""
+        main_topic = intent_info.get('main_topic', 'the requested topic')
+        content_type = intent_info.get('content_type', 'content')
+        
+        if not matched_resources:
+            return {
+                'response': f"I couldn't find specific {content_type} about '{main_topic}'. Try asking about related topics or browse our available resources.\n\n🌾 Agricultural resources\n🐟 Aquaculture information\n💬 Forum discussions\n❓ FAQs\n🏢 CMI services",
+                'confidence': 'low',
+                'suggestions': [f"Tell me about {main_topic.lower()}", f"Find {main_topic.lower()} resources"],
+                'matched_resources': []
+            }
+        
+        # Group results by type
+        grouped_results = {}
+        for match in matched_resources:
+            resource_type = match['resource']['type']
+            if resource_type not in grouped_results:
+                grouped_results[resource_type] = []
+            grouped_results[resource_type].append(match)
+        
+        response_parts = []
+        response_parts.append(f"🎯 **{content_type.title()} about {main_topic}:**\n")
+        
+        # Type icons and labels
+        type_info = {
+            'faq': {'icon': '❓', 'label': 'Frequently Asked Questions'},
+            'forum': {'icon': '💬', 'label': 'Forum Discussions'},
+            'resource': {'icon': '📄', 'label': 'Resources & Publications'},
+            'commodity': {'icon': '🌾', 'label': 'Commodity Information'},
+            'cmi': {'icon': '🏢', 'label': 'CMI Information'},
+            'category': {'icon': '📚', 'label': 'Knowledge Categories'},
+            'event': {'icon': '📅', 'label': 'Events'},
+            'training': {'icon': '🎓', 'label': 'Training Programs'},
+            'news': {'icon': '📰', 'label': 'News'}
+        }
+        
+        # Display grouped results
+        for resource_type, matches in grouped_results.items():
+            if matches:
+                type_data = type_info.get(resource_type, {'icon': '📌', 'label': resource_type.title()})
+                response_parts.append(f"{type_data['icon']} **{type_data['label']}:**")
+                response_parts.append("")
+                
+                for i, match in enumerate(matches[:3], 1):
+                    resource = match['resource']
+                    title = resource['title'][:60] + '...' if len(resource['title']) > 60 else resource['title']
+                    desc = resource['description'][:120] + '...' if len(resource['description']) > 120 else resource['description']
+                    
+                    response_parts.append(f"  **{i}. {title}**")
+                    response_parts.append(f"     {desc}")
+                    response_parts.append("")
+        
+        response_parts.append(f"💡 *Found {len(matched_resources)} results related to {main_topic}. Click any item above for details.*")
+        
+        return {
+            'response': '\n'.join(response_parts),
+            'confidence': 'high' if len(matched_resources) >= 3 else 'medium',
+            'suggestions': [f"Tell me more about {main_topic.lower()}", "Find examples and samples", "Browse related topics"],
+            'matched_resources': [match['resource'] for match in matched_resources],
+            'ai_powered': True,
+            'local_ai': True,
+            'topic_focused': True
+        }
+
+    def _generate_detailed_response(self, query, matched_resources):
+        """Generate detailed response from matched resources"""
+        if not matched_resources:
+            return self._generate_no_results_response(query)
+        
+        best_match = matched_resources[0]
+        resource = best_match['resource']
+        
+        response_text = f"**{resource['title']}**\n\n{resource['description']}"
+        
+        # Add source information
+        response_text += f"\n\n📋 **Source:** {resource['type'].title()}"
+        if resource.get('author'):
+            response_text += f" by {resource['author']}"
+        
+        return {
+            'response': response_text,
+            'confidence': best_match['confidence'],
+            'suggestions': self._generate_dynamic_suggestions(query, matched_resources),
+            'matched_resources': [resource],
+            'ai_powered': True,
+            'local_ai': True
+        }
+
+    def _generate_dynamic_suggestions(self, query, matched_resources):
+        """Generate contextual suggestions"""
+        suggestions = []
+        query_words = query.lower().split()
+        
+        # Domain-specific suggestions
+        if any(word in query_words for word in ['farm', 'crop', 'agriculture']):
+            suggestions.extend(['Tell me about sustainable farming practices', 'Find crop disease management guides'])
+        elif any(word in query_words for word in ['fish', 'aqua', 'tilapia']):
+            suggestions.extend(['Show me fish farming techniques', 'What are common fish diseases?'])
+        elif any(word in query_words for word in ['cmi', 'office', 'location']):
+            suggestions.extend(['Find all CMI office locations', 'What services does CMI provide?'])
+        
+        # Fallback suggestions
+        while len(suggestions) < 3:
+            fallback = ['What can you help me with?', 'Show me popular topics', 'Find expert discussions']
+            for sug in fallback:
+                if sug not in suggestions:
+                    suggestions.append(sug)
+                    break
+            break
+        
+        return suggestions[:3]
 
     def _generate_no_results_response(self, query):
         """Generate helpful response when no results found"""
         return {
             'response': f"I couldn't find specific information about '{query}'. Try asking about agriculture, aquaculture, CMI services, or browse our available resources.\n\n🌾 Agricultural resources and techniques\n🐟 Aquaculture and fisheries information\n💬 Community forum discussions\n❓ Frequently asked questions\n🏢 CMI locations and services",
             'confidence': 'low',
-            'suggestions': ["Browse available topics", "Find popular discussions", "Show CMI locations"],
+            'suggestions': ['Browse available topics', 'Find popular discussions', 'Show CMI locations'],
             'matched_resources': []
         }
-
-    def _generate_fallback_response(self, query, similar_content):
-        """Fallback when AI models fail"""
-        if similar_content:
-            best_match = similar_content[0]
-            resource = best_match['resource']
-            
-            return {
-                'response': f"📚 **{resource['title']}**\n\n{resource['description']}",
-                'confidence': 'medium',
-                'suggestions': ["Tell me more about this", "Find related content", "Ask another question"],
-                'matched_resources': [resource],
-                'ai_powered': False
-            }
-        else:
-            return self._generate_no_results_response(query)
 
     def _get_confidence_level(self, similarity_score):
         """Get confidence level based on similarity score"""
@@ -1164,35 +776,72 @@ class IntelligentChatbotService:
         else:
             return 'low'
 
-    # Include all your existing methods here with minor modifications...
-    def _load_custom_stopwords(self):
-        """Load custom stopwords from your stopwords file + spaCy stopwords"""
-        custom_stops = set()
+    def _create_knowledge_embeddings(self):
+        """Create embeddings for all knowledge items using AI model"""
+        if not self.ai_model or not self.ai_model.get('sentence_transformer'):
+            return
         
-        # Load from your custom stopwords file
+        if self.knowledge_embeddings is not None:
+            return  
+
         try:
-            with open('utils/stopwords/stopwords.txt', 'r', encoding='utf-8') as f:
-                for line in f:
-                    word = line.strip().lower()
-                    if word and not word.startswith('//'):
-                        custom_stops.add(word)
-        except FileNotFoundError:
-            print("Custom stopwords file not found, using default")
+            print("🧠 Creating AI embeddings for semantic search...")
+            embeddings = self.ai_model['sentence_transformer'].encode(self.document_texts)
+            self.knowledge_embeddings = embeddings
+            print(f"✅ Created embeddings for {len(self.document_texts)} documents")
+        except Exception as e:
+            print(f"❌ Error creating embeddings: {e}")
+            self.knowledge_embeddings = None
+
+    def generate_response(self, query):
+        """Main response generation entry point"""
+        return self.generate_intelligent_response(query)
+
+    def generate_source_response(self, query, resource_id, resource_type):
+        """Generate detailed response for clicked source"""
+        self._ensure_knowledge_base_loaded()
         
-        # Add spaCy stopwords
-        if self.nlp:
-            custom_stops.update(STOP_WORDS)
+        # Find the specific resource
+        target_resource = None
+        for item in self.knowledge_data:
+            if str(item.get('actual_id')) == str(resource_id) and item.get('type') == resource_type:
+                target_resource = item
+                break
         
-        # Add domain-specific stopwords for agriculture
-        domain_stops = {
-            'said', 'says', 'also', 'would', 'could', 'should', 'may', 'might',
-            'one', 'two', 'three', 'many', 'much', 'more', 'most', 'some', 'any',
-            'new', 'old', 'good', 'bad', 'big', 'small', 'high', 'low', 'first',
-            'last', 'next', 'previous', 'use', 'used', 'using', 'way', 'ways'
+        if not target_resource:
+            return {
+                'response': "I couldn't find detailed information about that resource.",
+                'confidence': 'low',
+                'suggestions': ['Browse other resources', 'Ask a different question'],
+                'matched_resources': []
+            }
+        
+        response_parts = []
+        response_parts.append(f"📋 **{target_resource['title']}**\n")
+        response_parts.append(f"{target_resource['description']}\n")
+        
+        # Add type-specific information
+        if target_resource.get('location'):
+            response_parts.append(f"📍 **Location:** {target_resource['location']}")
+        if target_resource.get('organizer'):
+            response_parts.append(f"👥 **Organizer:** {target_resource['organizer']}")
+        if target_resource.get('start_date'):
+            response_parts.append(f"📅 **Start Date:** {target_resource['start_date']}")
+        
+        suggestions = [
+            f"Find more {resource_type}s",
+            f"Related to {target_resource['title'][:20]}...",
+            "Ask another question",
+            "Browse other topics"
+        ]
+        
+        return {
+            'response': '\n'.join(response_parts),
+            'confidence': 'high',
+            'suggestions': suggestions,
+            'matched_resources': [target_resource],
+            'ai_powered': True
         }
-        custom_stops.update(domain_stops)
-        
-        return custom_stops
 
     def _load_knowledge_base(self):
         """Load comprehensive knowledge base with advanced AI processing"""
@@ -1211,7 +860,6 @@ class IntelligentChatbotService:
                     tags = [tag.name for tag in resource.tags.all()]
                     commodities = [commodity.commodity_name for commodity in resource.commodities.all()]
                     
-                    # Create combined text for NLP processing
                     combined_text = f"{resource.title} {resource.description} {' '.join(tags)} {' '.join(commodities)}"
                     
                     knowledge_item = {
@@ -1439,10 +1087,9 @@ class IntelligentChatbotService:
                         'type': 'policy',
                         'slug': policy.slug,
                         'url': f'/cmis/knowledge-resources/policies/{policy.slug}/',
-                        'policy_number': policy.policy_number,
-                        'effective_date': policy.effective_date.strftime('%Y-%m-%d'),
                         'issuing_body': policy.issuing_body,
-                        'status': policy.status,
+                        'policy_number': policy.policy_number,
+                        'effective_date': policy.effective_date.strftime('%Y-%m-%d') if policy.effective_date else None,
                         'raw_text': combined_text
                     }
                     
@@ -1501,10 +1148,8 @@ class IntelligentChatbotService:
                         'slug': publication.slug,
                         'url': f'/cmis/knowledge-resources/publications/{publication.slug}/',
                         'authors': publication.authors,
-                        'publication_date': publication.publication_date.strftime('%Y-%m-%d'),
                         'publisher': publication.publisher,
-                        'publication_type': publication.publication_type,
-                        'doi': publication.doi,
+                        'publication_year': publication.publication_year,
                         'isbn': publication.isbn,
                         'raw_text': combined_text
                     }
@@ -1534,6 +1179,7 @@ class IntelligentChatbotService:
                         'url': f'/cmis/knowledge-resources/technologies/{technology.slug}/',
                         'developer': technology.developer,
                         'release_date': technology.release_date.strftime('%Y-%m-%d') if technology.release_date else None,
+                        'technology_category': technology.technology_category,
                         'patent_number': technology.patent_number,
                         'license_type': technology.license_type,
                         'raw_text': combined_text
@@ -1730,147 +1376,27 @@ class IntelligentChatbotService:
                     print(f"⚠️ Could not create TF-IDF vectors: {e}")
                     self.knowledge_vectors = None
 
-            # Create AI embeddings if models are available
-            if self.ai_models.get('sentence_transformer'):
-                try:
-                    self._create_knowledge_embeddings()
-                    print("✅ Created AI embeddings for semantic search")
-                except Exception as e:
-                    print(f"⚠️ Could not create AI embeddings: {e}")
-
             print(f"🎉 Successfully loaded {len(self.knowledge_data)} items into knowledge base")
-            print(f"📊 Breakdown:")
-            type_counts = {}
-            for item in self.knowledge_data:
-                item_type = item['type']
-                type_counts[item_type] = type_counts.get(item_type, 0) + 1
-            
-            for item_type, count in sorted(type_counts.items()):
-                print(f"   - {item_type}: {count}")
-                
+       
         except Exception as e:
             logger.error(f"Error loading knowledge base: {e}")
             print(f"❌ Error loading knowledge base: {e}")
 
-    def _create_knowledge_embeddings(self):
-        """Create embeddings for all knowledge items using sentence transformer"""
-        if not self.ai_models.get('sentence_transformer'):
-            return
-        
-        try:
-            print("🧠 Creating AI embeddings for semantic search...")
-            embeddings = self.ai_models['sentence_transformer'].encode(self.document_texts)
-            self.knowledge_embeddings = embeddings
-            print(f"✅ Created embeddings for {len(self.document_texts)} documents")
-        except Exception as e:
-            print(f"❌ Error creating embeddings: {e}")
-            self.knowledge_embeddings = None
+# Global service instance
+_chatbot_service = None
 
-    # Wrapper method for backward compatibility
-    def find_similar_content(self, query, threshold=0.05, top_k=5):
-        """Wrapper for enhanced semantic search"""
-        intent_info = self._classify_user_intent(query)
-        return self._enhanced_semantic_search(query, intent_info, top_k)
+def get_chatbot_service():
+    """Get or create the chatbot service instance (lazy loading)"""
+    global _chatbot_service
+    if _chatbot_service is None:
+        _chatbot_service = IntelligentChatbotService()
+    return _chatbot_service
 
-    # Main entry point - calls the intelligent version
-    def generate_response(self, query):
-        """Main response generation - now uses AI intelligence"""
-        return self.generate_intelligent_response(query)
+class ChatbotServiceProxy:
+    """Proxy to delay service initialization until first use"""
+    def __getattr__(self, name):
+        service = get_chatbot_service()
+        return getattr(service, name)
 
-    def generate_source_response(self, query, resource_id, resource_type):
-        """Generate detailed response for clicked source"""
-        try:
-            # Find the specific resource
-            target_resource = None
-            for item in self.knowledge_data:
-                if (item.get('actual_id') == int(resource_id) and 
-                    item.get('type') == resource_type):
-                    target_resource = item
-                    break
-            
-            if not target_resource:
-                return self._generate_no_results_response(query)
-            
-            # Generate comprehensive response
-            response_parts = []
-            
-            # Add type-specific icon and header
-            type_icons = {
-                'faq': '❓', 'forum': '💬', 'resource': '📄',
-                'commodity': '🌾', 'cmi': '🏢', 'category': '📚',
-                'technology': '⚙️', 'publication': '📄', 'event': '📅',
-                'training': '🎓', 'webinar': '💻', 'news': '📰',
-                'policy': '📜', 'project': '📊', 'product': '🛠️', 'media': '🎥'
-            }
-            
-            icon = type_icons.get(resource_type, '📋')
-            response_parts.append(f"{icon} **{target_resource['title']}**\n")
-            
-            # Add main description
-            response_parts.append(target_resource['description'])
-            
-            # Add type-specific details
-            if resource_type == 'faq':
-                if target_resource.get('created_by'):
-                    response_parts.append(f"\n👤 **Created by:** {target_resource['created_by']}")
-                if target_resource.get('total_reactions'):
-                    response_parts.append(f"👍 **Reactions:** {target_resource['total_reactions']}")
-                    
-            elif resource_type == 'forum':
-                if target_resource.get('author'):
-                    response_parts.append(f"\n👤 **Author:** {target_resource['author']}")
-                if target_resource.get('date_posted'):
-                    response_parts.append(f"📅 **Posted:** {target_resource['date_posted']}")
-                if target_resource.get('commodities'):
-                    response_parts.append(f"🌾 **Related to:** {', '.join(target_resource['commodities'])}")
-                    
-            elif resource_type == 'cmi':
-                if target_resource.get('location'):
-                    response_parts.append(f"\n📍 **Location:** {target_resource['location']}")
-                if target_resource.get('contact'):
-                    response_parts.append(f"📞 **Contact:** {target_resource['contact']}")
-                if target_resource.get('email'):
-                    response_parts.append(f"📧 **Email:** {target_resource['email']}")
-                    
-            elif resource_type == 'resource':
-                if target_resource.get('resource_type'):
-                    response_parts.append(f"\n📋 **Type:** {target_resource['resource_type'].title()}")
-                if target_resource.get('tags'):
-                    response_parts.append(f"🏷️ **Tags:** {', '.join(target_resource['tags'])}")
-                if target_resource.get('commodities'):
-                    response_parts.append(f"🌾 **Commodities:** {', '.join(target_resource['commodities'])}")
-                    
-            elif resource_type == 'event':
-                if target_resource.get('location'):
-                    response_parts.append(f"\n📍 **Location:** {target_resource['location']}")
-                if target_resource.get('organizer'):
-                    response_parts.append(f"👥 **Organizer:** {target_resource['organizer']}")
-                if target_resource.get('start_date'):
-                    response_parts.append(f"📅 **Start Date:** {target_resource['start_date']}")
-                    
-            # Add helpful suggestions
-            suggestions = [
-                f"Find more {resource_type}s",
-                f"Related to {target_resource['title'][:20]}...",
-                "Ask another question",
-                "Browse other topics"
-            ]
-            
-            return {
-                'response': '\n'.join(response_parts),
-                'confidence': 'high',
-                'suggestions': suggestions,
-                'matched_resources': [target_resource],
-                'ai_powered': True,
-                'local_ai': True,
-                'source_response': True,
-                'url': target_resource.get('url', '#')
-            }
-            
-        except Exception as e:
-            print(f"Error generating source response: {e}")
-            return self._generate_fallback_response(query, [])
-
-
-# Create the intelligent chatbot service
-chatbot_service = IntelligentChatbotService()
+# This creates a proxy that behaves like the service instance
+chatbot_service = ChatbotServiceProxy()

@@ -26,6 +26,22 @@ class IntelligentChatbot {
         this.closeBtn = document.getElementById('chatbot-close');
     }
 
+    clearAllSessions() {
+        this.clearStoredSession();
+        this.messages.innerHTML = '';
+        this.sessionId = null;
+        this.sessionExpiresAt = null;
+        this.sessionCreatedAt = null;
+        this.messageHistory = [];
+
+        if (this.sessionExpiryTimer) {
+            clearInterval(this.sessionExpiryTimer);
+        }
+
+        console.log('🗑️ All chat sessions cleared');
+    }
+
+
     async loadSessionHistory() {
         // Check if we have a stored session ID
         const savedState = this.getStoredState();
@@ -119,14 +135,13 @@ class IntelligentChatbot {
         if (existingBotMessages.length === 0) {
             // Add initial welcome message with AI branding
             this.addMessage(`
-                🤖 Hello! I'm your <strong>intelligent AI assistant</strong> for AANR Knowledge Hub.<br><br>
-                <em>✨ Powered by local AI models - your data stays secure!</em><br><br>
+                🤖 Hello! I'm your <strong>AI assistant</strong> for AANR Knowledge Hub.<br>
+                <em>✨ Powered by local AI models - your data stays secure!</em><br>
                 I can intelligently help you with:<br>
                 🌾 Agriculture & Farming Resources<br>
                 🐟 Aquatic & Natural Resources<br>
                 💬 Forum Discussions & Expert Advice<br>
-                🏢 CMI Locations & Services<br><br>
-                Try asking me: <em>"Give me sample 1 FAQ"</em> or <em>"Show me farming resources"</em>
+                🏢 CMI Locations & Services<br>
             `, 'bot', { ai_powered: true, local_ai: true });
         }
     }
@@ -1119,6 +1134,13 @@ class IntelligentChatbot {
     }
 }
 
+window.clearChatbotSessions = () => {
+    if (window.chatbot) {
+        window.chatbot.clearAllSessions();
+    }
+};
+
+
 // Initialize the intelligent chatbot when DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('chatbot-container')) {
@@ -1145,3 +1167,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 });
+
