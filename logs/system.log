@@ -10216,3 +10216,1303 @@ IndexError: list index out of range
 [2025-07-01 15:41:06] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
 [2025-07-01 15:41:06] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
 [2025-07-01 15:41:07] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 07:11:24] Watching for file changes with StatReloader
+[2025-07-02 07:11:46] Use pytorch device_name: cpu
+[2025-07-02 07:11:46] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 07:11:46] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 07:11:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 07:11:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 07:11:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 07:11:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 07:11:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 07:11:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 07:11:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 07:11:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 07:11:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 07:11:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 07:11:50] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 07:11:50] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 07:11:50] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 07:11:53] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 07:11:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 07:11:54] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 07:11:54] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 07:11:54] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 07:11:55] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 07:11:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 07:11:56] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 07:11:56] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 07:11:57] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 07:11:57] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 07:11:58] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 07:11:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 07:11:58] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 07:11:59] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 07:11:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 07:12:02] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 07:12:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 07:12:02] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 07:12:02] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 07:12:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 07:12:03] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 07:12:03] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 07:12:04] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 07:12:04] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 07:12:05] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 07:12:05] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 07:12:06] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 07:12:06] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 07:12:06] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 07:13:38] Not Found: /favicon.ico
+[2025-07-02 08:17:16] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:17:25] Watching for file changes with StatReloader
+[2025-07-02 08:17:43] Use pytorch device_name: cpu
+[2025-07-02 08:17:43] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 08:17:43] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 08:17:44] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:17:44] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:17:45] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 08:17:45] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 08:17:46] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 08:17:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 08:17:46] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:17:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:17:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 08:17:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 08:17:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:17:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:50] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:17:50] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:51] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:17:51] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 08:17:52] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 08:17:52] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:17:52] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:53] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:17:53] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:54] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 08:17:54] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:17:55] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:17:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:55] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:17:55] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:17:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:57] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:17:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:58] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:17:58] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:17:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:59] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:17:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:17:59] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:18:00] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:18:00] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:01] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:01] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:18:01] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 08:18:02] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:18:15] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:18:19] Watching for file changes with StatReloader
+[2025-07-02 08:18:33] Use pytorch device_name: cpu
+[2025-07-02 08:18:33] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 08:18:33] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 08:18:33] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:18:33] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:18:34] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 08:18:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 08:18:34] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 08:18:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 08:18:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:18:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:18:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 08:18:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 08:18:36] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:18:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:38] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:18:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:38] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:18:38] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 08:18:39] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 08:18:39] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:18:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:40] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:18:41] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:41] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 08:18:42] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:18:42] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:18:42] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:42] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:18:43] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:18:43] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:45] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:18:45] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:46] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:18:46] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:18:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:46] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:18:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:47] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:18:47] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:18:48] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:48] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:18:49] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:18:49] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 08:18:49] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:20:12] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:20:18] Watching for file changes with StatReloader
+[2025-07-02 08:20:33] Use pytorch device_name: cpu
+[2025-07-02 08:20:33] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 08:20:33] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 08:20:33] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:20:33] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:20:34] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 08:20:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 08:20:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 08:20:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 08:20:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:20:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:20:36] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 08:20:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:36] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 08:20:37] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:20:37] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:39] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:20:40] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:40] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:20:41] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 08:20:41] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 08:20:41] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:20:41] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:42] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:20:43] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:44] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 08:20:44] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:20:45] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:20:45] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:45] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:20:46] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:20:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:48] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:20:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:48] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:20:49] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:20:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:49] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:20:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:50] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:20:50] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:20:51] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:51] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:20:52] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:20:52] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 08:20:52] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:29:51] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:30:08] Watching for file changes with StatReloader
+[2025-07-02 08:30:22] Use pytorch device_name: cpu
+[2025-07-02 08:30:22] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 08:30:22] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 08:30:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:30:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:30:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 08:30:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 08:30:24] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 08:30:24] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 08:30:24] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:30:24] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:30:24] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 08:30:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 08:30:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:30:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:27] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:30:27] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:27] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:30:28] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 08:30:28] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 08:30:28] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:30:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:30] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:30:30] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:31] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 08:30:31] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:30:31] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:30:31] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:32] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:30:32] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:30:32] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:34] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:30:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:34] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:30:34] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:30:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:35] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:30:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:35] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:30:36] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:30:36] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:37] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:30:37] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:30:37] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 08:30:38] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:32:03] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:32:06] Watching for file changes with StatReloader
+[2025-07-02 08:32:18] Use pytorch device_name: cpu
+[2025-07-02 08:32:18] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 08:32:18] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 08:32:19] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:32:19] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:32:20] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 08:32:20] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 08:32:21] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 08:32:21] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 08:32:21] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:32:21] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:32:22] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 08:32:22] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:22] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 08:32:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:32:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:32:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:25] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:32:25] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 08:32:26] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 08:32:26] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:32:26] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:27] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:32:27] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:28] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 08:32:28] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:32:29] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:32:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:29] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:32:30] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:32:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:31] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:32:31] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:32] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:32:32] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:32:32] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:33] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:32:33] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:33] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:32:33] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:32:34] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:34] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:32:35] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:32:35] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 08:32:36] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:34:33] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:34:37] Watching for file changes with StatReloader
+[2025-07-02 08:34:51] Use pytorch device_name: cpu
+[2025-07-02 08:34:51] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 08:34:51] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 08:34:52] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:34:52] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:34:52] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 08:34:52] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 08:34:52] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 08:34:52] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 08:34:53] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:34:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:34:53] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 08:34:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 08:34:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 08:34:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:34:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 08:34:57] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:34:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:34:57] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:34:57] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 08:34:58] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 08:34:58] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:34:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 08:34:59] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:35:00] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:35:00] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 08:35:01] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:35:01] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:35:01] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:35:01] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:35:02] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:35:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:35:03] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:35:03] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:35:04] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:35:04] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:35:04] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:35:05] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:35:05] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:35:05] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:35:05] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:35:06] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:35:07] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:35:07] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:35:07] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 08:35:08] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:37:59] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:38:03] Watching for file changes with StatReloader
+[2025-07-02 08:38:17] Use pytorch device_name: cpu
+[2025-07-02 08:38:17] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 08:38:17] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 08:38:18] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:38:18] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:38:19] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 08:38:19] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 08:38:19] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 08:38:19] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 08:38:19] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:38:19] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:38:20] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 08:38:20] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:21] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 08:38:21] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:38:21] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:38:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:23] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:38:24] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 08:38:24] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 08:38:24] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:38:24] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:25] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:38:26] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:26] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 08:38:27] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:38:27] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:38:27] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:27] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:38:28] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:38:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:30] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:38:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:30] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:38:30] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:38:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:31] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:38:31] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:31] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:38:32] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:38:32] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:33] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:38:33] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:38:33] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 08:38:34] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:39:00] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:39:04] Watching for file changes with StatReloader
+[2025-07-02 08:39:17] Use pytorch device_name: cpu
+[2025-07-02 08:39:17] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 08:39:17] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 08:39:17] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:39:17] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:39:17] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 08:39:18] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 08:39:18] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 08:39:18] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 08:39:18] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:39:18] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:39:19] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 08:39:19] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:19] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 08:39:19] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:39:19] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:21] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:39:21] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:22] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:39:22] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 08:39:22] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 08:39:23] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:39:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:24] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:39:24] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:25] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 08:39:25] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:39:25] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:39:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:26] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:39:26] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:39:26] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:27] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:39:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:28] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:39:28] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:39:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:29] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:39:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:29] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:39:30] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:39:30] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:31] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:39:31] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:39:31] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 08:39:32] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:41:37] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:41:40] Watching for file changes with StatReloader
+[2025-07-02 08:41:54] Use pytorch device_name: cpu
+[2025-07-02 08:41:54] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 08:41:54] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 08:41:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:41:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:41:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 08:41:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 08:41:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 08:41:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 08:41:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 08:41:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 08:41:56] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 08:41:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 08:41:56] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 08:41:57] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:41:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:01] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:42:01] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:01] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:42:02] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 08:42:02] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 08:42:03] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:42:03] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:05] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:42:06] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:06] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 08:42:06] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:42:07] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 08:42:07] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:07] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:42:08] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:42:08] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:10] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:42:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:11] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:42:11] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 08:42:11] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:12] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 08:42:12] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:12] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:42:13] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:42:13] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:14] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 08:42:14] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 08:42:14] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 08:42:15] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 08:43:46] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 08:43:52] Watching for file changes with StatReloader
+[2025-07-02 09:05:36] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 09:05:40] Watching for file changes with StatReloader
+[2025-07-02 09:06:42] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 09:06:44] Watching for file changes with StatReloader
+[2025-07-02 09:07:01] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 09:07:03] Watching for file changes with StatReloader
+[2025-07-02 09:07:22] Use pytorch device_name: cpu
+[2025-07-02 09:07:22] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 09:07:22] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 09:07:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 09:07:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 09:07:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 09:07:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 09:07:24] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 09:07:24] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 09:07:24] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 09:07:24] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 09:07:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 09:07:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 09:07:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:07:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:28] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 09:07:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:29] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:07:29] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 09:07:30] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 09:07:30] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:07:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:32] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:07:33] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:33] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 09:07:34] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:07:34] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 09:07:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:34] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:07:35] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:07:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:38] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 09:07:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:38] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 09:07:39] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:07:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:40] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 09:07:40] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:40] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 09:07:40] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:07:41] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:43] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 09:07:43] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 09:07:43] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 09:07:44] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:07:44] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-02 09:08:31] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-02 09:08:33] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-02 09:08:54] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 09:08:59] Watching for file changes with StatReloader
+[2025-07-02 09:09:18] Internal Server Error: /chatbot/chat/
+[2025-07-02 09:10:18] Internal Server Error: /chatbot/chat/
+[2025-07-02 09:12:59] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 09:13:02] Watching for file changes with StatReloader
+[2025-07-02 09:13:24] Use pytorch device_name: cpu
+[2025-07-02 09:13:24] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 09:13:24] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 09:13:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 09:13:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 09:13:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 09:13:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 09:13:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 09:13:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 09:13:26] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 09:13:26] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 09:13:26] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 09:13:26] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:26] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 09:13:27] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:13:27] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:30] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 09:13:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:30] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:13:31] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 09:13:31] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 09:13:32] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:13:32] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:33] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:13:33] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:34] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 09:13:34] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:13:35] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 09:13:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:35] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:13:36] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:13:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:38] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 09:13:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:38] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 09:13:38] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:13:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:39] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 09:13:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:39] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 09:13:40] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:13:40] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:41] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 09:13:41] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 09:13:42] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 09:13:42] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:14:51] Backend wasn't recognised (``)
+[2025-07-02 09:18:57] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 09:19:06] Watching for file changes with StatReloader
+[2025-07-02 09:19:27] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 09:19:29] Watching for file changes with StatReloader
+[2025-07-02 09:20:29] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 09:20:32] Watching for file changes with StatReloader
+[2025-07-02 09:21:16] Backend wasn't recognised (``)
+[2025-07-02 09:21:22] Use pytorch device_name: cpu
+[2025-07-02 09:21:22] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 09:21:22] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 09:21:22] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 09:21:22] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 09:21:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 09:21:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 09:21:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 09:21:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 09:21:24] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 09:21:24] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 09:21:24] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 09:21:24] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 09:21:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:21:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:29] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 09:21:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:30] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:21:30] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 09:21:31] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 09:21:31] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:21:31] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:33] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:21:34] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:34] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 09:21:34] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:21:35] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 09:21:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:35] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:21:36] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:21:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:39] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 09:21:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:40] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 09:21:40] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 09:21:40] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:41] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 09:21:41] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:41] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 09:21:42] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:21:43] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:44] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 09:21:44] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 09:21:45] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 09:21:45] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 09:44:23] Backend wasn't recognised (``)
+[2025-07-02 10:30:35] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 10:30:41] Watching for file changes with StatReloader
+[2025-07-02 10:31:40] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 10:31:42] Watching for file changes with StatReloader
+[2025-07-02 10:32:10] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 10:32:12] Watching for file changes with StatReloader
+[2025-07-02 10:32:22] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 10:32:23] Watching for file changes with StatReloader
+[2025-07-02 10:57:37] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 10:57:43] Watching for file changes with StatReloader
+[2025-07-02 10:58:28] Backend wasn't recognised (``)
+[2025-07-02 10:58:33] Use pytorch device_name: cpu
+[2025-07-02 10:58:33] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 10:58:33] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 10:58:34] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 10:58:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 10:58:34] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 10:58:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 10:58:34] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 10:58:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 10:58:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 10:58:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 10:58:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 10:58:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 10:58:36] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 10:58:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:41] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 10:58:41] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:42] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 10:58:42] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 10:58:42] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 10:58:43] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 10:58:43] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:44] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 10:58:45] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:45] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 10:58:46] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 10:58:46] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 10:58:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:46] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 10:58:47] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 10:58:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:49] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 10:58:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:49] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 10:58:49] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 10:58:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:50] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 10:58:50] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:50] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 10:58:51] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 10:58:51] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:52] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 10:58:52] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 10:58:53] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 10:58:53] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:08:42] Internal Server Error: /chatbot/chat/
+[2025-07-02 11:09:16] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 11:09:22] Watching for file changes with StatReloader
+[2025-07-02 11:10:14] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 11:10:17] Watching for file changes with StatReloader
+[2025-07-02 11:10:31] Backend wasn't recognised (``)
+[2025-07-02 11:10:35] Use pytorch device_name: cpu
+[2025-07-02 11:10:35] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 11:10:35] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 11:10:36] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 11:10:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 11:10:36] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 11:10:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 11:10:37] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 11:10:37] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 11:10:37] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 11:10:37] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 11:10:37] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:37] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:38] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 11:10:38] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:40] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:40] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:41] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:41] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 11:10:41] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 11:10:42] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:42] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:45] Use pytorch device_name: cpu
+[2025-07-02 11:10:45] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 11:10:45] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 11:10:46] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:46] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 11:10:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 11:10:46] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:46] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 11:10:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 11:10:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 11:10:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 11:10:47] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 11:10:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 11:10:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 11:10:47] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:47] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 11:10:48] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:48] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:49] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:49] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6863
+[2025-07-02 11:10:50] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6863
+[2025-07-02 11:10:50] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:50] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:50] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:50] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:51] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 11:10:51] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:51] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:51] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:52] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:52] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:52] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:52] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 11:10:52] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 11:10:53] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:53] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:53] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:53] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:54] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:54] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:54] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:54] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 11:10:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:55] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 11:10:55] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:56] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:56] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 11:10:57] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:57] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 11:10:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:58] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 11:10:58] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 11:10:59] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 11:10:59] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 11:11:00] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 11:11:00] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 11:11:00] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 14:22:23] Backend wasn't recognised (``)
+[2025-07-02 14:22:42] Not Found: /favicon.ico
+[2025-07-02 14:29:28] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 14:29:39] Watching for file changes with StatReloader
+[2025-07-02 14:29:50] Backend wasn't recognised (``)
+[2025-07-02 14:29:52] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-02 14:30:01] Internal Server Error: /chatbot/chat/
+[2025-07-02 14:30:32] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 14:30:34] Watching for file changes with StatReloader
+[2025-07-02 14:34:03] Internal Server Error: /chatbot/chat/
+[2025-07-02 14:36:58] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 14:37:02] Watching for file changes with StatReloader
+[2025-07-02 14:37:21] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 14:37:23] Watching for file changes with StatReloader
+[2025-07-02 14:37:34] Backend wasn't recognised (``)
+[2025-07-02 14:37:44] Internal Server Error: /chatbot/chat/
+[2025-07-02 14:40:55] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\pydantic\v1\__init__.py changed, reloading.
+[2025-07-02 14:40:58] Watching for file changes with StatReloader
+[2025-07-02 14:43:57] Watching for file changes with StatReloader
+[2025-07-02 14:44:15] Backend wasn't recognised (``)
+[2025-07-02 14:44:20] Use pytorch device_name: cpu
+[2025-07-02 14:44:20] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 14:44:20] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 14:44:21] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 14:44:21] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 14:44:21] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 14:44:21] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 14:44:22] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 14:44:22] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 14:44:22] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 14:44:22] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 14:44:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 14:44:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 14:44:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 14:44:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:26] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 14:44:26] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:27] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 14:44:28] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-02 14:44:28] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-02 14:44:29] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 14:44:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:30] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 14:44:30] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:31] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 14:44:31] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 14:44:31] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 14:44:31] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:32] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 14:44:32] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 14:44:32] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:35] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 14:44:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:35] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 14:44:35] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 14:44:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:36] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 14:44:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:37] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 14:44:37] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 14:44:38] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:39] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 14:44:39] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 14:44:39] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 14:44:40] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:31:00] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 17:31:08] Watching for file changes with StatReloader
+[2025-07-02 17:35:34] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 17:35:37] Watching for file changes with StatReloader
+[2025-07-02 17:36:00] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\urls.py changed, reloading.
+[2025-07-02 17:36:02] Watching for file changes with StatReloader
+[2025-07-02 17:37:38] Backend wasn't recognised (``)
+[2025-07-02 17:37:38] Backend wasn't recognised (``)
+[2025-07-02 17:37:42] Backend wasn't recognised (``)
+[2025-07-02 17:37:43] Use pytorch device_name: cpu
+[2025-07-02 17:37:43] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 17:37:43] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 17:37:44] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 17:37:44] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 17:37:46] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 17:37:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 17:37:47] Use pytorch device_name: cpu
+[2025-07-02 17:37:47] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 17:37:47] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 17:37:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 17:37:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 17:37:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 17:37:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 17:37:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 17:37:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 17:37:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 17:37:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 17:37:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 17:37:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 17:37:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 17:37:50] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 17:37:50] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 17:37:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 17:37:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 17:37:55] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:37:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 17:37:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 17:37:55] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-02 17:37:55] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:37:56] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-02 17:37:56] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-02 17:37:56] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-02 17:37:56] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 17:37:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 17:37:57] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:37:58] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 17:37:58] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 17:37:58] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:37:59] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 17:37:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 17:37:59] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:37:59] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 17:37:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 17:38:00] Internal Server Error: /chatbot/chat/
+[2025-07-02 17:38:01] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 17:38:01] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 17:38:02] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 17:38:02] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 17:38:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 17:38:02] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 17:38:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 17:38:03] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 17:38:03] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:38:03] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 17:38:04] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 17:38:04] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 17:38:05] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 17:38:05] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:38:28] Backend wasn't recognised (``)
+[2025-07-02 17:43:45] Backend wasn't recognised (``)
+[2025-07-02 17:43:45] Backend wasn't recognised (``)
+[2025-07-02 17:44:08] Internal Server Error: /chatbot/chat/
+[2025-07-02 17:44:13] Backend wasn't recognised (``)
+[2025-07-02 17:44:29] Internal Server Error: /chatbot/chat/
+[2025-07-02 17:44:33] Backend wasn't recognised (``)
+[2025-07-02 17:49:19] Backend wasn't recognised (``)
+[2025-07-02 17:49:35] Internal Server Error: /chatbot/chat/
+[2025-07-02 17:49:40] Backend wasn't recognised (``)
+[2025-07-02 17:51:27] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 17:51:31] Watching for file changes with StatReloader
+[2025-07-02 17:51:49] Backend wasn't recognised (``)
+[2025-07-02 17:51:53] Use pytorch device_name: cpu
+[2025-07-02 17:51:53] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 17:51:53] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 17:51:53] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 17:51:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 17:51:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 17:51:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 17:51:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 17:51:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 17:51:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 17:51:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 17:51:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 17:51:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 17:51:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 17:51:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 17:51:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 17:51:58] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 17:51:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 17:51:58] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:51:59] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-02 17:51:59] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-02 17:51:59] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 17:51:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 17:52:00] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:52:01] https://huggingface.co:443 "HEAD /distilbert-base-cased-distilled-squad/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 17:52:01] https://huggingface.co:443 "GET /api/models/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 160
+[2025-07-02 17:52:01] https://huggingface.co:443 "GET /api/models/distilbert/distilbert-base-cased-distilled-squad/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:52:02] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 17:52:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 17:52:02] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:52:02] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 17:52:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 17:52:04] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 17:52:04] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 17:52:04] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 17:52:04] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 17:52:04] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/config.json HTTP/1.1" 200 0
+[2025-07-02 17:52:05] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/generation_config.json HTTP/1.1" 307 0
+[2025-07-02 17:52:05] https://huggingface.co:443 "HEAD /api/resolve-cache/models/microsoft/DialoGPT-small/49c537161a457d5256512f9d2d38a87d81ae0f0e/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 17:52:05] https://huggingface.co:443 "HEAD /microsoft/DialoGPT-small/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 17:52:05] https://huggingface.co:443 "GET /api/models/microsoft/DialoGPT-small/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 17:52:06] https://huggingface.co:443 "HEAD /gpt2/resolve/main/config.json HTTP/1.1" 200 0
+[2025-07-02 17:52:06] https://huggingface.co:443 "HEAD /gpt2/resolve/main/generation_config.json HTTP/1.1" 200 0
+[2025-07-02 17:52:07] https://huggingface.co:443 "HEAD /gpt2/resolve/main/custom_generate/generate.py HTTP/1.1" 404 0
+[2025-07-02 17:52:07] https://huggingface.co:443 "GET /api/models/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 307 133
+[2025-07-02 17:52:07] https://huggingface.co:443 "GET /api/models/openai-community/gpt2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 20:07:28] Backend wasn't recognised (``)
+[2025-07-02 22:45:40] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 22:46:00] Watching for file changes with StatReloader
+[2025-07-02 22:53:39] Backend wasn't recognised (``)
+[2025-07-02 22:53:44] Use pytorch device_name: cpu
+[2025-07-02 22:53:44] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 22:53:44] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 22:53:45] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 22:53:45] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 22:53:45] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 22:53:45] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 22:53:45] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 22:53:45] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 22:53:46] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 22:53:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 22:53:46] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 22:53:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 22:53:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 22:53:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 22:53:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 22:53:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 22:53:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 22:53:55] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 22:53:55] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-02 22:53:56] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-02 22:53:56] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 22:53:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 22:53:57] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 22:53:58] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-02 22:54:18] Internal Server Error: /chatbot/chat/
+[2025-07-02 23:11:18] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-02 23:11:58] Watching for file changes with StatReloader
+[2025-07-02 23:24:19] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-02 23:24:25] Watching for file changes with StatReloader
+[2025-07-02 23:27:32] Backend wasn't recognised (``)
+[2025-07-02 23:27:37] Use pytorch device_name: cpu
+[2025-07-02 23:27:37] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-02 23:27:37] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-02 23:27:38] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 23:27:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 23:27:38] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-02 23:27:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-02 23:27:39] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-02 23:27:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-02 23:27:39] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-02 23:27:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-02 23:27:39] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-02 23:27:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-02 23:27:40] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-02 23:27:40] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 23:27:40] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-02 23:27:43] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-02 23:27:43] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-02 23:27:43] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-02 23:27:43] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-02 23:27:44] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-02 23:27:44] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-02 23:27:44] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-02 23:27:45] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 08:57:46] Watching for file changes with StatReloader
+[2025-07-03 09:13:46] Use pytorch device_name: cpu
+[2025-07-03 09:13:46] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-03 09:13:46] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-03 09:13:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:13:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:13:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-03 09:13:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-03 09:13:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-03 09:13:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-03 09:13:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:13:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:13:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-03 09:13:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-03 09:13:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-03 09:13:49] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:13:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-03 09:13:56] Use pytorch device_name: cpu
+[2025-07-03 09:13:56] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-03 09:13:56] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-03 09:13:57] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:13:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:13:57] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-03 09:13:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-03 09:13:58] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-03 09:13:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-03 09:13:58] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:13:58] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-03 09:13:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:13:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-03 09:13:58] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-03 09:13:58] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:13:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-03 09:13:59] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-03 09:13:59] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-03 09:13:59] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:13:59] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-03 09:13:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-03 09:14:00] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:14:00] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-03 09:14:00] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-03 09:14:00] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-03 09:14:00] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:14:01] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-03 09:14:02] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:14:02] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-03 09:14:02] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:14:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-03 09:14:03] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:25:50] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\apps.py changed, reloading.
+[2025-07-03 09:26:04] Watching for file changes with StatReloader
+[2025-07-03 09:26:37] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\kmhub\settings.py changed, reloading.
+[2025-07-03 09:26:39] Watching for file changes with StatReloader
+[2025-07-03 09:40:03] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\kmhub\settings.py changed, reloading.
+[2025-07-03 09:40:05] Watching for file changes with StatReloader
+[2025-07-03 09:40:35] Not Found: /favicon.ico
+[2025-07-03 09:40:35] Use pytorch device_name: cpu
+[2025-07-03 09:40:35] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-03 09:40:35] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-03 09:40:36] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:40:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:40:36] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-03 09:40:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-03 09:40:37] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-03 09:40:37] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-03 09:40:37] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:40:37] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:40:37] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-03 09:40:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-03 09:40:38] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-03 09:40:38] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:40:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-03 09:40:44] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-03 09:40:44] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-03 09:40:45] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:40:45] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-03 09:40:45] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-03 09:40:46] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:40:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-03 09:40:51] Use pytorch device_name: cpu
+[2025-07-03 09:40:51] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-03 09:40:51] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-03 09:40:51] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:40:51] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:40:51] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:40:52] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-03 09:40:52] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-03 09:40:53] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-03 09:40:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-03 09:40:53] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:40:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:40:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-03 09:40:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-03 09:40:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-03 09:40:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:40:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-03 09:40:56] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-03 09:40:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-03 09:40:56] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:40:57] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-03 09:40:57] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-03 09:40:58] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:40:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-03 09:41:00] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:44:10] Not Found: /favicon.ico
+[2025-07-03 09:50:23] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-03 09:50:40] Watching for file changes with StatReloader
+[2025-07-03 09:51:25] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-03 09:51:26] Watching for file changes with StatReloader
+[2025-07-03 09:52:00] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-03 09:52:02] Watching for file changes with StatReloader
+[2025-07-03 09:52:17] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-03 09:52:19] Watching for file changes with StatReloader
+[2025-07-03 09:53:02] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-03 09:53:04] Watching for file changes with StatReloader
+[2025-07-03 09:53:37] Use pytorch device_name: cpu
+[2025-07-03 09:53:37] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-03 09:53:37] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-03 09:53:39] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:53:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:53:39] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-03 09:53:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-03 09:53:39] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-03 09:53:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-03 09:53:40] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:53:40] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:53:40] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-03 09:53:40] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-03 09:53:41] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-03 09:53:41] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:53:41] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-03 09:53:51] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-03 09:53:51] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-03 09:53:53] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:53:56] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-03 09:53:57] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-03 09:53:57] Use pytorch device_name: cpu
+[2025-07-03 09:53:57] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-03 09:53:57] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-03 09:53:57] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:53:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-03 09:53:58] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:53:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:53:58] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-03 09:53:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-03 09:53:58] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-03 09:53:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-03 09:53:59] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 09:53:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 09:53:59] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-03 09:53:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-03 09:54:00] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:54:00] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-03 09:54:00] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:54:00] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-03 09:54:01] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-03 09:54:01] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-03 09:54:01] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 09:54:02] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-03 09:54:03] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-03 09:54:03] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 09:54:04] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-03 09:54:06] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 10:46:40] Watching for file changes with StatReloader
+[2025-07-03 10:47:07] Use pytorch device_name: cpu
+[2025-07-03 10:47:07] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-03 10:47:07] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-03 10:47:07] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 10:47:07] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 10:47:08] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-03 10:47:08] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-03 10:47:08] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-03 10:47:08] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-03 10:47:08] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 10:47:08] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 10:47:09] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-03 10:47:09] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-03 10:47:09] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-03 10:47:09] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 10:47:09] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-03 10:47:13] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-03 10:47:13] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-03 10:47:13] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 10:47:14] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-03 10:47:14] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-03 10:47:14] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 10:47:14] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-03 10:47:15] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 10:48:14] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-03 11:23:13] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-03 13:24:40] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-03 13:25:05] Watching for file changes with StatReloader
+[2025-07-03 13:25:39] Use pytorch device_name: cpu
+[2025-07-03 13:25:39] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-03 13:25:39] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-03 13:25:40] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 13:25:40] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 13:25:40] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-03 13:25:40] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-03 13:25:41] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-03 13:25:41] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-03 13:25:41] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 13:25:41] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 13:25:41] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-03 13:25:41] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-03 13:25:42] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-03 13:25:42] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 13:25:42] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-03 13:25:50] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-03 13:25:50] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-03 13:25:53] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 13:25:57] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6831
+[2025-07-03 13:25:57] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6831
+[2025-07-03 13:25:58] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 13:25:58] Use pytorch device_name: cpu
+[2025-07-03 13:25:58] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-03 13:25:58] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-03 13:25:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-03 13:25:58] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 13:25:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 13:25:59] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-03 13:25:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-03 13:25:59] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-03 13:25:59] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-03 13:26:00] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 13:26:00] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-03 13:26:00] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-03 13:26:00] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-03 13:26:00] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-03 13:26:01] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-03 13:26:01] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 13:26:01] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-03 13:26:02] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-03 13:26:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-03 13:26:02] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-03 13:26:02] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6831
+[2025-07-03 13:26:03] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6831
+[2025-07-03 13:26:03] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-03 13:26:03] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-03 13:26:04] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64

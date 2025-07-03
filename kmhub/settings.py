@@ -35,8 +35,8 @@ INSTALLED_APPS = [
     "appErrors",  # app
     "embed_video",
     "corsheaders",
-    "ckeditor",
-    "chatbot",  # app
+    "ckeditor",  
+    'chatbot.apps.ChatbotConfig',
     # "django_extensions",
 ]
 

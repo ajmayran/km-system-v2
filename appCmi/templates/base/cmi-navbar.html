@@ -92,7 +92,7 @@
               </a>
             {% endif %}
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'appAccounts:logout' %}" role="menuitem">
+            <a class="dropdown-item" href="{% url 'appAccounts:logout' %}" role="menuitem" onclick="clearChatbotOnLogout(this)">
               <i class="fas fa-sign-out-alt"></i> Logout
             </a>
           </div>
@@ -161,9 +161,25 @@
           <i class="fas fa-shield-alt"></i> Admin Dashboard
         </a>
       {% endif %}
-      <a href="{% url 'appAccounts:logout' %}">
+      <a href="{% url 'appAccounts:logout' %}" onclick="clearChatbotOnLogout(this)">
         <i class="fas fa-sign-out-alt"></i> Logout
       </a>
     </nav>
   </nav>
 </header>
+
+<script>
+function clearChatbotOnLogout(element) {
+    // Clear chatbot sessions before logout
+    if (window.clearChatbotSessions) {
+        window.clearChatbotSessions();
+    }
+    
+    setTimeout(() => {
+        window.location.href = element.getAttribute('href');
+    }, 100);
+    
+    // Prevent immediate navigation
+    return false;
+}
+</script>

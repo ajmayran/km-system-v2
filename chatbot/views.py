@@ -9,6 +9,7 @@ from datetime import timedelta
 from .models import ChatSession, ChatMessage
 from .services import chatbot_service
 from appAdmin.models import ResourceMetadata
+from .services import get_chatbot_service 
 
 @csrf_exempt
 @require_POST
@@ -24,16 +25,6 @@ def chat_message(request):
         
         if not message:
             return JsonResponse({'error': 'Message is required'}, status=400)
-        
-        if source_click and clicked_resource_id:
-            bot_response = chatbot_service.generate_source_response(
-                message, 
-                clicked_resource_id, 
-                clicked_resource_type
-            )
-        else:
-            # Regular chatbot processing
-            bot_response = chatbot_service.generate_response(message)
         
         # Clean up expired sessions periodically
         if timezone.now().hour == 0 and timezone.now().minute < 5: 
@@ -82,9 +73,17 @@ def chat_message(request):
             print(f"Created new session {chat_session.session_id} for user {request.user if request.user.is_authenticated else 'Anonymous'}")
         
         # Generate intelligent response using local AI
-        bot_response = chatbot_service.generate_response(message)
+        if source_click and clicked_resource_id:
+            bot_response = chatbot_service.generate_source_response(
+                message, 
+                clicked_resource_id, 
+                clicked_resource_type
+            )
+        else:
+            # Regular chatbot processing
+            bot_response = chatbot_service.generate_response(message)
         
-        # Get detailed AI similarity scores
+        # Get detailed AI similarity scores using the new method
         similar_content = chatbot_service.find_similar_content(message, top_k=1)
         ai_scores = {}
         similarity_score = 0.0
@@ -94,8 +93,8 @@ def chat_message(request):
             similarity_score = best_match['similarity_score']
             ai_scores = {
                 'combined_score': similarity_score,
-                'semantic_score': best_match.get('spacy_score', 0.0),
-                'tfidf_score': best_match.get('tfidf_score', 0.0),
+                'semantic_score': best_match.get('ai_score', 0.0),
+                'nlp_score': best_match.get('nlp_score', 0.0),
                 'confidence_level': best_match.get('confidence', 'medium')
             }
         
@@ -117,7 +116,7 @@ def chat_message(request):
             matched_resource=matched_resource,
             similarity_score=similarity_score,
             spacy_score=ai_scores.get('semantic_score', 0.0),
-            tfidf_score=ai_scores.get('tfidf_score', 0.0),
+            tfidf_score=ai_scores.get('nlp_score', 0.0),
             confidence_level=bot_response.get('confidence', 'medium'),
             processed_query_length=len(message.split()),
             semantic_keywords_found=len(message.split())
@@ -256,32 +255,37 @@ def get_session_history(request):
             
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+    
 def debug_ai_status(request):
     """Debug endpoint to check AI model status"""
     try:
+        service = get_chatbot_service() 
         ai_status = {
-            'knowledge_items': len(chatbot_service.knowledge_data),
-            'ai_models_loaded': bool(chatbot_service.ai_models),
-            'sentence_transformer': 'sentence_transformer' in chatbot_service.ai_models,
-            'intent_classifier': 'intent_classifier' in chatbot_service.ai_models,
-            'qa_pipeline': 'qa_pipeline' in chatbot_service.ai_models,
-            'spacy_model': str(chatbot_service.nlp) if chatbot_service.nlp else 'Not loaded',
-            'transformers_available': hasattr(chatbot_service, 'ai_models'),
-            'embeddings_created': hasattr(chatbot_service, 'knowledge_embeddings'),
-            'conversation_history_size': len(getattr(chatbot_service, 'conversation_history', [])),
+            'knowledge_items': len(service.knowledge_data),
+            'ai_model_loaded': bool(service.ai_model),
+            'sentence_transformer': 'sentence_transformer' in service.ai_model if service.ai_model else False,
+            'intent_classifier': 'intent_classifier' in service.ai_model if service.ai_model else False,
+            'spacy_model': str(service.nlp) if service.nlp else 'Not loaded',
+            'transformers_available': hasattr(service, 'ai_model') and service.ai_model is not None,
+            'embeddings_created': hasattr(service, 'knowledge_embeddings') and service.knowledge_embeddings is not None,
+            'stopwords_loaded': len(service.stopwords),
+            'basic_responses_loaded': len(service.basic_responses.get('greetings', {})),
             'local_ai_enabled': True,
             'external_api_usage': False
         }
         
-        # Test AI functionality
-        if chatbot_service.ai_models:
-            test_queries = ["give me sample 1 FAQ", "where are CMI locations", "show me farming techniques"]
+        # Only test if explicitly requested
+        run_tests = request.GET.get('test', 'false').lower() == 'true'
+        
+        if run_tests and service.ai_model and len(service.knowledge_data) > 0:
+            print("🧪 Running AI tests (explicitly requested)")
+            test_queries = ["give me sample RAISE that is in FAQ", "where are CMI locations", "show me farming techniques"]
             ai_status['test_results'] = {}
             
             for query in test_queries:
                 try:
-                    intent = chatbot_service._classify_user_intent(query)
-                    results = chatbot_service.find_similar_content(query, top_k=2)
+                    intent = service._classify_user_intent(query)
+                    results = service.find_similar_content(query, top_k=2)
                     ai_status['test_results'][query] = {
                         'intent_detected': intent.get('intent', 'unknown'),
                         'intent_confidence': intent.get('confidence', 0.0),
@@ -290,11 +294,37 @@ def debug_ai_status(request):
                     }
                 except Exception as e:
                     ai_status['test_results'][query] = {'error': str(e)}
+        else:
+            ai_status['test_results'] = 'Not run - add ?test=true to URL to run AI tests'
         
         return JsonResponse(ai_status)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
 
+def refresh_knowledge_base(request):
+    """Refresh the intelligent AI knowledge base"""
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Unauthorized'}, status=403)
+    
+    try:
+        service = get_chatbot_service()
+        service._load_knowledge_base()
+        
+        return JsonResponse({
+            'success': True, 
+            'message': 'Intelligent AI knowledge base refreshed successfully',
+            'items_loaded': len(service.knowledge_data),
+            'ai_model_active': bool(service.ai_model),
+            'models_loaded': list(service.ai_model.keys()) if service.ai_model else [],
+            'spacy_model': str(service.nlp) if service.nlp else 'Not loaded',
+            'stopwords_loaded': len(service.stopwords),
+            'basic_responses_loaded': len(service.basic_responses.get('greetings', {})),
+            'local_ai_enabled': True,
+            'intelligent_processing': True
+        })
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+    
 @login_required
 def chat_history(request):
     """Get chat history with AI intelligence indicators"""
@@ -333,27 +363,6 @@ def chat_history(request):
         return JsonResponse({
             'history': history, 
             'ai_powered': True, 
-            'local_ai_enabled': True,
-            'intelligent_processing': True
-        })
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
-
-def refresh_knowledge_base(request):
-    """Refresh the intelligent AI knowledge base"""
-    if not request.user.is_authenticated:
-        return JsonResponse({'error': 'Unauthorized'}, status=403)
-    
-    try:
-        chatbot_service._load_knowledge_base()
-        
-        return JsonResponse({
-            'success': True, 
-            'message': 'Intelligent AI knowledge base refreshed successfully',
-            'items_loaded': len(chatbot_service.knowledge_data),
-            'ai_models_active': bool(chatbot_service.ai_models),
-            'models_loaded': list(chatbot_service.ai_models.keys()) if chatbot_service.ai_models else [],
-            'spacy_model': str(chatbot_service.nlp) if chatbot_service.nlp else 'Not loaded',
             'local_ai_enabled': True,
             'intelligent_processing': True
         })
