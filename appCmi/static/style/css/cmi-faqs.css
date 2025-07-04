@@ -937,8 +937,7 @@
 }
 
 .bg-warning-custom {
-    background-color: #28a745 !important;
-    /* Green instead of blue/orange */
+    background-color: var(--primary-color);
 }
 
 .btn-primary-custom {
@@ -953,13 +952,13 @@
 }
 
 .btn-warning-custom {
-    background-color: #28a745;
+    background-color: var(--primary-color);
     border-color: #28a745;
     color: white;
 }
 
 .btn-warning-custom:hover {
-    background-color: #1e7e34;
+    background-color: var(--primary-dark);
     border-color: #1c7430;
 }
 
