@@ -23,13 +23,92 @@
         "You're welcome! I'm glad I could assist you.",
         "My pleasure! Feel free to ask if you have more questions."
       ]
-    },
-    "help": {
-      "patterns": ["help", "what can you do", "how can you help", "assist me", "what do you do"],
+    }
+  },
+  "help_requests": {
+    "general_help": {
+      "patterns": ["help", "what can you do", "how can you help", "assist me", "what do you do", "what can you help me with"],
       "responses": [
-        "🤖 I can help you with:\n🌾 Agriculture & Farming techniques\n🐟 Aquaculture & Fisheries\n💬 Forum discussions\n🏢 CMI locations & services\n❓ FAQs and expert advice",
-        "I specialize in agriculture, aquaculture, and natural resources. Ask me about farming techniques, fish farming, CMI services, or any specific topics!",
-        "I'm here to assist with AANR Knowledge Hub resources. Try asking about specific crops, aquaculture methods, or CMI office locations."
+        "🤖 **I'm here to help you with the AANR Knowledge Hub!**\n\nHere are some things you can ask me about:\n\n🌾 **Agriculture & Farming**\n• Rice farming techniques\n• Sustainable farming practices\n• Crop disease management\n\n🐟 **Aquaculture & Fisheries**\n• Fish farming best practices\n• Tilapia cultivation methods\n• Aquaculture technologies\n\n🏢 **CMI Information**\n• Office locations and contact details\n• Available services\n• Expert assistance\n\n📚 **Knowledge Resources**\n• Recent publications\n• Training programs\n• Expert discussions\n\nJust ask naturally, like \"What is RAISE?\" or \"Show me farming resources\"!"
+      ]
+    },
+    "capabilities": {
+      "patterns": ["what are your capabilities", "what can you tell me", "what do you know", "what topics do you cover"],
+      "responses": [
+        "💡 **I specialize in:**\n\n🌾 **Agriculture:** Crops, livestock, farming techniques, sustainable practices\n🐟 **Aquaculture:** Fish farming, pond management, aquatic species\n🌿 **Natural Resources:** Environmental conservation, resource management\n🏢 **CMI Services:** Office locations, contact information, available programs\n📚 **Knowledge Base:** Publications, research, expert advice, FAQs\n💬 **Community:** Forum discussions, expert insights\n\nTry asking about specific topics like \"rice farming\" or \"tilapia cultivation\"!"
+      ]
+    }
+  },
+  "conversation": {
+    "ask_another_question": {
+      "patterns": ["ask another question", "what else can i ask", "give me more topics", "what other questions"],
+      "responses": [
+        "🤔 **Great question! Here are some popular topics you can explore:**\n\n🌾 **Agriculture Questions:**\n• \"What are sustainable farming practices?\"\n• \"How to manage crop diseases?\"\n• \"Best fertilizers for rice farming?\"\n\n🐟 **Aquaculture Questions:**\n• \"How to start fish farming?\"\n• \"Tilapia feeding techniques?\"\n• \"Pond management best practices?\"\n\n🏢 **CMI & Services:**\n• \"Find CMI office locations\"\n• \"What services does CMI provide?\"\n• \"How to contact agricultural experts?\"\n\n📚 **Browse Resources:**\n• \"Show me recent publications\"\n• \"Find training programs\"\n• \"Popular forum discussions\"\n\nWhat interests you most?"
+      ]
+    },
+    "browse_topics": {
+      "patterns": ["browse topics", "show me topics", "what topics are available", "browse available topics"],
+      "responses": [
+        "📋 **Available Topic Categories:**\n\n🌾 **Crops & Agriculture:**\n• Rice, Corn, Coconut farming\n• Organic farming methods\n• Pest and disease control\n\n🐟 **Aquaculture & Fisheries:**\n• Tilapia, Bangus cultivation\n• Pond construction\n• Fish feed management\n\n🐄 **Livestock:**\n• Cattle, Goat, Poultry farming\n• Animal health management\n• Feed and nutrition\n\n🏢 **Institutional Support:**\n• CMI office locations\n• Training programs\n• Expert consultations\n\n💬 **Community Resources:**\n• Forum discussions\n• Expert Q&A\n• Success stories\n\nClick on any topic or ask me directly!"
+      ]
+    },
+    "how_to_use": {
+      "patterns": ["how to use this", "how does this work", "how do i use this chatbot", "instructions"],
+      "responses": [
+        "📝 **How to use this chatbot:**\n\n💬 **Ask Natural Questions:**\n• \"What is RAISE-ABH?\"\n• \"How to farm tilapia?\"\n• \"Find CMI office near me\"\n\n🔍 **Browse Content:**\n• \"Show me farming resources\"\n• \"Give me 3 FAQ examples\"\n• \"Find recent publications\"\n\n🎯 **Get Specific Help:**\n• \"Rice disease management\"\n• \"Aquaculture best practices\"\n• \"Contact information for experts\"\n\n💡 **Tips:**\n• Be specific for better results\n• Ask follow-up questions\n• Use the suggested topics\n• Click on any resource for details\n\nTry it now - ask me anything!"
+      ]
+    }
+  },
+  "status_checks": {
+    "how_are_you": {
+      "patterns": ["how are you", "how are you doing", "how's it going", "what's up"],
+      "responses": [
+        "🤖 I'm doing great! Ready to help you with agriculture, aquaculture, and natural resources. What would you like to know?",
+        "All systems running smoothly! 💚 I'm here to assist with your AANR Knowledge Hub questions. How can I help?",
+        "Functioning perfectly! 🚀 I'm excited to help you explore agriculture and aquaculture topics. What interests you?"
+      ]
+    },
+    "are_you_real": {
+      "patterns": ["are you real", "are you human", "are you a bot", "what are you"],
+      "responses": [
+        "🤖 I'm an AI assistant specifically designed to help with AANR Knowledge Hub! I'm powered by advanced language models and have access to comprehensive agricultural and aquaculture knowledge.",
+        "I'm an artificial intelligence assistant! 🧠 I specialize in agriculture, aquaculture, and natural resources to help you find the information you need.",
+        "I'm your AI-powered knowledge assistant! 💻 While I'm not human, I'm trained to provide helpful information about farming, fisheries, and CMI services."
+      ]
+    }
+  },
+  "errors_clarifications": {
+    "dont_understand": {
+      "patterns": ["i don't understand", "what do you mean", "can you clarify", "explain more", "unclear"],
+      "responses": [
+        "🤔 Let me clarify! I'm here to help with agriculture, aquaculture, and natural resources. Try asking more specific questions like:\n\n• \"What is rice farming?\"\n• \"How to start fish farming?\"\n• \"Find CMI office locations\"\n• \"Show me farming techniques\"\n\nWhat specific topic would you like to know about?"
+      ]
+    },
+    "repeat": {
+      "patterns": ["can you repeat", "say that again", "repeat please", "what did you say"],
+      "responses": [
+        "🔄 Of course! Let me know what specific part you'd like me to repeat or explain further. I'm here to help with any agriculture, aquaculture, or CMI-related questions.",
+        "📢 Sure! Feel free to ask me to clarify any information. What would you like me to explain again?"
+      ]
+    },
+    "no_results": {
+      "patterns": ["no results", "nothing found", "can't find anything", "no information"],
+      "responses": [
+        "🔍 **No worries! Let's try a different approach:**\n\n🎯 **Try these search tips:**\n• Use broader terms (\"farming\" instead of specific variety)\n• Check spelling of technical terms\n• Ask about general categories first\n\n📚 **Popular topics you can explore:**\n• Agriculture and farming techniques\n• Aquaculture and fish farming\n• CMI office locations and services\n• Training programs and resources\n\n💡 **Or try:**\n• \"Show me popular topics\"\n• \"What can you help me with?\"\n• \"Browse available resources\"\n\nWhat would you like to explore?"
+      ]
+    }
+  },
+  "suggestions": {
+    "popular_topics": {
+      "patterns": ["popular topics", "trending", "what's popular", "most asked"],
+      "responses": [
+        "🔥 **Most Popular Topics:**\n\n1️⃣ **RAISE-ABH Program** - Regional agri-business hub information\n2️⃣ **Rice Farming Techniques** - Best practices and modern methods\n3️⃣ **Tilapia Cultivation** - Fish farming for beginners\n4️⃣ **CMI Office Locations** - Find your nearest agricultural office\n5️⃣ **Sustainable Farming** - Eco-friendly agricultural practices\n6️⃣ **Aquaculture Technologies** - Modern fish farming equipment\n7️⃣ **Crop Disease Management** - Prevention and treatment\n8️⃣ **Training Programs** - Available courses and seminars\n\nWhich topic interests you most?"
+      ]
+    },
+    "getting_started": {
+      "patterns": ["getting started", "where to start", "i'm new", "beginner"],
+      "responses": [
+        "🚀 **Welcome! Perfect place to start:**\n\n👋 **New to Agriculture?**\n• \"What is sustainable farming?\"\n• \"Basic crop cultivation techniques\"\n• \"How to start a small farm?\"\n\n🐟 **New to Aquaculture?**\n• \"Fish farming for beginners\"\n• \"How to build a fish pond?\"\n• \"Best fish species for farming\"\n\n🏢 **Need Support?**\n• \"Find CMI office near me\"\n• \"Available training programs\"\n• \"Expert consultation services\"\n\n💡 **Pro tip:** Start with broad topics, then ask specific questions as you learn more!\n\nWhat area interests you most?"
       ]
     }
   }

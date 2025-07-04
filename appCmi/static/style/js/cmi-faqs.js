@@ -2,10 +2,10 @@ document.addEventListener('DOMContentLoaded', function () {
     initializeFAQs();
 });
 
-document.getElementById('othersTag').addEventListener('change', function() {
+document.getElementById('othersTag').addEventListener('change', function () {
     const customTagsSection = document.getElementById('customTagsSection');
     const customTagsInput = document.getElementById('customTagsInput');
-    
+
     if (this.checked) {
         customTagsSection.style.display = 'block';
         customTagsInput.focus();
@@ -16,10 +16,10 @@ document.getElementById('othersTag').addEventListener('change', function() {
     }
 });
 
-document.getElementById('editOthersTag').addEventListener('change', function() {
+document.getElementById('editOthersTag').addEventListener('change', function () {
     const customTagsSection = document.getElementById('editCustomTagsSection');
     const customTagsInput = document.getElementById('editCustomTagsInput');
-    
+
     if (this.checked) {
         customTagsSection.style.display = 'block';
         customTagsInput.focus();
@@ -31,12 +31,12 @@ document.getElementById('editOthersTag').addEventListener('change', function() {
 });
 
 // Handle custom tags input for Add FAQ
-document.getElementById('customTagsInput').addEventListener('input', function() {
+document.getElementById('customTagsInput').addEventListener('input', function () {
     document.getElementById('customTagsHidden').value = this.value;
 });
 
 // Handle custom tags input for Edit FAQ
-document.getElementById('editCustomTagsInput').addEventListener('input', function() {
+document.getElementById('editCustomTagsInput').addEventListener('input', function () {
     document.getElementById('editCustomTagsHidden').value = this.value;
 });
 
@@ -76,19 +76,19 @@ function initializeFAQs() {
         pill.addEventListener('click', function () {
             const tag = this.getAttribute('data-tag');
             const currentSearch = getCurrentSearchParam();
-            
+
             let url = faqsUrl + '?tag=' + tag;
             if (currentSearch) {
                 url += '&q=' + encodeURIComponent(currentSearch);
             }
-            
+
             window.location.href = url;
         });
     });
 
     // FAQ accordion functionality
     initializeAccordion();
-    
+
     // FAQ actions
     initializeFAQActions();
 }
@@ -153,13 +153,13 @@ function initializeFAQActions() {
 
     // Image click handlers for immediate viewing - NO LOADING DELAYS
     document.querySelectorAll('.image-item').forEach(item => {
-        item.addEventListener('click', function(e) {
+        item.addEventListener('click', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            
+
             const faqId = this.getAttribute('data-faq-id') || this.closest('.faq-card').dataset.faqId;
             console.log('Clicked image for FAQ:', faqId);
-            
+
             if (faqId) {
                 // Open immediately - no loading states
                 openImageCarousel(faqId, 0);
@@ -172,14 +172,14 @@ function initializeFAQActions() {
 
 document.addEventListener('DOMContentLoaded', function () {
     initializeFAQs();
-    
+
     // Add FAQ Form Submission with confirmation
     const addFAQForm = document.querySelector('#addFAQModal form');
     if (addFAQForm) {
-        addFAQForm.addEventListener('submit', function(e) {
+        addFAQForm.addEventListener('submit', function (e) {
             const question = document.getElementById('question').value.trim();
             const answer = document.getElementById('answer').value.trim();
-            
+
             if (!question || !answer) {
                 e.preventDefault();
                 Swal.fire({
@@ -190,7 +190,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 return;
             }
-            
+
             // Show loading state
             Swal.fire({
                 title: 'Adding FAQ...',
@@ -204,14 +204,14 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
-    
+
     // Edit FAQ Form Submission with confirmation
     const editFAQForm = document.getElementById('editFAQForm');
     if (editFAQForm) {
-        editFAQForm.addEventListener('submit', function(e) {
+        editFAQForm.addEventListener('submit', function (e) {
             const question = document.getElementById('edit_question').value.trim();
             const answer = document.getElementById('edit_answer').value.trim();
-            
+
             if (!question || !answer) {
                 e.preventDefault();
                 Swal.fire({
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 });
                 return;
             }
-            
+
             // Show loading state
             Swal.fire({
                 title: 'Updating FAQ...',
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function handleReactionClick() {
     const faqId = this.getAttribute('data-faq-id');
-    
+
     fetch(toggleReactionUrl.replace('0', faqId), {
         method: 'POST',
         headers: {
@@ -248,32 +248,32 @@ function handleReactionClick() {
             'Content-Type': 'application/json',
         },
     })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Update button appearance
-            if (data.reacted) {
-                this.classList.remove('btn-outline-primary');
-                this.classList.add('btn-primary');
-            } else {
-                this.classList.remove('btn-primary');
-                this.classList.add('btn-outline-primary');
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update button appearance
+                if (data.reacted) {
+                    this.classList.remove('btn-outline-primary');
+                    this.classList.add('btn-primary');
+                } else {
+                    this.classList.remove('btn-primary');
+                    this.classList.add('btn-outline-primary');
+                }
+
+                // Update reaction count
+                this.querySelector('.reaction-count').textContent = data.total_reactions;
+                this.setAttribute('data-user-reacted', data.reacted);
             }
-            
-            // Update reaction count
-            this.querySelector('.reaction-count').textContent = data.total_reactions;
-            this.setAttribute('data-user-reacted', data.reacted);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        showToast('Error updating reaction', 'error');
-    });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showToast('Error updating reaction', 'error');
+        });
 }
 
 function handleEditClick() {
     const faqId = this.getAttribute('data-faq-id');
-    
+
     // Show loading state
     Swal.fire({
         title: 'Loading FAQ data...',
@@ -285,58 +285,59 @@ function handleEditClick() {
             Swal.showLoading();
         }
     });
-    
+
     // Fetch FAQ data
     fetch(getFaqDataUrl.replace('0', faqId))
-    .then(response => response.json())
-    .then(data => {
-        Swal.close(); // Close loading dialog
-        
-        if (data.success) {
-            populateEditModal(data.data, faqId);
-        } else {
+        .then(response => response.json())
+        .then(data => {
+            Swal.close(); // Close loading dialog
+
+            if (data.success) {
+                populateEditModal(data.data, faqId);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Error loading FAQ data: ' + (data.error || 'Unknown error'),
+                    confirmButtonText: 'OK'
+                });
+            }
+        })
+        .catch(error => {
+            Swal.close(); // Close loading dialog
+            console.error('Error:', error);
             Swal.fire({
                 icon: 'error',
-                title: 'Error!',
-                text: 'Error loading FAQ data: ' + (data.error || 'Unknown error'),
+                title: 'Network Error!',
+                text: 'Failed to load FAQ data. Please check your connection and try again.',
                 confirmButtonText: 'OK'
             });
-        }
-    })
-    .catch(error => {
-        Swal.close(); // Close loading dialog
-        console.error('Error:', error);
-        Swal.fire({
-            icon: 'error',
-            title: 'Network Error!',
-            text: 'Failed to load FAQ data. Please check your connection and try again.',
-            confirmButtonText: 'OK'
         });
-    });
 }
 
 function populateEditModal(data, faqId) {
-    // Populate form fields
-    document.getElementById('edit_question').value = data.question;
-    
-    // Set CKEditor data instead of textarea value
-    if (typeof editAnswerEditor !== 'undefined' && editAnswerEditor) {
-        editAnswerEditor.setData(data.answer);
-    } else {
-        // Fallback if CKEditor isn't ready
-        document.getElementById('edit_answer').value = data.answer;
-    }
-    
-    // Set form action
-    document.getElementById('editFAQForm').action = editFaqUrl.replace('0', faqId);
-    
-    // Update checkboxes
-    document.querySelectorAll('.edit-tag-checkbox').forEach(checkbox => {
-        checkbox.checked = data.tag_ids.includes(parseInt(checkbox.value));
-    });
+  // Set the question in CKEditor with proper HTML decoding
+  if (editQuestionEditor) {
+    // Decode HTML entities and set the data
+    const questionContent = data.question || '';
+    editQuestionEditor.setData(questionContent);
+  }
+  
+  // Set the answer in CKEditor with proper HTML decoding
+  if (editAnswerEditor) {
+    const answerContent = data.answer || '';
+    editAnswerEditor.setData(answerContent);
+  }
+  
+  document.getElementById('editFAQForm').action = editFaqUrl.replace('0', faqId);
+  
+  // Update checkboxes
+  document.querySelectorAll('.edit-tag-checkbox').forEach(checkbox => {
+    checkbox.checked = data.tag_ids.includes(parseInt(checkbox.value));
+  });
 
-    // Handle existing images
-    populateExistingImages(data.images);
+  // Handle existing images
+  populateExistingImages(data.images);
 }
 
 function populateExistingImages(images) {
@@ -359,7 +360,7 @@ function populateExistingImages(images) {
 function handleDeleteClick() {
     const faqId = this.getAttribute('data-faq-id');
     const question = this.getAttribute('data-question');
-    
+
     Swal.fire({
         title: 'Delete FAQ?',
         html: `Are you sure you want to delete<br><strong>"${question}"</strong><br><br>This action cannot be undone.`,
@@ -387,7 +388,7 @@ function handleDeleteClick() {
                     Swal.showLoading();
                 }
             });
-            
+
             // Redirect to delete URL
             window.location.href = deleteFaqUrl.replace('0', faqId);
         }
@@ -397,14 +398,14 @@ function handleDeleteClick() {
 function handleToggleStatusClick() {
     const faqId = this.getAttribute('data-faq-id');
     const currentStatus = this.getAttribute('data-current-status') === 'true';
-    
+
     // Determine the correct action and message based on current status
     const actionText = currentStatus ? 'hide' : 'show';
-    const confirmText = currentStatus ? 
-        'Are you sure you want to hide this FAQ? It will not be visible to regular users.' : 
+    const confirmText = currentStatus ?
+        'Are you sure you want to hide this FAQ? It will not be visible to regular users.' :
         'Are you sure you want to show this FAQ? It will be visible to all users.';
     const actionColor = currentStatus ? '#ffc107' : '#28a745';
-    
+
     Swal.fire({
         title: `${actionText.charAt(0).toUpperCase() + actionText.slice(1)} FAQ?`,
         text: confirmText,
@@ -428,18 +429,18 @@ function handleToggleStatusClick() {
                     Swal.showLoading();
                 }
             });
-            
+
             // Submit the toggle request
             const form = document.createElement('form');
             form.method = 'POST';
             form.action = toggleStatusUrl.replace('0', faqId);
-            
+
             const csrfInput = document.createElement('input');
             csrfInput.type = 'hidden';
             csrfInput.name = 'csrfmiddlewaretoken';
             csrfInput.value = csrfToken;
             form.appendChild(csrfInput);
-            
+
             document.body.appendChild(form);
             form.submit();
         }
@@ -554,17 +555,17 @@ function removeImagePreview(button) {
     const previewContainer = button.closest('.image-preview-container');
     const fileInputId = previewContainer.parentElement.querySelector('.file-input').id;
     const fileInput = document.getElementById(fileInputId);
-    
+
     // Get the index of the removed preview
     const allPreviews = Array.from(previewContainer.querySelectorAll('.image-preview'));
     const removedIndex = allPreviews.indexOf(button.closest('.image-preview'));
-    
+
     // Remove the preview
     button.closest('.image-preview').remove();
-    
+
     // Get remaining previews count
     const remainingPreviews = previewContainer.querySelectorAll('.image-preview').length;
-    
+
     // If no previews left, clear the file input
     if (remainingPreviews === 0) {
         fileInput.value = '';
@@ -572,13 +573,13 @@ function removeImagePreview(button) {
         // Rebuild the file list without the removed file
         const currentFiles = Array.from(fileInput.files);
         const dt = new DataTransfer();
-        
+
         currentFiles.forEach((file, index) => {
             if (index !== removedIndex) {
                 dt.items.add(file);
             }
         });
-        
+
         // Update file input with remaining files
         fileInput.files = dt.files;
     }
@@ -599,9 +600,9 @@ function removeExistingImage(button, imageId) {
             const deleteInput = document.createElement('input');
             deleteInput.type = 'hidden';
             deleteInput.name = 'delete_images';
-            deleteInput.value = imageId; 
+            deleteInput.value = imageId;
             form.appendChild(deleteInput);
-            
+
             button.closest('.existing-image').remove();
             showToast('Image marked for removal', 'success');
         }
@@ -610,34 +611,34 @@ function removeExistingImage(button, imageId) {
 
 function openImageCarousel(faqId, startIndex = 0) {
     console.log('Opening carousel for FAQ:', faqId);
-    
+
     fetch(getFaqDataUrl.replace('0', faqId))
-    .then(response => response.json())
-    .then(data => {
-        console.log('FAQ data received:', data);
-        
-        if (data.success) {
-            if (data.data.images && data.data.images.length > 0) {
-                createImageModal(data.data.images, startIndex, data.data.question);
+        .then(response => response.json())
+        .then(data => {
+            console.log('FAQ data received:', data);
+
+            if (data.success) {
+                if (data.data.images && data.data.images.length > 0) {
+                    createImageModal(data.data.images, startIndex, data.data.question);
+                } else {
+                    console.warn('No images found but image was clicked');
+                    showToast('No images available for this FAQ', 'warning');
+                }
             } else {
-                console.warn('No images found but image was clicked');
-                showToast('No images available for this FAQ', 'warning');
+                console.error('Error from server:', data.error);
+                showToast('Error loading images: ' + (data.error || 'Unknown error'), 'error');
             }
-        } else {
-            console.error('Error from server:', data.error);
-            showToast('Error loading images: ' + (data.error || 'Unknown error'), 'error');
-        }
-    })
-    .catch(error => {
-        console.error('Error loading images:', error);
-        showToast('Error loading images', 'error');
-    });
+        })
+        .catch(error => {
+            console.error('Error loading images:', error);
+            showToast('Error loading images', 'error');
+        });
 }
 
 // Create and show image modal immediately - no delays
 function createImageModal(images, startIndex = 0, title = 'FAQ Images') {
     if (images.length === 0) return;
-    
+
     // Remove any existing modal
     const existingModal = document.getElementById('imageCarouselModal');
     if (existingModal) {
@@ -691,7 +692,7 @@ function createImageModal(images, startIndex = 0, title = 'FAQ Images') {
 
     // Add modal to page immediately
     document.body.insertAdjacentHTML('beforeend', modalHtml);
-    
+
     // Show modal immediately
     const modal = document.getElementById('imageCarouselModal');
     modal.style.display = 'block';
@@ -704,7 +705,7 @@ function createImageModal(images, startIndex = 0, title = 'FAQ Images') {
             wrap: true,
             keyboard: true
         });
-        
+
         if (startIndex > 0) {
             $('#faqImageCarousel').carousel(startIndex);
         }
@@ -712,9 +713,9 @@ function createImageModal(images, startIndex = 0, title = 'FAQ Images') {
 
     // Handle keyboard navigation
     document.addEventListener('keydown', handleModalKeypress);
-    
+
     // Handle click outside to close
-    modal.addEventListener('click', function(e) {
+    modal.addEventListener('click', function (e) {
         if (e.target === modal) {
             closeImageModal();
         }
@@ -722,7 +723,7 @@ function createImageModal(images, startIndex = 0, title = 'FAQ Images') {
 }
 
 // Close modal function - make it global and immediate
-window.closeImageModal = function() {
+window.closeImageModal = function () {
     const modal = document.getElementById('imageCarouselModal');
     if (modal) {
         modal.remove();
@@ -736,7 +737,7 @@ function handleModalKeypress(e) {
     const modal = document.getElementById('imageCarouselModal');
     if (!modal) return;
 
-    switch(e.key) {
+    switch (e.key) {
         case 'Escape':
             closeImageModal();
             break;
@@ -782,9 +783,9 @@ function showToast(message, type = 'info') {
             </button>
         </div>
     `;
-    
+
     document.body.appendChild(toast);
-    
+
     // Auto remove after 3 seconds
     setTimeout(() => {
         if (toast.parentNode) {
