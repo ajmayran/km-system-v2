@@ -14,7 +14,6 @@ from utils.user_control import user_access_required
 logger = logging.getLogger(__name__)
 
 
-@user_access_required(["admin", "cmi"], error_type=404)
 def cmi_forum(request):
     """Handles forum data aggregation and rendering for the forum page."""
 
@@ -35,6 +34,11 @@ def cmi_forum(request):
         for forum in forums:
             forum.is_liked_by = forum.likes.filter(id=request.user.id).exists()
             forum.is_bookmarked_by = forum.bookmark.filter(id=request.user.id).exists()
+    else:
+        # For unauthenticated users, set default values
+        for forum in forums:
+            forum.is_liked_by = False
+            forum.is_bookmarked_by = False
 
     # Get popular forums based on like count
     popular_forums = Forum.objects.annotate(
@@ -47,22 +51,27 @@ def cmi_forum(request):
         for forum in popular_forums:
             forum.is_liked_by = forum.likes.filter(id=request.user.id).exists()
             forum.is_bookmarked_by = forum.bookmark.filter(id=request.user.id).exists()
+    else:
+        # For unauthenticated users, set default values
+        for forum in popular_forums:
+            forum.is_liked_by = False
+            forum.is_bookmarked_by = False
 
     # Get posts created by the logged-in user with counts
-    logged_in_user = request.user
-    user_forums = (
-        Forum.objects.annotate(
-            total_likes=Count("likes"),
-            comments_count=Count(
-                "post_comments", filter=Q(post_comments__status="active")
-            ),
-        )
-        .filter(author=logged_in_user)
-        .order_by("-date_posted")
-    )
-
-    # Add like status for user forums if user is authenticated
+    user_forums = []
     if request.user.is_authenticated:
+        user_forums = (
+            Forum.objects.annotate(
+                total_likes=Count("likes"),
+                comments_count=Count(
+                    "post_comments", filter=Q(post_comments__status="active")
+                ),
+            )
+            .filter(author=request.user)
+            .order_by("-date_posted")
+        )
+
+        # Add like status for user forums
         for forum in user_forums:
             forum.is_liked_by = forum.likes.filter(id=request.user.id).exists()
             forum.is_bookmarked_by = forum.bookmark.filter(id=request.user.id).exists()
@@ -122,6 +131,7 @@ def forum_post_question(request):
     return render(request, "pages/cmi-forum.html", {"form": ForumForm()})
 
 
+
 @user_access_required(["admin", "cmi"], error_type=404)
 def _associate_commodities_with_forum(forum, commodity_ids_string):
     """
@@ -145,7 +155,7 @@ def _associate_commodities_with_forum(forum, commodity_ids_string):
         forum.commodity_id.add(*selected_commodities)
 
 
-@user_access_required(["admin", "cmi"], error_type=404)
+
 def display_forum(request, slug):
     models = get_active_models()  # Fetch active models
     useful_links = models.get("useful_links", [])
@@ -155,11 +165,16 @@ def display_forum(request, slug):
     # Get the forum directly from the database using slug
     try:
         display_forum = Forum.objects.get(slug=slug)
+        
+        # Check like and bookmark status only for authenticated users
         if request.user.is_authenticated:
             display_forum.is_liked_by = display_forum.is_liked_by(request.user)
             display_forum.is_bookmarked_by = display_forum.is_bookmarked_by(
                 request.user
             )
+        else:
+            display_forum.is_liked_by = False
+            display_forum.is_bookmarked_by = False
 
         # Get all active comments for this forum
         comments = ForumComment.objects.filter(post=display_forum, status="active")

@@ -1,0 +1,89 @@
+* [33m6d585343[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/cmi-faqs[m[33m, [m[1;31morigin/feature/cmi-faqs[m[33m)[m Refactor code to use CKedit when editting FAQs
+[31m|[m *   [33m8f84b133[m WIP on feature/cmi-faqs: c21ce243 -Implement user logout functionality to clear chat sessions
+[31m|[m [32m|[m[33m\[m  
+[31m|[m [32m|[m * [33m57ed8a61[m index on feature/cmi-faqs: c21ce243 -Implement user logout functionality to clear chat sessions
+[31m|[m [32m|[m[32m/[m  
+[31m|[m * [33mc21ce243[m -Implement user logout functionality to clear chat sessions
+[31m|[m * [33m43f7a2d0[m Remove venv from tracking
+[31m|[m * [33me6a35de3[m chatbot
+[31m|[m * [33m75764fe4[m Refactored chatbot
+[31m|[m * [33mdb09aca6[m Refactor code structure
+[31m|[m * [33md54f4bab[m Req
+[31m|[m * [33m3a0208e5[m Debug RTF
+[31m|[m * [33m86c36fb0[m Refactor Answer Field to RTF
+[31m|[m * [33m4755e24a[m Add custom tags functionality to FAQs
+[31m|[m * [33mf5b3f8cf[m Implemented CRUD on cmi-faqs page
+[31m|[m * [33m60eb62ce[m venv
+[31m|[m * [33mbe00c061[m venv
+[31m|[m * [33m48915361[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Implement resource deletion functionality in admin panel. Add new view and URL pattern for deleting resources, enhance resource post view to handle status updates, and update templates for improved user interaction. Adjust navbar and footer styles for better responsiveness and accessibility.
+[31m|[m * [33mbcbbbe93[m Enhance search functionality and UI for resource discovery. Update search results page with improved layout, filtering options, and dynamic display of resource tags. Optimize resource fetching in the backend for better performance.
+[31m|[m * [33md4f4b6a2[m Refactor resource statistics display in admin panel and implement search functionality. Update resource post view to calculate total resources, approved, pending, and featured resources. Introduce new search results page with improved styling and functionality for resource discovery.
+[31m|[m * [33m04eb800f[m Implement CMI message functionality, including new views for sending and displaying messages, and update user access control for CMI-related views. Enhance dashboard with additional statistics and improve styling for admin navigation links.
+[31m|[m * [33md9fdd5e3[m Add CMI change password functionality, including new URL patterns, view logic for sending password reset links, and updates to user profile templates. Enhance dashboard with unread message count and notifications for admin users.
+[31m|[m * [33m4a302bbe[m Add MessageToAdmin model and form for user inquiries; implement send_message view and update message template with category styling
+[31m|[m * [33mffd2b0df[m Update knowledge resources page with enhanced filtering options, improved styling for resource cards, and fixed navigation links in the navbar. Adjusted view logic to support search and tag filtering for resources.
+[31m|[m * [33mb9b10b2b[m Add knowledge resources page and associated styles; enhance forum functionality with user-specific posts and popular forums display
+[31m|[m * [33m22522e27[m update footer
+[31m|[m * [33m9e35f65b[m update user info, message, and footer
+[31m|[m * [33mfecbe3f1[m update collectstatic
+[31m|[m * [33m85ff5da1[m update resources post
+[31m|[m * [33md3228674[m update admin forum
+[31m|[m * [33m8eb45285[m updated forum with likes, bookmark, etc.
+[31m|[m * [33m4b86fc03[m update comment
+[31m|[m * [33m748b1fb5[m update add comment
+[31m|[m * [33mddbf67ee[m update forum and comments
+[31m|[m * [33md1e5b321[m updted cmi forum
+[31m|[m * [33mcf72707e[m update UI of cmi display individual commodity
+[31m|[m * [33m7c3dad73[m updated display commodities
+[31m|[m * [33m13c11672[m update forum and commodities
+[31m|[m * [33m6350ef65[m updated commodity
+[31m|[m * [33m1cdcab23[m updated about commodity
+[31m|[m * [33m3690af35[m updated forum
+[31m|[m * [33m3139196b[m updated home and about UI
+[31m|[m * [33m8bc4d672[m update template, view, url for cmi user
+[31m|[m * [33m5e03a985[m update useful links and about
+[31m|[m * [33m75043e82[m update knowledge resources and commodity
+[31m|[m * [33m88f81578[m update cmi and knowledge resources
+[31m|[m * [33m96b2b641[m put slug to be use instead of id, updated the templates, models, forms, utls, views, and urls of admin, cmi, and accounts.
+[31m|[m * [33m7a69eed1[m updated forum and admin nav
+[31m|[m * [33mc433c601[m update admin:add map, users, and commodities models, views and urls
+[31m|[m * [33m88eecebf[m update admin
+[31m|[m * [33m791015c1[m update css
+[31m|[m * [33m23624a49[m update cmi
+[31m|[m * [33m5046c3b4[m updated accounts code with refactor
+[31m|[m * [33mb4d3303e[m update apps, functions and html
+[31m|[m * [33mb4ea8020[m first commit for the project
+[31m|[m * [33m2b1f2458[m Initial commit
+[31m|[m * [33ma3e58471[m[33m ([m[1;35mrefs/stash[m[33m)[m WIP on feature/cmi-faqs: c21ce243 -Implement user logout functionality to clear chat sessions
+[31m|[m[31m/[m  
+* [33mc637feea[m -Implement user logout functionality to clear chat sessions
+* [33m1216f57d[m chatbot
+* [33m995c31cb[m Refactored chatbot
+* [33m256e4927[m Refactor code structure
+* [33m67ea1f44[m Req
+* [33ma77115ef[m Debug RTF
+* [33m4fcd80d7[m[33m ([m[1;31morigin/feature/cmi-about[m[33m, [m[1;32mfeature/cmi-about[m[33m)[m Refactor Answer Field to RTF
+* [33mfd193ae6[m Add custom tags functionality to FAQs
+* [33m11acbd7d[m Implemented CRUD on cmi-faqs page
+* [33md29d89ad[m venv
+* [33m084d7d5f[m venv
+* [33m163f3b61[m[33m ([m[1;32mmain[m[33m)[m Implement resource deletion functionality in admin panel. Add new view and URL pattern for deleting resources, enhance resource post view to handle status updates, and update templates for improved user interaction. Adjust navbar and footer styles for better responsiveness and accessibility.
+* [33md6679be0[m Enhance search functionality and UI for resource discovery. Update search results page with improved layout, filtering options, and dynamic display of resource tags. Optimize resource fetching in the backend for better performance.
+* [33m454bd9e6[m Refactor resource statistics display in admin panel and implement search functionality. Update resource post view to calculate total resources, approved, pending, and featured resources. Introduce new search results page with improved styling and functionality for resource discovery.
+* [33mcb685cf4[m Implement CMI message functionality, including new views for sending and displaying messages, and update user access control for CMI-related views. Enhance dashboard with additional statistics and improve styling for admin navigation links.
+* [33m91621e47[m Add CMI change password functionality, including new URL patterns, view logic for sending password reset links, and updates to user profile templates. Enhance dashboard with unread message count and notifications for admin users.
+* [33m5924f722[m Add MessageToAdmin model and form for user inquiries; implement send_message view and update message template with category styling
+* [33m93bf9e0b[m Update knowledge resources page with enhanced filtering options, improved styling for resource cards, and fixed navigation links in the navbar. Adjusted view logic to support search and tag filtering for resources.
+* [33m275c6250[m Add knowledge resources page and associated styles; enhance forum functionality with user-specific posts and popular forums display
+* [33m99c512f2[m update footer
+* [33m11c83a8e[m update user info, message, and footer
+* [33m200bb5d2[m update collectstatic
+* [33ma8190d00[m update resources post
+* [33md1b7e465[m update admin forum
+* [33mf89d11b0[m updated forum with likes, bookmark, etc.
+* [33m3f723888[m update comment
+* [33m5c6fd2ad[m update add comment
+* [33mf75f5a03[m update forum and comments
+* [33mad168167[m updted cmi forum
+* [33mb6c0bba4[m update UI of cmi display individual commodity
+* [33mb422c48e[m updated display comm

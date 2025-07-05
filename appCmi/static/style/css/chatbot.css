@@ -8,28 +8,38 @@
 
 /* Toggle Button */
 .chatbot-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     width: 60px;
     height: 60px;
-    background: linear-gradient(135deg, #2c6e49, #4c956c);
+    background: linear-gradient(135deg, #2c6e49, #4EB179);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     box-shadow: 0 4px 20px rgba(44, 110, 73, 0.3);
-    transition: all 0.3s ease;
-    position: relative;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 1000;
+    border: none;
+    outline: none;
 }
 
 .chatbot-toggle:hover {
-    transform: translateY(-2px);
+    transform: scale(1.1);
     box-shadow: 0 6px 25px rgba(44, 110, 73, 0.4);
 }
 
 .chatbot-toggle i {
+    font-size: 1.5rem;
     color: white;
-    font-size: 24px;
-    transition: transform 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.chatbot-toggle.open {
+    background: linear-gradient(135deg, #dc3545, #e57373);
+    transform: rotate(90deg);
 }
 
 .chatbot-toggle:hover i {
@@ -42,29 +52,38 @@
     right: -5px;
     background: #ff4757;
     color: white;
-    font-size: 10px;
+    font-size: 0.6rem;
     font-weight: bold;
     padding: 2px 6px;
     border-radius: 10px;
-    min-width: 16px;
+    min-width: 18px;
     text-align: center;
+    transition: all 0.3s ease;
+    transform: scale(1);
+    opacity: 1;
 }
 
-/* Chat Widget - FIXED POSITIONING */
 .chatbot-widget {
-    position: absolute;
-    bottom: 80px;
-    right: 0;
-    width: 400px; /* Reduced width */
-    height: 550px; /* Reduced height */
-    max-height: calc(100vh - 120px); /* Prevent overflow */
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    width: 380px;
+    height: 600px;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    display: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    display: flex;
     flex-direction: column;
+    z-index: 999;
+    transform: translateY(100%) scale(0.8);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     overflow: hidden;
-    animation: slideUp 0.3s ease;
+}
+
+.chatbot-widget.show {
+    transform: translateY(0) scale(1);
+    opacity: 1;
 }
 
 @keyframes slideUp {
@@ -82,15 +101,14 @@
     display: flex;
 }
 
-/* Header - FIXED BUTTON POSITIONING */
 .chatbot-header {
-    background: linear-gradient(135deg, #2c6e49, #4c956c);
+    background-color: #4c956c;
     color: white;
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0; /* Prevent header from shrinking */
+    flex-shrink: 0; 
 }
 
 .chatbot-title {
@@ -99,7 +117,11 @@
     gap: 8px;
     font-weight: 600;
     font-size: 16px;
-    flex: 1; /* Take available space */
+    flex: 1; 
+}
+
+.chatbot-title i {
+    font-size: 1.2rem;
 }
 
 .chatbot-actions {
@@ -129,7 +151,6 @@
     transform: scale(1.1);
 }
 
-/* Messages - IMPROVED SCROLLING */
 .chatbot-messages {
     flex: 1;
     overflow-y: auto;
@@ -214,7 +235,6 @@
     line-height: 1.8;
 }
 
-/* Preserve formatting for structured responses */
 .message-content .typing-text {
     white-space: normal;
     line-height: 1.5;
@@ -464,7 +484,7 @@
     background: #a8a8a8;
 }
 
-/* Mobile Responsive */
+
 @media (max-width: 768px) {
     #chatbot-container {
         bottom: 10px;
@@ -490,12 +510,22 @@
     }
 }
 
-/* Minimized State */
-.chatbot-widget.minimized {
-    height: 60px;
+@media (max-width: 480px) {
+    .chatbot-widget {
+        width: 95vw;
+        height: 80vh;
+        right: 2.5vw;
+        bottom: 90px;
+    }
+    
+    .chatbot-toggle {
+        bottom: 15px;
+        right: 15px;
+        width: 55px;
+        height: 55px;
+    }
 }
 
-.chatbot-widget.minimized .chatbot-messages,
 .chatbot-widget.minimized .chatbot-suggestions,
 .chatbot-widget.minimized .chatbot-input-container {
     display: none;
@@ -637,7 +667,6 @@
     text-decoration: none;
 }
 
-/* Enhanced styling for clicked sources */
 .chatbot-message.user-message[data-source-click="true"] {
     background: linear-gradient(135deg, rgba(44, 110, 73, 0.1), rgba(76, 149, 108, 0.1));
     border-left: 3px solid #4c956c;
@@ -647,3 +676,15 @@
     background: #4c956c;
     color: white;
 }
+
+.typing-text.typing::after {
+    content: '▋';
+    animation: blink 1s infinite;
+    color: #2c6e49;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+}
+

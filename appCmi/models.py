@@ -222,6 +222,7 @@ class ResourceBookmark(models.Model):
         return f"{self.user.username}'s bookmark of {self.resource.title}"
 
 
+# Added New Models
 
 class FAQ(models.Model):
     faq_id = models.AutoField(primary_key=True)
