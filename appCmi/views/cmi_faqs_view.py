@@ -268,32 +268,45 @@ def toggle_faq_status(request, faq_id):
 
 @require_POST
 def toggle_faq_reaction(request, faq_id):
-    """Toggle FAQ reaction"""
+    """Toggle FAQ reaction - allow anonymous users"""
     try:
-        # Check if user is authenticated before allowing reactions
-        if not request.user.is_authenticated:
-            return JsonResponse({
-                'success': False,
-                'error': 'You must be logged in to react to FAQs.'
-            })
-            
         faq = get_object_or_404(FAQ, faq_id=faq_id)
         
-        reaction, created = FAQReaction.objects.get_or_create(
-            faq=faq, 
-            user=request.user
-        )
-        
-        if not created:
-            reaction.delete()
-            reacted = False
+        if request.user.is_authenticated:
+            # For authenticated users, use the existing logic
+            reaction, created = FAQReaction.objects.get_or_create(
+                faq=faq, 
+                user=request.user
+            )
+            
+            if not created:
+                reaction.delete()
+                reacted = False
+            else:
+                reacted = True
         else:
-            reacted = True
+            session_key = f'faq_reaction_{faq_id}'
+            
+            if session_key in request.session:
+                del request.session[session_key]
+                reacted = False
+                
+                faq.anonymous_reactions = max(0, faq.anonymous_reactions - 1)
+                faq.save()
+            else:
+                request.session[session_key] = True
+                reacted = True
+                
+                faq.anonymous_reactions += 1
+                faq.save()
+        
+        request.session.modified = True
         
         return JsonResponse({
             'success': True,
             'reacted': reacted,
-            'total_reactions': faq.total_reactions()
+            'total_reactions': faq.total_reactions(),
+            'user_authenticated': request.user.is_authenticated
         })
         
     except Exception as e:
@@ -301,7 +314,7 @@ def toggle_faq_reaction(request, faq_id):
             'success': False,
             'error': str(e)
         })
-
+    
 @user_access_required(["admin", "cmi"], error_type=404)
 def get_faq_data(request, faq_id):
     """Get FAQ data for editing (AJAX)"""

@@ -228,6 +228,7 @@ class FAQ(models.Model):
     question = models.CharField(max_length=500, db_collation="utf8mb4_unicode_ci")
     answer = models.TextField()
     is_active = models.BooleanField(default=True)  # For admin to hide/show
+    anonymous_reactions = models.PositiveIntegerField(default=0)
     created_by = models.ForeignKey(
         "appAccounts.CustomUser", 
         on_delete=models.CASCADE, 
@@ -254,7 +255,9 @@ class FAQ(models.Model):
         return self.question
 
     def total_reactions(self):
-        return self.reactions.count()
+        """Get total reactions including anonymous ones"""
+        authenticated_reactions = self.reactions.count()
+        return authenticated_reactions + self.anonymous_reactions
 
     def is_reacted_by(self, user):
         return self.reactions.filter(user=user).exists()
