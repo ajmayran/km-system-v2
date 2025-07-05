@@ -1842,3 +1842,39 @@
   letter-spacing: 1px;
   opacity: 0.8;
 }
+
+.view-count {
+    margin-left: 10px;
+    font-size: 0.85em;
+    color: #6c757d;
+    font-weight: normal;
+}
+
+.view-count i {
+    margin-right: 3px;
+    font-size: 0.9em;
+}
+
+.view-number {
+    font-weight: 600;
+    color: #495057;
+}
+
+.posted-by {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+@media (max-width: 768px) {
+    .view-count {
+        margin-left: 0;
+        margin-top: 5px;
+    }
+    
+    .posted-by {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

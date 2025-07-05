@@ -170,7 +170,13 @@
             {% for faq in faqs %}
               <div class="faq-card {% if not faq.is_active %}faq-inactive{% endif %}" data-faq-id="{{ faq.faq_id }}">
                 <div class="card-header">
-                  <button class="btn-link" type="button" data-toggle="collapse" data-target="#faq{{ faq.faq_id }}" aria-expanded="false" aria-controls="faq{{ faq.faq_id }}">
+                  <button class="btn-link faq-toggle-btn" 
+                          type="button" 
+                          data-toggle="collapse" 
+                          data-target="#faq{{ faq.faq_id }}" 
+                          aria-expanded="false" 
+                          aria-controls="faq{{ faq.faq_id }}"
+                          data-faq-id="{{ faq.faq_id }}">
                     <div class="question-content">
                       <div class="question-text">
                           {{ faq.question|safe }}
@@ -183,6 +189,14 @@
                         <span class="posted-label">Posted by:</span>
                         <span class="posted-name">{{ faq.created_by.get_full_name|default:faq.created_by.username }}</span>
                         <span class="posted-date">• {{ faq.created_at|date:'F d, Y' }}</span>
+                         <!-- Admin-only View Count -->
+                        {% if user.user_type == 'admin' %}
+                          <span class="view-count">
+                          <i class="fas fa-eye"></i>
+                            <span class="view-number" data-faq-id="{{ faq.faq_id }}">{{ faq.total_views }}</span> 
+                            view{% if faq.total_views != 1 %}s{% endif %}
+                          </span>
+                        {% endif %}
                       </div>
 
                       <!-- Admin-only Update Information -->

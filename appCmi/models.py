@@ -221,8 +221,7 @@ class ResourceBookmark(models.Model):
     def __str__(self):
         return f"{self.user.username}'s bookmark of {self.resource.title}"
 
-
-# Added New Models
+# New Added Models
 
 class FAQ(models.Model):
     faq_id = models.AutoField(primary_key=True)
@@ -272,6 +271,36 @@ class FAQ(models.Model):
         """Get count of additional images beyond the first one"""
         total_images = self.images.count()
         return max(0, total_images - 1)
+    
+    def total_views(self):
+        """Get total view count for this FAQ"""
+        return self.views.count()
+
+    def is_viewed_by(self, user):
+        """Check if FAQ was viewed by specific user"""
+        if user.is_authenticated:
+            return self.views.filter(user=user).exists()
+        return False
+
+    def record_view(self, user=None, ip_address=None, session_key=None):
+        """Record a view for this FAQ"""
+        try:
+            if user and user.is_authenticated:
+                view, created = FAQView.objects.get_or_create(
+                    faq=self,
+                    user=user,
+                    defaults={'ip_address': ip_address, 'session_key': session_key}
+                )
+            else:
+                view, created = FAQView.objects.get_or_create(
+                    faq=self,
+                    ip_address=ip_address,
+                    session_key=session_key,
+                    user=None
+                )
+            return created
+        except Exception:
+            return False
 
 class FAQImage(models.Model):
     image_id = models.AutoField(primary_key=True)
@@ -334,3 +363,31 @@ class FAQTagAssignment(models.Model):
 
     def __str__(self):
         return f"{self.faq.question} - {self.tag.name}"
+    
+class FAQView(models.Model):
+    view_id = models.AutoField(primary_key=True)
+    faq = models.ForeignKey(FAQ, on_delete=models.CASCADE, related_name="views")
+    user = models.ForeignKey(
+        "appAccounts.CustomUser",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,  # Allow anonymous views
+        related_name="faq_views",
+    )
+    ip_address = models.GenericIPAddressField(
+        blank=True, null=True
+    )  # For anonymous users
+    viewed_at = models.DateTimeField(auto_now_add=True)
+    session_key = models.CharField(max_length=40, blank=True, null=True)  # For session-based tracking
+
+    class Meta:
+        db_table = "tbl_faq_views"
+        unique_together = [
+            ["faq", "user"],  # One view per user per FAQ
+            ["faq", "ip_address", "session_key"],  # One view per anonymous session per FAQ
+        ]
+
+    def __str__(self):
+        if self.user:
+            return f"{self.user.username} viewed {self.faq.question}"
+        return f"Anonymous ({self.ip_address}) viewed {self.faq.question}"
