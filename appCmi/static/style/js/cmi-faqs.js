@@ -372,6 +372,16 @@ function handleReactionClick() {
                 // Update reaction count
                 this.querySelector('.reaction-count').textContent = data.total_reactions;
                 this.setAttribute('data-user-reacted', data.reacted);
+                
+                // Store anonymous reaction state in session storage
+                if (!data.user_authenticated) {
+                    const sessionKey = `faq_reaction_${faqId}`;
+                    if (data.reacted) {
+                        sessionStorage.setItem(sessionKey, 'true');
+                    } else {
+                        sessionStorage.removeItem(sessionKey);
+                    }
+                }
             }
         })
         .catch(error => {
@@ -379,6 +389,30 @@ function handleReactionClick() {
             showToast('Error updating reaction', 'error');
         });
 }
+
+
+function checkAnonymousReactions() {
+    // Only check for anonymous users
+    if (typeof userAuthenticated !== 'undefined' && !userAuthenticated) {
+        document.querySelectorAll('.reaction-btn').forEach(button => {
+            const faqId = button.getAttribute('data-faq-id');
+            const sessionKey = `faq_reaction_${faqId}`;
+            
+            // Check if user has reacted anonymously
+            if (sessionStorage.getItem(sessionKey) === 'true') {
+                button.classList.remove('btn-outline-primary');
+                button.classList.add('btn-primary');
+                button.setAttribute('data-user-reacted', 'true');
+            }
+        });
+    }
+}
+
+// Add this to your DOMContentLoaded event
+document.addEventListener('DOMContentLoaded', function () {
+    initializeFAQs();
+    checkAnonymousReactions(); // Add this line
+});
 
 function handleEditClick() {
     const faqId = this.getAttribute('data-faq-id');
