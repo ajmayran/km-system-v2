@@ -98,6 +98,8 @@ function initializeAccordion() {
         button.addEventListener('click', function () {
             const postedByDiv = this.querySelector('.posted-by');
             const isCurrentlyExpanded = this.getAttribute('aria-expanded') === 'true';
+            const faqId = this.getAttribute('data-faq-id');
+            recordFAQView(faqId);
 
             if (postedByDiv) {
                 if (isCurrentlyExpanded) {
@@ -169,6 +171,113 @@ function initializeFAQActions() {
         });
     });
 }
+
+function recordFAQView(faqId) {
+    console.log('Recording view for FAQ:', faqId);
+    
+    const viewedKey = `faq_viewed_${faqId}`;
+    if (sessionStorage.getItem(viewedKey)) {
+        console.log('FAQ view already recorded for this session.');
+        return;
+    }
+    
+    console.log('Making fetch request to record view');
+    
+    fetch(`/cmis/faqs/record-view/${faqId}/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCsrfToken()
+        },
+        body: JSON.stringify({})
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log('View recorded successfully:', data);
+            sessionStorage.setItem(viewedKey, true);
+            updateViewCount(faqId, data.total_views);
+        } else {
+            console.error('Failed to record view:', data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error recording view:', error);
+    });
+}
+
+function updateViewCount(faqId, newCount) {
+    console.log('Updating view count for FAQ', faqId, 'to', newCount);
+    const viewNumberElement = document.querySelector(`.view-number[data-faq-id="${faqId}"]`);
+    if (viewNumberElement) {
+        viewNumberElement.textContent = newCount;
+        
+        const viewCountSpan = viewNumberElement.closest('.view-count');
+        if (viewCountSpan) {
+            const viewText = viewCountSpan.innerHTML;
+            if (newCount === 1) {
+                viewCountSpan.innerHTML = viewText.replace(/views?/, 'view');
+            } else {
+                viewCountSpan.innerHTML = viewText.replace(/views?/, 'views');
+            }
+        }
+        
+        viewNumberElement.style.transition = 'color 0.3s ease';
+        viewNumberElement.style.color = '#007bff';
+        setTimeout(() => {
+            viewNumberElement.style.color = '';
+        }, 1000);
+    } else {
+        console.log('View number element not found for FAQ', faqId);
+    }
+}
+
+function getCsrfToken() {
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    console.log('CSRF Token:', csrfToken ? 'Found' : 'Not found');
+    return csrfToken;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    initializeFAQs();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('FAQ view tracking initialized');
+    const faqAccordion = document.getElementById('faq-accordion');
+    
+    if (faqAccordion) {
+        console.log('FAQ accordion found');
+        
+        faqAccordion.addEventListener('shown.bs.collapse', function(event) {
+            const faqId = event.target.id.replace('faq', '');
+            console.log('Accordion expanded for FAQ ID:', faqId);
+            recordFAQView(faqId);
+        });
+        
+        const faqToggleButtons = document.querySelectorAll('.faq-toggle-btn');
+        console.log('Found FAQ toggle buttons:', faqToggleButtons.length);
+        
+        faqToggleButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const faqId = this.getAttribute('data-faq-id');
+                console.log('FAQ toggle button clicked for ID:', faqId);
+                
+                setTimeout(() => {
+                    const targetElement = document.getElementById('faq' + faqId);
+                    if (targetElement && targetElement.classList.contains('show')) {
+                        console.log('FAQ is now expanded, recording view');
+                        recordFAQView(faqId);
+                    } else {
+                        console.log('FAQ is not expanded yet or element not found');
+                    }
+                }, 100);
+            });
+        });
+    } else {
+        console.error('FAQ accordion not found!');
+    }
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     initializeFAQs();

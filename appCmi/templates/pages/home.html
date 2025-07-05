@@ -78,19 +78,40 @@
             <a href="{% url 'appCmi:all-commodities' %}" class="feature-link">View Commodities <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
-
-        <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
-          <div class="feature-icon">
-            <i class="fas fa-question-circle"></i>
+      </div>
+      
+      <!-- FAQs Below -->
+      <div class="faqs-container" data-aos="fade-up" data-aos-delay="400">
+        <div class="faqs-layout">
+          <!-- Left side - FAQ Feature Card (Updated to match other cards) -->
+          <div class="faq-feature-card feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="feature-content">
+              <h3 class="feature-title">Frequently Asked Questions</h3>
+              <p class="feature-description">Find quick answers to common questions about our platform and services.</p>
+              <a href="{% url 'appCmi:faqs' %}" class="feature-link">View All FAQs <i class="fas fa-arrow-right"></i></a>
+            </div>
           </div>
-          <div class="feature-content">
-            <h3 class="feature-title">Frequently Asked Questions</h3>
-            <p class="feature-description">Find quick answers to commonly asked questions about the AANR Knowledge Hub, resources, and platform features.</p>
-            <a href="{% url 'appCmi:faqs' %}" class="feature-link">View FAQs <i class="fas fa-arrow-right"></i></a>
+
+          <!-- Right side - FAQ Questions -->
+          <div class="faqs-questions-panel">
+            <h4 class="faqs-panel-title">Most Viewed Frequently Asked Questions</h4>
+            <div class="faqs-list">
+              {% for faq in top_faqs %}
+              <div class="faq-item" data-faq-id="{{ faq.faq_id }}">
+                <div class="faq-question-text">{{ faq.question }}</div>
+                <div class="faq-answer-text">{{ faq.answer|safe }}</div>
+              </div>
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>
     </section>
+
+
 
     <!-- Stats Section -->
     <section class="stats-section">

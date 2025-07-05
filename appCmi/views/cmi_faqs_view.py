@@ -4,9 +4,10 @@ from django.contrib import messages
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
 from utils.user_control import user_access_required
 from utils.get_models import get_active_models
-from appCmi.models import FAQ, FAQTag, FAQTagAssignment, FAQReaction, FAQImage
+from appCmi.models import FAQ, FAQTag, FAQTagAssignment, FAQReaction, FAQImage, FAQView
 from appCmi.forms import FAQForm
 import json
 
@@ -21,16 +22,15 @@ def faqs_view(request):
     form = FAQForm()
     
     search_query = request.GET.get('q', '').strip()
-    
     tag_filter = request.GET.get('tag', 'all')
     
     # Check if user is authenticated and is admin
     is_admin = request.user.is_authenticated and getattr(request.user, 'user_type', None) == 'admin'
     
     if is_admin:
-        faqs = FAQ.objects.all().select_related('created_by').prefetch_related('tag_assignments__tag', 'images')
+        faqs = FAQ.objects.all().select_related('created_by').prefetch_related('tag_assignments__tag', 'images').annotate(view_count=Count('views'))
     else:
-        faqs = FAQ.objects.filter(is_active=True).select_related('created_by').prefetch_related('tag_assignments__tag', 'images')
+        faqs = FAQ.objects.filter(is_active=True).select_related('created_by').prefetch_related('tag_assignments__tag', 'images').annotate(view_count=Count('views'))
     
     if search_query:
         faqs = faqs.filter(
@@ -40,7 +40,9 @@ def faqs_view(request):
 
     if tag_filter and tag_filter != 'all':
         faqs = faqs.filter(tag_assignments__tag__slug=tag_filter)
-    
+
+    faqs = faqs.order_by('-view_count', '-created_at')
+
     if is_admin:
         tags_with_counts = FAQTag.objects.annotate(
             faq_count=Count('faq_assignments') 
@@ -335,3 +337,78 @@ def get_faq_data(request, faq_id):
     except Exception as e:
         print(f"Error in get_faq_data: {str(e)}")  # Debug log
         return JsonResponse({'success': False, 'error': str(e)})
+    
+@csrf_exempt
+@require_POST
+def record_faq_view(request, faq_id):
+    """Record a view when FAQ is expanded (AJAX endpoint)"""
+    try:
+        faq = get_object_or_404(FAQ, faq_id=faq_id)
+        
+        # Get user info
+        user = request.user if request.user.is_authenticated else None
+        
+        # Get IP address
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            ip_address = x_forwarded_for.split(',')[0]
+        else:
+            ip_address = request.META.get('REMOTE_ADDR')
+        
+        # Get or create session key
+        if not request.session.session_key:
+            request.session.create()
+        session_key = request.session.session_key
+        
+        # Record the view
+        view_created = faq.record_view(
+            user=user,
+            ip_address=ip_address,
+            session_key=session_key
+        )
+        
+        return JsonResponse({
+            'success': True,
+            'view_recorded': view_created,
+            'total_views': faq.total_views(),
+            'message': 'View recorded successfully' if view_created else 'View already recorded'
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=400)
+    
+@user_access_required(["admin", "cmi"], error_type=404)
+def get_most_viewed_faqs(request):
+    """Get most viewed FAQs for analytics"""
+    try:
+        # Get FAQs ordered by view count
+        most_viewed = FAQ.objects.annotate(
+            view_count=Count('views')
+        ).filter(
+            is_active=True,
+            view_count__gt=0
+        ).order_by('-view_count')[:10]
+        
+        data = []
+        for faq in most_viewed:
+            data.append({
+                'faq_id': faq.faq_id,
+                'question': faq.question[:100] + '...' if len(faq.question) > 100 else faq.question,
+                'view_count': faq.total_views(),
+                'created_at': faq.created_at.strftime('%Y-%m-%d'),
+                'created_by': faq.created_by.get_full_name() or faq.created_by.username
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'data': data
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=400)

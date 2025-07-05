@@ -138,3 +138,43 @@ document.addEventListener('DOMContentLoaded', function() {
       fadeObserver.observe(element);
     });
   });
+
+const faqItems = document.querySelectorAll('.faq-item');
+
+faqItems.forEach(item => {
+  item.addEventListener('click', function() {
+    const isExpanded = this.classList.contains('expanded');
+    
+    if (isExpanded) {
+      this.classList.remove('expanded');
+      faqItems.forEach(faq => faq.classList.remove('hidden'));
+      return;
+    }
+    
+    faqItems.forEach(faq => {
+      faq.classList.remove('expanded');
+      faq.classList.remove('hidden');
+    });
+    
+    setTimeout(() => {
+      this.classList.add('expanded');
+      faqItems.forEach(faq => {
+        if (faq !== this) {
+          faq.classList.add('hidden');
+        }
+      });
+    }, 100);
+  });
+  
+  item.addEventListener('mouseenter', function() {
+    const icon = this.querySelector('.faq-expand-icon i');
+    icon.style.transform = 'scale(1.2)';
+  });
+  
+  item.addEventListener('mouseleave', function() {
+    const icon = this.querySelector('.faq-expand-icon i');
+    if (!this.classList.contains('expanded')) {
+      icon.style.transform = 'scale(1)';
+    }
+  });
+});
