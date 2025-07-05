@@ -1,9 +1,12 @@
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from appCmi.views import home_view
+
 
 urlpatterns = [
-    path("", include(("appAccounts.urls", "appAccounts"))),
+    path("", home_view.home, name="root-home"),
+    path("auth/", include(("appAccounts.urls", "appAccounts"))),
     path("cmis/", include(("appCmi.urls", "appCmi"))),
     path("admin/", include(("appAdmin.urls", "appAdmin"))),
     path("errors/", include(("appErrors.urls", "appErrors"))),

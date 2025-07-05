@@ -18,7 +18,6 @@ from utils.user_control import user_access_required
 logger = logging.getLogger(__name__)
 
 
-@user_access_required(["admin", "cmi"], error_type=404)
 def cmi_knowledge_resources(request):
     """View function for the knowledge resources page."""
 
@@ -278,7 +277,6 @@ def cmi_knowledge_resources(request):
     return render(request, "pages/cmi-knowledge-resources.html", context)
 
 
-@user_access_required(["admin", "cmi"], error_type=404)
 def record_resource_view(request, slug):
     """
     Records a view for a resource and returns JSON data for the modal.
@@ -381,7 +379,6 @@ def record_resource_view(request, slug):
             )
 
 
-@user_access_required(["admin", "cmi"], error_type=404)
 def toggle_bookmark(request):
     """
     AJAX endpoint to toggle a resource bookmark.

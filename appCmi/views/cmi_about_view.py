@@ -4,7 +4,6 @@ from utils.get_models import get_active_models
 from utils.user_control import user_access_required
 
 
-@user_access_required(["admin", "cmi"], error_type=404)
 def about(request):
     contents = About.objects.all()
     videos = UploadVideo.objects.last()

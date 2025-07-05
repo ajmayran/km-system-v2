@@ -21,16 +21,20 @@ from appCmi.models import (
     Forum, ForumComment, FAQ
 )
 
-# Import for local AI
+# Import for local AI and FAISS
 try:
     from sentence_transformers import SentenceTransformer
     from transformers import pipeline
     import torch
+    import faiss
     TRANSFORMERS_AVAILABLE = True
-    print("✅ Transformers libraries loaded successfully!")
-except ImportError:
+    FAISS_AVAILABLE = True
+    print("✅ Transformers and FAISS libraries loaded successfully!")
+except ImportError as e:
     TRANSFORMERS_AVAILABLE = False
-    print("⚠️ Transformers not installed. Install with: pip install transformers sentence-transformers torch")
+    FAISS_AVAILABLE = False
+    print(f"⚠️ Missing libraries: {e}")
+    print("💡 Install with: pip install transformers sentence-transformers torch faiss-cpu")
 
 # Global singleton instances - loaded once and reused
 _ai_models = None
@@ -38,6 +42,8 @@ _nlp_model = None
 _vectorizer = None
 _stopwords = None
 _basic_responses = None
+_faiss_index = None
+_faiss_embeddings = None
 _model_loading_lock = threading.Lock()
 _knowledge_base_cache = None
 _knowledge_base_last_updated = None
@@ -47,8 +53,11 @@ def preprocess_text(text):
     if not text:
         return ""
     
-    # Basic cleaning
-    text = re.sub(r'[^\w\s]', ' ', text.lower())
+    # Enhanced text cleaning for better matching
+    text = text.lower()
+    # Remove extra punctuation but keep meaningful structure
+    text = re.sub(r'[^\w\s\-]', ' ', text)
+    # Normalize whitespace
     text = re.sub(r'\s+', ' ', text.strip())
     
     return text
@@ -73,41 +82,6 @@ def load_stopwords():
         _stopwords = set(['the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'by'])
     
     return _stopwords
-
-def load_basic_responses():
-    """Load basic responses from JSON file - cached globally"""
-    global _basic_responses
-    if _basic_responses is not None:
-        return _basic_responses
-    
-    try:
-        with open('chatbot/data/basic-response.json', 'r', encoding='utf-8') as f:
-            _basic_responses = json.load(f)
-            print("✅ Loaded basic responses from file")
-            return _basic_responses
-    except FileNotFoundError:
-        print("⚠️ Basic response file not found, using default responses")
-        _basic_responses = {
-            "greetings": {
-                "hello": {
-                    "patterns": ["hello", "hi", "hey", "good morning", "good afternoon"],
-                    "responses": ["👋 Hello! I'm your AI assistant for AANR Knowledge Hub. How can I help you today?"]
-                },
-                "goodbye": {
-                    "patterns": ["bye", "goodbye", "see you"],
-                    "responses": ["👋 Goodbye! Thank you for using AANR Knowledge Hub. Have a wonderful day!"]
-                },
-                "thanks": {
-                    "patterns": ["thank you", "thanks", "thank u"],
-                    "responses": ["🙏 You're very welcome! Happy to help with your questions."]
-                },
-                "help": {
-                    "patterns": ["help", "what can you do", "how can you help"],
-                    "responses": ["🤖 I can help you with agriculture, aquaculture, and natural resources."]
-                }
-            }
-        }
-        return _basic_responses
 
 def get_ai_models():
     """Get AI models - loaded once globally and reused across all requests"""
@@ -147,6 +121,126 @@ def get_ai_models():
             _ai_models = False  # Mark as failed to avoid retrying
             return None
 
+def build_faiss_index(embeddings):
+    """Build FAISS index for fast similarity search"""
+    global _faiss_index, _faiss_embeddings
+    
+    if not FAISS_AVAILABLE or embeddings is None:
+        return None
+    
+    try:
+        # Convert to numpy array if needed
+        if not isinstance(embeddings, np.ndarray):
+            embeddings = np.array(embeddings)
+        
+        # Ensure embeddings are float32 for FAISS
+        embeddings = embeddings.astype('float32')
+        
+        # Build FAISS index
+        dimension = embeddings.shape[1]
+        
+        # Use IndexFlatIP for inner product (cosine similarity after normalization)
+        index = faiss.IndexFlatIP(dimension)
+        
+        # Normalize embeddings for cosine similarity
+        faiss.normalize_L2(embeddings)
+        
+        # Add embeddings to index
+        index.add(embeddings)
+        
+        _faiss_index = index
+        _faiss_embeddings = embeddings
+        
+        print(f"✅ Built FAISS index with {index.ntotal} vectors of dimension {dimension}")
+        return index
+        
+    except Exception as e:
+        print(f"❌ Error building FAISS index: {e}")
+        return None
+
+def get_faiss_index():
+    """Get FAISS index"""
+    return _faiss_index
+
+def faiss_similarity_search(query_embedding, top_k=10):
+    """Perform similarity search using FAISS"""
+    if _faiss_index is None or query_embedding is None:
+        return [], []
+    
+    try:
+        # Ensure query embedding is the right shape and type
+        if len(query_embedding.shape) == 1:
+            query_embedding = query_embedding.reshape(1, -1)
+        
+        query_embedding = query_embedding.astype('float32')
+        
+        # Normalize query embedding for cosine similarity
+        faiss.normalize_L2(query_embedding)
+        
+        # Search
+        scores, indices = _faiss_index.search(query_embedding, top_k)
+        
+        return scores[0], indices[0]
+        
+    except Exception as e:
+        print(f"❌ Error in FAISS search: {e}")
+        return [], []
+
+def get_knowledge_base_cache():
+    """Get knowledge base from cache or load if needed with FAISS indexing"""
+    global _knowledge_base_cache, _knowledge_base_last_updated
+    
+    # Cache for 1 hour to avoid constant database queries
+    cache_duration = timedelta(hours=1)
+    current_time = datetime.now()
+    
+    # Check if cache is still valid
+    if (_knowledge_base_cache is not None and 
+        _knowledge_base_last_updated is not None and 
+        current_time - _knowledge_base_last_updated < cache_duration):
+        return _knowledge_base_cache
+    
+    # Load fresh data if cache is expired or empty
+    print("📚 Loading knowledge base into cache...")
+    knowledge_data, document_texts = _load_knowledge_base_from_db()
+    
+    _knowledge_base_cache = {
+        'knowledge_data': knowledge_data,
+        'document_texts': document_texts,
+        'knowledge_vectors': None,
+        'knowledge_embeddings': None,
+        'faiss_index': None
+    }
+    _knowledge_base_last_updated = current_time
+    
+    # Create TF-IDF vectors
+    if document_texts:
+        try:
+            vectorizer = get_vectorizer()
+            _knowledge_base_cache['knowledge_vectors'] = vectorizer.fit_transform(document_texts)
+            print(f"✅ Created TF-IDF vectors for {len(document_texts)} documents")
+        except Exception as e:
+            print(f"⚠️ Could not create TF-IDF vectors: {e}")
+    
+    # Create AI embeddings and FAISS index if available
+    ai_models = get_ai_models()
+    if ai_models and document_texts:
+        try:
+            print("🧠 Creating AI embeddings...")
+            embeddings = ai_models['sentence_transformer'].encode(document_texts, show_progress_bar=True)
+            _knowledge_base_cache['knowledge_embeddings'] = embeddings
+            
+            # Build FAISS index
+            faiss_index = build_faiss_index(embeddings)
+            _knowledge_base_cache['faiss_index'] = faiss_index
+            
+            print(f"✅ Created embeddings and FAISS index for {len(document_texts)} documents")
+        except Exception as e:
+            print(f"❌ Error creating embeddings/FAISS index: {e}")
+    
+    print(f"🎉 Knowledge base cached with {len(knowledge_data)} items")
+    return _knowledge_base_cache
+
 def get_nlp_model():
     """Get spaCy model - loaded once globally and reused"""
     global _nlp_model
@@ -177,68 +271,55 @@ def get_vectorizer():
     
     stopwords = load_stopwords()
     _vectorizer = TfidfVectorizer(
-        max_features=5000,
+        max_features=10000,  # Increased for better coverage
         stop_words=list(stopwords),
-        ngram_range=(1, 2),
+        ngram_range=(1, 3),  # Include trigrams for better context
         min_df=1,
-        max_df=0.8
+        max_df=0.8,
+        sublinear_tf=True  # Use log scaling
     )
     
     return _vectorizer
 
-def get_knowledge_base_cache():
-    """Get knowledge base from cache or load if needed"""
-    global _knowledge_base_cache, _knowledge_base_last_updated
+def load_basic_responses():
+    """Load basic responses from JSON file - cached globally"""
+    global _basic_responses
+    if _basic_responses is not None:
+        return _basic_responses
     
-    # Cache for 1 hour to avoid constant database queries
-    cache_duration = timedelta(hours=1)
-    current_time = datetime.now()
-    
-    # Check if cache is still valid
-    if (_knowledge_base_cache is not None and 
-        _knowledge_base_last_updated is not None and 
-        current_time - _knowledge_base_last_updated < cache_duration):
-        return _knowledge_base_cache
-    
-    # Load fresh data if cache is expired or empty
-    print("📚 Loading knowledge base into cache...")
-    knowledge_data, document_texts = _load_knowledge_base_from_db()
-    
-    _knowledge_base_cache = {
-        'knowledge_data': knowledge_data,
-        'document_texts': document_texts,
-        'knowledge_vectors': None,
-        'knowledge_embeddings': None
-    }
-    _knowledge_base_last_updated = current_time
-    
-    # Create TF-IDF vectors
-    if document_texts:
-        try:
-            vectorizer = get_vectorizer()
-            _knowledge_base_cache['knowledge_vectors'] = vectorizer.fit_transform(document_texts)
-            print(f"✅ Created TF-IDF vectors for {len(document_texts)} documents")
-        except Exception as e:
-            print(f"⚠️ Could not create TF-IDF vectors: {e}")
-    
-    # Create AI embeddings if available
-    ai_models = get_ai_models()
-    if ai_models and document_texts:
-        try:
-            print("🧠 Creating AI embeddings...")
-            embeddings = ai_models['sentence_transformer'].encode(document_texts)
-            _knowledge_base_cache['knowledge_embeddings'] = embeddings
-            print(f"✅ Created embeddings for {len(document_texts)} documents")
-        except Exception as e:
-            print(f"❌ Error creating embeddings: {e}")
-    
-    print(f"🎉 Knowledge base cached with {len(knowledge_data)} items")
-    return _knowledge_base_cache
+    try:
+        with open('chatbot/data/basic-response.json', 'r', encoding='utf-8') as f:
+            _basic_responses = json.load(f)
+            print("✅ Loaded basic responses from file")
+            return _basic_responses
+    except FileNotFoundError:
+        print("⚠️ Basic response file not found, using default responses")
+        _basic_responses = {
+            "greetings": {
+                "hello": {
+                    "patterns": ["hello", "hi", "hey", "good morning", "good afternoon"],
+                    "responses": ["👋 Hello! I'm your AI assistant for AANR Knowledge Hub. How can I help you today?"]
+                },
+                "goodbye": {
+                    "patterns": ["bye", "goodbye", "see you"],
+                    "responses": ["👋 Goodbye! Thank you for using AANR Knowledge Hub. Have a wonderful day!"]
+                },
+                "thanks": {
+                    "patterns": ["thank you", "thanks", "thank u"],
+                    "responses": ["🙏 You're very welcome! Happy to help with your questions."]
+                },
+                "help": {
+                    "patterns": ["help", "what can you do", "how can you help"],
+                    "responses": ["🤖 I can help you with agriculture, aquaculture, and natural resources."]
+                }
+            }
+        }
+        return _basic_responses
 
 logger = logging.getLogger(__name__)
 
 class IntelligentChatbotService:
-    """Optimized chatbot service that reuses models and caches data"""
+    """Optimized chatbot service with FAISS for improved accuracy"""
 
     def __init__(self):
         # Use global cached resources instead of loading per instance
@@ -253,12 +334,237 @@ class IntelligentChatbotService:
         # Conversation cache for this session
         self._conversation_cache = {}
         
-        print("✅ ChatbotService initialized with cached models")
+        print("✅ ChatbotService initialized with cached models and FAISS")
 
     def _get_knowledge_data(self):
         """Get knowledge data from cache"""
         cache = get_knowledge_base_cache()
-        return cache['knowledge_data'], cache['document_texts'], cache['knowledge_vectors'], cache['knowledge_embeddings']
+        return (cache['knowledge_data'], cache['document_texts'], 
+                cache['knowledge_vectors'], cache['knowledge_embeddings'])
+
+    def _enhanced_semantic_search_with_faiss(self, query, intent_info, top_k=5):
+        """Enhanced semantic search using FAISS for better accuracy"""
+        knowledge_data, document_texts, knowledge_vectors, knowledge_embeddings = self._get_knowledge_data()
+        
+        if not self.ai_models or not FAISS_AVAILABLE:
+            return self._nlp_text_matching(query, intent_info, top_k, knowledge_data)
+        
+        try:
+            # Handle different intents with specialized processing
+            if intent_info['intent'] == 'topic_content_request':
+                return self._handle_topic_content_request_faiss(query, intent_info, top_k, knowledge_data)
+            elif intent_info['intent'] == 'sample_request':
+                return self._handle_sample_request(query, top_k, knowledge_data)
+            
+            # Enhanced query preprocessing
+            enhanced_query = self._enhance_query_for_search(query, intent_info)
+            
+            # Get query embedding
+            query_embedding = self.ai_models['sentence_transformer'].encode([enhanced_query])
+            
+            # Use FAISS for fast similarity search
+            scores, indices = faiss_similarity_search(query_embedding, top_k * 3)  # Get more candidates
+            
+            if len(scores) == 0:
+                return self._nlp_text_matching(query, intent_info, top_k, knowledge_data)
+            
+            results = []
+            for score, idx in zip(scores, indices):
+                if idx < len(knowledge_data) and score > 0.3:  # Higher threshold for quality
+                    item = knowledge_data[idx]
+                    
+                    # Additional scoring with multiple factors
+                    enhanced_score = self._calculate_enhanced_score(query, item, float(score), intent_info)
+                    
+                    results.append({
+                        'resource': item,
+                        'similarity_score': enhanced_score,
+                        'faiss_score': float(score),
+                        'confidence': self._get_confidence_level(enhanced_score)
+                    })
+            
+            # Re-rank results based on enhanced scoring
+            results.sort(key=lambda x: x['similarity_score'], reverse=True)
+            
+            # Apply diversity filter to avoid too similar results
+            filtered_results = self._apply_diversity_filter(results, top_k)
+            
+            return filtered_results[:top_k]
+            
+        except Exception as e:
+            print(f"Enhanced semantic search error: {e}")
+            return self._nlp_text_matching(query, intent_info, top_k, knowledge_data)
+
+    def _enhance_query_for_search(self, query, intent_info):
+        """Enhance query with context for better search results"""
+        enhanced_parts = [query]
+        
+        # Add main topic if available
+        if intent_info.get('main_topic'):
+            enhanced_parts.append(intent_info['main_topic'])
+        
+        # Add domain-specific terms based on content type
+        content_type = intent_info.get('content_type', 'general')
+        domain_terms = {
+            'agriculture': ['farming', 'crop', 'agriculture', 'cultivation'],
+            'aquaculture': ['fish', 'aquaculture', 'fisheries', 'aquatic'],
+            'technology': ['innovation', 'technology', 'tools', 'equipment'],
+            'training': ['education', 'training', 'learning', 'seminar'],
+            'cmi': ['office', 'location', 'contact', 'services']
+        }
+        
+        if content_type in domain_terms:
+            enhanced_parts.extend(domain_terms[content_type][:2])  # Add top 2 relevant terms
+        
+        return ' '.join(enhanced_parts)
+
+    def _calculate_enhanced_score(self, query, item, faiss_score, intent_info):
+        """Calculate enhanced scoring with multiple factors"""
+        base_score = faiss_score
+        
+        # Factor 1: Title relevance (higher weight)
+        title_score = self._calculate_text_relevance(query, item['title']) * 0.4
+        
+        # Factor 2: Description relevance
+        desc_score = self._calculate_text_relevance(query, item['description']) * 0.2
+        
+        # Factor 3: Type matching
+        type_score = 0
+        content_type = intent_info.get('content_type', 'general')
+        if content_type != 'general' and item.get('type') == content_type:
+            type_score = 0.1
+        
+        # Factor 4: Recent content boost
+        recency_score = self._calculate_recency_score(item) * 0.1
+        
+        # Factor 5: Topic relevance
+        topic_score = 0
+        main_topic = intent_info.get('main_topic')
+        if main_topic:
+            topic_score = self._calculate_topic_relevance(main_topic, item) * 0.2
+        
+        # Combine all scores
+        enhanced_score = base_score + title_score + desc_score + type_score + recency_score + topic_score
+        
+        return min(enhanced_score, 1.0)  # Cap at 1.0
+
+    def _calculate_text_relevance(self, query, text):
+        """Calculate text relevance using word overlap and semantic similarity"""
+        if not text:
+            return 0
+        
+        query_words = set(preprocess_text(query).split()) - self.stopwords
+        text_words = set(preprocess_text(text).split()) - self.stopwords
+        
+        if not query_words:
+            return 0
+        
+        # Word overlap score
+        overlap = len(query_words.intersection(text_words))
+        overlap_score = overlap / len(query_words)
+        
+        # Semantic similarity using spaCy if available
+        semantic_score = 0
+        if self.nlp:
+            try:
+                query_doc = self.nlp(query)
+                text_doc = self.nlp(text)
+                semantic_score = query_doc.similarity(text_doc)
+            except:
+                pass
+        
+        return (overlap_score * 0.7) + (semantic_score * 0.3)
+
+    def _calculate_recency_score(self, item):
+        """Give slight boost to more recent content"""
+        try:
+            # Look for date fields
+            date_fields = ['created_at', 'date_posted', 'publication_date', 'start_date']
+            for field in date_fields:
+                if field in item and item[field]:
+                    # Simple recency boost (can be enhanced)
+                    return 0.1
+            return 0
+        except:
+            return 0
+
+    def _calculate_topic_relevance(self, topic, item):
+        """Calculate how relevant the item is to the main topic"""
+        if not topic:
+            return 0
+        
+        topic_lower = topic.lower()
+        title_lower = item['title'].lower()
+        desc_lower = item['description'].lower()
+        
+        score = 0
+        if topic_lower in title_lower:
+            score += 0.5
+        if topic_lower in desc_lower:
+            score += 0.3
+        
+        # Check for topic words
+        topic_words = topic_lower.split()
+        for word in topic_words:
+            if len(word) > 2 and word not in self.stopwords:
+                if word in title_lower:
+                    score += 0.2
+                elif word in desc_lower:
+                    score += 0.1
+        
+        return min(score, 1.0)
+
+    def _apply_diversity_filter(self, results, target_count):
+        """Apply diversity filter to avoid too similar results"""
+        if len(results) <= target_count:
+            return results
+        
+        filtered = [results[0]]  # Always include the best match
+        
+        for result in results[1:]:
+            # Check if this result is too similar to already selected ones
+            is_diverse = True
+            for selected in filtered:
+                similarity = self._calculate_result_similarity(result, selected)
+                if similarity > 0.85:  # Too similar
+                    is_diverse = False
+                    break
+            
+            if is_diverse:
+                filtered.append(result)
+                if len(filtered) >= target_count:
+                    break
+        
+        return filtered
+
+    def _calculate_result_similarity(self, result1, result2):
+        """Calculate similarity between two results"""
+        title1 = preprocess_text(result1['resource']['title'])
+        title2 = preprocess_text(result2['resource']['title'])
+        
+        words1 = set(title1.split()) - self.stopwords
+        words2 = set(title2.split()) - self.stopwords
+        
+        if not words1 or not words2:
+            return 0
+        
+        intersection = len(words1.intersection(words2))
+        union = len(words1.union(words2))
+        
+        return intersection / union if union > 0 else 0
+
+    def _handle_topic_content_request_faiss(self, query, intent_info, top_k, knowledge_data):
+        """Handle topic content requests with FAISS optimization"""
+        main_topic = intent_info.get('main_topic')
+        if not main_topic:
+            return self._enhanced_semantic_search_with_faiss(query, intent_info, top_k)
+        
+        # Create topic-enhanced query
+        topic_query = f"{query} {main_topic}"
+        enhanced_intent = intent_info.copy()
+        enhanced_intent['intent'] = 'general_query'  # Avoid recursion
+        
+        return self._enhanced_semantic_search_with_faiss(topic_query, enhanced_intent, top_k)
 
     def _classify_user_intent(self, query):
         """Classify user intent using cached AI model"""
@@ -271,8 +577,9 @@ class IntelligentChatbotService:
             return self._classify_intent_basic(query)
         
         try:
-            # Define possible intents
+            # Enhanced intent classification with more specific categories
             candidate_labels = [
+                "browsing or exploring specific content", 
                 "request for examples or samples",
                 "looking for specific information", 
                 "asking for location or contact details",
@@ -281,7 +588,9 @@ class IntelligentChatbotService:
                 "asking about training programs",
                 "browsing or exploring content",
                 "asking about CMI services",
-                "content discovery for specific topic"
+                "content discovery for specific topic",
+                "technical question about agriculture",
+                "asking for research or publications"
             ]
             
             result = self.ai_models['intent_classifier'](query, candidate_labels)
@@ -289,8 +598,9 @@ class IntelligentChatbotService:
             main_topic = self._extract_main_topic(query)
             content_type = self._extract_content_type(query)
             
-            # Map to our internal intent system
+            # Enhanced intent mapping
             intent_mapping = {
+                "browsing or exploring specific content": "topic_content_request",
                 "request for examples or samples": "sample_request",
                 "looking for specific information": "specific_query",
                 "asking for location or contact details": "location_query",
@@ -299,7 +609,9 @@ class IntelligentChatbotService:
                 "asking about training programs": "program_query",
                 "browsing or exploring content": "browse_request",
                 "asking about CMI services": "cmi_query",
-                "content discovery for specific topic": "topic_content_request"
+                "content discovery for specific topic": "topic_content_request",
+                "technical question about agriculture": "technical_query",
+                "asking for research or publications": "research_query"
             }
             
             top_intent = result['labels'][0]
@@ -323,16 +635,23 @@ class IntelligentChatbotService:
         """Check if query matches basic response patterns"""
         query_lower = query.lower()
         
-        for category, data in self.basic_responses.get('greetings', {}).items():
-            patterns = data.get('patterns', [])
-            for pattern in patterns:
-                if pattern in query_lower:
-                    return {
-                        'intent': 'basic_response',
-                        'category': category,
-                        'confidence': 0.9,
-                        'is_basic': True
-                    }
+        # Check all categories in the basic responses
+        for category_name, category_data in self.basic_responses.items():
+            for response_type, response_data in category_data.items():
+                patterns = response_data.get('patterns', [])
+                for pattern in patterns:
+                    if pattern.lower() in query_lower:
+                        responses = response_data.get('responses', [])
+                        if responses:
+                            return {
+                                'intent': 'basic_response',
+                                'category': response_type,
+                                'category_name': category_name,
+                                'response': random.choice(responses),
+                                'confidence': 0.9,
+                                'is_basic': True
+                            }
+        
         return None
 
     def _extract_main_topic(self, query):     
@@ -340,33 +659,72 @@ class IntelligentChatbotService:
         if not query:
             return None
             
-        # Remove stopwords and extract meaningful terms
+        # Enhanced topic extraction
         words = query.lower().split()
-        meaningful_words = [word for word in words if word not in self.stopwords and len(word) > 2]
         
+        action_words = {'browse', 'show', 'find', 'get', 'view', 'display', 'search', 'look', 'explore', 'give', 'tell', 'what', 'how', 'where', 'when', 'why'}
+        meaningful_words = [word for word in words if word not in self.stopwords and word not in action_words and len(word) > 2]
+            
         if not meaningful_words:
             return None
         
-        # Use spaCy for better entity recognition if available
         if self.nlp:
-            doc = self.nlp(query)
-            # Look for named entities first
-            for ent in doc.ents:
-                if ent.label_ in ['ORG', 'PRODUCT', 'GPE'] and len(ent.text) > 2:
-                    return ent.text.upper()
-            
-            # Look for nouns
-            nouns = [token.text for token in doc if token.pos_ == 'NOUN' and len(token.text) > 2]
-            if nouns:
-                return nouns[0].upper()
+            try:
+                doc = self.nlp(query)
+                # Look for named entities first (but skip BROWSE type entities)
+                for ent in doc.ents:
+                    if (ent.label_ in ['ORG', 'PRODUCT', 'GPE', 'PERSON'] and 
+                        len(ent.text) > 2 and 
+                        ent.text.lower() not in action_words):
+                        return ent.text.upper()
+                
+                # Look for important nouns (excluding action words)
+                nouns = [token.text for token in doc 
+                        if (token.pos_ in ['NOUN', 'PROPN'] and 
+                            len(token.text) > 2 and 
+                            token.text.lower() not in action_words)]
+                if nouns:
+                    return nouns[0].upper()
+            except Exception as e:
+                print(f"spaCy processing error: {e}")
         
-        # Domain-specific keywords priority
-        domain_keywords = ['rice', 'agriculture', 'aquaculture', 'cmi', 'aanr', 'farming', 'fish', 'crop', 'livestock']
+        domain_keywords = {
+            'high': {
+                'aquaculture': ['aquaculture', 'aquatic', 'fisheries', 'fish', 'tilapia', 'bangus', 'pond'],
+                'agriculture': ['agriculture', 'farming', 'agricultural', 'farm', 'crop', 'crops'],
+                'rice': ['rice', 'palay', 'grain'],
+                'technology': ['technology', 'tech', 'innovation', 'equipment', 'tools'],
+                'cmi': ['cmi', 'office', 'location', 'institution'],
+                'research': ['research', 'study', 'publication', 'paper'],
+                'training': ['training', 'seminar', 'workshop', 'course'],
+                'forum': ['forum', 'discussion', 'community'],
+                'news': ['news', 'update', 'announcement']
+            },
+            'medium': {
+                'livestock': ['livestock', 'cattle', 'goat', 'poultry', 'chicken'],
+                'coconut': ['coconut', 'coco'],
+                'corn': ['corn', 'maize'],
+                'environment': ['environment', 'natural', 'resources', 'sustainability'],
+                'market': ['market', 'price', 'trading', 'economics']
+            }
+        }
+        
+        query_lower = query.lower()
+        for priority in ['high', 'medium']:
+            for main_topic, keywords in domain_keywords[priority].items():
+                for keyword in keywords:
+                    if keyword in query_lower:
+                        # Check if this keyword appears with "resources" to form compound topic
+                        if 'resources' in query_lower and keyword in query_lower:
+                            return f"{main_topic.upper()}"
+                        elif keyword in meaningful_words:
+                            return main_topic.upper()
+        
+        # Fallback: return first meaningful word that's not an action word
         for word in meaningful_words:
-            if word.lower() in domain_keywords:
+            if word.lower() not in action_words:
                 return word.upper()
         
-        # Return first meaningful word
         return meaningful_words[0].upper() if meaningful_words else None
     
     def _extract_content_type(self, query):
@@ -374,12 +732,15 @@ class IntelligentChatbotService:
         query_lower = query.lower()
         
         content_types = {
-            'faq': ['faq', 'question', 'answer'],
-            'forum': ['forum', 'discussion', 'community'],
-            'resource': ['resource', 'document', 'publication'],
-            'training': ['training', 'seminar', 'course'],
-            'event': ['event', 'workshop', 'conference'],
-            'cmi': ['cmi', 'office', 'location']
+            'faq': ['faq', 'question', 'answer', 'frequently asked'],
+            'forum': ['forum', 'discussion', 'community', 'post'],
+            'resource': ['resource', 'document', 'publication', 'paper'],
+            'training': ['training', 'seminar', 'course', 'workshop'],
+            'event': ['event', 'conference', 'meeting'],
+            'cmi': ['cmi', 'office', 'location', 'contact'],
+            'news': ['news', 'announcement', 'update'],
+            'technology': ['technology', 'innovation', 'tool', 'equipment'],
+            'research': ['research', 'study', 'analysis', 'findings']
         }
         
         for content_type, keywords in content_types.items():
@@ -395,77 +756,54 @@ class IntelligentChatbotService:
         main_topic = self._extract_main_topic(query)
         content_type = self._extract_content_type(query)
         
-        # Sample/example requests
-        if any(word in query_lower for word in ['sample', 'example', 'show me', 'give me']):
-            return {'intent': 'sample_request', 'confidence': 0.8, 'main_topic': main_topic, 'content_type': content_type}
+        # Enhanced pattern matching
+        patterns = {
+            'sample_request': ['sample', 'example', 'show me', 'give me', 'demonstrate'],
+            'location_query': ['where', 'location', 'address', 'contact', 'find office'],
+            'agriculture_query': ['farm', 'crop', 'plant', 'agriculture', 'cultivation', 'harvest'],
+            'aquaculture_query': ['fish', 'aquaculture', 'fisheries', 'aquatic', 'pond'],
+            'technical_query': ['how to', 'technical', 'procedure', 'method', 'process'],
+            'research_query': ['research', 'study', 'publication', 'paper', 'findings'],
+            'faq_query': ['faq', 'question', 'answer', 'frequently asked'],
+            'program_query': ['training', 'seminar', 'workshop', 'course', 'education'],
+        }
         
-        # Location requests
-        elif any(word in query_lower for word in ['where', 'location', 'address', 'contact']):
-            return {'intent': 'location_query', 'confidence': 0.7, 'main_topic': main_topic, 'content_type': content_type}
+        for intent, keywords in patterns.items():
+            if any(keyword in query_lower for keyword in keywords):
+                confidence = 0.8 if len([k for k in keywords if k in query_lower]) > 1 else 0.7
+                return {
+                    'intent': intent, 
+                    'confidence': confidence, 
+                    'main_topic': main_topic, 
+                    'content_type': content_type,
+                    'is_basic': False
+                }
         
-        # Agriculture requests
-        elif any(word in query_lower for word in ['farm', 'crop', 'plant', 'agriculture']):
-            return {'intent': 'agriculture_query', 'confidence': 0.7, 'main_topic': main_topic, 'content_type': content_type}
-        
-        # Default - if we have a topic, treat as topic request
-        elif main_topic:
-            return {'intent': 'topic_content_request', 'confidence': 0.6, 'main_topic': main_topic, 'content_type': content_type}
+        if main_topic:
+            return {
+                'intent': 'topic_content_request', 
+                'confidence': 0.6, 
+                'main_topic': main_topic, 
+                'content_type': content_type,
+                'is_basic': False
+            }
         else:
-            return {'intent': 'general_query', 'confidence': 0.5, 'main_topic': main_topic, 'content_type': content_type}
+            return {
+                'intent': 'general_query', 
+                'confidence': 0.5, 
+                'main_topic': main_topic, 
+                'content_type': content_type,
+                'is_basic': False
+            }
 
+    # Update the main semantic search method to use FAISS
     def _semantic_search_with_nlp(self, query, intent_info, top_k=5):
-        """Enhanced semantic search using cached AI model and NLP"""
-        knowledge_data, document_texts, knowledge_vectors, knowledge_embeddings = self._get_knowledge_data()
-        
-        if not self.ai_models:
-            return self._nlp_text_matching(query, intent_info, top_k, knowledge_data)
-        
-        try:
-            # Handle different intents
-            if intent_info['intent'] == 'topic_content_request':
-                return self._handle_topic_content_request(query, intent_info, top_k, knowledge_data)
-            elif intent_info['intent'] == 'sample_request':
-                return self._handle_sample_request(query, top_k, knowledge_data)
-            
-            # Regular semantic search
-            query_embedding = self.ai_models['sentence_transformer'].encode([query])
-            
-            if knowledge_embeddings is None:
-                return self._nlp_text_matching(query, intent_info, top_k, knowledge_data)
-            
-            # Calculate similarities
-            similarities = cosine_similarity(query_embedding, knowledge_embeddings)[0]
-            
-            # Get top results
-            top_indices = np.argsort(similarities)[::-1][:top_k * 2]
-            
-            results = []
-            for idx in top_indices:
-                if similarities[idx] > 0.1:
-                    item = knowledge_data[idx]
-                    
-                    # Use NLP for additional text matching score
-                    nlp_score = self._calculate_nlp_score(query, item)
-                    combined_score = (similarities[idx] * 0.7) + (nlp_score * 0.3)
-                    
-                    results.append({
-                        'resource': item,
-                        'similarity_score': float(combined_score),
-                        'ai_score': float(similarities[idx]),
-                        'nlp_score': nlp_score,
-                        'confidence': self._get_confidence_level(combined_score)
-                    })
-            
-            # Sort by combined score
-            results.sort(key=lambda x: x['similarity_score'], reverse=True)
-            return results[:top_k]
-            
-        except Exception as e:
-            print(f"Semantic search error: {e}")
-            return self._nlp_text_matching(query, intent_info, top_k, knowledge_data)
+        """Main semantic search method - now using FAISS for better accuracy"""
+        return self._enhanced_semantic_search_with_faiss(query, intent_info, top_k)
 
+    # Keep the existing methods for fallback and compatibility
     def _nlp_text_matching(self, query, intent_info, top_k=5, knowledge_data=None):
-        """NLP-based text matching using cached data"""
+        """NLP-based text matching using cached data (fallback method)"""
         if knowledge_data is None:
             knowledge_data, _, _, _ = self._get_knowledge_data()
         
@@ -482,7 +820,7 @@ class IntelligentChatbotService:
         for item in knowledge_data:
             score = self._calculate_nlp_score(query, item)
             
-            if score > 0:
+            if score > 0.1:  # Lower threshold for fallback
                 results.append({
                     'resource': item,
                     'similarity_score': score,
@@ -509,13 +847,19 @@ class IntelligentChatbotService:
         if not query_words:
             return 0
         
-        # Calculate word overlap scores
+        # Calculate word overlap scores with better weighting
         title_overlap = len(query_words.intersection(title_words))
         desc_overlap = len(query_words.intersection(desc_words))
         
-        # Weight title matches higher
-        score += title_overlap * 3
-        score += desc_overlap * 1
+        # Enhanced scoring
+        score += title_overlap * 4  # Increased title weight
+        score += desc_overlap * 1.5  # Slightly increased description weight
+        
+        # Bonus for exact phrase matches
+        if query_processed in title_processed:
+            score += 5
+        elif query_processed in desc_processed:
+            score += 2
         
         # Use spaCy for semantic similarity if available
         if self.nlp:
@@ -523,14 +867,15 @@ class IntelligentChatbotService:
                 query_doc = self.nlp(query)
                 item_doc = self.nlp(f"{item['title']} {item['description']}")
                 semantic_score = query_doc.similarity(item_doc)
-                score += semantic_score * 2
+                score += semantic_score * 3  # Increased semantic weight
             except:
                 pass
         
-        # Normalize score
-        max_possible_score = len(query_words) * 3 + 2  # Max title + semantic
+        # Normalize score with better scaling
+        max_possible_score = len(query_words) * 4 + 8  # Adjusted for new weights
         return min(score / max_possible_score, 1.0) if max_possible_score > 0 else 0
 
+    # Keep all existing response generation methods unchanged
     def _handle_topic_content_request(self, query, intent_info, top_k, knowledge_data):
         """Handle requests for content about a specific topic"""
         main_topic = intent_info.get('main_topic')
@@ -614,7 +959,7 @@ class IntelligentChatbotService:
         return results
 
     def find_similar_content(self, query, top_k=5):
-        """Find similar content using cached models (for views.py compatibility)"""
+        """Find similar content using FAISS-enhanced search (for views.py compatibility)"""
         # Basic intent info for compatibility
         intent_info = {
             'intent': 'general_query',
@@ -622,45 +967,87 @@ class IntelligentChatbotService:
             'content_type': self._extract_content_type(query)
         }
         
-        return self._semantic_search_with_nlp(query, intent_info, top_k)
+        return self._enhanced_semantic_search_with_faiss(query, intent_info, top_k)
 
     def _generate_basic_response(self, intent_info):
         """Generate response from basic response patterns"""
-        category = intent_info.get('category', 'hello')
-        responses = self.basic_responses.get('greetings', {}).get(category, {}).get('responses', [])
-        
-        if responses:
-            response = random.choice(responses)
+        # If response is already in intent_info, use it directly
+        if 'response' in intent_info:
+            response = intent_info['response']
+        else:
+            # Fallback to category lookup
+            category_name = intent_info.get('category_name', 'greetings')
+            category = intent_info.get('category', 'hello')
             
-            # Generate appropriate suggestions based on category
-            suggestions = []
-            if category == 'hello':
-                suggestions = ['What can you help me with?', 'Show me farming resources']
-            elif category == 'help':
-                suggestions = ['Give me sample 1 FAQ', 'Show me farming techniques']
+            category_data = self.basic_responses.get(category_name, {})
+            response_data = category_data.get(category, {})
+            responses = response_data.get('responses', [])
+            
+            if responses:
+                response = random.choice(responses)
             else:
-                suggestions = ['Ask another question', 'Browse available topics', 'Find more resources']
-            
-            return {
-                'response': response,
-                'confidence': 'high',
-                'suggestions': suggestions,
-                'matched_resources': [],
-                'ai_powered': False,
-                'basic_response': True
-            }
+                response = "Hello! How can I help you today?"
+        
+        # Generate appropriate suggestions based on category
+        suggestions = self._generate_basic_suggestions(intent_info)
         
         return {
-            'response': "Hello! How can I help you today?",
-            'confidence': 'medium',
-            'suggestions': ['What can you help with?'],
+            'response': response,
+            'confidence': 'high',
+            'suggestions': suggestions,
             'matched_resources': [],
             'ai_powered': False,
             'basic_response': True
         }
+    
+    def _generate_basic_suggestions(self, intent_info):
+        """Generate contextual suggestions for basic responses"""
+        category_name = intent_info.get('category_name', 'greetings')
+        category = intent_info.get('category', 'hello')
+        
+        # Context-aware suggestions based on the basic response category
+        suggestion_map = {
+            'greetings': {
+                'hello': ['What can you help me with?', 'Show me farming resources', 'About KM Hub'],
+                'goodbye': ['Ask another question', 'Browse available topics', 'Find more resources'],
+                'thanks': ['Ask another question', 'Browse other topics', 'What else can you help with?']
+            },
+            'help_requests': {
+                'general_help': ['Find farming techniques', 'Browse aquaculture resources'],
+                'capabilities': ['What is RAISE-ABH?', 'What is RAISE Program?', 'Show me training programs']
+            },
+            'conversation': {
+                'ask_another_question': ['What is sustainable farming?', 'How to start fish farming?', 'Find CMI offices'],
+                'browse_topics': ['Rice farming techniques', 'Tilapia cultivation', 'CMI services'],
+                'how_to_use': ['What can you help me with?', 'Find resources']
+            },
+            'status_checks': {
+                'how_are_you': ['What can you help me with?', 'Show me farming resources', 'Find expert advice'],
+                'are_you_real': ['What are your capabilities?','How can you help?']
+            },
+            'errors_clarifications': {
+                'dont_understand': [ 'What can you help with?', 'Browse farming resources'],
+                'repeat': ['Ask a specific question', 'Browse available topics', 'Find resources'],
+                'no_results': ['Try broader terms', 'Show popular topics', 'Browse all resources']
+            },
+            'suggestions': {
+                'popular_topics': ['What is RAISE-ABH?', 'Rice farming techniques', 'Find CMI offices'],
+                'getting_started': ['Show me farming basics', 'Find beginner resources', 'CMI training programs']
+            }
+        }
+        
+        # Get suggestions for the specific category
+        category_suggestions = suggestion_map.get(category_name, {})
+        suggestions = category_suggestions.get(category, [])
+        
+        # Fallback suggestions if none found
+        if not suggestions:
+            suggestions = ['What can you help me with?', 'Show me farming resources', 'Browse available topics']
+        
+        return suggestions[:3]
 
     def generate_intelligent_response(self, query):
-        """Main method for generating intelligent responses"""
+        """Main method for generating intelligent responses with FAISS"""
         query = query.strip()
         query_lower = query.lower()
 
@@ -678,17 +1065,17 @@ class IntelligentChatbotService:
             self._conversation_cache[query_lower] = response
             return response
         
-        # Handle different intents using cached knowledge base
+        # Handle different intents using FAISS-enhanced search
         if intent_info['intent'] == 'sample_request':
-            matched_resources = self._semantic_search_with_nlp(query, intent_info, top_k=5)
+            matched_resources = self._enhanced_semantic_search_with_faiss(query, intent_info, top_k=5)
             return self._generate_sample_response(query, matched_resources, intent_info)
         elif intent_info['intent'] == 'topic_content_request':
-            matched_resources = self._semantic_search_with_nlp(query, intent_info, top_k=8)
+            matched_resources = self._enhanced_semantic_search_with_faiss(query, intent_info, top_k=8)
             return self._generate_topic_content_response(query, matched_resources, intent_info)
         else:
-            # Regular processing
-            matched_resources = self._semantic_search_with_nlp(query, intent_info, top_k=5)
-            print(f"🔍 Found {len(matched_resources)} matches")
+            # Regular processing with FAISS
+            matched_resources = self._enhanced_semantic_search_with_faiss(query, intent_info, top_k=5)
+            print(f"🔍 Found {len(matched_resources)} matches using FAISS")
             
             if matched_resources:
                 return self._generate_detailed_response(query, matched_resources)
@@ -701,7 +1088,7 @@ class IntelligentChatbotService:
             return {
                 'response': "I couldn't find any samples matching your request. Here are some available options:\n\n📚 Browse our knowledge base\n💬 Check forum discussions\n❓ View frequently asked questions\n🏢 Find CMI locations",
                 'confidence': 'low',
-                'suggestions': ['Show me popular FAQs', 'Find recent forum posts', 'Browse knowledge resources'],
+                'suggestions': [ 'Find recent forum posts', 'Browse knowledge resources'],
                 'matched_resources': []
             }
         
@@ -730,7 +1117,6 @@ class IntelligentChatbotService:
                 break
 
         response_parts.append(sample_header)
-        
         response_parts.append("")
         
         # List the samples
@@ -757,7 +1143,8 @@ class IntelligentChatbotService:
             'suggestions': ['Show me more examples', 'Find specific topic samples', 'Browse different categories'],
             'matched_resources': [match['resource'] for match in matched_resources],
             'ai_powered': True,
-            'local_ai': True
+            'local_ai': True,
+            'faiss_enhanced': True
         }
 
     def _generate_topic_content_response(self, query, matched_resources, intent_info):
@@ -813,7 +1200,7 @@ class IntelligentChatbotService:
                     response_parts.append(f"     {desc}")
                     response_parts.append("")
         
-        response_parts.append(f"💡 *Found {len(matched_resources)} results related to {main_topic}. Click any item above for details.*")
+        response_parts.append(f"💡 *Found {len(matched_resources)} results related to {main_topic} using enhanced AI search.*")
         
         return {
             'response': '\n'.join(response_parts),
@@ -822,7 +1209,8 @@ class IntelligentChatbotService:
             'matched_resources': [match['resource'] for match in matched_resources],
             'ai_powered': True,
             'local_ai': True,
-            'topic_focused': True
+            'topic_focused': True,
+            'faiss_enhanced': True
         }
 
     def _generate_detailed_response(self, query, matched_resources):
@@ -839,14 +1227,14 @@ class IntelligentChatbotService:
         response_text += f"\n\n📋 **Source:** {resource['type'].title()}"
         if resource.get('author'):
             response_text += f" by {resource['author']}"
-        
         return {
             'response': response_text,
             'confidence': best_match['confidence'],
             'suggestions': self._generate_dynamic_suggestions(query, matched_resources),
             'matched_resources': [resource],
             'ai_powered': True,
-            'local_ai': True
+            'local_ai': True,
+            'faiss_enhanced': True
         }
 
     def _generate_dynamic_suggestions(self, query, matched_resources):
@@ -864,7 +1252,7 @@ class IntelligentChatbotService:
         
         # Fallback suggestions
         while len(suggestions) < 3:
-            fallback = ['What can you help me with?', 'Show me popular topics', 'Find expert discussions']
+            fallback = ['What can you help me with?', 'Find expert discussions']
             for sug in fallback:
                 if sug not in suggestions:
                     suggestions.append(sug)
@@ -876,7 +1264,7 @@ class IntelligentChatbotService:
     def _generate_no_results_response(self, query):
         """Generate helpful response when no results found"""
         return {
-            'response': f"I couldn't find specific information about '{query}'. Try asking about agriculture, aquaculture, CMI services, or browse our available resources.\n\n🌾 Agricultural resources and techniques\n🐟 Aquaculture and fisheries information\n💬 Community forum discussions\n❓ Frequently asked questions\n🏢 CMI locations and services",
+            'response': f"I couldn't find specific information about '{query}' using our enhanced search. Try asking about agriculture, aquaculture, CMI services, or browse our available resources.\n\n🌾 Agricultural resources and techniques\n🐟 Aquaculture and fisheries information\n💬 Community forum discussions\n❓ Frequently asked questions\n🏢 CMI locations and services",
             'confidence': 'low',
             'suggestions': ['Browse available topics', 'Find popular discussions', 'Show CMI locations'],
             'matched_resources': []
@@ -938,9 +1326,11 @@ class IntelligentChatbotService:
             'confidence': 'high',
             'suggestions': suggestions,
             'matched_resources': [target_resource],
-            'ai_powered': True
+            'ai_powered': True,
+            'faiss_enhanced': True
         }
 
+# Keep all existing database loading functions unchanged
 def _load_knowledge_base_from_db():
     """Load knowledge base from database - called only when cache expires"""
     knowledge_data = []
@@ -1402,7 +1792,6 @@ def _load_knowledge_base_from_db():
 
         # Insert other models here...
 
-
         print(f"🎉 Successfully loaded {len(knowledge_data)} items into knowledge base")
         return knowledge_data, document_texts
    
@@ -1427,9 +1816,9 @@ def get_chatbot_service():
         if _chatbot_service_instance is not None:
             return _chatbot_service_instance
         
-        print("🚀 Initializing ChatbotService singleton...")
+        print("🚀 Initializing FAISS-enhanced ChatbotService singleton...")
         _chatbot_service_instance = IntelligentChatbotService()
-        print("✅ ChatbotService singleton ready!")
+        print("✅ FAISS-enhanced ChatbotService singleton ready!")
         return _chatbot_service_instance
 
 # This creates the singleton instance

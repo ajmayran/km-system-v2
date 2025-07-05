@@ -4,7 +4,6 @@ class IntelligentChatbot {
         this.sessionExpiresAt = null;
         this.sessionCreatedAt = null;
         this.isOpen = false;
-        this.isMinimized = false;
         this.messageHistory = [];
         this.aiEnabled = true;
         this.initializeElements();
@@ -12,6 +11,8 @@ class IntelligentChatbot {
         this.loadFromStorage();
         this.addWelcomeMessage();
         this.loadSessionHistory();
+
+        document.addEventListener('visibilitychange', () => this.handleVisibilityChange());
     }
 
     initializeElements() {
@@ -22,7 +23,6 @@ class IntelligentChatbot {
         this.sendBtn = document.getElementById('chatbot-send');
         this.suggestions = document.getElementById('chatbot-suggestions');
         this.typing = document.getElementById('chatbot-typing');
-        this.minimizeBtn = document.getElementById('chatbot-minimize');
         this.closeBtn = document.getElementById('chatbot-close');
     }
 
@@ -109,7 +109,7 @@ class IntelligentChatbot {
             if (this.sessionExpiresAt && new Date() > this.sessionExpiresAt) {
                 this.handleSessionExpiry();
             }
-        }, 60000); // Check every minute
+        }, 60000);
     }
 
     handleSessionExpiry() {
@@ -296,9 +296,6 @@ class IntelligentChatbot {
             }
         });
 
-        if (this.minimizeBtn) {
-            this.minimizeBtn.addEventListener('click', () => this.toggleMinimize());
-        }
         if (this.closeBtn) {
             this.closeBtn.addEventListener('click', () => this.closeChatbot());
         }
@@ -314,37 +311,52 @@ class IntelligentChatbot {
 
     openChatbot() {
         this.widget.classList.add('show');
-        this.widget.classList.remove('minimized');
         this.isOpen = true;
-        this.isMinimized = false;
+        this.updateToggleIcon();
+
 
         setTimeout(() => {
-            if (this.input) this.input.focus();
-            this.scrollToBottom();
-        }, 100);
+            this.input.focus();
+        }, 300);
 
+        this.scrollToBottom();
         this.saveToStorage();
     }
 
     closeChatbot() {
         this.widget.classList.remove('show');
         this.isOpen = false;
-        this.isMinimized = false;
         this.saveToStorage();
+        this.updateToggleIcon();
     }
 
-    toggleMinimize() {
-        if (this.isMinimized) {
-            this.widget.classList.remove('minimized');
-            this.isMinimized = false;
-            setTimeout(() => {
-                if (this.input) this.input.focus();
-            }, 100);
+    updateToggleIcon() {
+        const icon = this.toggle.querySelector('i');
+        const badge = this.toggle.querySelector('.chatbot-badge');
+
+        if (this.isOpen) {
+            // Change to X icon when open
+            icon.classList.remove('fa-robot');
+            icon.classList.add('fa-times');
+            this.toggle.classList.add('open');
+
+            // Hide badge when open
+            if (badge) {
+                badge.style.opacity = '0';
+                badge.style.transform = 'scale(0)';
+            }
         } else {
-            this.widget.classList.add('minimized');
-            this.isMinimized = true;
+            // Change back to robot icon when closed
+            icon.classList.remove('fa-times');
+            icon.classList.add('fa-robot');
+            this.toggle.classList.remove('open');
+
+            // Show badge when closed
+            if (badge) {
+                badge.style.opacity = '1';
+                badge.style.transform = 'scale(1)';
+            }
         }
-        this.saveToStorage();
     }
 
     async sendMessage() {
@@ -700,7 +712,7 @@ class IntelligentChatbot {
         const content = document.createElement('div');
         content.className = 'message-content';
 
-        const p = document.createElement('div'); // Changed from 'p' to 'div'
+        const p = document.createElement('div');
         p.className = 'typing-text';
         content.appendChild(p);
 
@@ -709,9 +721,8 @@ class IntelligentChatbot {
         this.messages.appendChild(messageDiv);
         this.scrollToBottom();
 
-        // Start typing animation with callback
         this.typeText(p, text, () => {
-            // Add clickable sources after typing is complete
+            p.classList.remove('typing');
             if (data.matched_resources && data.matched_resources.length > 0) {
                 this.addClickableSources(content, data.matched_resources);
             }
@@ -721,8 +732,27 @@ class IntelligentChatbot {
                 this.addUrlLink(content, data);
             }
 
+            // Ensure proper scroll position
+            this.scrollToBottom();
+
             if (onComplete) onComplete();
         });
+    }
+
+    checkAndResumeOperations() {
+
+        const typingElements = this.messages.querySelectorAll('.typing-text.typing');
+        if (typingElements.length > 0) {
+            console.log('🔄 Resuming interrupted typing animations');
+            typingElements.forEach(element => {
+                element.classList.remove('typing');
+            });
+        }
+
+        // Re-enable send button if it was disabled
+        if (this.sendBtn && this.sendBtn.disabled && this.input && this.input.value.trim()) {
+            this.sendBtn.disabled = false;
+        }
     }
 
     addUrlLink(contentElement, data) {
@@ -795,41 +825,90 @@ class IntelligentChatbot {
             .replace(/^(\s+)/gm, (match) => '&nbsp;'.repeat(match.length)); // Preserve indentation
 
         let index = 0;
-        const speed = 15; // Faster typing for better UX
+        let lastTime = performance.now();
+        const speed = 15;
+        let isComplete = false;
 
-        const typeChar = () => {
-            if (index < processedText.length) {
-                const char = processedText.charAt(index);
+        const typeChar = (currentTime) => {
 
-                // Handle HTML tags
-                if (char === '<') {
-                    // Find the end of the HTML tag
-                    const tagEnd = processedText.indexOf('>', index);
-                    if (tagEnd !== -1) {
-                        const tag = processedText.substring(index, tagEnd + 1);
-                        element.innerHTML += tag;
-                        index = tagEnd + 1;
+            if (currentTime - lastTime >= speed && !isComplete) {
+                if (index < processedText.length) {
+                    const char = processedText.charAt(index);
+
+                    if (char === '<') {
+                        const tagEnd = processedText.indexOf('>', index);
+                        if (tagEnd !== -1) {
+                            const tag = processedText.substring(index, tagEnd + 1);
+                            element.innerHTML += tag;
+                            index = tagEnd + 1;
+                        } else {
+                            element.innerHTML += char;
+                            index++;
+                        }
+                    } else if (processedText.substr(index, 6) === '&nbsp;') {
+                        element.innerHTML += '&nbsp;';
+                        index += 6;
                     } else {
                         element.innerHTML += char;
                         index++;
                     }
-                } else if (processedText.substr(index, 6) === '&nbsp;') {
-                    element.innerHTML += '&nbsp;';
-                    index += 6;
-                } else {
-                    element.innerHTML += char;
-                    index++;
-                }
 
-                this.scrollToBottom();
-                setTimeout(typeChar, speed);
-            } else {
-                element.classList.remove('typing');
-                if (onComplete) onComplete();
+                    this.scrollToBottom();
+                    lastTime = currentTime;
+                } else {
+                    isComplete = true;
+                    element.classList.remove('typing');
+                    if (onComplete) onComplete();
+                    return;
+                }
+            }
+
+            // Continue animation if not complete
+            if (!isComplete) {
+                requestAnimationFrame(typeChar);
             }
         };
 
-        typeChar();
+        requestAnimationFrame(typeChar);
+
+        const handleVisibilityChange = () => {
+            if (!document.hidden && !isComplete) {
+                element.innerHTML = processedText;
+                element.classList.remove('typing');
+                isComplete = true;
+                if (onComplete) onComplete();
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+            }
+        };
+
+        document.addEventListener('visibilitychange', handleVisibilityChange);
+        setTimeout(() => {
+            if (!isComplete) {
+                element.innerHTML = processedText;
+                element.classList.remove('typing');
+                isComplete = true;
+                if (onComplete) onComplete();
+                document.removeEventListener('visibilitychange', handleVisibilityChange);
+            }
+        }, processedText.length * speed + 5000);
+    }
+
+    handleVisibilityChange() {
+        if (!document.hidden) {
+            // Tab became visible
+            console.log('🔄 Tab became visible, ensuring chatbot is responsive');
+
+            // Check if there are any ongoing typing animations and complete them
+            const typingElements = this.messages.querySelectorAll('.typing-text.typing');
+            typingElements.forEach(element => {
+                element.classList.remove('typing');
+            });
+
+            // Ensure scroll position is correct
+            setTimeout(() => {
+                this.scrollToBottom();
+            }, 100);
+        }
     }
 
     addRelatedResourceCards(resources) {
@@ -1091,7 +1170,6 @@ class IntelligentChatbot {
         try {
             const state = {
                 isOpen: this.isOpen,
-                isMinimized: this.isMinimized,
                 sessionId: this.sessionId,
                 sessionExpiresAt: this.sessionExpiresAt?.toISOString(),
                 sessionCreatedAt: this.sessionCreatedAt?.toISOString(),
@@ -1123,9 +1201,6 @@ class IntelligentChatbot {
 
                 if (saved.isOpen) {
                     this.openChatbot();
-                    if (saved.isMinimized) {
-                        this.toggleMinimize();
-                    }
                 }
             }
         } catch (e) {

@@ -10,7 +10,7 @@ from appCmi.models import FAQ, FAQTag, FAQTagAssignment, FAQReaction, FAQImage
 from appCmi.forms import FAQForm
 import json
 
-@user_access_required(["admin", "cmi"], error_type=404)
+
 def faqs_view(request):
     """View function for the FAQs page."""
     models = get_active_models()
@@ -24,11 +24,12 @@ def faqs_view(request):
     
     tag_filter = request.GET.get('tag', 'all')
     
-    if request.user.user_type == 'admin':
-        # Admins can see all FAQs (active and inactive)
+    # Check if user is authenticated and is admin
+    is_admin = request.user.is_authenticated and getattr(request.user, 'user_type', None) == 'admin'
+    
+    if is_admin:
         faqs = FAQ.objects.all().select_related('created_by').prefetch_related('tag_assignments__tag', 'images')
     else:
-        # Regular users only see active FAQs
         faqs = FAQ.objects.filter(is_active=True).select_related('created_by').prefetch_related('tag_assignments__tag', 'images')
     
     if search_query:
@@ -40,7 +41,7 @@ def faqs_view(request):
     if tag_filter and tag_filter != 'all':
         faqs = faqs.filter(tag_assignments__tag__slug=tag_filter)
     
-    if request.user.user_type == 'admin':
+    if is_admin:
         tags_with_counts = FAQTag.objects.annotate(
             faq_count=Count('faq_assignments') 
         ).filter(faq_count__gt=0).order_by('name')
@@ -141,7 +142,7 @@ def edit_faq(request, faq_id):
         faq = get_object_or_404(FAQ, faq_id=faq_id)
         
         # Check permissions
-        if not request.user.user_type == 'admin' and faq.created_by != request.user:
+        if not getattr(request.user, 'user_type', None) == 'admin' and faq.created_by != request.user:
             messages.error(request, '❌ You can only edit your own FAQs.')
             return redirect('appCmi:faqs')
         
@@ -223,7 +224,7 @@ def delete_faq(request, faq_id):
         faq = get_object_or_404(FAQ, faq_id=faq_id)
         
         # Check permissions
-        if not request.user.user_type == 'admin' and faq.created_by != request.user:
+        if not getattr(request.user, 'user_type', None) == 'admin' and faq.created_by != request.user:
             messages.error(request, '❌ You can only delete your own FAQs.')
             return redirect('appCmi:faqs')
         
@@ -245,7 +246,7 @@ def toggle_faq_status(request, faq_id):
     """Toggle FAQ active status (admin only)"""
     try:
         # Check if user is admin
-        if request.user.user_type != 'admin':
+        if not request.user.is_authenticated or getattr(request.user, 'user_type', None) != 'admin':
             messages.error(request, '❌ Only administrators can toggle FAQ status.')
             return redirect('appCmi:faqs')
             
@@ -262,11 +263,18 @@ def toggle_faq_status(request, faq_id):
     
     return redirect('appCmi:faqs')
 
-@user_access_required(["admin", "cmi"], error_type=404)
+
 @require_POST
 def toggle_faq_reaction(request, faq_id):
     """Toggle FAQ reaction"""
     try:
+        # Check if user is authenticated before allowing reactions
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                'success': False,
+                'error': 'You must be logged in to react to FAQs.'
+            })
+            
         faq = get_object_or_404(FAQ, faq_id=faq_id)
         
         reaction, created = FAQReaction.objects.get_or_create(
