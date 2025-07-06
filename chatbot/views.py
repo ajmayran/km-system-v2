@@ -1,5 +1,6 @@
 import json
 import uuid
+import asyncio
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -10,6 +11,7 @@ from .models import ChatSession, ChatMessage
 from .services import chatbot_service
 from appAdmin.models import ResourceMetadata
 from .services import get_chatbot_service 
+from asgiref.sync import sync_to_async
 
 @csrf_exempt
 @require_POST
@@ -368,3 +370,24 @@ def chat_history(request):
         })
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+    
+@sync_to_async
+def get_chatbot_response_sync(query):
+    return chatbot_service.generate_intelligent_response(query)
+
+async def chatbot_response_async(request):
+    query = request.POST.get('message', '').strip()
+    
+    if not query:
+        return JsonResponse({'error': 'No message provided'}, status=400)
+    
+    try:
+        # Run the chatbot processing asynchronously
+        response = await get_chatbot_response_sync(query)
+        return JsonResponse(response)
+        
+    except Exception as e:
+        return JsonResponse({
+            'response': 'Sorry, I encountered an error processing your request.',
+            'error': str(e)
+        }, status=500)

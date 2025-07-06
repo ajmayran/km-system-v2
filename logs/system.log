@@ -16875,3 +16875,403 @@ IndexError: list index out of range
 [2025-07-06 10:08:28] Internal Server Error: /chatbot/debug-ai-status/
 [2025-07-06 10:23:13] Internal Server Error: /chatbot/debug-ai-status/
 [2025-07-06 10:23:44] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 10:59:20] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 10:59:28] Watching for file changes with StatReloader
+[2025-07-06 10:59:45] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 10:59:45] Loading faiss with AVX2 support.
+[2025-07-06 10:59:45] Successfully loaded faiss with AVX2 support.
+[2025-07-06 10:59:45] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 10:59:45] Use pytorch device_name: cpu
+[2025-07-06 10:59:45] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 10:59:45] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 10:59:46] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 10:59:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 10:59:46] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 10:59:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 10:59:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 10:59:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 10:59:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 10:59:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 10:59:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 10:59:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 10:59:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 10:59:48] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 10:59:48] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 10:59:51] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 10:59:51] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 10:59:52] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 10:59:52] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 10:59:52] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 10:59:53] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 10:59:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 10:59:54] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 11:25:52] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\kmhub\settings.py changed, reloading.
+[2025-07-06 11:25:58] Watching for file changes with StatReloader
+[2025-07-06 11:26:08] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 11:26:08] Loading faiss with AVX2 support.
+[2025-07-06 11:26:08] Successfully loaded faiss with AVX2 support.
+[2025-07-06 11:26:08] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 11:26:08] Use pytorch device_name: cpu
+[2025-07-06 11:26:08] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 11:26:08] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 11:26:09] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 11:26:09] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 11:26:10] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 11:26:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 11:26:10] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 11:26:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 11:26:10] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 11:26:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 11:26:11] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 11:26:11] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 11:26:11] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 11:26:11] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 11:26:11] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 11:26:13] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 11:26:13] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 11:26:14] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 11:26:14] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 11:26:14] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 11:26:15] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 11:26:15] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 11:26:15] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 11:26:39] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\kmhub\settings.py changed, reloading.
+[2025-07-06 11:26:41] Watching for file changes with StatReloader
+[2025-07-06 11:26:53] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 11:26:53] Loading faiss with AVX2 support.
+[2025-07-06 11:26:53] Successfully loaded faiss with AVX2 support.
+[2025-07-06 11:26:53] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 11:26:53] Use pytorch device_name: cpu
+[2025-07-06 11:26:53] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 11:26:53] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 11:26:53] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 11:26:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 11:26:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 11:26:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 11:26:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 11:26:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 11:26:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 11:26:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 11:26:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 11:26:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 11:26:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 11:26:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 11:26:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 11:26:57] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 11:26:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 11:26:57] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 11:26:58] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 11:26:58] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 11:26:58] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 11:26:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 11:26:59] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 11:27:03] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 11:28:56] Not Found: /favicon.ico
+[2025-07-06 11:29:04] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 11:29:06] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 11:29:20] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 11:29:43] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 11:30:03] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 11:36:12] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 11:36:16] Watching for file changes with StatReloader
+[2025-07-06 11:36:27] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 11:36:27] Loading faiss with AVX2 support.
+[2025-07-06 11:36:27] Successfully loaded faiss with AVX2 support.
+[2025-07-06 11:36:27] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 11:36:27] Use pytorch device_name: cpu
+[2025-07-06 11:36:27] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 11:36:27] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 11:36:28] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 11:36:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 11:36:28] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 11:36:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 11:36:28] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 11:36:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 11:36:29] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 11:36:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 11:36:29] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 11:36:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 11:36:29] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 11:36:30] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 11:36:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 11:36:32] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 11:36:32] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 11:36:32] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 11:36:33] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 11:36:33] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 11:36:33] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 11:36:33] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 11:36:34] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 11:36:44] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 11:37:06] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 11:37:11] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 12:20:51] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 12:20:58] Watching for file changes with StatReloader
+[2025-07-06 12:21:10] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 12:21:10] Loading faiss with AVX2 support.
+[2025-07-06 12:21:10] Successfully loaded faiss with AVX2 support.
+[2025-07-06 12:21:10] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 12:21:10] Use pytorch device_name: cpu
+[2025-07-06 12:21:10] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 12:21:10] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 12:21:11] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:21:11] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:21:11] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 12:21:11] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 12:21:12] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 12:21:12] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 12:21:12] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:21:12] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:21:12] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 12:21:12] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 12:21:13] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 12:21:13] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:21:13] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 12:21:15] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 12:21:15] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 12:21:16] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:21:16] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 12:21:16] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 12:21:17] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:21:17] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 12:21:17] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:22:19] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 12:22:21] Watching for file changes with StatReloader
+[2025-07-06 12:22:33] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 12:22:33] Loading faiss with AVX2 support.
+[2025-07-06 12:22:33] Successfully loaded faiss with AVX2 support.
+[2025-07-06 12:22:33] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 12:22:33] Use pytorch device_name: cpu
+[2025-07-06 12:22:33] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 12:22:33] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 12:22:33] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:22:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:22:34] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 12:22:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 12:22:34] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 12:22:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 12:22:34] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:22:34] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:22:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 12:22:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 12:22:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 12:22:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:22:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 12:22:37] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 12:22:37] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 12:22:37] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:22:38] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 12:22:38] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 12:22:38] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:22:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 12:22:39] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:22:44] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 12:22:46] Watching for file changes with StatReloader
+[2025-07-06 12:22:54] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 12:22:54] Loading faiss with AVX2 support.
+[2025-07-06 12:22:54] Successfully loaded faiss with AVX2 support.
+[2025-07-06 12:22:54] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 12:22:54] Use pytorch device_name: cpu
+[2025-07-06 12:22:54] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 12:22:54] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 12:22:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:22:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:22:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 12:22:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 12:22:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 12:22:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 12:22:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:22:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:22:56] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 12:22:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 12:22:56] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 12:22:56] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:22:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 12:23:00] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 12:23:00] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 12:23:00] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:23:00] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 12:23:01] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 12:23:01] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:23:01] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 12:23:02] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:25:21] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 12:25:27] Watching for file changes with StatReloader
+[2025-07-06 12:25:42] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 12:25:42] Loading faiss with AVX2 support.
+[2025-07-06 12:25:43] Successfully loaded faiss with AVX2 support.
+[2025-07-06 12:25:43] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 12:25:43] Use pytorch device_name: cpu
+[2025-07-06 12:25:43] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 12:25:43] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 12:25:43] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:25:43] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:25:44] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 12:25:44] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 12:25:44] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 12:25:44] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 12:25:44] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:25:44] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:25:45] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 12:25:45] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 12:25:45] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 12:25:45] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:25:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 12:25:47] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 12:25:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 12:25:48] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:25:48] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 12:25:49] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 12:25:49] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:25:49] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 12:25:50] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:29:40] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 12:29:47] Watching for file changes with StatReloader
+[2025-07-06 12:29:59] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 12:29:59] Loading faiss with AVX2 support.
+[2025-07-06 12:29:59] Successfully loaded faiss with AVX2 support.
+[2025-07-06 12:30:00] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 12:30:00] Use pytorch device_name: cpu
+[2025-07-06 12:30:00] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 12:30:00] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 12:30:00] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:30:00] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:30:01] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 12:30:01] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 12:30:01] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 12:30:01] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 12:30:02] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:30:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:30:02] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 12:30:02] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 12:30:03] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 12:30:04] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:30:04] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 12:30:06] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 12:30:06] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 12:30:06] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:30:10] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 12:30:15] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 12:30:16] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:30:16] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 12:30:17] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:36:17] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\views.py changed, reloading.
+[2025-07-06 12:36:19] Watching for file changes with StatReloader
+[2025-07-06 12:36:28] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 12:36:28] Loading faiss with AVX2 support.
+[2025-07-06 12:36:28] Successfully loaded faiss with AVX2 support.
+[2025-07-06 12:36:28] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 12:36:28] Use pytorch device_name: cpu
+[2025-07-06 12:36:28] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 12:36:28] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 12:36:28] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:36:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:36:29] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 12:36:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 12:36:29] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 12:36:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 12:36:29] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:36:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:36:30] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 12:36:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 12:36:30] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 12:36:30] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:36:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 12:36:32] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 12:36:32] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 12:36:32] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:36:33] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 12:36:33] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 12:36:33] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:36:33] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 12:36:34] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:38:50] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 12:38:54] Watching for file changes with StatReloader
+[2025-07-06 12:39:05] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 12:39:05] Loading faiss with AVX2 support.
+[2025-07-06 12:39:05] Successfully loaded faiss with AVX2 support.
+[2025-07-06 12:39:05] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 12:39:05] Use pytorch device_name: cpu
+[2025-07-06 12:39:05] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 12:39:05] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 12:39:06] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:39:06] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:39:06] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 12:39:06] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 12:39:06] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 12:39:06] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 12:39:07] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:39:07] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:39:07] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 12:39:07] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 12:39:07] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 12:39:08] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:39:08] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 12:39:10] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 12:39:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 12:39:10] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:39:11] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 12:39:11] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 12:39:11] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:39:11] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 12:39:12] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:39:30] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 12:39:32] Watching for file changes with StatReloader
+[2025-07-06 12:39:40] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 12:39:40] Loading faiss with AVX2 support.
+[2025-07-06 12:39:40] Successfully loaded faiss with AVX2 support.
+[2025-07-06 12:39:40] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 12:39:40] Use pytorch device_name: cpu
+[2025-07-06 12:39:40] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 12:39:40] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 12:39:41] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:39:41] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:39:42] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 12:39:42] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 12:39:42] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 12:39:42] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 12:39:43] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:39:43] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:39:43] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 12:39:43] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 12:39:43] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 12:39:44] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:39:44] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 12:39:45] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 12:39:45] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 12:39:45] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:39:46] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 12:39:46] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 12:39:46] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:39:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 12:39:47] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:40:13] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-06 12:40:15] Watching for file changes with StatReloader
+[2025-07-06 12:40:21] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 12:40:21] Loading faiss with AVX2 support.
+[2025-07-06 12:40:21] Successfully loaded faiss with AVX2 support.
+[2025-07-06 12:40:21] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 12:40:21] Use pytorch device_name: cpu
+[2025-07-06 12:40:21] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 12:40:21] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 12:40:22] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:40:22] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:40:22] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 12:40:22] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 12:40:22] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 12:40:22] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 12:40:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 12:40:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 12:40:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 12:40:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 12:40:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 12:40:24] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:40:24] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 12:40:25] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 12:40:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 12:40:25] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 12:40:26] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 12:40:26] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 12:40:26] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 12:40:26] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 12:40:27] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
