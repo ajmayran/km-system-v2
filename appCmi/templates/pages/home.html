@@ -100,10 +100,21 @@
             <h4 class="faqs-panel-title">Most Viewed Frequently Asked Questions</h4>
             <div class="faqs-list">
               {% for faq in top_faqs %}
-              <div class="faq-item" data-faq-id="{{ faq.faq_id }}">
-                <div class="faq-question-text">{{ faq.question }}</div>
-                <div class="faq-answer-text">{{ faq.answer|safe }}</div>
-              </div>
+                <div class="faq-item" data-faq-id="{{ faq.faq_id }}">
+                  <div class="faq-question-text">{{ faq.question }}</div>
+                  <div class="faq-answer-text">{{ faq.answer|safe }}</div>
+                  <!-- Add counts below the answer -->
+                  <div class="faq-stats">
+                    <div class="faq-stat-item">
+                      <i class="fas fa-eye"></i>
+                      <span class="stat-count">{{ faq.total_view_count }}</span>
+                    </div>
+                    <div class="faq-stat-item">
+                      <i class="fas fa-thumbs-up"></i>
+                      <span class="stat-count">{{ faq.total_helpful_count }}</span>
+                    </div>
+                  </div>
+                </div>
               {% endfor %}
             </div>
           </div>
