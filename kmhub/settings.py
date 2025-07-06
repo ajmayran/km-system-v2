@@ -74,6 +74,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "kmhub.wsgi.application"
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'chatbot-cache',
+        'TIMEOUT': 3600,  
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,
+        }
+    }
+}
+
 # Database Configuration (MySQL)
 DATABASES = {
     "default": {
@@ -88,6 +99,7 @@ DATABASES = {
             "charset": "utf8mb4",
         },
         "TIME_ZONE": "UTC",
+        'CONN_MAX_AGE': 60,
     }
 }
 

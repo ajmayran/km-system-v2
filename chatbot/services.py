@@ -194,10 +194,9 @@ def get_knowledge_base_cache():
     cache_duration = timedelta(hours=1)
     current_time = datetime.now()
     
-    # Check if cache is still valid
     if (_knowledge_base_cache is not None and 
-        _knowledge_base_last_updated is not None and 
-        current_time - _knowledge_base_last_updated < cache_duration):
+        _knowledge_base_last_updated is not None):
+        print("🚀 Using cached knowledge base")
         return _knowledge_base_cache
     
     # Load fresh data if cache is expired or empty
@@ -327,7 +326,6 @@ class IntelligentChatbotService:
         self.stopwords = load_stopwords()
         self.basic_responses = load_basic_responses()
         
-        # Reference to global models (loaded once)
         self.ai_models = get_ai_models()
         self.nlp = get_nlp_model()
         self.vectorizer = get_vectorizer()
@@ -351,19 +349,15 @@ class IntelligentChatbotService:
             return self._nlp_text_matching(query, intent_info, top_k, knowledge_data)
         
         try:
-            # Handle different intents with specialized processing
             if intent_info['intent'] == 'topic_content_request':
                 return self._handle_topic_content_request_faiss(query, intent_info, top_k, knowledge_data)
             elif intent_info['intent'] == 'sample_request':
                 return self._handle_sample_request(query, top_k, knowledge_data)
             
-            # Enhanced query preprocessing
             enhanced_query = self._enhance_query_for_search(query, intent_info)
             
-            # Get query embedding
             query_embedding = self.ai_models['sentence_transformer'].encode([enhanced_query])
             
-            # Use FAISS for fast similarity search
             scores, indices = faiss_similarity_search(query_embedding, top_k * 3)  # Get more candidates
             
             if len(scores) == 0:
@@ -374,7 +368,6 @@ class IntelligentChatbotService:
                 if idx < len(knowledge_data) and score > 0.3:  # Higher threshold for quality
                     item = knowledge_data[idx]
                     
-                    # Additional scoring with multiple factors
                     enhanced_score = self._calculate_enhanced_score(query, item, float(score), intent_info)
                     
                     results.append({
@@ -384,10 +377,8 @@ class IntelligentChatbotService:
                         'confidence': self._get_confidence_level(enhanced_score)
                     })
             
-            # Re-rank results based on enhanced scoring
             results.sort(key=lambda x: x['similarity_score'], reverse=True)
             
-            # Apply diversity filter to avoid too similar results
             filtered_results = self._apply_diversity_filter(results, top_k)
             
             return filtered_results[:top_k]
@@ -1331,7 +1322,6 @@ class IntelligentChatbotService:
             'faiss_enhanced': True
         }
 
-# Keep all existing database loading functions unchanged
 def _load_knowledge_base_from_db():
     """Load knowledge base from database - called only when cache expires"""
     knowledge_data = []
@@ -1801,6 +1791,23 @@ def _load_knowledge_base_from_db():
         print(f"❌ Error loading knowledge base: {e}")
         return [], []
 
+def clear_knowledge_base_cache():
+    """Clear the knowledge base cache to force reload"""
+    global _knowledge_base_cache, _knowledge_base_last_updated, _faiss_index, _faiss_embeddings
+    
+    _knowledge_base_cache = None
+    _knowledge_base_last_updated = None
+    _faiss_index = None
+    _faiss_embeddings = None
+    
+    print("🔄 Knowledge base cache cleared - will reload on next request")
+
+def force_reload_knowledge_base():
+    """Force immediate reload of knowledge base"""
+    clear_knowledge_base_cache()
+    get_knowledge_base_cache()  # This will trigger a fresh load
+    print("✅ Knowledge base forcefully reloaded")
+    
 # Global service instance with proper singleton pattern
 _chatbot_service_instance = None
 _service_lock = threading.Lock()
