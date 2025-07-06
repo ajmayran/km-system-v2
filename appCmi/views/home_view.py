@@ -14,8 +14,13 @@ def home(request):
     knowledge_resources = models.get("knowledge_resources", [])
 
     top_faqs = FAQ.objects.filter(is_active=True).annotate(
-        view_count=Count('views')
+        view_count=Count('views'),
+        reaction_count=Count('reactions')
     ).order_by('-view_count')[:4]
+
+    for faq in top_faqs:
+        faq.total_helpful_count = faq.total_reactions() 
+        faq.total_view_count = faq.total_views()
 
     context = {
         "useful_links": useful_links,

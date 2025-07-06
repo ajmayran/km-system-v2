@@ -16352,3 +16352,417 @@ django.db.utils.OperationalError: (1054, "Unknown column 'tbl_faq.anonymous_reac
 [2025-07-05 17:30:47] Internal Server Error: /chatbot/debug-ai-status/
 [2025-07-05 17:31:25] Internal Server Error: /chatbot/debug-ai-status/
 [2025-07-05 17:31:29] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 17:34:43] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 17:34:44] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-05 17:34:59] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 17:34:59] Not Found: /favicon.ico
+[2025-07-05 17:51:03] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-05 17:51:10] Watching for file changes with StatReloader
+[2025-07-05 17:51:26] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-05 17:51:26] Loading faiss with AVX2 support.
+[2025-07-05 17:51:27] Successfully loaded faiss with AVX2 support.
+[2025-07-05 17:51:27] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-05 17:51:27] Use pytorch device_name: cpu
+[2025-07-05 17:51:27] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-05 17:51:27] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-05 17:51:28] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-05 17:51:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-05 17:51:28] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-05 17:51:28] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-05 17:51:29] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-05 17:51:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-05 17:51:30] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-05 17:51:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-05 17:51:30] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-05 17:51:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-05 17:51:30] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-05 17:51:31] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-05 17:51:31] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-05 17:51:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-05 17:51:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-05 17:51:35] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-05 17:51:35] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-05 17:51:36] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-05 17:51:36] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-05 17:51:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-05 17:51:37] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-05 18:02:23] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 18:03:47] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-05 18:03:54] Watching for file changes with StatReloader
+[2025-07-05 18:04:08] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-05 18:04:08] Loading faiss with AVX2 support.
+[2025-07-05 18:04:08] Successfully loaded faiss with AVX2 support.
+[2025-07-05 18:04:08] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-05 18:04:08] Use pytorch device_name: cpu
+[2025-07-05 18:04:08] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-05 18:04:08] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-05 18:04:08] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-05 18:04:08] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-05 18:04:09] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-05 18:04:09] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-05 18:04:09] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-05 18:04:09] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-05 18:04:09] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-05 18:04:09] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-05 18:04:10] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-05 18:04:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-05 18:04:10] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-05 18:04:10] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-05 18:04:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-05 18:04:12] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-05 18:04:12] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-05 18:04:12] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-05 18:04:13] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-05 18:04:13] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-05 18:04:14] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-05 18:04:14] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-05 18:04:15] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-05 18:04:31] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 18:04:31] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-05 18:04:37] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 18:04:38] Not Found: /favicon.ico
+[2025-07-05 18:06:55] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 18:06:55] Internal Server Error: /cmis/knowledge-resources/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_knowledge_resources_view.py", line 277, in cmi_knowledge_resources
+    return render(request, "pages/cmi-knowledge-resources.html", context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 742, in resolve
+    new_obj = func(obj, *arg_vals)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\templatetags\custom_filters.py", line 11, in get_knowledge_title
+    obj_id = int(str(value).split("(")[1].split(")")[0])
+                 ~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+[2025-07-05 18:07:14] Internal Server Error: /cmis/knowledge-resources/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\cmi_knowledge_resources_view.py", line 277, in cmi_knowledge_resources
+    return render(request, "pages/cmi-knowledge-resources.html", context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\venv\Lib\site-packages\django\template\base.py", line 742, in resolve
+    new_obj = func(obj, *arg_vals)
+              ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\templatetags\custom_filters.py", line 11, in get_knowledge_title
+    obj_id = int(str(value).split("(")[1].split(")")[0])
+                 ~~~~~~~~~~~~~~~~~~~~~^^^
+IndexError: list index out of range
+[2025-07-05 21:17:14] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 21:30:35] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 21:31:23] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:00:30] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:05:23] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:05:40] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:27:11] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\home_view.py changed, reloading.
+[2025-07-05 22:27:25] Watching for file changes with StatReloader
+[2025-07-05 22:28:02] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\home_view.py changed, reloading.
+[2025-07-05 22:28:03] Watching for file changes with StatReloader
+[2025-07-05 22:28:17] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-05 22:28:17] Loading faiss with AVX2 support.
+[2025-07-05 22:28:18] Successfully loaded faiss with AVX2 support.
+[2025-07-05 22:28:18] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-05 22:28:18] Use pytorch device_name: cpu
+[2025-07-05 22:28:18] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-05 22:28:18] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-05 22:28:18] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-05 22:28:18] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-05 22:28:19] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-05 22:28:19] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-05 22:28:19] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-05 22:28:19] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-05 22:28:20] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-05 22:28:20] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-05 22:28:20] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-05 22:28:20] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-05 22:28:20] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-05 22:28:21] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-05 22:28:21] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-05 22:28:23] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-05 22:28:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-05 22:28:24] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-05 22:28:24] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-05 22:28:24] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-05 22:28:25] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-05 22:28:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-05 22:28:26] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-05 22:28:32] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\home_view.py changed, reloading.
+[2025-07-05 22:28:34] Watching for file changes with StatReloader
+[2025-07-05 22:28:39] C:\Users\rosem\Documents\AJ\OJT\km-system-v2\appCmi\views\home_view.py changed, reloading.
+[2025-07-05 22:28:39] Watching for file changes with StatReloader
+[2025-07-05 22:28:50] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-05 22:28:50] Loading faiss with AVX2 support.
+[2025-07-05 22:28:51] Successfully loaded faiss with AVX2 support.
+[2025-07-05 22:28:51] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-05 22:28:51] Use pytorch device_name: cpu
+[2025-07-05 22:28:51] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-05 22:28:51] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-05 22:28:52] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-05 22:28:52] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-05 22:28:52] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-05 22:28:52] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-05 22:28:53] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-05 22:28:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-05 22:28:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-05 22:28:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-05 22:28:54] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-05 22:28:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-05 22:28:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-05 22:28:55] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-05 22:28:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-05 22:28:57] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-05 22:28:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-05 22:28:57] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-05 22:28:58] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-05 22:28:58] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-05 22:28:58] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-05 22:28:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-05 22:28:59] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-05 22:31:16] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:31:46] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:32:35] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:32:42] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:33:16] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:33:24] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:42:47] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:43:44] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:44:57] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:45:23] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:46:12] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:47:56] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:48:19] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:48:39] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:49:31] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:50:31] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:51:09] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:51:43] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:52:51] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:54:25] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:54:55] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:54:58] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:55:11] Not Found: /favicon.ico
+[2025-07-05 22:55:18] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:55:20] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:55:27] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:55:33] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:55:35] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:55:54] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:56:44] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 22:56:46] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:05:31] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:08:54] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:09:03] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:09:12] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:10:02] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:10:16] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:10:29] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:13:34] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:13:59] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:14:41] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:15:07] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:15:53] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:16:17] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:16:32] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:16:39] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:16:52] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:16:58] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:17:29] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:19:12] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:20:50] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:21:41] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:27:31] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:28:27] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-05 23:30:07] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:20:14] Watching for file changes with StatReloader
+[2025-07-06 09:20:28] Environment variable FAISS_OPT_LEVEL is not set, so let's pick the instruction set according to the current CPU
+[2025-07-06 09:20:28] Loading faiss with AVX2 support.
+[2025-07-06 09:20:28] Successfully loaded faiss with AVX2 support.
+[2025-07-06 09:20:28] Failed to load GPU Faiss: name 'GpuIndexIVFFlat' is not defined. Will not load constructor refs for GPU indexes. This is only an error if you're trying to use GPU Faiss.
+[2025-07-06 09:20:28] Use pytorch device_name: cpu
+[2025-07-06 09:20:28] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-06 09:20:28] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-06 09:20:29] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 09:20:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 09:20:30] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json HTTP/1.1" 307 0
+[2025-07-06 09:20:30] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json HTTP/1.1" 200 0
+[2025-07-06 09:20:31] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md HTTP/1.1" 307 0
+[2025-07-06 09:20:31] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md HTTP/1.1" 200 0
+[2025-07-06 09:20:31] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json HTTP/1.1" 307 0
+[2025-07-06 09:20:31] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json HTTP/1.1" 200 0
+[2025-07-06 09:20:32] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json HTTP/1.1" 307 0
+[2025-07-06 09:20:32] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json HTTP/1.1" 200 0
+[2025-07-06 09:20:32] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json HTTP/1.1" 404 0
+[2025-07-06 09:20:33] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 09:20:33] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json HTTP/1.1" 200 0
+[2025-07-06 09:20:35] https://huggingface.co:443 "HEAD /sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json HTTP/1.1" 307 0
+[2025-07-06 09:20:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json HTTP/1.1" 200 0
+[2025-07-06 09:20:35] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 09:20:36] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2/revision/main HTTP/1.1" 200 6850
+[2025-07-06 09:20:36] https://huggingface.co:443 "GET /api/models/sentence-transformers/all-MiniLM-L6-v2 HTTP/1.1" 200 6850
+[2025-07-06 09:20:37] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-06 09:20:37] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-06 09:20:38] https://huggingface.co:443 "GET /api/models/facebook/bart-large-mnli/tree/main/additional_chat_templates?recursive=False&expand=False HTTP/1.1" 404 64
+[2025-07-06 09:20:59] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:21:09] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:32:12] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:33:00] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:42:21] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:45:08] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:45:39] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:48:01] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:48:29] Internal Server Error: /chatbot/debug-ai-status/
+[2025-07-06 09:49:10] Internal Server Error: /chatbot/debug-ai-status/

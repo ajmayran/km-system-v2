@@ -898,13 +898,11 @@ class IntelligentChatbot {
             // Tab became visible
             console.log('🔄 Tab became visible, ensuring chatbot is responsive');
 
-            // Check if there are any ongoing typing animations and complete them
             const typingElements = this.messages.querySelectorAll('.typing-text.typing');
             typingElements.forEach(element => {
                 element.classList.remove('typing');
             });
 
-            // Ensure scroll position is correct
             setTimeout(() => {
                 this.scrollToBottom();
             }, 100);

@@ -373,7 +373,6 @@ def record_faq_view(request, faq_id):
             request.session.create()
         session_key = request.session.session_key
         
-        # Record the view
         view_created = faq.record_view(
             user=user,
             ip_address=ip_address,
