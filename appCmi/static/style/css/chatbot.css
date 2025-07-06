@@ -257,18 +257,24 @@
 
 /* TYPING ANIMATION FOR BOT MESSAGES */
 .message-content .typing-text {
-    overflow: hidden;
-    border-right: 2px solid transparent;
+    overflow: visible;
+    display: inline-block;
 }
 
 .message-content .typing-text.typing {
-    border-right-color: #2c6e49;
+    display: inline-block;
+}
+
+
+.typing-cursor {
+    color: #2c6e49;
     animation: blink 1s infinite;
+    font-weight: bold;
 }
 
 @keyframes blink {
-    0%, 50% { border-right-color: #2c6e49; }
-    51%, 100% { border-right-color: transparent; }
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
 }
 
 .message-content .resource-link {
@@ -675,12 +681,6 @@
 .chatbot-message.user-message[data-source-click="true"] .message-content {
     background: #4c956c;
     color: white;
-}
-
-.typing-text.typing::after {
-    content: '▋';
-    animation: blink 1s infinite;
-    color: #2c6e49;
 }
 
 @keyframes blink {

@@ -829,8 +829,16 @@ class IntelligentChatbot {
         const speed = 15;
         let isComplete = false;
 
-        const typeChar = (currentTime) => {
+        // Create a container for the text content and cursor separately
+        const textContainer = document.createElement('span');
+        const cursor = document.createElement('span');
+        cursor.className = 'typing-cursor';
+        cursor.innerHTML = '▋';
 
+        element.appendChild(textContainer);
+        element.appendChild(cursor);
+
+        const typeChar = (currentTime) => {
             if (currentTime - lastTime >= speed && !isComplete) {
                 if (index < processedText.length) {
                     const char = processedText.charAt(index);
@@ -839,17 +847,17 @@ class IntelligentChatbot {
                         const tagEnd = processedText.indexOf('>', index);
                         if (tagEnd !== -1) {
                             const tag = processedText.substring(index, tagEnd + 1);
-                            element.innerHTML += tag;
+                            textContainer.innerHTML += tag;
                             index = tagEnd + 1;
                         } else {
-                            element.innerHTML += char;
+                            textContainer.innerHTML += char;
                             index++;
                         }
                     } else if (processedText.substr(index, 6) === '&nbsp;') {
-                        element.innerHTML += '&nbsp;';
+                        textContainer.innerHTML += '&nbsp;';
                         index += 6;
                     } else {
-                        element.innerHTML += char;
+                        textContainer.innerHTML += char;
                         index++;
                     }
 
@@ -858,6 +866,8 @@ class IntelligentChatbot {
                 } else {
                     isComplete = true;
                     element.classList.remove('typing');
+                    // Remove cursor and replace element content with final text
+                    element.innerHTML = processedText;
                     if (onComplete) onComplete();
                     return;
                 }
