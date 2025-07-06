@@ -1213,7 +1213,6 @@ window.clearChatbotSessions = () => {
     }
 };
 
-
 // Initialize the intelligent chatbot when DOM is ready
 document.addEventListener('DOMContentLoaded', function () {
     if (document.getElementById('chatbot-container')) {
