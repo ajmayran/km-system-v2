@@ -323,6 +323,7 @@ class IntelligentChatbotService:
 
     def __init__(self):
         # Use global cached resources instead of loading per instance
+        self.knowledge_data, self.document_texts = _load_knowledge_base_from_db()
         self.stopwords = load_stopwords()
         self.basic_responses = load_basic_responses()
         
