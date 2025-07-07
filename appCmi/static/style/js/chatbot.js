@@ -488,8 +488,6 @@ class IntelligentChatbot {
         messageDiv.appendChild(content);
 
         this.messages.appendChild(messageDiv);
-        this.scrollToBottom();
-
         if (saveToStorage) {
             this.saveToStorage();
         }
@@ -719,7 +717,7 @@ class IntelligentChatbot {
         messageDiv.appendChild(avatar);
         messageDiv.appendChild(content);
         this.messages.appendChild(messageDiv);
-        this.scrollToBottom();
+
 
         this.typeText(p, text, () => {
             p.classList.remove('typing');
@@ -731,9 +729,6 @@ class IntelligentChatbot {
             if (data.url || (data.matched_resources && data.matched_resources[0])) {
                 this.addUrlLink(content, data);
             }
-
-            // Ensure proper scroll position
-            this.scrollToBottom();
 
             if (onComplete) onComplete();
         });
@@ -861,7 +856,6 @@ class IntelligentChatbot {
                         index++;
                     }
 
-                    this.scrollToBottom();
                     lastTime = currentTime;
                 } else {
                     isComplete = true;
@@ -1137,8 +1131,6 @@ class IntelligentChatbot {
             this.typing.appendChild(avatar);
             this.typing.appendChild(content);
             this.typing.style.display = 'flex';
-
-            this.scrollToBottom();
         }
     }
 
