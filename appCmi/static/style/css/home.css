@@ -564,6 +564,23 @@
   overflow-y: auto;
 }
 
+.faq-item.expanded::-webkit-scrollbar {
+  width: 6px;
+}
+
+.faq-item.expanded::-webkit-scrollbar-thumb {
+  background: #4c956c;
+  border-radius: 10px;
+}
+
+.faq-item.expanded::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+
+.faq-item.expanded::-webkit-scrollbar-thumb:hover {
+  background: #2c6e49;
+}
+
 .faq-item.expanded::before {
   opacity: 1;
 }

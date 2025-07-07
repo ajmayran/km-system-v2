@@ -259,27 +259,50 @@ def get_session_history(request):
         return JsonResponse({'error': str(e)}, status=500)
     
 def debug_ai_status(request):
-    """Debug endpoint to check AI model status"""
+    """Debug endpoint to check AI model status - FIXED"""
     try:
-        service = get_chatbot_service() 
+        service = get_chatbot_service()
+        
+        # Get knowledge base data
+        knowledge_data, document_texts, knowledge_vectors, knowledge_embeddings = service._get_knowledge_data()
+        
+        # Check AI models status
+        ai_models = service._get_ai_models()
+        nlp_model = service._get_nlp_model()
+        
         ai_status = {
-            'knowledge_items': len(service.knowledge_data),
-            'ai_model_loaded': bool(service.ai_model),
-            'sentence_transformer': 'sentence_transformer' in service.ai_model if service.ai_model else False,
-            'intent_classifier': 'intent_classifier' in service.ai_model if service.ai_model else False,
-            'spacy_model': str(service.nlp) if service.nlp else 'Not loaded',
-            'transformers_available': hasattr(service, 'ai_model') and service.ai_model is not None,
-            'embeddings_created': hasattr(service, 'knowledge_embeddings') and service.knowledge_embeddings is not None,
-            'stopwords_loaded': len(service.stopwords),
-            'basic_responses_loaded': len(service.basic_responses.get('greetings', {})),
+            'knowledge_items': len(knowledge_data) if knowledge_data else 0,
+            'document_texts': len(document_texts) if document_texts else 0,
+            'ai_models_loaded': bool(ai_models),
+            'ai_models_available': bool(ai_models and ai_models is not False),
+            'sentence_transformer': bool(ai_models and isinstance(ai_models, dict) and 'sentence_transformer' in ai_models),
+            'intent_classifier': bool(ai_models and isinstance(ai_models, dict) and 'intent_classifier' in ai_models),
+            'spacy_model': str(nlp_model) if nlp_model else 'Not loaded',
+            'spacy_available': bool(nlp_model and nlp_model is not False),
+            'transformers_available': bool(ai_models),
+            'embeddings_created': bool(knowledge_embeddings is not None),
+            'tfidf_vectors_created': bool(knowledge_vectors is not None),
+            'stopwords_loaded': len(service.stopwords) if hasattr(service, 'stopwords') else 0,
+            'basic_responses_loaded': len(service.basic_responses.get('greetings', {})) if hasattr(service, 'basic_responses') else 0,
             'local_ai_enabled': True,
-            'external_api_usage': False
+            'external_api_usage': False,
+            'service_initialized': True,
+            'vectorizer_ready': bool(service.vectorizer),
+            'faiss_available': hasattr(service, '_knowledge_base_cache') and service._knowledge_base_cache is not None
         }
+        
+        # Add cache information
+        try:
+            from chatbot.services import _knowledge_base_cache, _json_knowledge_cache
+            ai_status['knowledge_cache_active'] = bool(_knowledge_base_cache)
+            ai_status['json_cache_active'] = bool(_json_knowledge_cache)
+        except ImportError:
+            ai_status['cache_status'] = 'Could not check cache status'
         
         # Only test if explicitly requested
         run_tests = request.GET.get('test', 'false').lower() == 'true'
         
-        if run_tests and service.ai_model and len(service.knowledge_data) > 0:
+        if run_tests and knowledge_data and len(knowledge_data) > 0:
             print("🧪 Running AI tests (explicitly requested)")
             test_queries = ["give me sample RAISE that is in FAQ", "where are CMI locations", "show me farming techniques"]
             ai_status['test_results'] = {}
@@ -292,16 +315,45 @@ def debug_ai_status(request):
                         'intent_detected': intent.get('intent', 'unknown'),
                         'intent_confidence': intent.get('confidence', 0.0),
                         'results_found': len(results),
-                        'ai_processing': True
+                        'ai_processing': True,
+                        'test_passed': True
                     }
                 except Exception as e:
-                    ai_status['test_results'][query] = {'error': str(e)}
+                    ai_status['test_results'][query] = {
+                        'error': str(e),
+                        'test_passed': False
+                    }
         else:
             ai_status['test_results'] = 'Not run - add ?test=true to URL to run AI tests'
         
+        # Check JSON knowledge base file
+        try:
+            from chatbot.services import get_knowledge_base_json_path
+            import os
+            json_path = get_knowledge_base_json_path()
+            if os.path.exists(json_path):
+                file_size = round(os.path.getsize(json_path) / (1024 * 1024), 2)
+                ai_status['json_file_exists'] = True
+                ai_status['json_file_size_mb'] = file_size
+                ai_status['json_file_path'] = json_path
+            else:
+                ai_status['json_file_exists'] = False
+                ai_status['json_file_path'] = json_path
+        except Exception as e:
+            ai_status['json_file_error'] = str(e)
+        
         return JsonResponse(ai_status)
+        
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+        import traceback
+        error_info = {
+            'error': str(e),
+            'traceback': traceback.format_exc(),
+            'service_available': False
+        }
+        print(f"❌ Debug AI Status Error: {e}")
+        print(traceback.format_exc())
+        return JsonResponse(error_info, status=500)
 
 def refresh_knowledge_base(request):
     """Refresh the intelligent AI knowledge base"""
@@ -309,23 +361,36 @@ def refresh_knowledge_base(request):
         return JsonResponse({'error': 'Unauthorized'}, status=403)
     
     try:
+        # Clear the cache to force reload
+        from chatbot.services import clear_knowledge_base_cache
+        clear_knowledge_base_cache()
+        
         service = get_chatbot_service()
-        service._load_knowledge_base()
+        
+        # Get fresh knowledge data
+        knowledge_data, document_texts, knowledge_vectors, knowledge_embeddings = service._get_knowledge_data()
+        ai_models = service._get_ai_models()
+        nlp_model = service._get_nlp_model()
         
         return JsonResponse({
             'success': True, 
             'message': 'Intelligent AI knowledge base refreshed successfully',
-            'items_loaded': len(service.knowledge_data),
-            'ai_model_active': bool(service.ai_model),
-            'models_loaded': list(service.ai_model.keys()) if service.ai_model else [],
-            'spacy_model': str(service.nlp) if service.nlp else 'Not loaded',
-            'stopwords_loaded': len(service.stopwords),
-            'basic_responses_loaded': len(service.basic_responses.get('greetings', {})),
+            'items_loaded': len(knowledge_data) if knowledge_data else 0,
+            'documents_loaded': len(document_texts) if document_texts else 0,
+            'ai_model_active': bool(ai_models),
+            'models_loaded': list(ai_models.keys()) if ai_models and isinstance(ai_models, dict) else [],
+            'spacy_model': str(nlp_model) if nlp_model else 'Not loaded',
+            'stopwords_loaded': len(service.stopwords) if hasattr(service, 'stopwords') else 0,
+            'basic_responses_loaded': len(service.basic_responses.get('greetings', {})) if hasattr(service, 'basic_responses') else 0,
             'local_ai_enabled': True,
-            'intelligent_processing': True
+            'intelligent_processing': True,
+            'cache_cleared': True
         })
     except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+        import traceback
+        print(f"❌ Refresh Knowledge Base Error: {e}")
+        print(traceback.format_exc())
+        return JsonResponse({'error': str(e), 'traceback': traceback.format_exc()}, status=500)
     
 @login_required
 def chat_history(request):

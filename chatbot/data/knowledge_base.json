@@ -1,0 +1,114 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "generated_at": "2025-07-06T23:55:17.621023",
+    "total_items": 5,
+    "document_count": 5,
+    "source": "database_export",
+    "generator": "build_knowledge_base_command",
+    "database_stats": {
+      "resources": 2,
+      "knowledge_resources": 0,
+      "forums": 0,
+      "faqs": 2,
+      "total_approved": 4,
+      "last_updated": "2025-06-28T02:33:05.724587+00:00",
+      "errors": []
+    }
+  },
+  "knowledge_data": [
+    {
+      "id": "resource_2",
+      "actual_id": 2,
+      "title": "Aquaculture Best Practices",
+      "description": "Guide to sustainable fish farming and aquatic resource management",
+      "type": "resource",
+      "resource_type": "publication",
+      "slug": "v6vBylEAIS9H",
+      "url": "/cmis/knowledge-resources/post/v6vBylEAIS9H/",
+      "tags": [],
+      "commodities": [],
+      "created_at": "2025-06-28T02:33:05.724587+00:00",
+      "is_featured": false,
+      "raw_text": "Aquaculture Best Practices Guide to sustainable fish farming and aquatic resource management  "
+    },
+    {
+      "id": "resource_1",
+      "actual_id": 1,
+      "title": "Rice Farming Techniques",
+      "description": "Modern rice farming methods for better yield and sustainability",
+      "type": "resource",
+      "resource_type": "technology",
+      "slug": "aLekTy8UaURC",
+      "url": "/cmis/knowledge-resources/post/aLekTy8UaURC/",
+      "tags": [],
+      "commodities": [],
+      "created_at": "2025-06-28T02:32:58.886936+00:00",
+      "is_featured": false,
+      "raw_text": "Rice Farming Techniques Modern rice farming methods for better yield and sustainability  "
+    },
+    {
+      "id": "faq_15",
+      "actual_id": 15,
+      "title": "What is RAISE-ABH?",
+      "description": "RAISE-ABH is the regional agri-business hub in Western Mindanao which started last October 2023 led by Dr. Norqueen T. Dumadaug, Faculty of the College of Agriculture in Western Mindanao State University.",
+      "question": "What is RAISE-ABH?",
+      "answer": "RAISE-ABH is the regional agri-business hub in Western Mindanao which started last October 2023 led by Dr. Norqueen T. Dumadaug, Faculty of the College of Agriculture in Western Mindanao State University.",
+      "type": "faq",
+      "slug": "Mowdfun6x0vG",
+      "url": "/cmi/faqs/Mowdfun6x0vG/",
+      "created_by": "CMI User",
+      "created_at": "2025-06-23",
+      "total_reactions": 2,
+      "anonymous_reactions": 0,
+      "is_active": true,
+      "raw_text": "What is RAISE-ABH? RAISE-ABH is the regional agri-business hub in Western Mindanao which started last October 2023 led by Dr. Norqueen T. Dumadaug, Faculty of the College of Agriculture in Western Mindanao State University."
+    },
+    {
+      "id": "faq_14",
+      "actual_id": 14,
+      "title": "What is RAISE Program?",
+      "description": "The RAISE Program or the Regional Agri-Aqua Innovation System Enhancement , which began in 2022, is the latest technology transfer platform of the DOST-PCAARRD. Its purpose is to foster collaboration between regional stakeholders and build a competitive agri-aqua innovation ecosystem.",
+      "question": "What is RAISE Program?",
+      "answer": "The RAISE Program or the Regional Agri-Aqua Innovation System Enhancement , which began in 2022, is the latest technology transfer platform of the DOST-PCAARRD. Its purpose is to foster collaboration between regional stakeholders and build a competitive agri-aqua innovation ecosystem.",
+      "type": "faq",
+      "slug": "mbTbf6NDJv2S",
+      "url": "/cmi/faqs/mbTbf6NDJv2S/",
+      "created_by": "CMI User",
+      "created_at": "2025-06-23",
+      "total_reactions": 2,
+      "anonymous_reactions": 1,
+      "is_active": true,
+      "raw_text": "What is RAISE Program? The RAISE Program or the Regional Agri-Aqua Innovation System Enhancement , which began in 2022, is the latest technology transfer platform of the DOST-PCAARRD. Its purpose is to foster collaboration between regional stakeholders and build a competitive agri-aqua innovation ecosystem."
+    },
+    {
+      "id": "about_1",
+      "actual_id": 1,
+      "title": "About AANR Knowledge Hub",
+      "description": "",
+      "content": "<p><br></p>",
+      "type": "about",
+      "url": "/cmi/about/",
+      "created_at": "2025-06-27T08:34:36.835210+00:00",
+      "raw_text": "About AANR Knowledge Hub "
+    }
+  ],
+  "document_texts": [
+    "Aquaculture Best Practices Guide to sustainable fish farming and aquatic resource management  ",
+    "Rice Farming Techniques Modern rice farming methods for better yield and sustainability  ",
+    "What is RAISE-ABH? RAISE-ABH is the regional agri-business hub in Western Mindanao which started last October 2023 led by Dr. Norqueen T. Dumadaug, Faculty of the College of Agriculture in Western Mindanao State University.",
+    "What is RAISE Program? The RAISE Program or the Regional Agri-Aqua Innovation System Enhancement , which began in 2022, is the latest technology transfer platform of the DOST-PCAARRD. Its purpose is to foster collaboration between regional stakeholders and build a competitive agri-aqua innovation ecosystem.",
+    "About AANR Knowledge Hub "
+  ],
+  "statistics": {
+    "content_types": {
+      "resource": 2,
+      "faq": 2,
+      "about": 1
+    },
+    "total_text_size": 730,
+    "categories": {
+      "uncategorized": 5
+    }
+  }
+}

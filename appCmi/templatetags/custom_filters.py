@@ -8,11 +8,14 @@ register = template.Library()
 @register.filter
 def get_knowledge_title(value):
     try:
-        obj_id = int(str(value).split("(")[1].split(")")[0])
-        knowledge_resource = KnowledgeResources.objects.get(knowledge_id=obj_id)
-        return knowledge_resource.knowledge_title
+        if "(" in str(value) and ")" in str(value):
+            obj_id = int(str(value).split("(")[1].split(")")[0])
+            knowledge_resource = KnowledgeResources.objects.get(knowledge_id=obj_id)
+            return knowledge_resource.knowledge_title
+        else:
+            return str(value)  
     except (AttributeError, ValueError, KnowledgeResources.DoesNotExist):
-        return str(value)
+        return str(value)  
 
 
 @register.filter
