@@ -18407,3 +18407,9 @@ ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 [2025-07-08 13:42:12] Loading faiss.
 [2025-07-08 13:42:12] Successfully loaded faiss.
+[2025-07-08 14:11:36] Watching for file changes with StatReloader
+[2025-07-08 14:11:42] Loading faiss with AVX2 support.
+[2025-07-08 14:11:42] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-08 14:11:42] Loading faiss.
+[2025-07-08 14:11:42] Successfully loaded faiss.
