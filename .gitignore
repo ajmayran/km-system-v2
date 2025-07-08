@@ -5,3 +5,5 @@ docker-compose
 docker
 nginx
 venv
+__pycache__/
+*.pyc
