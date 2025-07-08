@@ -4,4 +4,3 @@ km-env
 docker-compose
 docker
 nginx
-*.log
