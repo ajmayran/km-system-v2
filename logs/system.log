@@ -18413,3 +18413,1540 @@ ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 [2025-07-08 14:11:42] Loading faiss.
 [2025-07-08 14:11:42] Successfully loaded faiss.
+[2025-07-08 15:10:35] Loading faiss with AVX2 support.
+[2025-07-08 15:10:35] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-08 15:10:35] Loading faiss.
+[2025-07-08 15:10:35] Successfully loaded faiss.
+[2025-07-08 15:11:40] Loading faiss with AVX2 support.
+[2025-07-08 15:11:40] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-08 15:11:40] Loading faiss.
+[2025-07-08 15:11:40] Successfully loaded faiss.
+[2025-07-08 15:11:53] Watching for file changes with StatReloader
+[2025-07-08 15:11:57] Loading faiss with AVX2 support.
+[2025-07-08 15:11:57] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-08 15:11:57] Loading faiss.
+[2025-07-08 15:11:57] Successfully loaded faiss.
+[2025-07-08 15:21:31] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-08 15:21:32] Use pytorch device: cpu
+[2025-07-08 15:21:32] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-08 15:21:33] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-08 15:21:33] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-08 22:29:52] Not Found: /favicon.ico
+[2025-07-08 22:37:54] C:\Users\rosem\Documents\AJ\km-system-v2\kmhub\settings.py changed, reloading.
+[2025-07-08 22:37:54] C:\Users\rosem\Documents\AJ\km-system-v2\kmhub\settings.py changed, reloading.
+[2025-07-08 22:38:08] Watching for file changes with StatReloader
+[2025-07-08 22:38:20] Loading faiss with AVX2 support.
+[2025-07-08 22:38:20] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-08 22:38:20] Loading faiss with AVX2 support.
+[2025-07-08 22:38:20] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-08 22:38:20] Loading faiss.
+[2025-07-08 22:38:20] Successfully loaded faiss.
+[2025-07-08 22:38:20] Successfully loaded faiss.
+[2025-07-08 22:39:42] C:\Users\rosem\Documents\AJ\km-system-v2\kmhub\settings.py changed, reloading.
+[2025-07-08 22:39:42] C:\Users\rosem\Documents\AJ\km-system-v2\kmhub\settings.py changed, reloading.
+[2025-07-08 22:43:32] Watching for file changes with StatReloader
+[2025-07-08 22:43:41] Loading faiss with AVX2 support.
+[2025-07-08 22:43:41] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-08 22:43:41] Loading faiss.
+[2025-07-08 22:43:41] Successfully loaded faiss.
+[2025-07-08 22:43:51] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-08 22:43:52] Use pytorch device: cpu
+[2025-07-08 22:43:52] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-08 22:43:53] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-08 22:43:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-08 23:43:35] C:\Users\rosem\Documents\AJ\km-system-v2\kmhub\settings.py changed, reloading.
+[2025-07-08 23:43:44] Watching for file changes with StatReloader
+[2025-07-08 23:43:52] Loading faiss with AVX2 support.
+[2025-07-08 23:43:52] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-08 23:43:52] Loading faiss.
+[2025-07-08 23:43:52] Successfully loaded faiss.
+[2025-07-08 23:43:56] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-08 23:43:58] Use pytorch device: cpu
+[2025-07-08 23:43:58] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-08 23:43:58] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-08 23:43:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-08 23:49:11] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 09:49:21] Watching for file changes with StatReloader
+[2025-07-09 09:49:30] Loading faiss with AVX2 support.
+[2025-07-09 09:49:30] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-09 09:49:30] Loading faiss.
+[2025-07-09 09:49:30] Successfully loaded faiss.
+[2025-07-09 09:49:38] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-09 09:49:38] Use pytorch device: cpu
+[2025-07-09 09:49:38] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-09 09:49:39] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-09 09:49:39] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-09 13:54:32] Not Found: /favicon.ico
+[2025-07-09 13:55:02] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:04] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:04] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:04] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:06] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:06] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:06] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:07] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:08] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:09] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 13:55:09] Internal Server Error: /cmis/faqs/36/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:20:19] C:\Users\rosem\Documents\AJ\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-09 14:20:26] Watching for file changes with StatReloader
+[2025-07-09 14:20:35] Loading faiss with AVX2 support.
+[2025-07-09 14:20:35] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-09 14:20:35] Loading faiss.
+[2025-07-09 14:20:35] Successfully loaded faiss.
+[2025-07-09 14:20:48] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-09 14:20:51] Use pytorch device: cpu
+[2025-07-09 14:20:51] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-09 14:20:51] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-09 14:20:51] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-09 14:21:41] Not Found: /favicon.ico
+[2025-07-09 14:22:11] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:13] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:14] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:14] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:14] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:25] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:25] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:25] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:26] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:26] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:26] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:28] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:28] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:28] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:22:42] Internal Server Error: /cmis/faqs/37/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:29:39] Not Found: /favicon.ico
+[2025-07-09 14:30:15] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:16] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:16] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:16] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:16] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:16] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:17] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:17] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:30] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:31] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:31] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:31] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:31] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:32] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:32] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:32] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:33] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:33] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:41] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:41] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:30:43] Not Found: /favicon.ico
+[2025-07-09 14:31:03] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:31:03] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:31:03] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:31:04] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:31:04] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:31:04] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:31:05] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:31:05] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:31:05] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 14:31:07] Internal Server Error: /cmis/faqs/38/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 15:11:27] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 15:11:29] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 15:11:34] Internal Server Error: /cmis/faqs/39/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 15:11:35] Internal Server Error: /cmis/faqs/39/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 15:11:36] Internal Server Error: /cmis/faqs/39/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 15:11:42] Internal Server Error: /cmis/faqs/39/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 15:12:30] Internal Server Error: /cmis/faqs/39/data/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-09 15:13:04] C:\Users\rosem\Documents\AJ\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-09 15:13:13] Watching for file changes with StatReloader
+[2025-07-09 15:13:22] Loading faiss with AVX2 support.
+[2025-07-09 15:13:22] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-09 15:13:22] Loading faiss.
+[2025-07-09 15:13:22] Successfully loaded faiss.
+[2025-07-09 15:13:23] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 15:13:25] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-09 15:13:25] Use pytorch device: cpu
+[2025-07-09 15:13:25] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-09 15:13:26] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-09 15:13:27] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-09 15:13:35] C:\Users\rosem\Documents\AJ\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-09 15:13:41] Watching for file changes with StatReloader
+[2025-07-09 15:13:47] Loading faiss with AVX2 support.
+[2025-07-09 15:13:47] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-09 15:13:47] Loading faiss.
+[2025-07-09 15:13:47] Successfully loaded faiss.
+[2025-07-09 15:14:04] C:\Users\rosem\Documents\AJ\km-system-v2\appCmi\views\cmi_faqs_view.py changed, reloading.
+[2025-07-09 15:14:06] Watching for file changes with StatReloader
+[2025-07-09 15:14:10] Loading faiss with AVX2 support.
+[2025-07-09 15:14:10] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-09 15:14:10] Loading faiss.
+[2025-07-09 15:14:10] Successfully loaded faiss.
+[2025-07-09 15:14:29] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-09 15:14:31] Use pytorch device: cpu
+[2025-07-09 15:14:31] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-09 15:14:32] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-09 15:14:32] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-09 15:16:06] Not Found: /favicon.ico
+[2025-07-09 15:42:23] Watching for file changes with StatReloader
+[2025-07-09 15:42:32] Loading faiss with AVX2 support.
+[2025-07-09 15:42:32] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-09 15:42:32] Loading faiss.
+[2025-07-09 15:42:32] Successfully loaded faiss.
+[2025-07-09 15:43:08] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-09 15:43:09] Use pytorch device: cpu
+[2025-07-09 15:43:09] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-09 15:43:10] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-09 15:43:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-09 15:53:33] Not Found: /.well-known/appspecific/com.chrome.devtools.json

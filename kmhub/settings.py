@@ -222,11 +222,16 @@ CKEDITOR_CONFIGS = {
             ['RemoveFormat', 'Source'],
             ['TextColor', 'BGColor'],
             ['Format', 'Font', 'FontSize'],
+            ['Table'],
         ],
         'height': 200,
         'width': '100%',
         'removePlugins': 'stylesheetparser',
         'allowedContent': True,
+        'extraPlugins': 'table, tabletools, tableresize, tableselection',
+        'table_tools':{
+            'toolbar': 'tablerow, tablecol, tableinsert, tabledelete',
+        },
     },
     'faq': {
         'toolbar': 'Custom',
@@ -237,14 +242,20 @@ CKEDITOR_CONFIGS = {
             ['Link', 'Unlink'],
             ['TextColor', 'BGColor'],
             ['Format', 'FontSize'],
+            ['Table'],
             ['RemoveFormat', 'Source'],
         ],
         'height': 250,
         'width': '100%',
         'removePlugins': 'stylesheetparser',
         'allowedContent': True,
-        'extraPlugins': 'justify',
+        'extraPlugins': 'justify,table,tabletools,tableresize,tableselection', 
         'contentsCss': ['/static/style/css/ckeditor-custom.css'],
+        'table_columnsResizeMode': 'nextCell',
+        'table_tools': {
+            'toolbar': 'tablerow,tablecol,tableinsert,tabledelete',
+        },
+        'contextmenu': 'tableProperties,tableCellProperties,tableRowInsertBefore,tableRowInsertAfter,tableRowDelete,tableColumnInsertBefore,tableColumnInsertAfter,tableColumnDelete',
     }
 }
 

@@ -191,7 +191,6 @@
                         <span class="posted-label">Posted by:</span>
                         <span class="posted-name">{{ faq.created_by.get_full_name|default:faq.created_by.username }}</span>
                         <span class="posted-date">• {{ faq.created_at|date:'F d, Y' }}</span>
-                         <!-- Admin-only View Count -->
                           <span class="view-count">
                           <i class="fas fa-eye"></i>
                             <span class="view-number" data-faq-id="{{ faq.faq_id }}">{{ faq.total_views }}</span> 
@@ -549,23 +548,32 @@
         {% if 'faq' in CKEDITOR_CONFIGS %}
           ...{{ CKEDITOR_CONFIGS.faq|safe }}
         {% else %}
-          toolbar: [
-            ['Format'],
-            ['Bold', 'Italic', 'Underline', 'Strike'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
-            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['TextColor', 'BGColor'],
-            ['FontSize'],
-            ['Table'],
-            ['Undo', 'Redo'],
-            ['RemoveFormat']
-          ],
-          height: 250,
-          removePlugins: 'resize',
-          allowedContent: true,
-          extraPlugins: 'justify,table',
-          format_tags: 'p;h1;h2;h3;h4;h5;h6'
+        toolbar: [
+          ['Format'],
+          ['Bold', 'Italic', 'Underline', 'Strike'],
+          ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+          ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+          ['Link', 'Unlink'],
+          ['TextColor', 'BGColor'],
+          ['FontSize'],
+          ['Table'],  
+          ['Undo', 'Redo'],
+          ['RemoveFormat', 'Source']
+        ],
+        height: 250,
+        removePlugins: 'resize',
+        allowedContent: true,
+        extraPlugins: 'justify,table,tabletools,tableresize,tableselection',
+        format_tags: 'p;h1;h2;h3;h4;h5;h6',
+        table_columnsResizeMode: 'nextCell',
+        table_fillEmptyRows: true,
+        contextmenu: 'tableProperties,tableCellProperties,tableRowInsertBefore,tableRowInsertAfter,tableRowDelete,tableColumnInsertBefore,tableColumnInsertAfter,tableColumnDelete',
+        startupMode: 'wysiwyg',
+        enterMode: CKEDITOR.ENTER_P,
+        shiftEnterMode: CKEDITOR.ENTER_BR,
+        table_tools: {
+          toolbar: 'tablerow,tablecol,tableinsert,tabledelete'
+        }
         {% endif %}
       });
 
@@ -590,23 +598,32 @@
         {% if 'faq' in CKEDITOR_CONFIGS %}
           ...{{ CKEDITOR_CONFIGS.faq|safe }}
         {% else %}
-          toolbar: [
-            ['Format'],
-            ['Bold', 'Italic', 'Underline', 'Strike'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
-            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['TextColor', 'BGColor'],
-            ['FontSize'],
-            ['Table'],
-            ['Undo', 'Redo'],
-            ['RemoveFormat']
-          ],
-          height: 250,
-          removePlugins: 'resize',
-          allowedContent: true,
-          extraPlugins: 'justify,table',
-          format_tags: 'p;h1;h2;h3;h4;h5;h6'
+        toolbar: [
+          ['Format'],
+          ['Bold', 'Italic', 'Underline', 'Strike'],
+          ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+          ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+          ['Link', 'Unlink'],
+          ['TextColor', 'BGColor'],
+          ['FontSize'],
+          ['Table'],  
+          ['Undo', 'Redo'],
+          ['RemoveFormat', 'Source']
+        ],
+        height: 250,
+        removePlugins: 'resize',
+        allowedContent: true,
+        extraPlugins: 'justify,table,tabletools,tableresize,tableselection',
+        format_tags: 'p;h1;h2;h3;h4;h5;h6',
+        table_columnsResizeMode: 'nextCell',
+        table_fillEmptyRows: true,
+        contextmenu: 'tableProperties,tableCellProperties,tableRowInsertBefore,tableRowInsertAfter,tableRowDelete,tableColumnInsertBefore,tableColumnInsertAfter,tableColumnDelete',
+        startupMode: 'wysiwyg',
+        enterMode: CKEDITOR.ENTER_P,
+        shiftEnterMode: CKEDITOR.ENTER_BR,
+        table_tools: {
+          toolbar: 'tablerow,tablecol,tableinsert,tabledelete'
+        }
         {% endif %}
       });
 
@@ -635,7 +652,7 @@
             title: 'Missing Information',
             text: 'Please fill in both question and answer fields.',
             confirmButtonText: 'OK'
-          });
+          }); 
           return;
         }
       });

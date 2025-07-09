@@ -794,7 +794,7 @@ function createImageModal(images, startIndex = 0, title = 'FAQ Images') {
             <div class="modal-dialog modal-xl modal-dialog-centered">
                 <div class="modal-content bg-transparent border-0">
                     <div class="modal-header border-0 pb-0">
-                        <h5 class="modal-title text-white">${title}</h5>
+
                         <button type="button" class="close text-white" onclick="closeImageModal()" style="font-size: 2rem; opacity: 0.8; background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
                             <span aria-hidden="true">&times;</span>
                         </button>

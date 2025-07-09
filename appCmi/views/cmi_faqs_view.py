@@ -60,6 +60,8 @@ def faqs_view(request):
     if request.user.is_authenticated:
         user_faqs_count = FAQ.objects.filter(created_by=request.user).count()
     
+    form = FAQForm() if request.user.is_authenticated else None
+
     context = {
         "title": "FAQs",
         "useful_links": useful_links,
@@ -315,7 +317,6 @@ def toggle_faq_reaction(request, faq_id):
             'error': str(e)
         })
     
-@user_access_required(["admin", "cmi"], error_type=404)
 def get_faq_data(request, faq_id):
     """Get FAQ data for editing (AJAX)"""
     try:
