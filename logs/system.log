@@ -19950,3 +19950,622 @@ ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 [2025-07-09 15:43:10] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
 [2025-07-09 15:43:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
 [2025-07-09 15:53:33] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:18:30] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:20:02] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:20:12] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:21:36] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:21:44] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:22:42] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:22:48] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:25:10] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:25:49] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:26:00] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:26:16] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:26:17] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:27:09] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:27:09] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:27:35] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:27:48] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:28:01] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:28:40] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:28:49] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:30:53] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:31:26] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:31:43] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-09 20:32:04] Not Found: /.well-known/appspecific/com.chrome.devtools.json
+[2025-07-10 11:42:38] Watching for file changes with StatReloader
+[2025-07-10 11:42:50] Loading faiss with AVX2 support.
+[2025-07-10 11:42:50] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 11:42:50] Loading faiss.
+[2025-07-10 11:42:50] Successfully loaded faiss.
+[2025-07-10 11:43:20] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 11:43:21] Backend wasn't recognised (``)
+[2025-07-10 11:43:21] Internal Server Error: /cmis/about-km/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\appCmi\views\cmi_about_view.py", line 24, in about
+    return render(request, "pages/cmi-about.html", context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 715, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'cmi_image' attribute has no file associated with it.
+[2025-07-10 11:43:21] Not Found: /favicon.ico
+[2025-07-10 11:43:21] Use pytorch device: cpu
+[2025-07-10 11:43:21] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 11:43:22] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 11:43:22] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-10 11:45:19] Backend wasn't recognised (``)
+[2025-07-10 11:45:20] Internal Server Error: /cmis/about-km/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\appCmi\views\cmi_about_view.py", line 24, in about
+    return render(request, "pages/cmi-about.html", context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 715, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'cmi_image' attribute has no file associated with it.
+[2025-07-10 11:45:20] Not Found: /favicon.ico
+[2025-07-10 11:45:30] Backend wasn't recognised (``)
+[2025-07-10 11:47:46] Loading faiss with AVX2 support.
+[2025-07-10 11:47:46] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 11:47:46] Loading faiss.
+[2025-07-10 11:47:46] Successfully loaded faiss.
+[2025-07-10 11:48:46] Backend wasn't recognised (``)
+[2025-07-10 11:49:37] Backend wasn't recognised (``)
+[2025-07-10 11:49:43] Not Found: /favicon.ico
+[2025-07-10 11:49:48] Backend wasn't recognised (``)
+[2025-07-10 11:50:15] Internal Server Error: /chatbot/chat/
+[2025-07-10 11:50:21] Not Found: /cmi/about/
+[2025-07-10 11:50:36] Internal Server Error: /chatbot/chat/
+[2025-07-10 11:53:39] Loading faiss with AVX2 support.
+[2025-07-10 11:53:39] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 11:53:39] Loading faiss.
+[2025-07-10 11:53:39] Successfully loaded faiss.
+[2025-07-10 11:53:51] Backend wasn't recognised (``)
+[2025-07-10 11:53:51] Backend wasn't recognised (``)
+[2025-07-10 11:53:51] Backend wasn't recognised (``)
+[2025-07-10 11:53:54] Not Found: /favicon.ico
+[2025-07-10 11:54:36] Backend wasn't recognised (``)
+[2025-07-10 11:57:32] Internal Server Error: /cmis/commodities/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\appCmi\views\cmi_commodities_view.py", line 37, in all_commodities
+    return render(request, "pages/cmi-commodities.html", context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 715, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'commodity_img' attribute has no file associated with it.
+[2025-07-10 12:02:56] Loading faiss with AVX2 support.
+[2025-07-10 12:02:56] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 12:02:56] Loading faiss.
+[2025-07-10 12:02:56] Successfully loaded faiss.
+[2025-07-10 12:39:34] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 12:39:41] Watching for file changes with StatReloader
+[2025-07-10 12:39:48] Loading faiss with AVX2 support.
+[2025-07-10 12:39:48] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 12:39:48] Loading faiss.
+[2025-07-10 12:39:48] Successfully loaded faiss.
+[2025-07-10 12:40:47] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 12:40:49] Watching for file changes with StatReloader
+[2025-07-10 12:40:54] Loading faiss with AVX2 support.
+[2025-07-10 12:40:54] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 12:40:54] Loading faiss.
+[2025-07-10 12:40:54] Successfully loaded faiss.
+[2025-07-10 12:41:48] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 12:41:50] Watching for file changes with StatReloader
+[2025-07-10 12:41:53] Loading faiss with AVX2 support.
+[2025-07-10 12:41:53] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 12:41:53] Loading faiss.
+[2025-07-10 12:41:53] Successfully loaded faiss.
+[2025-07-10 12:43:43] Backend wasn't recognised (``)
+[2025-07-10 12:43:44] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 12:43:45] Use pytorch device: cpu
+[2025-07-10 12:43:45] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 12:43:46] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 12:43:46] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-10 12:44:09] Backend wasn't recognised (``)
+[2025-07-10 12:44:09] Backend wasn't recognised (``)
+[2025-07-10 12:50:12] Watching for file changes with StatReloader
+[2025-07-10 12:50:21] Loading faiss with AVX2 support.
+[2025-07-10 12:50:21] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 12:50:21] Loading faiss.
+[2025-07-10 12:50:21] Successfully loaded faiss.
+[2025-07-10 12:50:53] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 12:50:54] Use pytorch device: cpu
+[2025-07-10 12:50:54] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 12:50:54] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 12:50:54] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-10 12:51:28] Backend wasn't recognised (``)
+[2025-07-10 12:52:12] Internal Server Error: /chatbot/chat/
+[2025-07-10 12:52:23] Internal Server Error: /chatbot/chat/
+[2025-07-10 12:52:24] Not Found: /cmi/about-km/
+[2025-07-10 12:52:24] Not Found: /favicon.ico
+[2025-07-10 12:54:18] Loading faiss with AVX2 support.
+[2025-07-10 12:54:18] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 12:54:18] Loading faiss.
+[2025-07-10 12:54:18] Successfully loaded faiss.
+[2025-07-10 12:55:44] Internal Server Error: /chatbot/chat/
+[2025-07-10 12:55:46] Internal Server Error: /chatbot/chat/
+[2025-07-10 12:55:47] Not Found: /cmi/about-km/
+[2025-07-10 12:58:43] Not Found: /cmi/about-km/
+[2025-07-10 12:58:47] Backend wasn't recognised (``)
+[2025-07-10 12:58:47] Backend wasn't recognised (``)
+[2025-07-10 12:59:04] Not Found: /cmi/about-km/
+[2025-07-10 12:59:04] Not Found: /favicon.ico
+[2025-07-10 12:59:28] Watching for file changes with StatReloader
+[2025-07-10 12:59:34] Loading faiss with AVX2 support.
+[2025-07-10 12:59:34] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 12:59:34] Loading faiss.
+[2025-07-10 12:59:34] Successfully loaded faiss.
+[2025-07-10 13:05:06] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 13:05:07] Use pytorch device: cpu
+[2025-07-10 13:05:07] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 13:05:08] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 13:05:08] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-10 13:06:02] Backend wasn't recognised (``)
+[2025-07-10 13:17:47] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 13:17:52] Watching for file changes with StatReloader
+[2025-07-10 13:17:58] Loading faiss with AVX2 support.
+[2025-07-10 13:17:58] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 13:17:58] Loading faiss.
+[2025-07-10 13:17:58] Successfully loaded faiss.
+[2025-07-10 13:18:28] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 13:18:29] Watching for file changes with StatReloader
+[2025-07-10 13:18:34] Loading faiss with AVX2 support.
+[2025-07-10 13:18:34] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 13:18:34] Loading faiss.
+[2025-07-10 13:18:34] Successfully loaded faiss.
+[2025-07-10 13:18:40] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 13:18:42] Watching for file changes with StatReloader
+[2025-07-10 13:18:45] Loading faiss with AVX2 support.
+[2025-07-10 13:18:45] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 13:18:45] Loading faiss.
+[2025-07-10 13:18:45] Successfully loaded faiss.
+[2025-07-10 13:19:23] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 13:19:25] Watching for file changes with StatReloader
+[2025-07-10 13:19:28] Loading faiss with AVX2 support.
+[2025-07-10 13:19:28] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 13:19:28] Loading faiss.
+[2025-07-10 13:19:28] Successfully loaded faiss.
+[2025-07-10 13:19:54] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 13:19:56] Watching for file changes with StatReloader
+[2025-07-10 13:20:01] Loading faiss with AVX2 support.
+[2025-07-10 13:20:01] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 13:20:01] Loading faiss.
+[2025-07-10 13:20:01] Successfully loaded faiss.
+[2025-07-10 13:21:05] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 13:21:07] Use pytorch device: cpu
+[2025-07-10 13:21:07] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 13:21:07] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 13:21:07] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-10 13:22:29] Backend wasn't recognised (``)
+[2025-07-10 13:22:46] Backend wasn't recognised (``)
+[2025-07-10 13:33:27] Backend wasn't recognised (``)
+[2025-07-10 13:38:11] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 13:38:17] Watching for file changes with StatReloader
+[2025-07-10 13:38:24] Loading faiss with AVX2 support.
+[2025-07-10 13:38:24] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 13:38:24] Loading faiss.
+[2025-07-10 13:38:24] Successfully loaded faiss.
+[2025-07-10 13:44:41] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 13:44:57] Watching for file changes with StatReloader
+[2025-07-10 13:45:27] Loading faiss with AVX2 support.
+[2025-07-10 13:45:27] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 13:45:27] Loading faiss.
+[2025-07-10 13:45:27] Successfully loaded faiss.
+[2025-07-10 13:45:50] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 13:45:54] Use pytorch device: cpu
+[2025-07-10 13:45:54] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 13:45:55] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 13:45:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-10 13:46:12] Backend wasn't recognised (``)
+[2025-07-10 13:50:01] Watching for file changes with StatReloader
+[2025-07-10 13:50:13] Loading faiss with AVX2 support.
+[2025-07-10 13:50:13] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 13:50:13] Loading faiss.
+[2025-07-10 13:50:13] Successfully loaded faiss.
+[2025-07-10 13:51:02] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 13:51:03] Use pytorch device: cpu
+[2025-07-10 13:51:03] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 13:51:03] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 13:51:04] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-10 14:13:58] Backend wasn't recognised (``)
+[2025-07-10 18:21:09] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 18:21:17] Watching for file changes with StatReloader
+[2025-07-10 18:21:27] Loading faiss with AVX2 support.
+[2025-07-10 18:21:27] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 18:21:27] Loading faiss.
+[2025-07-10 18:21:28] Successfully loaded faiss.
+[2025-07-10 18:33:53] Backend wasn't recognised (``)
+[2025-07-10 18:33:53] Backend wasn't recognised (``)
+[2025-07-10 18:33:55] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 18:33:57] Use pytorch device: cpu
+[2025-07-10 18:33:57] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 18:33:58] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 18:33:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-10 18:59:04] Not Found: /favicon.ico
+[2025-07-10 20:34:29] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 20:34:39] Watching for file changes with StatReloader
+[2025-07-10 20:34:49] Loading faiss with AVX2 support.
+[2025-07-10 20:34:49] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 20:34:49] Loading faiss.
+[2025-07-10 20:34:49] Successfully loaded faiss.
+[2025-07-10 23:52:33] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 23:52:34] Use pytorch device: cpu
+[2025-07-10 23:52:34] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 23:52:35] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 23:52:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-10 23:53:27] Backend wasn't recognised (``)
+[2025-07-10 23:57:19] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-10 23:57:22] Watching for file changes with StatReloader
+[2025-07-10 23:57:31] Loading faiss with AVX2 support.
+[2025-07-10 23:57:31] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-10 23:57:31] Loading faiss.
+[2025-07-10 23:57:32] Successfully loaded faiss.
+[2025-07-10 23:57:35] Backend wasn't recognised (``)
+[2025-07-10 23:57:36] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-10 23:57:37] Use pytorch device: cpu
+[2025-07-10 23:57:37] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-10 23:57:38] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-10 23:57:38] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-11 00:10:00] Backend wasn't recognised (``)
+[2025-07-11 00:10:11] Backend wasn't recognised (``)
+[2025-07-11 00:13:34] Backend wasn't recognised (``)
+[2025-07-11 00:13:41] Backend wasn't recognised (``)
+[2025-07-11 00:13:50] Backend wasn't recognised (``)
+[2025-07-11 00:14:22] Backend wasn't recognised (``)
+[2025-07-11 00:14:22] Backend wasn't recognised (``)
+[2025-07-11 00:20:30] Loading faiss with AVX2 support.
+[2025-07-11 00:20:30] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-11 00:20:30] Loading faiss.
+[2025-07-11 00:20:30] Successfully loaded faiss.
+[2025-07-11 00:21:40] Not Found: /favicon.ico
+[2025-07-11 00:27:11] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-11 00:27:13] Watching for file changes with StatReloader
+[2025-07-11 00:27:19] Loading faiss with AVX2 support.
+[2025-07-11 00:27:19] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-11 00:27:19] Loading faiss.
+[2025-07-11 00:27:19] Successfully loaded faiss.
+[2025-07-11 00:27:21] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-11 00:27:22] Use pytorch device: cpu
+[2025-07-11 00:27:22] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-11 00:27:23] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-11 00:27:23] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-12 08:36:34] Watching for file changes with StatReloader
+[2025-07-12 08:36:46] Loading faiss with AVX2 support.
+[2025-07-12 08:36:46] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-12 08:36:46] Loading faiss.
+[2025-07-12 08:36:46] Successfully loaded faiss.
+[2025-07-12 08:41:15] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-12 08:41:16] Use pytorch device: cpu
+[2025-07-12 08:41:16] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-12 08:41:17] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-12 08:41:17] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-12 08:41:46] Backend wasn't recognised (``)
+[2025-07-12 09:01:37] Backend wasn't recognised (``)
+[2025-07-12 09:02:10] Backend wasn't recognised (``)
+[2025-07-12 09:02:14] Not Found: /favicon.ico
+[2025-07-12 09:02:52] Backend wasn't recognised (``)
+[2025-07-12 09:03:14] Backend wasn't recognised (``)
+[2025-07-12 09:03:28] Backend wasn't recognised (``)
+[2025-07-12 09:04:05] Backend wasn't recognised (``)
+[2025-07-12 09:04:11] Backend wasn't recognised (``)
+[2025-07-12 09:04:16] Backend wasn't recognised (``)
+[2025-07-12 09:05:00] Backend wasn't recognised (``)
+[2025-07-12 09:05:18] Backend wasn't recognised (``)
+[2025-07-12 09:05:33] Backend wasn't recognised (``)
+[2025-07-12 09:06:01] Backend wasn't recognised (``)
+[2025-07-12 09:06:01] Backend wasn't recognised (``)
+[2025-07-12 09:06:25] Backend wasn't recognised (``)
+[2025-07-12 09:08:32] Backend wasn't recognised (``)
+[2025-07-12 09:08:37] Not Found: /favicon.ico
+[2025-07-12 10:56:10] Watching for file changes with StatReloader
+[2025-07-12 10:56:19] Loading faiss with AVX2 support.
+[2025-07-12 10:56:19] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-12 10:56:19] Loading faiss.
+[2025-07-12 10:56:19] Successfully loaded faiss.
+[2025-07-12 10:56:41] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-12 10:56:42] Use pytorch device: cpu
+[2025-07-12 10:56:42] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-12 10:56:43] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-12 10:56:43] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-12 12:51:32] Watching for file changes with StatReloader
+[2025-07-12 12:51:41] Loading faiss with AVX2 support.
+[2025-07-12 12:51:41] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-12 12:51:41] Loading faiss.
+[2025-07-12 12:51:42] Successfully loaded faiss.
+[2025-07-12 12:55:09] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-12 12:55:10] Use pytorch device: cpu
+[2025-07-12 12:55:10] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-12 12:55:10] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-12 12:55:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0

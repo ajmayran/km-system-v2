@@ -814,10 +814,108 @@ class IntelligentChatbotService:
         
         return suggestions[:3]
 
+
+    def _handle_about_query(self, query, intent_info):
+        """Handle ANY about queries with focused responses"""
+        query_lower = query.lower()
+        
+        # Get about content from knowledge base
+        cache = get_knowledge_base_cache()
+        knowledge_data = cache['knowledge_data']
+        
+        about_items = [item for item in knowledge_data if item['type'] == 'about']
+        
+        if not about_items:
+            return []
+        
+        # Look for specific keywords in query
+        about_keywords = [
+            'mission', 'vision', 'goal', 'objective', 'feature', 'purpose',
+            'history', 'background', 'overview', 'introduction', 'description',
+            'what is', 'who are', 'how does', 'aanr', 'knowledge hub', 'km hub'
+        ]
+        
+        # Find best matching about content and deduplicate
+        best_matches = []
+        seen_titles = set()  # Track titles to avoid duplicates
+        
+        for item in about_items:
+            # Skip if we've already seen this title
+            if item['title'] in seen_titles:
+                continue
+            
+            score = 0
+            
+            # Check if query keywords match item content
+            for keyword in about_keywords:
+                if keyword in query_lower:
+                    # Check title
+                    if keyword in item['title'].lower():
+                        score += 2
+                    # Check CONTENT instead of description for better matching
+                    content_sample = item.get('content', item.get('description', ''))
+                    if keyword in content_sample.lower():
+                        score += 1
+                    # Check section name if exists
+                    if 'section' in item and keyword in item['section'].lower():
+                        score += 3
+            
+            # General about queries
+            if any(word in query_lower for word in ['about', 'what is', 'tell me about']):
+                score += 1
+            
+            if score > 0:
+                # Use CONTENT field instead of description - this has the full text!
+                full_content = item.get('content', item.get('description', ''))
+                
+                # Remove HTML tags for cleaner display
+                import re
+                clean_content = re.sub(r'<[^>]+>', '', full_content)
+                clean_content = re.sub(r'\s+', ' ', clean_content).strip()
+                
+                # Create cleaned item with FULL CONTENT
+                cleaned_item = {
+                    **item,
+                    'description': clean_content  # Use the full content as description
+                }
+                
+                best_matches.append({
+                    'resource': cleaned_item,
+                    'similarity_score': min(score / 5.0, 1.0),
+                    'confidence': 'high' if score >= 3 else 'medium' if score >= 1 else 'low'
+                })
+                
+                # Add title to seen set to prevent duplicates
+                seen_titles.add(item['title'])
+        
+        # Sort by score and return only top match for focused response
+        best_matches.sort(key=lambda x: x['similarity_score'], reverse=True)
+        
+        # Return only the best match to avoid overwhelming response
+        return best_matches[:1] if best_matches else [{
+            'resource': {
+                **about_items[0],
+                'description': re.sub(r'<[^>]+>', '', about_items[0].get('content', about_items[0].get('description', '')))
+            },
+            'similarity_score': 0.5,
+            'confidence': 'medium'
+        }]
+
     def generate_intelligent_response(self, query):
         """ULTRA FAST main method for generating intelligent responses"""
         query = query.strip()
         query_lower = query.lower()
+
+        about_triggers = [
+            'about', 'what is', 'tell me about', 'mission', 'vision', 
+            'goal', 'objective', 'purpose', 'aanr', 'knowledge hub', 
+            'km hub', 'who are', 'how does', 'background', 'overview'
+        ]
+    
+        if any(trigger in query_lower for trigger in about_triggers):
+            matched_resources = self._handle_about_query(query, {'intent': 'about_query'})
+            if matched_resources:
+                return self._generate_about_response(query, matched_resources)
 
         # Check conversation cache first
         if query_lower in self._conversation_cache:
@@ -979,17 +1077,32 @@ class IntelligentChatbotService:
         best_match = matched_resources[0]
         resource = best_match['resource']
         
-        response_text = f"**{resource['title']}**\n\n{resource['description']}"
+        # Clean description if it's too long or contains HTML
+        description = resource['description']
+        if len(description) > 600:
+            description = description[:600] + "..."
+        
+        # Remove HTML tags for cleaner display
+        import re
+        description = re.sub(r'<[^>]+>', '', description)
+        description = re.sub(r'\s+', ' ', description).strip()
+        
+        response_text = f"**{resource['title']}**\n\n{description}"
         response_text += f"\n\n📋 **Source:** {resource['type'].title()}"
         
         if resource.get('author'):
             response_text += f" by {resource['author']}"
+        
+        # Only show clickable sources if there are multiple relevant resources
+        resources_to_show = []
+        if len(matched_resources) > 1:
+            resources_to_show = [resource]
             
         return {
             'response': response_text,
             'confidence': best_match['confidence'],
             'suggestions': self._generate_dynamic_suggestions(query, matched_resources),
-            'matched_resources': [resource],
+            'matched_resources': resources_to_show,  # Only show if multiple resources
             'ai_powered': True,
             'local_ai': True,
             'faiss_enhanced': True
@@ -1038,7 +1151,50 @@ class IntelligentChatbotService:
     def generate_response(self, query):
         """Main response generation entry point"""
         return self.generate_intelligent_response(query)
+    
+    def _generate_about_response(self, query, matched_resources):
+        """Generate focused response for about queries"""
+        if not matched_resources:
+            return {
+                'response': "I couldn't find specific information about that. However, I can tell you about the AANR Knowledge Hub - it's a comprehensive platform for agricultural, aquatic, and natural resources knowledge sharing.",
+                'confidence': 'low',
+                'suggestions': ['Tell me about AANR Knowledge Hub', 'What is the mission?', 'Show me key features'],
+                'matched_resources': []
+            }
+        
+        best_match = matched_resources[0]
+        resource = best_match['resource']
+        
+        # Build focused response
+        response_parts = []
+        
+        if resource.get('title'):
+            title = resource['title']
+            # Don't add redundant "About" prefix if title already contains it
+            if not title.lower().startswith('about'):
+                title = f"About {title}"
+            response_parts.append(f"**{title}**\n")
+        
+        # Add section header if available and different from title
+        if (resource.get('section') and resource['section'] and 
+            resource['section'] not in resource.get('title', '')):
+            response_parts.append(f"**{resource['section']}**\n")
+        
+        description = resource['description']
+        if description:
+            # Description is already cleaned in _handle_about_query, just use it directly
+            response_parts.append(description)
 
+        return {
+            'response': '\n'.join(response_parts),
+            'confidence': best_match['confidence'],
+            'suggestions': self._generate_dynamic_suggestions(query, [best_match]),
+            'matched_resources': [], 
+            'ai_powered': True,
+            'local_ai': True,
+            'about_content': True
+        }
+    
 def clear_knowledge_base_cache():
     """Clear the knowledge base cache to force reload"""
     global _knowledge_base_cache, _knowledge_base_last_updated, _faiss_index, _faiss_embeddings, _json_knowledge_cache

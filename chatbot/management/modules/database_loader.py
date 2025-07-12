@@ -501,7 +501,7 @@ def load_knowledge_base_from_db():
                     'description': forum.forum_question,
                     'type': 'forum',
                     'slug': forum.slug,
-                    'url': f'/cmi/forum/{forum.slug}/',
+                    'url': f'/cmis/forum/{forum.slug}/',
                     'author': author_name,
                     'commodities': forum_commodities,
                     'date_posted': forum.date_posted.strftime('%Y-%m-%d') if forum.date_posted else None,
@@ -577,7 +577,7 @@ def load_knowledge_base_from_db():
                         'answer': faq.answer,      
                         'type': 'faq',
                         'slug': faq.slug,
-                        'url': f'/cmi/faqs/{faq.slug}/', 
+                        'url': f'/cmis/faqs/{faq.slug}/', 
                         'created_by': creator_name,
                         'created_at': faq.created_at.strftime('%Y-%m-%d') if faq.created_at else None,
                         'total_reactions': faq.total_reactions(),
@@ -606,27 +606,52 @@ def load_knowledge_base_from_db():
 
             for about in about_contents:
                 try:
-                    import re
-                    clean_content = re.sub(r'<[^>]+>', ' ', about.content)
-                    clean_content = re.sub(r'\s+', ' ', clean_content).strip()
+                    # Extract sections from HTML content
+                    sections = parse_about_content(about.content)
                     
-                    combined_text = f"About AANR Knowledge Hub {clean_content}"
-
-                    knowledge_item = {
-                        'id': f"about_{about.about_id}",
-                        'actual_id': about.about_id,
-                        'title': "About AANR Knowledge Hub",
-                        'description': clean_content[:300] + "..." if len(clean_content) > 300 else clean_content,
-                        'content': about.content,  # Keep full HTML content
-                        'type': 'about',
-                        'url': '/cmi/about/',
-                        'created_at': about.date_created.isoformat() if about.date_created else None,
-                        'raw_text': combined_text
-                    }
-
-                    knowledge_data.append(knowledge_item)
-                    document_texts.append(combined_text)
-                    
+                    # If we found sections, create separate entries for each
+                    if sections:
+                        for section_name, section_content in sections.items():
+                            combined_text = f"About AANR Knowledge Hub {section_name} {section_content}"
+                            
+                            knowledge_item = {
+                                'id': f"about_{about.about_id}_{section_name.lower().replace(' ', '_')}",
+                                'actual_id': about.about_id,
+                                'title': f"About AANR Knowledge Hub - {section_name}",
+                                'description': section_content[:300] + "..." if len(section_content) > 300 else section_content,
+                                'content': section_content,
+                                'section': section_name,
+                                'type': 'about',
+                                'url': '/cmis/about-km/',
+                                'created_at': about.date_created.isoformat() if about.date_created else None,
+                                'raw_text': combined_text
+                            }
+                            
+                            knowledge_data.append(knowledge_item)
+                            document_texts.append(combined_text)
+                    else:
+                        # Fallback: create general about entry
+                        import re
+                        clean_content = re.sub(r'<[^>]+>', ' ', about.content)
+                        clean_content = re.sub(r'\s+', ' ', clean_content).strip()
+                        
+                        combined_text = f"About AANR Knowledge Hub {clean_content}"
+                        
+                        knowledge_item = {
+                            'id': f"about_{about.about_id}",
+                            'actual_id': about.about_id,
+                            'title': "About AANR Knowledge Hub",
+                            'description': clean_content[:300] + "..." if len(clean_content) > 300 else clean_content,
+                            'content': about.content,
+                            'type': 'about',
+                            'url': '/cmis/about-km/',
+                            'created_at': about.date_created.isoformat() if about.date_created else None,
+                            'raw_text': combined_text
+                        }
+                        
+                        knowledge_data.append(knowledge_item)
+                        document_texts.append(combined_text)
+                        
                 except Exception as e:
                     print(f"⚠️ Error processing About {about.about_id}: {e}")
                     continue
@@ -656,6 +681,45 @@ def load_knowledge_base_from_db():
         print(traceback.format_exc())
         return [], []
 
+def parse_about_content(html_content):
+    """Parse HTML content to extract ALL sections"""
+    try:
+        from bs4 import BeautifulSoup
+        
+        sections = {}
+        
+        # Try to parse with BeautifulSoup first
+        try:
+            soup = BeautifulSoup(html_content, 'html.parser')
+            
+            # Extract all content without truncation
+            for element in soup.find_all(['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'div']):
+                if element.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+                    section_title = element.get_text(strip=True)
+                    # Get all following content until next header
+                    content_parts = []
+                    for sibling in element.next_siblings:
+                        if sibling.name and sibling.name in ['h1', 'h2', 'h3', 'h4', 'h5', 'h6']:
+                            break
+                        if hasattr(sibling, 'get_text'):
+                            text = sibling.get_text(strip=True)
+                            if text:
+                                content_parts.append(text)
+                    
+                    if content_parts:
+                        # DON'T TRUNCATE - Keep full content
+                        sections[section_title] = ' '.join(content_parts)
+            
+        except ImportError:
+            # Fallback without BeautifulSoup
+            sections['About Content'] = html_content
+        
+        return sections
+        
+    except Exception as e:
+        print(f"Error parsing about content: {e}")
+        return {'About Content': html_content} 
+    
 def get_database_statistics():
     """Get statistics about the database content for reporting"""
     try:

@@ -115,21 +115,16 @@ body {
     font-size: 0.9rem;
     font-weight: 500;
     transition: var(--transition);
-    border: 2px solid transparent;
     white-space: nowrap;
-}
-
-.login-btn {
     background-color: var(--light);
     color: var(--primary);
-    border-color: var(--accent);
 }
 
-.login-btn:hover {
+.auth-btn:hover {
     background-color: #fff;
     color: var(--primary);
     text-decoration: none;
-    transform: translateY(-2px);
+    transform: translatex(3px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 

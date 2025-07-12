@@ -91,6 +91,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -108,7 +109,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
 .chatbot-title {
@@ -117,7 +118,7 @@
     gap: 8px;
     font-weight: 600;
     font-size: 16px;
-    flex: 1; 
+    flex: 1;
 }
 
 .chatbot-title i {
@@ -158,7 +159,8 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
-    min-height: 0; 
+    min-height: 0;
+    max-height: calc(600px - 200px);
 }
 
 .chatbot-message {
@@ -175,6 +177,7 @@
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -214,11 +217,16 @@
     line-height: 1.5;
     word-wrap: break-word;
     position: relative;
+    max-height: none !important;
+    height: auto !important;
+    overflow: visible !important;
 }
 
 .message-content div {
     margin: 0;
     line-height: 1.5;
+    max-height: none !important;
+    overflow: visible !important;
 }
 
 .message-content strong {
@@ -273,8 +281,16 @@
 }
 
 @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
 }
 
 .message-content .resource-link {
@@ -297,6 +313,7 @@
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -318,7 +335,8 @@
     background: #fafafa;
     max-height: 70px;
     overflow-y: auto;
-    flex-shrink: 0; /* Prevent shrinking */
+    flex-shrink: 0;
+    /* Prevent shrinking */
 }
 
 .suggestion-chip {
@@ -343,15 +361,24 @@
         opacity: 0;
         transform: scale(0.8) translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: scale(1) translateY(0);
     }
 }
 
-.suggestion-chip:nth-child(1) { animation-delay: 0.1s; }
-.suggestion-chip:nth-child(2) { animation-delay: 0.2s; }
-.suggestion-chip:nth-child(3) { animation-delay: 0.3s; }
+.suggestion-chip:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.suggestion-chip:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.suggestion-chip:nth-child(3) {
+    animation-delay: 0.3s;
+}
 
 .suggestion-chip:hover {
     background: #e8f0fe;
@@ -365,7 +392,8 @@
 .chatbot-input-container {
     padding: 15px;
     border-top: 1px solid #e8eaed;
-    flex-shrink: 0; /* Prevent shrinking */
+    flex-shrink: 0;
+    /* Prevent shrinking */
 }
 
 .chatbot-input-wrapper {
@@ -417,11 +445,11 @@
 
 /* Typing Indicator */
 .chatbot-typing {
-    display: none; 
+    display: none;
     align-items: flex-start;
     gap: 10px;
-    padding: 0 15px 10px 15px; 
-    margin-top: -5px; 
+    padding: 0 15px 10px 15px;
+    margin-top: -5px;
 }
 
 .chatbot-typing .typing-avatar {
@@ -463,9 +491,13 @@
 }
 
 @keyframes typing {
-    0%, 60%, 100% {
+
+    0%,
+    60%,
+    100% {
         transform: translateY(0);
     }
+
     30% {
         transform: translateY(-4px);
     }
@@ -504,11 +536,11 @@
         bottom: 80px;
         right: -10px;
     }
-    
+
     .message-content {
         max-width: 85%;
     }
-    
+
     .suggestion-chip {
         font-size: 10px;
         padding: 4px 8px;
@@ -523,7 +555,7 @@
         right: 2.5vw;
         bottom: 90px;
     }
-    
+
     .chatbot-toggle {
         bottom: 15px;
         right: 15px;
@@ -556,7 +588,7 @@
     color: #666;
     margin-top: 8px;
     padding: 4px 8px;
-    background: rgba(0,0,0,0.05);
+    background: rgba(0, 0, 0, 0.05);
     border-radius: 4px;
     font-family: monospace;
     opacity: 0;
@@ -564,8 +596,13 @@
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes fadeInUp {
@@ -573,6 +610,7 @@
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -635,12 +673,12 @@
     background: rgba(44, 110, 73, 0.1);
     border-color: rgba(44, 110, 73, 0.4);
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .clickable-source:active {
     transform: translateY(0);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Source response styling */
@@ -684,7 +722,14 @@
 }
 
 @keyframes blink {
-    0%, 50% { opacity: 1; }
-    51%, 100% { opacity: 0; }
-}
 
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+}

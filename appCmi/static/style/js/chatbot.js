@@ -459,24 +459,32 @@ class IntelligentChatbot {
 
         const content = document.createElement('div');
         content.className = 'message-content';
+        
+        // REMOVE ANY HEIGHT RESTRICTIONS
+        content.style.maxHeight = 'none';
+        content.style.height = 'auto';
 
-        const p = document.createElement('div'); // Changed from 'p' to 'div' for better formatting
-
-        // Convert newlines to HTML and preserve formatting
+        const p = document.createElement('div');
+        
+        // Ensure full content is displayed
         if (text.includes('\n') || text.includes('**') || text.includes('<br>') || text.includes('<strong>')) {
-            // Convert markdown-style formatting to HTML
             let formattedText = text
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold text
-                .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic text
-                .replace(/\n\n/g, '<br><br>') // Double line breaks
-                .replace(/\n/g, '<br>') // Single line breaks
-                .replace(/^(\s+)/gm, (match) => '&nbsp;'.repeat(match.length)); // Preserve indentation
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n\n/g, '<br><br>')
+                .replace(/\n/g, '<br>')
+                .replace(/^(\s+)/gm, (match) => '&nbsp;'.repeat(match.length));
 
             p.innerHTML = formattedText;
         } else {
             p.style.whiteSpace = 'pre-wrap';
             p.textContent = text;
         }
+
+        // ENSURE NO OVERFLOW HIDDEN
+        p.style.overflow = 'visible';
+        p.style.wordWrap = 'break-word';
+        p.style.maxHeight = 'none';
 
         content.appendChild(p);
 
@@ -488,6 +496,12 @@ class IntelligentChatbot {
         messageDiv.appendChild(content);
 
         this.messages.appendChild(messageDiv);
+        
+        // FORCE SCROLL TO BOTTOM TO SEE FULL CONTENT
+        setTimeout(() => {
+            this.scrollToBottom();
+        }, 100);
+        
         if (saveToStorage) {
             this.saveToStorage();
         }
