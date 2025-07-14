@@ -259,6 +259,11 @@ CKEDITOR_CONFIGS = {
     }
 }
 
+SPELL_CORRECTION_ENABLED = True
+SPELL_CORRECTION_LOG = os.path.join(BASE_DIR, 'logs', 'spell_correction.log')
+SPELL_CORRECTION_CACHE_SIZE = 1000
+SPELL_CORRECTION_SAVE_PATTERNS = True
+
 # Ensure logs directory exists
 LOGS_DIR = os.path.join(BASE_DIR, "logs")
 os.makedirs(LOGS_DIR, exist_ok=True)

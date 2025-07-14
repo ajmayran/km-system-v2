@@ -993,16 +993,14 @@ class IntelligentChatbot {
             };
 
             const icon = typeIcons[resource.type] || '📋';
-            const truncatedDesc = resource.description.length > 100
-                ? resource.description.substring(0, 100) + '...'
-                : resource.description;
+            const fullDesc = resource.description;
 
             card.innerHTML = `
                 <div style="display: flex; align-items: flex-start; gap: 8px;">
                     <span style="font-size: 1.2em; flex-shrink: 0;">${icon}</span>
                     <div style="flex: 1;">
                         <div style="font-weight: 600; color: #2d3748; margin-bottom: 4px; font-size: 0.9em;">${resource.title}</div>
-                        <div style="color: #666; font-size: 0.8em; line-height: 1.3;">${truncatedDesc}</div>
+                        <div style="color: #666; font-size: 0.8em; line-height: 1.3;">${fullDesc}</div>
                         <div style="color: #999; font-size: 0.7em; margin-top: 4px; text-transform: capitalize;">
                             ${resource.type}${resource.resource_type ? ` • ${resource.resource_type}` : ''}
                         </div>

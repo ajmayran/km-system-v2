@@ -12,6 +12,8 @@ from .services import chatbot_service
 from appAdmin.models import ResourceMetadata
 from .services import get_chatbot_service 
 from asgiref.sync import sync_to_async
+from .spell_corrector import get_spell_correction_stats
+from django.http import JsonResponse
 
 @csrf_exempt
 @require_POST
@@ -270,6 +272,14 @@ def debug_ai_status(request):
         ai_models = service._get_ai_models()
         nlp_model = service._get_nlp_model()
         
+        # Properly check FAISS availability
+        faiss_available = False
+        try:
+            import faiss
+            faiss_available = True
+        except ImportError:
+            faiss_available = False
+        
         ai_status = {
             'knowledge_items': len(knowledge_data) if knowledge_data else 0,
             'document_texts': len(document_texts) if document_texts else 0,
@@ -288,8 +298,34 @@ def debug_ai_status(request):
             'external_api_usage': False,
             'service_initialized': True,
             'vectorizer_ready': bool(service.vectorizer),
-            'faiss_available': hasattr(service, '_knowledge_base_cache') and service._knowledge_base_cache is not None
+            'faiss_available': faiss_available,  # ← Fixed FAISS detection
+            'faiss_functional': False  # We'll test this next
         }
+        
+        # Test FAISS functionality if available
+        if faiss_available:
+            try:
+                import faiss
+                import numpy as np
+                
+                # Test basic FAISS functionality
+                dimension = 128
+                index = faiss.IndexFlatL2(dimension)
+                
+                # Add a test vector
+                test_vector = np.random.random((1, dimension)).astype('float32')
+                index.add(test_vector)
+                
+                # Test search
+                query = np.random.random((1, dimension)).astype('float32')
+                distances, indices = index.search(query, 1)
+                
+                ai_status['faiss_functional'] = True
+                ai_status['faiss_version'] = getattr(faiss, '__version__', 'Version not available')
+                
+            except Exception as e:
+                ai_status['faiss_functional'] = False
+                ai_status['faiss_error'] = str(e)
         
         # Add cache information
         try:
@@ -456,3 +492,18 @@ async def chatbot_response_async(request):
             'response': 'Sorry, I encountered an error processing your request.',
             'error': str(e)
         }, status=500)
+    
+def spell_correction_stats(request):
+    """API endpoint to get spell correction statistics"""
+    if request.method == 'GET':
+        stats = get_spell_correction_stats()
+        return JsonResponse({
+            'success': True,
+            'stats': stats,
+            'message': 'Spell correction statistics retrieved successfully'
+        })
+    
+    return JsonResponse({
+        'success': False,
+        'message': 'Method not allowed'
+    }, status=405)

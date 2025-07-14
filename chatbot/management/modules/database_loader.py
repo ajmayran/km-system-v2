@@ -577,7 +577,7 @@ def load_knowledge_base_from_db():
                         'answer': faq.answer,      
                         'type': 'faq',
                         'slug': faq.slug,
-                        'url': f'/cmis/faqs/{faq.slug}/', 
+                        'url': f'/cmis/faqs/', 
                         'created_by': creator_name,
                         'created_at': faq.created_at.strftime('%Y-%m-%d') if faq.created_at else None,
                         'total_reactions': faq.total_reactions(),

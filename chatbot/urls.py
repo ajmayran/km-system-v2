@@ -9,4 +9,5 @@ urlpatterns = [
     path('refresh/', views.refresh_knowledge_base, name='refresh_knowledge_base'),
     path('debug-ai-status/', views.debug_ai_status, name='debug_ai_status'),
     path('session-history/', views.get_session_history, name='get_session_history'),
+    path('spell-stats/', views.spell_correction_stats, name='spell_correction_stats'),
 ]
