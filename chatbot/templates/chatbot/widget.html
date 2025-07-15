@@ -1,0 +1,39 @@
+<!-- Make sure this is in your chatbot template -->
+<div id="chatbot-container">
+    <div class="chatbot-toggle" id="chatbot-toggle">
+        <i class="fas fa-robot"></i>
+        <span class="chatbot-badge" id="chatbot-badge">AI</span>
+    </div>
+    
+    <div class="chatbot-widget" id="chatbot-widget">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <i class="fas fa-robot"></i>
+                AANR Knowledge Assistant
+            </div>
+            <div class="chatbot-actions">
+                <button class="chatbot-action-btn" id="chatbot-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="chatbot-messages" id="chatbot-messages">
+            <!-- Messages will be added here dynamically -->
+        </div>
+        
+        <!-- Typing indicator - should be INSIDE messages container -->
+        <div class="chatbot-typing" id="chatbot-typing"></div>
+        
+        <div class="chatbot-suggestions" id="chatbot-suggestions"></div>
+        
+        <div class="chatbot-input-container">
+            <div class="chatbot-input-wrapper">
+                <input type="text" id="chatbot-input" placeholder="Type your message..." autocomplete="off">
+                <button class="chatbot-send-btn" id="chatbot-send" disabled>
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

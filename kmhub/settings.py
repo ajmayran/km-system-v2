@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     "appErrors",  # app
     "embed_video",
     "corsheaders",
+    "ckeditor",  
+    'chatbot.apps.ChatbotConfig',
     # "django_extensions",
 ]
 
@@ -72,6 +74,17 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "kmhub.wsgi.application"
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'chatbot-cache',
+        'TIMEOUT': 3600,  
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,
+        }
+    }
+}
+
 # Database Configuration (MySQL)
 DATABASES = {
     "default": {
@@ -86,6 +99,7 @@ DATABASES = {
             "charset": "utf8mb4",
         },
         "TIME_ZONE": "UTC",
+        'CONN_MAX_AGE': 60,
     }
 }
 
@@ -193,6 +207,62 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_IMAGE_BACKEND = "pillow"
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['RemoveFormat', 'Source'],
+            ['TextColor', 'BGColor'],
+            ['Format', 'Font', 'FontSize'],
+            ['Table'],
+        ],
+        'height': 200,
+        'width': '100%',
+        'removePlugins': 'stylesheetparser',
+        'allowedContent': True,
+        'extraPlugins': 'table, tabletools, tableresize, tableselection',
+        'table_tools':{
+            'toolbar': 'tablerow, tablecol, tableinsert, tabledelete',
+        },
+    },
+    'faq': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+            ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['TextColor', 'BGColor'],
+            ['Format', 'FontSize'],
+            ['Table'],
+            ['RemoveFormat', 'Source'],
+        ],
+        'height': 250,
+        'width': '100%',
+        'removePlugins': 'stylesheetparser',
+        'allowedContent': True,
+        'extraPlugins': 'justify,table,tabletools,tableresize,tableselection', 
+        'contentsCss': ['/static/style/css/ckeditor-custom.css'],
+        'table_columnsResizeMode': 'nextCell',
+        'table_tools': {
+            'toolbar': 'tablerow,tablecol,tableinsert,tabledelete',
+        },
+        'contextmenu': 'tableProperties,tableCellProperties,tableRowInsertBefore,tableRowInsertAfter,tableRowDelete,tableColumnInsertBefore,tableColumnInsertAfter,tableColumnDelete',
+    }
+}
+
+SPELL_CORRECTION_ENABLED = True
+SPELL_CORRECTION_LOG = os.path.join(BASE_DIR, 'logs', 'spell_correction.log')
+SPELL_CORRECTION_CACHE_SIZE = 1000
+SPELL_CORRECTION_SAVE_PATTERNS = True
 
 # Ensure logs directory exists
 LOGS_DIR = os.path.join(BASE_DIR, "logs")

@@ -1,5 +1,6 @@
-from .models import Forum, ForumComment, MessageToAdmin
+from .models import Forum, ForumComment, MessageToAdmin, FAQ
 from django import forms
+from ckeditor.widgets import CKEditorWidget
 
 
 class ForumForm(forms.ModelForm):
@@ -73,3 +74,28 @@ class MessageToAdminForm(forms.ModelForm):
             instance.save()
 
         return instance
+    
+class FAQForm(forms.ModelForm):
+    class Meta:
+        model = FAQ
+        fields = ['question', 'answer']
+        widgets = {
+            'question': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter your question here...',
+                'required': True
+            }),
+            'answer': CKEditorWidget(config_name='faq'),
+        }
+        labels = {
+            'question': 'Question',
+            'answer': 'Answer',
+        }
+        help_texts = {
+            'answer': 'Provide a detailed answer with rich formatting'
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(FAQForm, self).__init__(*args, **kwargs)
+        self.fields['question'].required = True
+        self.fields['answer'].required = True

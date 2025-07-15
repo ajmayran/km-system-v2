@@ -1,0 +1,779 @@
+{% extends 'base/cmi-index.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}
+  FAQs | AANR Knowledge Hub
+{% endblock %}
+
+{% block stylesheet %}
+  <link rel="stylesheet" href="{% static 'style/css/cmi-faqs.css' %}" />
+  {{ form.media.css }}
+{% endblock %}
+
+{% block content %}
+  <!-- Hero Section -->
+  <section class="faq-hero-section">
+    <div class="hero-content-wrapper">
+      <h1 class="faq-hero-title">Frequently Asked Questions</h1>
+      <p class="faq-hero-subtitle">Find answers to common questions about the AANR Knowledge Hub</p>
+    </div>
+  </section>
+
+  <!-- Main FAQ Section with Sidebar Layout -->
+  <section class="faq-main-section">
+    <div class="container-fluid">
+      <div class="faq-layout">
+        <!-- Left Sidebar -->
+         
+        <aside class="faq-sidebar">
+          <div class="sidebar-content">
+            <!-- Filter Categories -->
+            <div class="filter-section">
+              <h3 class="filter-title">
+                <i class="fas fa-filter"></i>
+                Filter by Topic
+              </h3>
+
+              <!-- Topic Pills -->
+              <div class="topic-filters">
+                <div class="topic-pill {% if current_tag == 'all' %}active{% endif %}" data-tag="all">
+                  <i class="fas fa-th-large"></i>
+                  <span>All Topics</span>
+                  <span class="count">{{ total_faqs }}</span>
+                </div>
+                {% for tag in tags_with_counts %}
+                  <div class="topic-pill {% if current_tag == tag.slug %}active{% endif %}" data-tag="{{ tag.slug }}">
+                    <!-- Dynamic icon based on tag name -->
+                    {% if 'account' in tag.name.lower or 'management' in tag.name.lower %}
+                      <i class="fas fa-user-cog"></i>
+                    {% elif 'agriculture' in tag.name.lower or 'farming' in tag.name.lower %}
+                      <i class="fas fa-seedling"></i>
+                    {% elif 'aquatic' in tag.name.lower or 'fish' in tag.name.lower %}
+                      <i class="fas fa-fish"></i>
+                    {% elif 'community' in tag.name.lower or 'guideline' in tag.name.lower %}
+                      <i class="fas fa-users"></i>
+                    {% elif 'general' in tag.name.lower or 'information' in tag.name.lower %}
+                      <i class="fas fa-info-circle"></i>
+                    {% elif 'research' in tag.name.lower or 'method' in tag.name.lower %}
+                      <i class="fas fa-flask"></i>
+                    {% elif 'resource' in tag.name.lower or 'access' in tag.name.lower %}
+                      <i class="fas fa-folder-open"></i>
+                    {% elif 'training' in tag.name.lower or 'program' in tag.name.lower %}
+                      <i class="fas fa-graduation-cap"></i>
+                    {% elif 'technology' in tag.name.lower or 'innovation' in tag.name.lower %}
+                      <i class="fas fa-microchip"></i>
+                    {% elif 'policy' in tag.name.lower or 'regulation' in tag.name.lower %}
+                      <i class="fas fa-gavel"></i>
+                    {% elif 'environment' in tag.name.lower or 'climate' in tag.name.lower %}
+                      <i class="fas fa-leaf"></i>
+                    {% elif 'market' in tag.name.lower or 'economic' in tag.name.lower %}
+                      <i class="fas fa-chart-line"></i>
+                    {% elif 'safety' in tag.name.lower or 'health' in tag.name.lower %}
+                      <i class="fas fa-shield-alt"></i>
+                    {% elif 'equipment' in tag.name.lower or 'tool' in tag.name.lower %}
+                      <i class="fas fa-wrench"></i>
+                    {% else %}
+                      <i class="fas fa-tag"></i>
+                    {% endif %}
+                    <span>{{ tag.name }}</span>
+                    <span class="count">{{ tag.faq_count }}</span>
+                  </div>
+                {% endfor %}
+              </div>
+
+              <!-- Clear Filters -->
+              {% comment %} <div class="clear-filters">
+                <button class="clear-btn" id="faq-clear-filters">
+                  <i class="fas fa-undo"></i>
+                  Clear Filters
+                </button>
+              </div> {% endcomment %}
+            </div>
+
+            <!-- Statistics -->
+            <div class="sidebar-stats">
+              <div class="stat-item">
+                <div class="stat-number" id="total-faqs">{{ total_faqs }}</div>
+                <div class="stat-label">Total FAQs</div>
+              </div>
+              <div class="stat-item">
+                <div class="stat-number" id="showing-faqs">{{ faqs|length }}</div>
+                <div class="stat-label">Showing</div>
+              </div>
+            </div>
+
+            <!-- User FAQ Count Card -->
+            {% if user.is_authenticated and user.user_type in 'admin,cmi' %}                        
+              <div class="user-faq-card">
+                <div class="user-faq-header">
+                  <i class="fas fa-user-edit"></i>
+                  <span>My Contributions</span>
+                </div>
+                <div class="user-faq-count">
+                  <div class="user-faq-number" id="user-faqs">{{ user_faqs_count|default:0 }}</div>
+                  <div class="user-faq-label">FAQs Created</div>
+                </div>
+              </div>
+            {% endif %}
+
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="faq-content">
+          <!-- Main Search Section -->
+          <div class="main-search-section">
+            <form method="get" action="{% url 'appCmi:faqs' %}">
+              <div class="main-search-wrapper">
+                <div class="search-container">
+                  <span class="search-icon"><i class="fas fa-search"></i></span>
+                  <input type="text" name="q" id="faq-search-input" class="main-search-input" placeholder="Search through all FAQs..." value="{{ current_search }}" />
+                  <input type="hidden" name="tag" value="{{ current_tag }}" />
+                  {% if current_search %}
+                    <button class="search-clear-btn" type="button"><i class="fas fa-times"></i></button>
+                  {% endif %}
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Content Header -->
+          <div class="content-header">
+            <div class="header-info">
+              <h2 class="content-title">
+                <span id="current-filter">
+                  {% if current_tag == 'all' %}
+                    All Questions
+                  {% else %}
+                    {% for tag in tags_with_counts %}
+                      {% if tag.slug == current_tag %}{{ tag.name }}{% endif %}
+                    {% endfor %}
+                  {% endif %}
+                </span>
+              </h2>
+              <p class="content-subtitle">
+                {% if current_search %}
+                  Search results for "{{ current_search }}"
+                {% else %}
+                  Browse through our comprehensive FAQ collection
+                {% endif %}
+              </p>
+            </div>
+
+            <!-- Results Counter -->
+            <div class="results-info">
+              <span class="results-text">Showing <span id="visible-count">{{ faqs|length }}</span> of <span id="total-count">{{ total_faqs }}</span> questions</span>
+            </div>
+          </div>
+
+          <!-- FAQ Accordion -->
+          <div class="faq-accordion" id="faq-accordion">
+            {% for faq in faqs %}
+              <div class="faq-card {% if not faq.is_active %}faq-inactive{% endif %}" data-faq-id="{{ faq.faq_id }}">
+                <div class="card-header">
+                  <button class="btn-link faq-toggle-btn" 
+                          type="button" 
+                          data-toggle="collapse" 
+                          data-target="#faq{{ faq.faq_id }}" 
+                          aria-expanded="false" 
+                          aria-controls="faq{{ faq.faq_id }}"
+                          data-faq-id="{{ faq.faq_id }}">
+                    <div class="question-content">
+                      <div class="question-text">
+                          {{ faq.question|safe }}
+                        <!-- Admin-only inactive indicator -->
+                        {% if user.user_type == 'admin' and not faq.is_active %}
+                          <span class="inactive-badge">Hidden</span>
+                        {% endif %}
+                      </div>
+                      <div class="posted-by">
+                        <span class="posted-label">Posted by:</span>
+                        <span class="posted-name">{{ faq.created_by.get_full_name|default:faq.created_by.username }}</span>
+                        <span class="posted-date">• {{ faq.created_at|date:'F d, Y' }}</span>
+                          <span class="view-count">
+                          <i class="fas fa-eye"></i>
+                            <span class="view-number" data-faq-id="{{ faq.faq_id }}">{{ faq.total_views }}</span> 
+                            view{% if faq.total_views != 1 %}s{% endif %}
+                          </span>                     
+                      </div>
+                      <div class="institution-info">
+                        <span class="institution-label">Institution:</span>
+                        <span class="institution-name">{{ faq.created_by.institution }}</span>
+                      </div>  
+                      <!-- Admin-only Update Information -->
+                      {% if user.user_type == 'admin' %}
+                        <div class="updated-by admin-only">
+                          <span class="updated-label">Updated by:</span>
+                          <span class="updated-name">
+                            {% if faq.updated_by %}
+                              {{ faq.updated_by.get_full_name|default:faq.updated_by.username }}
+                            {% else %}
+                              <span class="no-update">No updates yet</span>
+                            {% endif %}
+                          </span>
+                          {% comment %} <span class="updated-date">
+                            {% if faq.updated_by %}
+                              • {{ faq.updated_at|date:'F d, Y' }}
+                            {% endif %}
+                          </span> {% endcomment %}
+                        </div>
+                        <div class="last-update admin-only">
+                          <span class="last-update-label">Last Date Updated:</span>
+                          <span class="last-update-date">{{ faq.updated_at|date:'F d, Y \a\t g:i A' }}</span>
+                        </div>
+                      {% endif %}
+                    </div>
+                    <div class="question-meta">
+                      <div class="question-tags">
+                        {% for assignment in faq.tag_assignments.all %}
+                          <span class="tag">{{ assignment.tag.name }}</span>
+                        {% endfor %}
+                      </div>
+                      <i class="fas fa-chevron-down toggle-icon"></i>
+                    </div>
+                  </button>
+                </div>
+
+                <div id="faq{{ faq.faq_id }}" class="collapse" data-parent="#faq-accordion">
+                  <div class="card-body">
+                    <!-- Answer and Images Container -->
+                    <div class="faq-content-container">
+                      <!-- Answer Section -->
+                      <div class="answer-section">
+                          <div class="answer-content">{{ faq.answer|safe }}</div>
+                      </div>
+
+                      <!-- Images Section -->
+                      {% if faq.images.exists %}
+                        <div class="faq-images-section">
+                          <div class="faq-images">
+                            <!-- Show only the first image with click functionality -->
+                            {% with first_image=faq.images.all|first %}
+                              <div class="image-item" data-faq-id="{{ faq.faq_id }}">
+                                <img src="{{ first_image.image.url }}" alt="FAQ Image" class="faq-image" />
+                                <div class="image-overlay">
+                                  <i class="fas fa-expand-alt"></i>
+                                </div>
+                                {% if faq.images.count > 1 %}
+                                  <div class="image-count-badge">
+                                    <i class="fas fa-layer-group"></i>
+                                    {{ faq.images.count }}
+                                  </div>
+                                {% endif %}
+                              </div>
+                            {% endwith %}
+                          </div>
+                        </div>
+                      {% endif %}
+                    </div>
+
+                    <!-- FAQ Actions -->
+                    <div class="faq-actions mt-3">
+                      <!-- Reaction Button -->
+                      <button class="btn btn-sm {% if user.is_authenticated and faq|is_reacted_by_user:user %}
+                          btn-primary
+                        {% else %}                       
+                          btn-outline-primary
+                        {% endif %} reaction-btn"
+                        data-faq-id="{{ faq.faq_id }}"
+                        data-user-reacted="{% if user.is_authenticated %}{{ faq|is_reacted_by_user:user }}{% else %}false{% endif %}">
+                        <i class="fas fa-thumbs-up"></i>
+                        <span class="reaction-count">{{ faq.total_reactions }}</span>
+                        <span class="reaction-text">Helpful</span>
+                      </button>
+
+                      <!-- CRUD Action Buttons -->
+                      {% if user.is_authenticated %}
+                        <div class="faq-actions-buttons">
+                          <!-- Edit Button (for FAQ owner or admin) -->
+                          {% if user == faq.created_by or user.user_type == 'admin' %}
+                            <button class="btn btn-sm btn-outline-warning edit-faq-btn" data-faq-id="{{ faq.faq_id }}" data-toggle="modal" data-target="#editFAQModal"><i class="fas fa-edit"></i> Edit</button>
+                          {% endif %}
+
+                          <!-- Delete Button (for FAQ owner or admin) -->
+                          {% if user == faq.created_by or user.user_type == 'admin' %}
+                            <button class="btn btn-sm btn-outline-danger delete-faq-btn" data-faq-id="{{ faq.faq_id }}" data-question="{{ faq.question|truncatechars:50 }}"><i class="fas fa-trash"></i> Delete</button>
+                          {% endif %}
+
+                          <!-- Toggle Status Button (admin only) -->
+                          {% if user.user_type == 'admin' %}
+                            <button class="btn btn-sm {% if faq.is_active %}
+                                btn-outline-secondary
+                              {% else %}
+                                btn-outline-success
+                              {% endif %} toggle-status-btn"
+                              data-faq-id="{{ faq.faq_id }}"
+                              data-current-status="{{ faq.is_active|yesno:'true,false' }}">
+                              <i class="fas {% if faq.is_active %}
+                                  fa-eye-slash
+                                {% else %}
+                                  fa-eye
+                                {% endif %}">
+
+                              </i>
+                              {% if faq.is_active %}
+                                Hide
+                              {% else %}
+                                Show
+                              {% endif %}
+                            </button>
+                          {% endif %}
+                        </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% empty %}
+              <div class="no-results show" id="faq-no-results">
+                <div class="no-results-icon">
+                  <i class="fas fa-search"></i>
+                </div>
+                <h3 class="no-results-title">No FAQs found</h3>
+                <p class="no-results-message">
+                  {% if current_search %}
+                    No results found for "{{ current_search }}". Try adjusting your search terms.
+                  {% else %}
+                    No FAQs are available at the moment.
+                  {% endif %}
+                </p>
+              </div>
+            {% endfor %}
+          </div>
+        </main>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Add FAQ Button -->
+  {% if user.is_authenticated and user.user_type in 'admin,cmi' %}
+    <button class="btn add-faq-btn" data-toggle="modal" data-target="#addFAQModal"><i class="fas fa-plus"></i> Add FAQ</button>
+  {% endif %}
+
+  <!-- Add FAQ Modal -->
+  {% if user.is_authenticated and user.user_type in 'admin,cmi' %}
+    <div class="modal fade" id="addFAQModal" tabindex="-1" role="dialog" aria-labelledby="addFAQModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-primary-custom text-white">
+            <h5 class="modal-title" id="addFAQModalLabel">Add New FAQ</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <form action="{% url 'appCmi:add-faq' %}" method="POST" enctype="multipart/form-data" id="addFAQForm">
+            {% csrf_token %}
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="question" class="font-weight-bold">Question <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="question" name="question" rows="3" required placeholder="Enter your question here..."></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="answer" class="font-weight-bold">Answer <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="answer" name="answer" rows="6" required placeholder="Provide a detailed answer..."></textarea>
+              </div>
+
+              <!-- Image Upload Section -->
+              <div class="form-group">
+                <label class="font-weight-bold">Images (Optional)</label>
+                <div class="image-upload-container">
+                  <div class="upload-area" id="imageUploadArea">
+                    <input type="file" id="faqImages" name="images" multiple accept="image/*" class="file-input" />
+                    <div class="upload-content">
+                      <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                      <p class="upload-text">Click to upload images or drag and drop</p>
+                      <p class="upload-hint">You can select multiple images</p>
+                    </div>
+                  </div>
+                  <div class="image-preview-container" id="imagePreviewContainer">
+                    <!-- Image previews will be added here -->
+                  </div>
+                </div>
+              </div>
+
+                  <div class="form-group">
+                <label class="font-weight-bold">Tags/Topics</label>
+                <div class="row">
+                  {% for tag in all_tags %}
+                    <div class="col-md-6 col-lg-4">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="tags" value="{{ tag.tag_id }}" id="tag{{ tag.tag_id }}" />
+                        <label class="form-check-label" for="tag{{ tag.tag_id }}">{{ tag.name }}</label>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  <!-- Add Others checkbox -->
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="othersTag" />
+                      <label class="form-check-label" for="othersTag">Others</label>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Custom tags input (hidden by default) -->
+                <div class="custom-tags-section" id="customTagsSection" style="display: none; margin-top: 15px;">
+                  <label class="font-weight-bold">Specify Custom Tags</label>
+                  <div class="custom-tags-input-container">
+                    <input type="text" class="form-control" id="customTagsInput" placeholder="Enter custom tags separated by commas" />
+                    <div class="form-text text-muted">Separate multiple tags with commas. Each tag will be created if it doesn't exist.</div>
+                  </div>
+                  <input type="hidden" name="custom_tags" id="customTagsHidden" />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-primary-custom">Add FAQ</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edit FAQ Modal -->
+    <div class="modal fade" id="editFAQModal" tabindex="-1" role="dialog" aria-labelledby="editFAQModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+          <div class="modal-header bg-warning-custom text-white">
+            <h5 class="modal-title" id="editFAQModalLabel">Edit FAQ</h5>
+            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          </div>
+          <form id="editFAQForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="edit_question" class="font-weight-bold">Question <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="edit_question" name="question" rows="3" required></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="edit_answer" class="font-weight-bold">Answer <span class="text-danger">*</span></label>
+                <textarea class="form-control" id="edit_answer" name="answer" rows="6" required></textarea>
+              </div>
+
+              <!-- Edit Image Upload Section -->
+              <div class="form-group">
+                <label class="font-weight-bold">Images</label>
+                <div class="existing-images" id="existingImages">
+                  <!-- Existing images will be loaded here -->
+                </div>
+                <div class="image-upload-container">
+                  <div class="upload-area" id="editImageUploadArea">
+                    <input type="file" id="editFaqImages" name="new_images" multiple accept="image/*" class="file-input" />
+                    <div class="upload-content">
+                      <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                      <p class="upload-text">Add more images</p>
+                      <p class="upload-hint">Click to upload or drag and drop</p>
+                    </div>
+                  </div>
+                  <div class="image-preview-container" id="editImagePreviewContainer">
+                    <!-- New image previews will be added here -->
+                  </div>
+                </div>
+              </div>
+
+                  <div class="form-group">
+                <label class="font-weight-bold">Tags/Topics</label>
+                <div class="row">
+                  {% for tag in all_tags %}
+                    <div class="col-md-6 col-lg-4">
+                      <div class="form-check">
+                        <input class="form-check-input edit-tag-checkbox" type="checkbox" name="tags" value="{{ tag.tag_id }}" id="edit_tag{{ tag.tag_id }}" />
+                        <label class="form-check-label" for="edit_tag{{ tag.tag_id }}">{{ tag.name }}</label>
+                      </div>
+                    </div>
+                  {% endfor %}
+                  <!-- Add Others checkbox for edit modal -->
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="editOthersTag" />
+                      <label class="form-check-label" for="editOthersTag">Others</label>
+                    </div>
+                  </div>
+                </div>
+                
+                <!-- Custom tags input for edit modal -->
+                <div class="custom-tags-section" id="editCustomTagsSection" style="display: none; margin-top: 15px;">
+                  <label class="font-weight-bold">Specify Custom Tags</label>
+                  <div class="custom-tags-input-container">
+                    <input type="text" class="form-control" id="editCustomTagsInput" placeholder="Enter custom tags separated by commas" />
+                    <div class="form-text text-muted">Separate multiple tags with commas. Each tag will be created if it doesn't exist.</div>
+                  </div>
+                  <input type="hidden" name="custom_tags" id="editCustomTagsHidden" />
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="submit" class="btn btn-warning-custom">Update FAQ</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}
+
+{% block script %}
+  {{ form.media }}
+  <script>
+    const faqsUrl = '{% url "appCmi:faqs" %}';
+    const toggleReactionUrl = '{% url "appCmi:toggle-faq-reaction" 0 %}';
+    const getFaqDataUrl = '{% url "appCmi:get-faq-data" 0 %}';
+    const editFaqUrl = '{% url "appCmi:edit-faq" 0 %}';
+    const deleteFaqUrl = '{% url "appCmi:delete-faq" 0 %}';
+    const toggleStatusUrl = '{% url "appCmi:toggle-faq-status" 0 %}';
+    const csrfToken = '{{ csrf_token }}';
+    const userAuthenticated = {{ user.is_authenticated|yesno:"true,false" }}; 
+
+    let answerEditor, editAnswerEditor, questionEditor, editQuestionEditor;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Initialize CKEditor for Question field in Add FAQ modal
+      questionEditor = CKEDITOR.replace('question', {
+        toolbar: [
+          ['Format'],
+          ['Bold', 'Italic'],
+          ['FontSize'],
+          ['Undo', 'Redo'],
+          ['RemoveFormat']
+        ],
+        height: 100,
+        removePlugins: 'resize',
+        allowedContent: true,
+        format_tags: 'p;h1;h2;h3;h4;h5;h6',
+        startupMode: 'wysiwyg'
+      });
+
+      // Initialize CKEditor for Answer field in Add FAQ modal
+      answerEditor = CKEDITOR.replace('answer', {
+        {% if 'faq' in CKEDITOR_CONFIGS %}
+          ...{{ CKEDITOR_CONFIGS.faq|safe }}
+        {% else %}
+        toolbar: [
+          ['Format'],
+          ['Bold', 'Italic', 'Underline', 'Strike'],
+          ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+          ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+          ['Link', 'Unlink'],
+          ['TextColor', 'BGColor'],
+          ['FontSize'],
+          ['Table'],  
+          ['Undo', 'Redo'],
+          ['RemoveFormat', 'Source']
+        ],
+        height: 250,
+        removePlugins: 'resize',
+        allowedContent: true,
+        extraPlugins: 'justify,table,tabletools,tableresize,tableselection',
+        format_tags: 'p;h1;h2;h3;h4;h5;h6',
+        table_columnsResizeMode: 'nextCell',
+        table_fillEmptyRows: true,
+        contextmenu: 'tableProperties,tableCellProperties,tableRowInsertBefore,tableRowInsertAfter,tableRowDelete,tableColumnInsertBefore,tableColumnInsertAfter,tableColumnDelete',
+        startupMode: 'wysiwyg',
+        enterMode: CKEDITOR.ENTER_P,
+        shiftEnterMode: CKEDITOR.ENTER_BR,
+        table_tools: {
+          toolbar: 'tablerow,tablecol,tableinsert,tabledelete'
+        }
+        {% endif %}
+      });
+
+      // Initialize CKEditor for Question field in Edit FAQ modal
+      editQuestionEditor = CKEDITOR.replace('edit_question', {
+        toolbar: [
+          ['Format'],
+          ['Bold', 'Italic'],
+          ['FontSize'],
+          ['Undo', 'Redo'],
+          ['RemoveFormat']
+        ],
+        height: 100,
+        removePlugins: 'resize',
+        allowedContent: true,
+        format_tags: 'p;h1;h2;h3;h4;h5;h6',
+        startupMode: 'wysiwyg'
+      });
+
+      // Initialize CKEditor for Answer field in Edit FAQ modal
+      editAnswerEditor = CKEDITOR.replace('edit_answer', {
+        {% if 'faq' in CKEDITOR_CONFIGS %}
+          ...{{ CKEDITOR_CONFIGS.faq|safe }}
+        {% else %}
+        toolbar: [
+          ['Format'],
+          ['Bold', 'Italic', 'Underline', 'Strike'],
+          ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent'],
+          ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+          ['Link', 'Unlink'],
+          ['TextColor', 'BGColor'],
+          ['FontSize'],
+          ['Table'],  
+          ['Undo', 'Redo'],
+          ['RemoveFormat', 'Source']
+        ],
+        height: 250,
+        removePlugins: 'resize',
+        allowedContent: true,
+        extraPlugins: 'justify,table,tabletools,tableresize,tableselection',
+        format_tags: 'p;h1;h2;h3;h4;h5;h6',
+        table_columnsResizeMode: 'nextCell',
+        table_fillEmptyRows: true,
+        contextmenu: 'tableProperties,tableCellProperties,tableRowInsertBefore,tableRowInsertAfter,tableRowDelete,tableColumnInsertBefore,tableColumnInsertAfter,tableColumnDelete',
+        startupMode: 'wysiwyg',
+        enterMode: CKEDITOR.ENTER_P,
+        shiftEnterMode: CKEDITOR.ENTER_BR,
+        table_tools: {
+          toolbar: 'tablerow,tablecol,tableinsert,tabledelete'
+        }
+        {% endif %}
+      });
+
+      // Handle Add FAQ form submission
+      document.getElementById('addFAQForm').addEventListener('submit', function(e) {
+        // Update CKEditor data before form submission
+        questionEditor.updateElement();
+        answerEditor.updateElement();
+        
+        // Get the actual content from CKEditor instances
+        const questionContent = questionEditor.getData().trim();
+        const answerContent = answerEditor.getData().trim();
+        
+        // Remove HTML tags and check for actual text content
+        const questionText = questionContent.replace(/<[^>]*>/g, '').trim();
+        const answerText = answerContent.replace(/<[^>]*>/g, '').trim();
+        
+        // Also check if content is just empty paragraphs or whitespace
+        const isQuestionEmpty = !questionText || questionText === '' || questionContent === '<p>&nbsp;</p>' || questionContent === '<p></p>';
+        const isAnswerEmpty = !answerText || answerText === '' || answerContent === '<p>&nbsp;</p>' || answerContent === '<p></p>';
+        
+        if (isQuestionEmpty || isAnswerEmpty) {
+          e.preventDefault();
+          Swal.fire({
+            icon: 'warning',
+            title: 'Missing Information',
+            text: 'Please fill in both question and answer fields.',
+            confirmButtonText: 'OK'
+          }); 
+          return;
+        }
+      });
+
+      // Handle Edit FAQ form
+           document.getElementById('editFAQForm').addEventListener('submit', function(e) {
+        editQuestionEditor.updateElement();
+        editAnswerEditor.updateElement();
+        
+        // Get the actual content from CKEditor instances
+        const questionContent = editQuestionEditor.getData().trim();
+        const answerContent = editAnswerEditor.getData().trim();
+        
+        // Remove HTML tags and check for actual text content
+        const questionText = questionContent.replace(/<[^>]*>/g, '').trim();
+        const answerText = answerContent.replace(/<[^>]*>/g, '').trim();
+        
+        // Also check if content is just empty paragraphs or whitespace
+        const isQuestionEmpty = !questionText || questionText === '' || questionContent === '<p>&nbsp;</p>' || questionContent === '<p></p>';
+        const isAnswerEmpty = !answerText || answerText === '' || answerContent === '<p>&nbsp;</p>' || answerContent === '<p></p>';
+        
+        if (isQuestionEmpty || isAnswerEmpty) {
+          e.preventDefault();
+          Swal.fire({
+            icon: 'warning',
+            title: 'Missing Information',
+            text: 'Please fill in both question and answer fields.',
+            confirmButtonText: 'OK'
+          });
+          return;
+        }
+      });
+    });
+
+    // Reset editors when modals are closed
+    $('#addFAQModal').on('hidden.bs.modal', function () {
+      if (questionEditor) {
+        questionEditor.setData('');
+      }
+      if (answerEditor) {
+        answerEditor.setData('');
+      }
+      document.getElementById('addFAQForm').reset();
+    });
+
+    $('#editFAQModal').on('hidden.bs.modal', function () {
+      if (editQuestionEditor) {
+        editQuestionEditor.setData('');
+      }
+      if (editAnswerEditor) {
+        editAnswerEditor.setData('');
+      }
+    });
+
+    // Function to populate edit modal
+    function populateEditModal(data, faqId) {
+      // Set the question in CKEditor
+      if (editQuestionEditor) {
+        editQuestionEditor.setData(data.question);
+      }
+      
+      // Set the answer in CKEditor
+      if (editAnswerEditor) {
+        editAnswerEditor.setData(data.answer);
+      }
+      
+      document.getElementById('editFAQForm').action = editFaqUrl.replace('0', faqId);
+      
+      // Update checkboxes
+      document.querySelectorAll('.edit-tag-checkbox').forEach(checkbox => {
+        checkbox.checked = data.tag_ids.includes(parseInt(checkbox.value));
+      });
+
+      // Handle existing images
+      populateExistingImages(data.images);
+    }
+  </script>
+
+  <!-- Include the FAQ JavaScript file -->
+  <script src="{% static 'style/js/cmi-faqs.js' %}"></script>
+  {% if messages %}
+    {% for message in messages %}
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          {% if message.tags == 'success' %}
+            Swal.fire({
+              icon: 'success',
+              title: 'Success!',
+              text: '{{ message|escapejs }}',
+              timer: 3000,
+              showConfirmButton: false,
+              toast: true,
+              position: 'top-end'
+            });
+          {% elif message.tags == 'error' %}
+            Swal.fire({
+              icon: 'error',
+              title: 'Error!',
+              text: '{{ message|escapejs }}',
+              confirmButtonText: 'OK'
+            });
+          {% elif message.tags == 'warning' %}
+            Swal.fire({
+              icon: 'warning',
+              title: 'Warning!',
+              text: '{{ message|escapejs }}',
+              confirmButtonText: 'OK'
+            });
+          {% elif message.tags == 'info' %}
+            Swal.fire({
+              icon: 'info',
+              title: 'Information',
+              text: '{{ message|escapejs }}',
+              confirmButtonText: 'OK'
+            });
+          {% endif %}
+        });
+      </script>
+    {% endfor %}
+  {% endif %}
+{% endblock %}

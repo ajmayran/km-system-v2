@@ -79,7 +79,50 @@
           </div>
         </div>
       </div>
+      
+      <!-- FAQs Below -->
+      <div class="faqs-container" data-aos="fade-up" data-aos-delay="400">
+        <div class="faqs-layout">
+          <!-- Left side - FAQ Feature Card (Updated to match other cards) -->
+          <div class="faq-feature-card feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="feature-content">
+              <h3 class="feature-title">Frequently Asked Questions</h3>
+              <p class="feature-description">Find quick answers to common questions about our platform and services.</p>
+              <a href="{% url 'appCmi:faqs' %}" class="feature-link">View All FAQs <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+
+          <!-- Right side - FAQ Questions -->
+          <div class="faqs-questions-panel">
+            <h4 class="faqs-panel-title">Most Viewed Frequently Asked Questions</h4>
+            <div class="faqs-list">
+              {% for faq in top_faqs %}
+                <div class="faq-item" data-faq-id="{{ faq.faq_id }}">
+                  <div class="faq-question-text">{{ faq.question|safe }}</div>
+                  <div class="faq-answer-text">{{ faq.answer|safe }}</div>
+                  <!-- Add counts below the answer -->
+                  <div class="faq-stats">
+                    <div class="faq-stat-item">
+                      <i class="fas fa-eye"></i>
+                      <span class="stat-count">{{ faq.total_view_count }}</span>
+                    </div>
+                    <div class="faq-stat-item">
+                      <i class="fas fa-thumbs-up"></i>
+                      <span class="stat-count">{{ faq.total_helpful_count }}</span>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
+
+
 
     <!-- Stats Section -->
     <section class="stats-section">

@@ -138,3 +138,29 @@ document.addEventListener('DOMContentLoaded', function() {
       fadeObserver.observe(element);
     });
   });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const faqItems = document.querySelectorAll('.faq-item');
+
+  faqItems.forEach(item => {
+    item.addEventListener('click', function () {
+      const isExpanded = item.classList.contains('expanded');
+
+      // Collapse all items
+      faqItems.forEach(faq => {
+        faq.classList.remove('expanded');
+        faq.classList.remove('hidden');
+      });
+
+      if (!isExpanded) {
+        // Expand the clicked item and hide others
+        item.classList.add('expanded');
+        faqItems.forEach(faq => {
+          if (faq !== item) {
+            faq.classList.add('hidden');
+          }
+        });
+      }
+    });
+  });
+});

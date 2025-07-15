@@ -2,20 +2,31 @@ from django.shortcuts import render
 from utils.get_models import get_active_models
 from utils.user_control import user_access_required
 from utils.search_function import find_similar_resources
+from appCmi.models import FAQ
+from django.db.models import Count
 
 
-# Create your views here.
-@user_access_required(["admin", "cmi"], error_type=404)
+
 def home(request):
     models = get_active_models()  # Fetch active models
     useful_links = models.get("useful_links", [])
     commodities = models.get("commodities", [])
     knowledge_resources = models.get("knowledge_resources", [])
 
+    top_faqs = FAQ.objects.filter(is_active=True).annotate(
+        view_count=Count('views'),
+        reaction_count=Count('reactions')
+    ).order_by('-view_count')[:4]
+
+    for faq in top_faqs:
+        faq.total_helpful_count = faq.total_reactions() 
+        faq.total_view_count = faq.total_views()
+
     context = {
         "useful_links": useful_links,
         "commodities": commodities,
         "knowledge_resources": knowledge_resources,
+        "top_faqs": top_faqs, 
     }
     return render(request, "pages/home.html", context)
 

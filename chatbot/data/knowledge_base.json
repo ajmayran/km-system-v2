@@ -1,0 +1,197 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "generated_at": "2025-07-14T11:19:28.764193",
+    "total_items": 11,
+    "document_count": 11,
+    "source": "database_export",
+    "generator": "build_knowledge_base_command",
+    "database_stats": {
+      "resources": 2,
+      "knowledge_resources": 0,
+      "forums": 0,
+      "faqs": 3,
+      "total_approved": 5,
+      "last_updated": "2025-06-28T02:33:05.724587+00:00",
+      "errors": []
+    }
+  },
+  "knowledge_data": [
+    {
+      "id": "resource_2",
+      "actual_id": 2,
+      "title": "Aquaculture Best Practices",
+      "description": "Guide to sustainable fish farming and aquatic resource management",
+      "type": "resource",
+      "resource_type": "publication",
+      "slug": "v6vBylEAIS9H",
+      "url": "/cmis/knowledge-resources/post/v6vBylEAIS9H/",
+      "tags": [],
+      "commodities": [],
+      "created_at": "2025-06-28T02:33:05.724587+00:00",
+      "is_featured": false,
+      "raw_text": "Aquaculture Best Practices Guide to sustainable fish farming and aquatic resource management  "
+    },
+    {
+      "id": "resource_1",
+      "actual_id": 1,
+      "title": "Rice Farming Techniques",
+      "description": "Modern rice farming methods for better yield and sustainability",
+      "type": "resource",
+      "resource_type": "technology",
+      "slug": "aLekTy8UaURC",
+      "url": "/cmis/knowledge-resources/post/aLekTy8UaURC/",
+      "tags": [],
+      "commodities": [],
+      "created_at": "2025-06-28T02:32:58.886936+00:00",
+      "is_featured": false,
+      "raw_text": "Rice Farming Techniques Modern rice farming methods for better yield and sustainability  "
+    },
+    {
+      "id": "faq_41",
+      "actual_id": 41,
+      "title": "<p>asdas</p>",
+      "description": "<p>asdasd</p>",
+      "question": "<p>asdas</p>",
+      "answer": "<p>asdasd</p>",
+      "type": "faq",
+      "slug": "F8U7mY8fkaDU",
+      "url": "/cmis/faqs/",
+      "created_by": "CMI User",
+      "created_at": "2025-07-12",
+      "total_reactions": 0,
+      "anonymous_reactions": 0,
+      "is_active": true,
+      "raw_text": "<p>asdas</p> <p>asdasd</p>"
+    },
+    {
+      "id": "faq_15",
+      "actual_id": 15,
+      "title": "What is RAISE-ABH?",
+      "description": "RAISE-ABH is the regional agri-business hub in Western Mindanao which started last October 2023 led by Dr. Norqueen T. Dumadaug, Faculty of the College of Agriculture in Western Mindanao State University.",
+      "question": "What is RAISE-ABH?",
+      "answer": "RAISE-ABH is the regional agri-business hub in Western Mindanao which started last October 2023 led by Dr. Norqueen T. Dumadaug, Faculty of the College of Agriculture in Western Mindanao State University.",
+      "type": "faq",
+      "slug": "Mowdfun6x0vG",
+      "url": "/cmis/faqs/",
+      "created_by": "CMI User",
+      "created_at": "2025-06-23",
+      "total_reactions": 2,
+      "anonymous_reactions": 0,
+      "is_active": true,
+      "raw_text": "What is RAISE-ABH? RAISE-ABH is the regional agri-business hub in Western Mindanao which started last October 2023 led by Dr. Norqueen T. Dumadaug, Faculty of the College of Agriculture in Western Mindanao State University."
+    },
+    {
+      "id": "faq_14",
+      "actual_id": 14,
+      "title": "What is RAISE Program?",
+      "description": "The RAISE Program or the Regional Agri-Aqua Innovation System Enhancement , which began in 2022, is the latest technology transfer platform of the DOST-PCAARRD. Its purpose is to foster collaboration between regional stakeholders and build a competitive agri-aqua innovation ecosystem.",
+      "question": "What is RAISE Program?",
+      "answer": "The RAISE Program or the Regional Agri-Aqua Innovation System Enhancement , which began in 2022, is the latest technology transfer platform of the DOST-PCAARRD. Its purpose is to foster collaboration between regional stakeholders and build a competitive agri-aqua innovation ecosystem.",
+      "type": "faq",
+      "slug": "mbTbf6NDJv2S",
+      "url": "/cmis/faqs/",
+      "created_by": "CMI User",
+      "created_at": "2025-06-23",
+      "total_reactions": 2,
+      "anonymous_reactions": 1,
+      "is_active": true,
+      "raw_text": "What is RAISE Program? The RAISE Program or the Regional Agri-Aqua Innovation System Enhancement , which began in 2022, is the latest technology transfer platform of the DOST-PCAARRD. Its purpose is to foster collaboration between regional stakeholders and build a competitive agri-aqua innovation ecosystem."
+    },
+    {
+      "id": "about_1",
+      "actual_id": 1,
+      "title": "About AANR Knowledge Hub",
+      "description": "",
+      "content": "<p><br></p>",
+      "type": "about",
+      "url": "/cmis/about-km/",
+      "created_at": "2025-06-27T08:34:36.835210+00:00",
+      "raw_text": "About AANR Knowledge Hub "
+    },
+    {
+      "id": "about_2_about_aanr_knowledge_management_hub",
+      "actual_id": 2,
+      "title": "About AANR Knowledge Hub - About AANR Knowledge Management Hub",
+      "description": "The AANR Knowledge Management Hub serves as the central repository for agricultural knowledge, research, and resources in the Philippines. Our mission is to promote sustainable agriculture through knowledge sharing, innovation, and collaboration among farmers, researchers, and agricultural professio...",
+      "content": "The AANR Knowledge Management Hub serves as the central repository for agricultural knowledge, research, and resources in the Philippines. Our mission is to promote sustainable agriculture through knowledge sharing, innovation, and collaboration among farmers, researchers, and agricultural professionals.",
+      "section": "About AANR Knowledge Management Hub",
+      "type": "about",
+      "url": "/cmis/about-km/",
+      "created_at": "2024-01-01T00:00:00+00:00",
+      "raw_text": "About AANR Knowledge Hub About AANR Knowledge Management Hub The AANR Knowledge Management Hub serves as the central repository for agricultural knowledge, research, and resources in the Philippines. Our mission is to promote sustainable agriculture through knowledge sharing, innovation, and collaboration among farmers, researchers, and agricultural professionals."
+    },
+    {
+      "id": "about_2_our_mission",
+      "actual_id": 2,
+      "title": "About AANR Knowledge Hub - Our Mission",
+      "description": "To accelerate agricultural development in the Philippines by providing accessible, reliable, and up-to-date agricultural information and technologies to farmers, researchers, and stakeholders.",
+      "content": "To accelerate agricultural development in the Philippines by providing accessible, reliable, and up-to-date agricultural information and technologies to farmers, researchers, and stakeholders.",
+      "section": "Our Mission",
+      "type": "about",
+      "url": "/cmis/about-km/",
+      "created_at": "2024-01-01T00:00:00+00:00",
+      "raw_text": "About AANR Knowledge Hub Our Mission To accelerate agricultural development in the Philippines by providing accessible, reliable, and up-to-date agricultural information and technologies to farmers, researchers, and stakeholders."
+    },
+    {
+      "id": "about_2_our_vision",
+      "actual_id": 2,
+      "title": "About AANR Knowledge Hub - Our Vision",
+      "description": "A thriving agricultural sector powered by knowledge, innovation, and sustainable practices that ensures food security and rural prosperity for all Filipinos.",
+      "content": "A thriving agricultural sector powered by knowledge, innovation, and sustainable practices that ensures food security and rural prosperity for all Filipinos.",
+      "section": "Our Vision",
+      "type": "about",
+      "url": "/cmis/about-km/",
+      "created_at": "2024-01-01T00:00:00+00:00",
+      "raw_text": "About AANR Knowledge Hub Our Vision A thriving agricultural sector powered by knowledge, innovation, and sustainable practices that ensures food security and rural prosperity for all Filipinos."
+    },
+    {
+      "id": "about_2_key_features",
+      "actual_id": 2,
+      "title": "About AANR Knowledge Hub - Key Features",
+      "description": "Comprehensive agricultural knowledge repositoryResearch publications and technical documentsTraining materials and educational resourcesMarket information and price monitoringTechnology transfer and innovation showcaseCommunity forums and expert discussions",
+      "content": "Comprehensive agricultural knowledge repositoryResearch publications and technical documentsTraining materials and educational resourcesMarket information and price monitoringTechnology transfer and innovation showcaseCommunity forums and expert discussions",
+      "section": "Key Features",
+      "type": "about",
+      "url": "/cmis/about-km/",
+      "created_at": "2024-01-01T00:00:00+00:00",
+      "raw_text": "About AANR Knowledge Hub Key Features Comprehensive agricultural knowledge repositoryResearch publications and technical documentsTraining materials and educational resourcesMarket information and price monitoringTechnology transfer and innovation showcaseCommunity forums and expert discussions"
+    },
+    {
+      "id": "about_2_partnership_network",
+      "actual_id": 2,
+      "title": "About AANR Knowledge Hub - Partnership Network",
+      "description": "We collaborate with leading agricultural institutions, research centers, and universities across the Philippines to ensure our knowledge base remains current and relevant to the needs of our farming communities.",
+      "content": "We collaborate with leading agricultural institutions, research centers, and universities across the Philippines to ensure our knowledge base remains current and relevant to the needs of our farming communities.",
+      "section": "Partnership Network",
+      "type": "about",
+      "url": "/cmis/about-km/",
+      "created_at": "2024-01-01T00:00:00+00:00",
+      "raw_text": "About AANR Knowledge Hub Partnership Network We collaborate with leading agricultural institutions, research centers, and universities across the Philippines to ensure our knowledge base remains current and relevant to the needs of our farming communities."
+    }
+  ],
+  "document_texts": [
+    "Aquaculture Best Practices Guide to sustainable fish farming and aquatic resource management  ",
+    "Rice Farming Techniques Modern rice farming methods for better yield and sustainability  ",
+    "<p>asdas</p> <p>asdasd</p>",
+    "What is RAISE-ABH? RAISE-ABH is the regional agri-business hub in Western Mindanao which started last October 2023 led by Dr. Norqueen T. Dumadaug, Faculty of the College of Agriculture in Western Mindanao State University.",
+    "What is RAISE Program? The RAISE Program or the Regional Agri-Aqua Innovation System Enhancement , which began in 2022, is the latest technology transfer platform of the DOST-PCAARRD. Its purpose is to foster collaboration between regional stakeholders and build a competitive agri-aqua innovation ecosystem.",
+    "About AANR Knowledge Hub ",
+    "About AANR Knowledge Hub About AANR Knowledge Management Hub The AANR Knowledge Management Hub serves as the central repository for agricultural knowledge, research, and resources in the Philippines. Our mission is to promote sustainable agriculture through knowledge sharing, innovation, and collaboration among farmers, researchers, and agricultural professionals.",
+    "About AANR Knowledge Hub Our Mission To accelerate agricultural development in the Philippines by providing accessible, reliable, and up-to-date agricultural information and technologies to farmers, researchers, and stakeholders.",
+    "About AANR Knowledge Hub Our Vision A thriving agricultural sector powered by knowledge, innovation, and sustainable practices that ensures food security and rural prosperity for all Filipinos.",
+    "About AANR Knowledge Hub Key Features Comprehensive agricultural knowledge repositoryResearch publications and technical documentsTraining materials and educational resourcesMarket information and price monitoringTechnology transfer and innovation showcaseCommunity forums and expert discussions",
+    "About AANR Knowledge Hub Partnership Network We collaborate with leading agricultural institutions, research centers, and universities across the Philippines to ensure our knowledge base remains current and relevant to the needs of our farming communities."
+  ],
+  "statistics": {
+    "content_types": {
+      "resource": 2,
+      "faq": 3,
+      "about": 6
+    },
+    "total_text_size": 2097,
+    "categories": {
+      "uncategorized": 11
+    }
+  }
+}

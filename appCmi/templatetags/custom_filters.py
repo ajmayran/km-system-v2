@@ -1,5 +1,6 @@
 from django import template
 from appAdmin.models import KnowledgeResources
+from django.contrib.auth.models import AnonymousUser
 
 register = template.Library()
 
@@ -7,11 +8,14 @@ register = template.Library()
 @register.filter
 def get_knowledge_title(value):
     try:
-        obj_id = int(str(value).split("(")[1].split(")")[0])
-        knowledge_resource = KnowledgeResources.objects.get(knowledge_id=obj_id)
-        return knowledge_resource.knowledge_title
+        if "(" in str(value) and ")" in str(value):
+            obj_id = int(str(value).split("(")[1].split(")")[0])
+            knowledge_resource = KnowledgeResources.objects.get(knowledge_id=obj_id)
+            return knowledge_resource.knowledge_title
+        else:
+            return str(value)  
     except (AttributeError, ValueError, KnowledgeResources.DoesNotExist):
-        return str(value)
+        return str(value)  
 
 
 @register.filter
@@ -40,3 +44,10 @@ def get_machine_name(value):
         # If we can't extract a machine name, convert the string to a
         # valid machine-readable format (lowercase with underscores)
         return str(value).lower().replace(" ", "_")
+
+@register.filter
+def is_reacted_by_user(faq, user):
+    """Check if user has reacted to this FAQ"""
+    if isinstance(user, AnonymousUser) or not user.is_authenticated:
+        return False
+    return faq.is_reacted_by(user)

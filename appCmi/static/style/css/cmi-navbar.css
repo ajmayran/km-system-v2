@@ -11,7 +11,8 @@ body {
     background-color: var(--light);
     font-family: 'Source Sans 3', sans-serif;
     margin: 0;
-    padding-top: 70px; /* Account for fixed navbar */
+    padding-top: 70px;
+    /* Account for fixed navbar */
     line-height: 1.6;
 }
 
@@ -43,7 +44,8 @@ body {
 
 /* Mobile Header */
 .mobile-header {
-    display: none; /* Hide on desktop */
+    display: none;
+    /* Hide on desktop */
     align-items: center;
     justify-content: space-between;
     width: 100%;
@@ -55,7 +57,8 @@ body {
     gap: 0.75rem;
     text-decoration: none;
     padding-left: 0;
-    flex-shrink: 0; /* Prevent logo from shrinking */
+    flex-shrink: 0;
+    /* Prevent logo from shrinking */
 }
 
 .logo-container:hover {
@@ -75,7 +78,8 @@ body {
     line-height: 1.1;
 }
 
-.t1, .t2 {
+.t1,
+.t2 {
     margin: 0;
     font-weight: bold;
     color: #fff;
@@ -92,6 +96,36 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     opacity: 0.9;
+}
+
+.auth-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    height: 100%;
+}
+
+.auth-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    white-space: nowrap;
+    background-color: var(--light);
+    color: var(--primary);
+}
+
+.auth-btn:hover {
+    background-color: #fff;
+    color: var(--primary);
+    text-decoration: none;
+    transform: translatex(3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Hamburger Menu */
@@ -149,7 +183,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100%;
-    max-width: 800px; /* Limit max width for better spacing */
+    max-width: 800px;
+    /* Limit max width for better spacing */
     margin: 0 auto;
 }
 
@@ -160,7 +195,8 @@ body {
     padding: 0;
     height: 100%;
     align-items: center;
-    gap: 1.5rem; /* Increased spacing between menu items */
+    gap: 1.5rem;
+    /* Increased spacing between menu items */
     width: 100%;
     justify-content: center;
 }
@@ -173,13 +209,13 @@ body {
     position: relative;
 }
 
-.navbar-center ul li > a,
-.navbar-center ul li .dropdown > a {
+.navbar-center ul li>a,
+.navbar-center ul li .dropdown>a {
     color: #fff;
     text-decoration: none;
     font-size: 1rem;
     font-weight: 500;
-    padding: 0 1.5rem;
+    padding: 0 1.2rem;
     height: 100%;
     display: flex;
     align-items: center;
@@ -187,17 +223,18 @@ body {
     transition: var(--transition);
     border-radius: 0;
     position: relative;
-    white-space: nowrap; /* Prevent text wrapping */
+    white-space: nowrap;
+    /* Prevent text wrapping */
 }
 
-.navbar-center ul li > a:hover,
-.navbar-center ul li .dropdown > a:hover {
+.navbar-center ul li>a:hover,
+.navbar-center ul li .dropdown>a:hover {
     background-color: rgba(255, 255, 255, 0.15);
     color: #fff;
     text-decoration: none;
 }
 
-.navbar-center ul li > a::after {
+.navbar-center ul li>a::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -209,7 +246,7 @@ body {
     transform: translateX(-50%);
 }
 
-.navbar-center ul li > a:hover::after {
+.navbar-center ul li>a:hover::after {
     width: 80%;
 }
 
@@ -279,7 +316,8 @@ body {
     align-items: center;
     height: 100%;
     padding-right: 0;
-    flex-shrink: 0; /* Prevent profile section from shrinking */
+    flex-shrink: 0;
+    /* Prevent profile section from shrinking */
 }
 
 .profile-toggle {
@@ -369,7 +407,7 @@ body {
     overflow-y: auto;
 }
 
-.mobile-menu > a {
+.mobile-menu>a {
     color: #fff;
     padding: 1rem 1.5rem;
     text-decoration: none;
@@ -382,14 +420,14 @@ body {
     gap: 0.75rem;
 }
 
-.mobile-menu > a:hover {
+.mobile-menu>a:hover {
     background-color: rgba(255, 255, 255, 0.1);
     padding-left: 2rem;
     text-decoration: none;
     color: #fff;
 }
 
-.mobile-menu > a:last-child {
+.mobile-menu>a:last-child {
     border-bottom: none;
 }
 
@@ -465,19 +503,20 @@ body {
     transform: rotate(180deg);
 }
 
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .inner_navbar {
         max-width: 100%;
         padding: 0 1.5rem;
     }
-    
+
     .navbar-center ul {
         gap: 1rem;
     }
-    
-    .navbar-center ul li > a,
-    .navbar-center ul li .dropdown > a {
+
+    .navbar-center ul li>a,
+    .navbar-center ul li .dropdown>a {
         padding: 0 1.2rem;
         font-size: 0.95rem;
     }
@@ -487,13 +526,13 @@ body {
     .inner_navbar {
         padding: 0 1rem;
     }
-    
+
     .navbar-center ul {
         gap: 0.75rem;
     }
 
-    .navbar-center ul li > a,
-    .navbar-center ul li .dropdown > a {
+    .navbar-center ul li>a,
+    .navbar-center ul li .dropdown>a {
         padding: 0 1rem;
         font-size: 0.9rem;
     }
@@ -504,6 +543,11 @@ body {
 
     .t2 {
         font-size: 0.65rem;
+    }
+
+    .auth-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -519,7 +563,7 @@ body {
     .desktop-menu {
         display: none;
     }
-    
+
     .desktop-logo {
         display: none;
     }
@@ -544,6 +588,10 @@ body {
 
     body {
         padding-top: 70px;
+    }
+
+    .auth-buttons {
+        display: none;
     }
 }
 
@@ -587,7 +635,7 @@ body {
         font-size: 0.45rem;
     }
 
-    .mobile-menu > a,
+    .mobile-menu>a,
     .mobile-dropdown-toggle {
         padding: 0.8rem 1rem;
         font-size: 0.9rem;
@@ -598,12 +646,14 @@ body {
     }
 }
 
+
+
 /* Enhanced Focus States for Accessibility */
 .hamburger:focus,
 .profile-toggle:focus,
-.navbar-center ul li > a:focus,
-.navbar-center ul li .dropdown > a:focus,
-.mobile-menu > a:focus,
+.navbar-center ul li>a:focus,
+.navbar-center ul li .dropdown>a:focus,
+.mobile-menu>a:focus,
 .mobile-dropdown-toggle:focus,
 .dropdown-item:focus {
     outline: 2px solid var(--accent);
@@ -611,8 +661,8 @@ body {
 }
 
 /* Loading and Interaction States */
-.navbar-center ul li > a:active,
-.mobile-menu > a:active,
+.navbar-center ul li>a:active,
+.mobile-menu>a:active,
 .dropdown-item:active {
     transform: scale(0.98);
 }
@@ -627,9 +677,10 @@ html {
     .mobile-menu {
         -webkit-overflow-scrolling: touch;
     }
-    
+
     .mobile-dropdown-toggle,
-    .mobile-menu > a {
-        min-height: 48px; /* Ensures touch-friendly size */
+    .mobile-menu>a {
+        min-height: 48px;
+        /* Ensures touch-friendly size */
     }
 }
