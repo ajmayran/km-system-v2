@@ -22088,3 +22088,7 @@ ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 [2025-07-15 10:20:54] Successfully loaded faiss.
 [2025-07-15 10:20:54] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
 [2025-07-15 10:20:55] Watching for file changes with StatReloader
+[2025-07-15 10:20:56] Use pytorch device: cpu
+[2025-07-15 10:20:56] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-15 10:20:56] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-15 10:20:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
