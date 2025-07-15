@@ -97,6 +97,7 @@ function initializeAccordion() {
     document.querySelectorAll('[data-toggle="collapse"]').forEach(button => {
         button.addEventListener('click', function () {
             const postedByDiv = this.querySelector('.posted-by');
+            const institutionDiv = this.querySelector('.institution-info');
             const isCurrentlyExpanded = this.getAttribute('aria-expanded') === 'true';
             const faqId = this.getAttribute('data-faq-id');
             recordFAQView(faqId);
@@ -104,9 +105,11 @@ function initializeAccordion() {
             if (postedByDiv) {
                 if (isCurrentlyExpanded) {
                     postedByDiv.classList.remove('show');
+                    institutionDiv?.classList.remove('show');
                 } else {
                     setTimeout(() => {
                         postedByDiv.classList.add('show');
+                        institutionDiv?.classList.add('show');
                     }, 150);
                 }
             }
@@ -117,16 +120,20 @@ function initializeAccordion() {
         collapse.addEventListener('shown.bs.collapse', function () {
             const button = document.querySelector(`[data-target="#${this.id}"]`);
             const postedByDiv = button?.querySelector('.posted-by');
+            const institutionDiv = button?.querySelector('.institution-info');
             if (postedByDiv) {
                 postedByDiv.classList.add('show');
+                institutionDiv?.classList.add('show');
             }
         });
 
         collapse.addEventListener('hidden.bs.collapse', function () {
             const button = document.querySelector(`[data-target="#${this.id}"]`);
             const postedByDiv = button?.querySelector('.posted-by');
+            const institutionDiv = button?.querySelector('.institution-info');
             if (postedByDiv) {
                 postedByDiv.classList.remove('show');
+                institutionDiv?.classList.remove('show');
             }
         });
     });

@@ -491,6 +491,11 @@
     color: var(--text-secondary);
 }
 
+.institution-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
 .posted-name {
     color: var(--primary-color);
     font-weight: 500;
@@ -498,6 +503,31 @@
 
 .posted-date {
     color: var(--text-muted);
+}
+
+.institution-info {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: var(--transition);
+    margin-top: 8px;
+}
+
+.institution-info.show {
+    opacity: 1;
+    max-height: 25px;
+}
+
+.institution-label {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.institution-name {
+    color: var(--primary-color);
+    font-weight: 500;
 }
 
 .question-meta {

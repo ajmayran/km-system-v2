@@ -1202,7 +1202,7 @@ class IntelligentChatbotService:
             title = resource['title'][:60] + '...' if len(resource['title']) > 60 else resource['title']
             response_parts.append(f"{i}. {icon} **{title}**")
             
-            desc = resource['description'][:100] + '...' if len(resource['description']) > 100 else resource['description']
+            desc = resource['description'] 
             response_parts.append(f"   {desc}")
             response_parts.append("")
         
@@ -1256,41 +1256,24 @@ class IntelligentChatbotService:
             cache = get_knowledge_base_cache()
             knowledge_data = cache['knowledge_data']
             
-            # Find the specific resource by ID or title
             target_resource = None
             for item in knowledge_data:
-                # Try to match by ID first, then by title
-                if (str(item.get('id')) == str(source_id) or 
-                    item.get('title') == source_title or
-                    item.get('title').lower() == source_title.lower()):
+                if str(item.get('actual_id')) == str(source_id) and item.get('title') == source_title:
                     target_resource = item
                     break
             
             if not target_resource:
                 return {
-                    'response': f"❌ Sorry, I couldn't find the source: '{source_title}'. It might have been moved or updated.",
+                    'response': "I couldn't find detailed information about that resource.",
                     'confidence': 'low',
-                    'suggestions': ['Search for similar content', 'Browse available resources', 'Ask a different question'],
-                    'matched_resources': [],
-                    'source_not_found': True
+                    'suggestions': ['Browse other resources', 'Ask a different question'],
+                    'matched_resources': []
                 }
             
             # Generate detailed response with full content
             response_parts = []
-            
-            # Add title
             response_parts.append(f"📄 **{target_resource['title']}**\n")
-            
-            # Add type/category if available
-            if target_resource.get('type'):
-                type_icon = {
-                    'faq': '❓', 'forum': '💬', 'resource': '📄',
-                    'publication': '📚', 'news': '📰', 'event': '📅',
-                    'training': '🎓', 'technology': '💻', 'commodity': '🌾',
-                    'cmi': '🏢', 'about': 'ℹ️'
-                }.get(target_resource['type'], '📌')
-                
-                response_parts.append(f"{type_icon} **Type:** {target_resource['type'].title()}")
+            response_parts.append(f"{target_resource['description']}\n")
             
             # Add author if available
             if target_resource.get('author'):
@@ -1301,22 +1284,7 @@ class IntelligentChatbotService:
                 date_str = target_resource.get('date') or target_resource.get('created_at')
                 response_parts.append(f"📅 **Date:** {date_str}")
             
-            response_parts.append("")  # Empty line
-            
-            # Add full content/description
-            full_content = target_resource.get('content', target_resource.get('description', ''))
-            
-            # Clean HTML tags if present
-            import re
-            clean_content = re.sub(r'<[^>]+>', '', full_content)
-            clean_content = re.sub(r'\s+', ' ', clean_content).strip()
-            
-            if clean_content:
-                response_parts.append("📝 **Content:**")
-                response_parts.append(clean_content)
-            else:
-                response_parts.append("📝 **Content:** No detailed content available for this resource.")
-            
+                    
             # Add additional fields if available
             if target_resource.get('tags'):
                 response_parts.append(f"\n🏷️ **Tags:** {', '.join(target_resource['tags'])}")
@@ -1392,13 +1360,13 @@ class IntelligentChatbotService:
                 for i, match in enumerate(matches[:3], 1):
                     resource = match['resource']
                     title = resource['title'][:60] + '...' if len(resource['title']) > 60 else resource['title']
-                    desc = resource['description'][:120] + '...' if len(resource['description']) > 120 else resource['description']
+                    desc = resource['description']
                     
                     response_parts.append(f"  **{i}. {title}**")
                     response_parts.append(f"     {desc}")
                     response_parts.append("")
         
-        response_parts.append(f"💡 *Found {len(matched_resources)} results related to {main_topic} using enhanced AI search.*")
+        response_parts.append(f"💡 *Found {len(matched_resources)} results related to {main_topic}.*")
         
         return {
             'response': '\n'.join(response_parts),
@@ -1427,15 +1395,13 @@ class IntelligentChatbotService:
         if resource.get('author'):
             response_text += f" by {resource['author']}"
         
-        resources_to_show = []
-        if len(matched_resources) > 1:
-            resources_to_show = [resource]
             
         return {
             'response': response_text,
             'confidence': best_match['confidence'],
             'suggestions': self._generate_dynamic_suggestions(query, matched_resources),
-            'matched_resources': resources_to_show, 
+            'matched_resources': [resource],
+            'url': resource.get('url') or resource.get('link'),
             'ai_powered': True,
             'local_ai': True,
             'faiss_enhanced': True

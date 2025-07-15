@@ -197,7 +197,10 @@
                             view{% if faq.total_views != 1 %}s{% endif %}
                           </span>                     
                       </div>
-
+                      <div class="institution-info">
+                        <span class="institution-label">Institution:</span>
+                        <span class="institution-name">{{ faq.created_by.institution }}</span>
+                      </div>  
                       <!-- Admin-only Update Information -->
                       {% if user.user_type == 'admin' %}
                         <div class="updated-by admin-only">

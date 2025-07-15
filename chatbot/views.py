@@ -76,15 +76,13 @@ def chat_message(request):
             )
             print(f"Created new session {chat_session.session_id} for user {request.user if request.user.is_authenticated else 'Anonymous'}")
         
-        # Generate intelligent response using local AI
         if source_click and clicked_resource_id:
             bot_response = chatbot_service.generate_source_response(
-                message, 
                 clicked_resource_id, 
                 clicked_resource_type
             )
         else:
-            # Regular chatbot processing
+            # Regular chatbot processing    
             bot_response = chatbot_service.generate_response(message)
         
         # Get detailed AI similarity scores using the new method

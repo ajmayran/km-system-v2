@@ -7,3 +7,5 @@ class ChatbotConfig(AppConfig):
 
     def ready(self):
         import chatbot.signals 
+        from .spell_corrector import get_spell_corrector
+        get_spell_corrector()

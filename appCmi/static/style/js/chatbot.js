@@ -735,12 +735,10 @@ class IntelligentChatbot {
 
         this.typeText(p, text, () => {
             p.classList.remove('typing');
-            if (data.matched_resources && data.matched_resources.length > 0) {
-                this.addClickableSources(content, data.matched_resources);
-            }
 
-            // Add URL link if available
-            if (data.url || (data.matched_resources && data.matched_resources[0])) {
+                // Add URL link if available
+            if (data.url || (data.matched_resources && data.matched_resources[0] && 
+                (data.matched_resources[0].url || data.matched_resources[0].link))) {
                 this.addUrlLink(content, data);
             }
 
@@ -766,7 +764,7 @@ class IntelligentChatbot {
 
     addUrlLink(contentElement, data) {
         let url = data.url;
-        let linkText = 'View Full Details';
+        let linkText = 'View Source';
 
         // Get URL from matched resource if not directly provided
         if (!url && data.matched_resources && data.matched_resources[0]) {
