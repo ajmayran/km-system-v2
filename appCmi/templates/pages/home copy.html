@@ -1,0 +1,224 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | AANR Knowledge Hub</title>
+  <link rel="icon" href="{% static 'assets/images/logo.png' %}" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="{% static 'style/main.css' %}">
+
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" href="#">RAISE Program</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Carousel Start -->
+  <div id="raiseCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <div class="carousel-inner">
+      {% for img in images %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+          <img src="{{ img.image.url }}" class="d-block w-100" alt="{{ img.title }}">
+          <div class="carousel-caption">
+            <h1>{{ img.title }}</h1>
+            <p>{{ img.description }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <div class="carousel-item active">
+          <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1400&q=80" class="d-block w-100" alt="Agricultural landscape">
+          <div class="carousel-caption">
+            <h1>RAISE WESMIN</h1>
+            <p>Empowering agricultural communities through innovation and sustainability.</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <a class="carousel-control-prev" href="#raiseCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#raiseCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <!-- Carousel End -->
+
+  <div class="project-rationale-objective d-flex flex-wrap">
+    <div class="section col-md-6" id="rationale" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <div class="container" style="border:5px solid #4c956c; padding:20px; text-align:center; height:100%;">
+        <h2 class="section-title" data-aos="fade-up">RAISE Rationale</h2>
+        
+        <div class="rationale-container">
+          <div class="rationale-slider">
+            <div class="rationale-content" style="overflow-y:auto;">
+              <p>{{ main.project_rationale_desc|safe }}</p>
+            </div>
+          </div>
+          
+          <div class="rationale-nav">
+            <button id="rationalePrev"><i class="fas fa-chevron-up"></i></button>
+            <button id="rationaleNext"><i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section col-md-6" id="objectives" style="background-color: #2c6e49;">
+      <div class="" style="text-align: center; height:100%;">
+        <h2 class="section-title" data-aos="fade-up" style="color:white;">RAISE Objectives</h2>
+        
+        <div class="objectives-container">
+          <div class="objective-card">
+            <div class="objective-card-front">
+              <div class="objective-lists">
+                <ul id="objectivesList">
+                  {% for obj in objectives %}
+                    <li><strong>{{ obj.title }}</strong></li>
+                    {% for bullet in obj.title_bullets.all %}
+                      <li>{{ bullet.text }}</li>
+                    {% endfor %}
+                  {% endfor %}
+                </ul>
+              </div>
+              <div class="nav-buttons">
+                <button id="prevBtn"><i class="fas fa-chevron-up"></i></button>
+                <button id="nextBtn"><i class="fas fa-chevron-down"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="structure">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Organizational Structure</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Our streamlined structure ensures efficient implementation across all project components.</p>
+      
+      <div class="structure-img-container" data-aos="zoom-in">
+        {% if main.org_struct_image %}
+          <img src="{{ main.org_struct_image.url }}" alt="Organizational Structure" class="structure-img">
+        {% else %}
+          <img src="{% static 'assets/images/org.png' %}" alt="Default Org Structure" class="structure-img">
+        {% endif %}
+      </div>
+      
+      <div class="text-center mt-5" data-aos="fade-up">
+        <p>The organizational structure consists of four main components working in synergy:</p>
+        <div class="d-flex flex-wrap justify-content-center gap-4 mt-4">
+          {% if about_list %}
+            {% for about in about_list %}
+              <div class="bg-white p-3 rounded shadow-sm" style="max-width: 250px;">
+                <h5 class="">{{ about.project_name }}</h5>
+                <p class="mb-0">{{ about.project_details }}</p>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No project information available.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="projects" style="text-align:center;">
+    <div class="">
+      <h2 class="section-title" data-aos="fade-up">RAISE Projects</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">{{ main.raise_project_desc|safe }}</p>
+      
+      <div class="projects-container">
+        <button class="slider-nav slider-prev" onclick="scrollProjects(-1)">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        
+        <div class="projects-slider" id="projectsSlider">
+          {% if about_list %}
+            {% for about in about_list %}
+              <div class="project-card" data-aos="fade-up" data-aos-delay="200">
+                {% if about.image %}
+                  <img src="{{ about.image.url }}" alt="{{ about.project_name }}" class="img-fluid mb-3" style="max-height: 100px; object-fit: contain;">
+                {% else %}
+                  <i class="fas fa-business-time"></i>
+                {% endif %}
+                <h4>{{ about.project_name }}</h4>
+                <p>{{ about.project_details }}</p>
+                <a href="/cmis/project/{{ about.about_id }}/" class="btn-see-more">See Details <i class="fas fa-arrow-right"></i></a>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No project information available.</p>
+          {% endif %}
+        </div>
+        
+        <button class="slider-nav slider-next" onclick="scrollProjects(1)">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+    // Initialize animations
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100
+    });
+
+    // Navbar scroll effect
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 50) {
+        $('.navbar').addClass('scrolled');
+      } else {
+        $('.navbar').removeClass('scrolled');
+      }
+    });
+
+    // Objectives slider navigation
+    function scrollObjectives(direction) {
+      const slider = document.getElementById('objectivesSlider');
+      const scrollAmount = 380; // Width of card + gap
+      slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    // Projects slider navigation
+    function scrollProjects(direction) {
+      const slider = document.getElementById('projectsSlider');
+      const scrollAmount = 310; // Width of card + gap
+      slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+</body>
+</html>

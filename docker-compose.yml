@@ -1,6 +1,6 @@
 services:
   db:
-    image: mysql:5.7
+    image: mysql:8.0
     restart: always
     environment:
       - MYSQL_DATABASE=docker_km_db
@@ -12,8 +12,18 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "docker_user", "-pdocker_password"]
-      interval: 5s
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-prootpassword",
+        ]
+      interval: 10s
       timeout: 5s
       retries: 10
 
@@ -30,7 +40,7 @@ services:
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     ports:
-      - "8000:8000"
+      - "8002:8000"
     command: >
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --noinput &&
@@ -39,13 +49,25 @@ services:
   nginx:
     image: nginx:1.21
     ports:
-      - "80:80"
+      - "8082:80"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - static_volume:/home/app/staticfiles
       - media_volume:/home/app/media
     depends_on:
       - web
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8083:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: docker_user
+      PMA_PASSWORD: docker_password
 
 volumes:
   mysql_data:

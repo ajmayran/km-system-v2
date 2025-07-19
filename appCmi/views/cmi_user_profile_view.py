@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
 from utils.user_control import user_access_required
-
+from appAdmin.models import About
 
 # Create your views here.
 @user_access_required(["admin", "cmi"], error_type=404)
@@ -16,7 +16,7 @@ def display_cmi_profile(request):
     commodities = models.get("commodities", [])
     knowledge_resources = models.get("knowledge_resources", [])
     user = request.user
-
+    about_list = About.objects.all() 
     # Try to get the profile, set to None if it doesn't exist
     try:
         user_profile = Profile.objects.get(user=user)
@@ -31,6 +31,7 @@ def display_cmi_profile(request):
         "user": user,
         "user_profile": user_profile,
         "default_profile_image": "assets/images/default_profile.png",
+        "about_list": about_list,
     }
     return render(request, "pages/cmi-user-profile.html", context)
 

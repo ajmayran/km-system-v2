@@ -29,8 +29,27 @@
       <div class="navbar-center desktop-menu">
         <ul>
           <li><a href="{% url 'appCmi:home' %}">Home</a></li>
-          <li><a href="{% url 'appCmi:cmi-about' %}">About</a></li>
-          
+           <li>
+            <div class="dropdown">
+              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
+                About
+                <i class="fa-solid fa-circle-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu" role="menu">
+                <a href="{% url 'appCmi:cmi-about' %}">RAISE Main Project</a>
+                {% if about_list %}
+                  {% for about in about_list %}
+                    <a href="/cmis/project/{{ about.about_id }}/" class="dropdown-item" role="menuitem">
+                      {{ about.project_name }}
+                    </a>
+                  {% endfor %}
+                {% else %}
+                  <a href="#" class="dropdown-item" role="menuitem">No Projects Yet</a>
+                {% endif %}
+              </div>
+
+            </div>
+          </li>
           <!-- Useful Links Dropdown -->
           <li>
             <div class="dropdown">
@@ -71,40 +90,31 @@
           </li>
           
           <li><a href="{% url 'appCmi:cmi-forum' %}">Forum</a></li>
-          <li><a href="{% url 'appCmi:faqs' %}">FAQs</a></li>
           <li><a href="{% url 'appCmi:all-knowledge-resources' %}">Knowledge Resources</a></li>
         </ul>
       </div>
 
       <!-- Profile Dropdown (Desktop) -->
       <div class="navbar-right desktop-menu">
-        {% if user.is_authenticated %}
-          <div class="dropdown">
-            <a href="#" class="profile-toggle" role="button" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
-              <img src="{% static 'assets/images/default_profile.png' %}" alt="Profile" class="profile-image" />
+        <div class="dropdown">
+          <a href="#" class="profile-toggle" role="button" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
+            <img src="{% static 'assets/images/default_profile.png' %}" alt="Profile" class="profile-image" />
+          </a>
+          <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item" href="{% url 'appCmi:cmi-profile' %}" role="menuitem">
+              <i class="fas fa-user"></i> Profile
             </a>
-            <div class="dropdown-menu" role="menu">
-              <a class="dropdown-item" href="{% url 'appCmi:cmi-profile' %}" role="menuitem">
-                <i class="fas fa-user"></i> Profile
+            {% if user.user_type == 'admin' %}
+              <a class="dropdown-item" href="{% url 'appAdmin:dashboard' %}" role="menuitem">
+                <i class="fas fa-shield-alt"></i> Admin Dashboard
               </a>
-              {% if user.user_type == 'admin' %}
-                <a class="dropdown-item" href="{% url 'appAdmin:dashboard' %}" role="menuitem">
-                  <i class="fas fa-shield-alt"></i> Admin Dashboard
-                </a>
-              {% endif %}
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="{% url 'appAccounts:logout' %}" role="menuitem" onclick="clearChatbotOnLogout(this)">
-                <i class="fas fa-sign-out-alt"></i> Logout
-              </a>
-            </div>
-          </div>
-        {% else %}
-          <div class="auth-buttons">
-            <a href="{% url 'appAccounts:login' %}" class="auth-btn">
-              <i class="fas fa-sign-in-alt"></i> Login
+            {% endif %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'appAccounts:logout' %}" role="menuitem">
+              <i class="fas fa-sign-out-alt"></i> Logout
             </a>
           </div>
-        {% endif %}
+        </div>
       </div>
     </div>
 
@@ -113,7 +123,7 @@
       <a href="{% url 'appCmi:home' %}">
         <i class="fas fa-home"></i> Home
       </a>
-      <a href="{% url 'appCmi:cmi-about' %}">
+      <a href="">
         <i class="fas fa-info-circle"></i> About
       </a>
       
@@ -155,46 +165,20 @@
       <a href="{% url 'appCmi:cmi-forum' %}">
         <i class="fas fa-comments"></i> Forum
       </a>
-      <a href="{% url 'appCmi:faqs' %}">
-        <i class="fas fa-question-circle"></i> FAQs
-      </a>
       <a href="{% url 'appCmi:all-knowledge-resources' %}">
         <i class="fas fa-book"></i> Knowledge Resources
       </a>
-      
-      {% if user.is_authenticated %}
-        <a href="{% url 'appCmi:cmi-profile' %}">
-          <i class="fas fa-user"></i> Profile
-        </a>
-        {% if user.user_type == 'admin' %}
-          <a href="{% url 'appAdmin:dashboard' %}">
-            <i class="fas fa-shield-alt"></i> Admin Dashboard
-          </a>
-        {% endif %}
-        <a href="{% url 'appAccounts:logout' %}" onclick="clearChatbotOnLogout(this)">
-          <i class="fas fa-sign-out-alt"></i> Logout
-        </a>
-      {% else %}
-        <a href="{% url 'appAccounts:login' %}">
-          <i class="fas fa-sign-in-alt"></i> Login
+      <a href="{% url 'appCmi:cmi-profile' %}">
+        <i class="fas fa-user"></i> Profile
+      </a>
+      {% if user.user_type == 'admin' %}
+        <a href="{% url 'appAdmin:dashboard' %}">
+          <i class="fas fa-shield-alt"></i> Admin Dashboard
         </a>
       {% endif %}
+      <a href="{% url 'appAccounts:logout' %}">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
     </nav>
   </nav>
 </header>
-
-<script>
-function clearChatbotOnLogout(element) {
-    // Clear chatbot sessions before logout
-    if (window.clearChatbotSessions) {
-        window.clearChatbotSessions();
-    }
-    
-    setTimeout(() => {
-        window.location.href = element.getAttribute('href');
-    }, 100);
-    
-    // Prevent immediate navigation
-    return false;
-}
-</script>

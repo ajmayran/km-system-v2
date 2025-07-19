@@ -1,5 +1,6 @@
 from .home_view import home, get_input_from_search  # ✅ Import the home function
-from .cmi_about_view import about  # ✅ Import the about function
+# from .cmi_about_view import about  # ✅ Import the about function
+from .cmi_about_view import cmi_about
 from .cmi_forum_view import (
     cmi_forum,
     forum_post_question,
@@ -24,12 +25,3 @@ from .cmi_knowledge_resources_view import (
     toggle_bookmark,
 )
 from .cmi_display_post_view import cmi_display_post
-from .cmi_faqs_view import (
-    faqs_view,
-    add_faq,
-    edit_faq,
-    delete_faq,
-    toggle_faq_status,
-    toggle_faq_reaction,
-    get_faq_data,
-)

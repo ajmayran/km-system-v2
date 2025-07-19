@@ -3,8 +3,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from utils.get_models import get_active_models
 from appCmi.models import Forum
 from utils.user_control import user_access_required
+from appAdmin.models import About
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def all_commodities(request):
     """
     View function for displaying all commodities.
@@ -16,7 +18,7 @@ def all_commodities(request):
     useful_links = models.get("useful_links", [])
     commodities = models.get("commodities", [])
     knowledge_resources = models.get("knowledge_resources", [])
-
+    about_list = About.objects.all() 
     # Pagination
     page = request.GET.get("page", 1)
     commodities_per_page = 9  # Adjust as needed
@@ -33,10 +35,12 @@ def all_commodities(request):
         "useful_links": useful_links,
         "commodities": paginated_commodities,
         "knowledge_resources": knowledge_resources,
+        "about_list": about_list,
     }
     return render(request, "pages/cmi-commodities.html", context)
 
 
+@user_access_required(["admin", "cmi"], error_type=404)
 def display_commodity(request, slug):
     models = get_active_models()  # Fetch active models
     useful_links = models.get("useful_links", [])

@@ -1,0 +1,613 @@
+:root {
+      --primary: #1A5D1A;
+      --primary-dark: #124312;
+      --secondary: #4E9F3D;
+      --accent: #90E0C9;
+      --light: #F8F9FA;
+      --dark: #212529;
+      --text-color: #333333;
+      --text-light: #6C757D;
+      --card-bg: #FFFFFF;
+      --section-bg: #F5F7FA;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--light);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background-color: var(--card-bg);
+      padding: 15px 0;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-brand {
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar-brand i {
+      margin-right: 10px;
+      color: var(--secondary);
+    }
+
+    .nav-link {
+      color: var(--text-color);
+      font-weight: 500;
+      padding: 8px 15px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary);
+    }
+
+    .nav-link.active {
+      font-weight: 600;
+    }
+
+    .section {
+      padding: 80px 0;
+    }
+
+    .section:nth-child(even) {
+      background-color: var(--section-bg);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      color: var(--primary);
+      font-weight: 700;
+      margin-bottom: 40px;
+      text-align: center;
+      position: relative;
+    }
+
+    .section-title:after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      margin: 15px auto 0;
+      border-radius: 2px;
+    }
+
+    /* Hero Slider */
+    .hero-slider {
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+      margin-top: -20px;
+    }
+
+    .hero-slides {
+      display: flex;
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
+
+    .hero-slide {
+      min-width: 100%;
+      position: relative;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+      color: white;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-nav {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .hero-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .hero-dot.active {
+      background: white;
+    }
+
+    .hero-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      color: var(--primary);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      font-size: 1.2rem;
+    }
+
+    .hero-arrow.prev {
+      left: 20px;
+    }
+
+    .hero-arrow.next {
+      right: 20px;
+    }
+
+    /* Objectives Slider */
+    .objectives-container {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .objectives-slider {
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 20px 0;
+      display: flex;
+      gap: 20px;
+    }
+    
+    .objectives-slider::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .objective-card {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      border:5px solid;
+      padding: 30px;
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+    
+    .objective-card h4 {
+      margin-bottom: 15px;
+      font-weight: 600;
+      position: relative;
+      padding-bottom: 10px;
+    }
+    
+    .objective-card h4:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+    }
+    
+    .objective-card ul {
+      padding-left: 20px;
+    }
+    
+    .objective-card li {
+      margin-bottom: 10px;
+    }
+    
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      border: none;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+    
+    .slider-arrow:hover {
+      opacity: 1;
+    }
+    
+    .slider-arrow.left {
+      left: 0;
+    }
+    
+    .slider-arrow.right {
+      right: 0;
+    }
+
+    /* Project Team Structure */
+    .project-team {
+      margin: 0 auto;
+    }
+
+    /* Team Member Card */
+    .team-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      padding: 25px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    .team-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--secondary);
+      margin-right: 20px;
+    }
+
+    .team-info h4 {
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .team-info p {
+      color: var(--text-light);
+      margin-bottom: 5px;
+    }
+
+    .team-info .role {
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .team-info .specialization {
+      font-style: italic;
+    }
+
+    .team-details {
+      border-top: 1px solid #eee;
+      padding-top: 15px;
+    }
+
+    .team-detail {
+      display: flex;
+      margin-bottom: 8px;
+    }
+
+    .team-detail i {
+      width: 25px;
+      color: var(--secondary);
+    }
+
+    .team-socials {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .team-socials a {
+      color: var(--primary);
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(78, 159, 61, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .team-socials a:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    /* Sub-projects with arrows */
+    .subprojects-container {
+      position: relative;
+      margin: 0 auto;
+      padding: 0 50px;
+    }
+    
+    .subprojects-slider {
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 20px 0;
+      display: flex;
+      gap: 20px;
+    }
+    
+    .subprojects-slider::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .subproject-card {
+      flex: 0 0 450px;
+      scroll-snap-align: start;
+      background: var(--primary-dark);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      height: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    
+    .subproject-card h4 {
+      color: white;
+      font-weight: 600;
+      position: relative;
+    }
+    
+    .subproject-card h4:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 50px;
+      height: 3px;
+    }
+    
+    .subproject-btn {
+      background-color: var(--secondary);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-align: center;
+      margin-top: 20px;
+    }
+    
+    .subproject-btn:hover {
+      background-color: var(--accent);
+      color: var(--dark);
+    }
+
+    /* Enhanced Timeline with Images */
+    .timeline-container {
+      margin: 0 auto;
+    }
+    
+    .timeline-item {
+      display: none;
+      margin-bottom: 50px;
+    }
+    
+    .timeline-item.active {
+      display: flex;
+    }
+    
+    .timeline-content {
+      flex: 1;
+      padding: 30px;
+      background: var(--card-bg);
+      box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+    }
+    
+    .timeline-date {
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    
+    .timeline-title {
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+    
+    .timeline-images {
+      flex: 1;
+    }
+    
+    .activity-slider {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .activity-slides {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    
+    .activity-slide {
+      min-width: 100%;
+      position: relative;
+    }
+    
+    .activity-slide img {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+    }
+    
+    .slide-nav {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+    
+    .slide-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.5);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .slide-dot.active {
+      background: white;
+    }
+    
+    .slide-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+    }
+    
+    .slide-arrow.prev {
+      left: 15px;
+    }
+    
+    .slide-arrow.next {
+      right: 15px;
+    }
+    
+    /* Timeline Pagination */
+    .timeline-pagination {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+      gap: 10px;
+    }
+    
+    .page-number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--card-bg);
+      color: var(--text-color);
+      cursor: pointer;
+      font-weight: 500;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .page-number.active {
+      background: var(--primary);
+      color: white;
+    }
+    
+    @media (max-width: 992px) {
+      .timeline-item {
+        flex-direction: column;
+      }
+      
+      .timeline-images {
+        padding-left: 0;
+        padding-top: 30px;
+      }
+      
+      .subproject-card {
+        flex: 0 0 85%;
+      }
+      
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero-slider {
+        height: 400px;
+      }
+      
+      .objective-card {
+        flex: 0 0 90%;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .hero-slider {
+        height: 350px;
+      }
+      
+      .hero-content {
+        padding: 20px;
+      }
+      
+      .hero-content h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero-content p {
+        font-size: 1rem;
+      }
+      
+      .team-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .team-avatar {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+    }

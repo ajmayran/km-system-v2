@@ -4,7 +4,7 @@ from appCmi.forms import MessageToAdminForm
 from appCmi.models import MessageToAdmin
 from django.contrib import messages
 from utils.user_control import user_access_required
-
+from appAdmin.models import About
 
 # Create your views here.
 @user_access_required(["admin", "cmi"], error_type=404)
@@ -13,11 +13,13 @@ def message(request):
     useful_links = models.get("useful_links", [])
     commodities = models.get("commodities", [])
     knowledge_resources = models.get("knowledge_resources", [])
-
+    about_list = About.objects.all() 
+    
     context = {
         "useful_links": useful_links,
         "commodities": commodities,
         "knowledge_resources": knowledge_resources,
+        "about_list": about_list,
     }
     return render(request, "pages/cmi-message.html", context)
 

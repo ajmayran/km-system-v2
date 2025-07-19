@@ -25,7 +25,6 @@
     <link rel="stylesheet" href="{% static 'style/css/cmi-navbar.css' %}">
     <link rel="stylesheet" href="{% static 'style/css/footer.css' %}">
     <link rel="stylesheet" href="{% static 'style/css/cmi-index.css' %}">
-    <link rel="stylesheet" href="{% static 'style/css/chatbot.css' %}">
     {% block stylesheet %}{% endblock %}
 
     <!-- JavaScript Libraries -->
@@ -37,7 +36,6 @@
 
     {% block content %}{% endblock %}
     {% include 'base/footer.html' %}
-    {% include 'chatbot/widget.html' %}
 
     <!-- Scripts -->
     <script src="{% static 'assets/js/jquery.min.js' %}"></script>
@@ -55,8 +53,7 @@
     <!-- Custom JavaScript -->
     <script src="{% static 'style/js/main.js' %}"></script>
     <script src="{% static 'style/js/navbar-animation.js' %}"></script>
-    <script src="{% static 'style/js/chatbot.js' %}"></script>
-    {% block script %}{% endblock %}1
+    {% block script %}{% endblock %}
     
 </body>
 </html>
