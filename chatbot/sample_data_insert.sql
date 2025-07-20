@@ -15,7 +15,7 @@ INSERT INTO tbl_commodity (
 
 ('com003', 'Corn', 'Corn is widely cultivated in the Philippines as food and feed for livestock.', 
  'Grains', NULL, '2024-01-01 00:00:00', NULL, 'active', 6.11640000, 125.17160000),
-
+clearckealcasd
 ('com004', 'Banana', 'Banana is one of the major fruit exports of the Philippines.', 
  'Fruits', NULL, '2024-01-01 00:00:00', NULL, 'active', 6.07110000, 125.61280000),
 
@@ -162,42 +162,6 @@ INSERT INTO tbl_useful_links (link_title, link, status, date_created) VALUES
 ('Sugar Regulatory Administration', 'https://www.sra.gov.ph', 'active', '2024-01-01'),
 ('National Food Authority', 'https://www.nfa.gov.ph', 'active', '2024-01-01');
 
--- Insert FAQs
-INSERT INTO tbl_faq (
-    question, answer, created_by_id, is_active, created_at, anonymous_reactions
-) VALUES 
-('How do I register as a farmer in the AANR system?',
- 'To register as a farmer, visit your local agricultural office with valid ID, proof of land ownership or tenancy, and fill out the registration form. You can also register online through our portal.',
- NULL, 1, '2024-01-01 00:00:00', 15),
-
-('What financial assistance is available for small-scale farmers?',
- 'Various programs are available including crop insurance, production loans, equipment financing, and disaster relief funds. Contact your local agricultural extension office for specific eligibility requirements.',
- NULL, 1, '2024-01-01 00:00:00', 23),
-
-('How can I access the latest agricultural technologies?',
- 'The AANR Knowledge Hub provides access to the latest agricultural technologies through our online portal, training programs, and partnerships with research institutions and CMIs.',
- NULL, 1, '2024-01-01 00:00:00', 18),
-
-('What are the organic certification requirements?',
- 'Organic certification requires following organic farming practices for at least 3 years, maintaining detailed records, and passing inspections by accredited certification bodies.',
- NULL, 1, '2024-01-01 00:00:00', 12),
-
-('How do I report crop diseases or pest outbreaks?',
- 'Report crop diseases or pest outbreaks to your local agricultural technician or through our online reporting system. Early reporting helps prevent spread and enables quick response.',
- NULL, 1, '2024-01-01 00:00:00', 8),
-
-('What training programs are available for farmers?',
- 'We offer various training programs including modern farming techniques, post-harvest handling, business management, and technology adoption. Check our training calendar for schedules.',
- NULL, 1, '2024-01-01 00:00:00', 20),
-
-('How can I access market information and prices?',
- 'Market information and current prices are available through our online portal, mobile app, and weekly market bulletins distributed through agricultural offices.',
- NULL, 1, '2024-01-01 00:00:00', 14),
-
-('What support is available for young farmers?',
- 'Young farmers can access special programs including scholarships, mentorship, startup capital, and modern equipment loans designed specifically for agricultural youth development.',
- NULL, 1, '2024-01-01 00:00:00', 17);
-"""
 
 # Execute the SQL statements
 cursor = connection.cursor()

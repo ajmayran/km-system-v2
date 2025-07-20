@@ -22092,3 +22092,298 @@ ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 [2025-07-15 10:20:56] Starting new HTTPS connection (1): huggingface.co:443
 [2025-07-15 10:20:56] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
 [2025-07-15 10:20:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-15 22:22:21] Loading faiss with AVX2 support.
+[2025-07-15 22:22:21] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-15 22:22:21] Loading faiss.
+[2025-07-15 22:22:22] Successfully loaded faiss.
+[2025-07-15 22:22:22] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-15 22:27:35] Loading faiss with AVX2 support.
+[2025-07-15 22:27:35] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-15 22:27:35] Loading faiss.
+[2025-07-15 22:27:36] Successfully loaded faiss.
+[2025-07-15 22:27:36] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-15 22:29:37] Loading faiss with AVX2 support.
+[2025-07-15 22:29:37] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-15 22:29:37] Loading faiss.
+[2025-07-15 22:29:37] Successfully loaded faiss.
+[2025-07-15 22:29:37] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-15 22:30:02] Loading faiss with AVX2 support.
+[2025-07-15 22:30:02] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-15 22:30:02] Loading faiss.
+[2025-07-15 22:30:02] Successfully loaded faiss.
+[2025-07-15 22:30:02] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-15 22:30:03] Use pytorch device: cpu
+[2025-07-15 22:30:03] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-15 22:30:04] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-15 22:30:04] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-15 23:22:53] Loading faiss with AVX2 support.
+[2025-07-15 23:22:53] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-15 23:22:53] Loading faiss.
+[2025-07-15 23:22:54] Successfully loaded faiss.
+[2025-07-15 23:22:54] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-15 23:22:54] Use pytorch device: cpu
+[2025-07-15 23:22:54] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-15 23:22:55] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-15 23:22:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-15 23:23:58] Loading faiss with AVX2 support.
+[2025-07-15 23:23:58] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-15 23:23:58] Loading faiss.
+[2025-07-15 23:23:58] Successfully loaded faiss.
+[2025-07-15 23:23:58] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-15 23:23:59] Use pytorch device: cpu
+[2025-07-15 23:23:59] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-15 23:24:00] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-15 23:24:00] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-15 23:24:06] Loading faiss with AVX2 support.
+[2025-07-15 23:24:06] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-15 23:24:06] Loading faiss.
+[2025-07-15 23:24:06] Successfully loaded faiss.
+[2025-07-15 23:24:06] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-15 23:24:06] Watching for file changes with StatReloader
+[2025-07-15 23:24:07] Use pytorch device: cpu
+[2025-07-15 23:24:07] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-15 23:24:08] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-15 23:24:08] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 07:29:33] Loading faiss with AVX2 support.
+[2025-07-16 07:29:33] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 07:29:33] Loading faiss.
+[2025-07-16 07:29:33] Successfully loaded faiss.
+[2025-07-16 07:29:33] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 07:32:00] Loading faiss with AVX2 support.
+[2025-07-16 07:32:00] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 07:32:00] Loading faiss.
+[2025-07-16 07:32:00] Successfully loaded faiss.
+[2025-07-16 07:32:00] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 07:32:02] Use pytorch device: cpu
+[2025-07-16 07:32:02] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-16 07:32:03] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-16 07:32:03] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 07:32:32] Loading faiss with AVX2 support.
+[2025-07-16 07:32:32] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 07:32:32] Loading faiss.
+[2025-07-16 07:32:33] Successfully loaded faiss.
+[2025-07-16 07:32:33] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 07:32:33] Watching for file changes with StatReloader
+[2025-07-16 07:32:36] Use pytorch device: cpu
+[2025-07-16 07:32:36] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-16 07:32:36] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-16 07:32:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 07:48:43] Not Found: /favicon.ico
+[2025-07-16 07:51:27] Loading faiss with AVX2 support.
+[2025-07-16 07:51:27] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 07:51:27] Loading faiss.
+[2025-07-16 07:51:28] Successfully loaded faiss.
+[2025-07-16 07:51:28] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 07:52:26] Loading faiss with AVX2 support.
+[2025-07-16 07:52:26] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 07:52:26] Loading faiss.
+[2025-07-16 07:52:26] Successfully loaded faiss.
+[2025-07-16 07:52:26] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 08:01:39] Loading faiss with AVX2 support.
+[2025-07-16 08:01:39] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 08:01:39] Loading faiss.
+[2025-07-16 08:01:39] Successfully loaded faiss.
+[2025-07-16 08:01:39] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 08:02:10] Not Found: /favicon.ico
+[2025-07-16 08:17:26] Not Found: /cmi/forum/RzRw0kmTCIDt/like/
+[2025-07-16 08:17:28] Not Found: /cmi/forum/RzRw0kmTCIDt/like/
+[2025-07-16 08:17:29] Not Found: /api/placeholder/100/100
+[2025-07-16 08:17:43] Not Found: /cmi/forum/RzRw0kmTCIDt/bookmark/
+[2025-07-16 08:17:46] Not Found: /api/placeholder/100/100
+[2025-07-16 08:18:37] Not Found: /cmi/forum/RzRw0kmTCIDt/like/
+[2025-07-16 08:18:38] Not Found: /cmi/forum/RzRw0kmTCIDt/like/
+[2025-07-16 08:18:40] Not Found: /cmi/forum/RzRw0kmTCIDt/like/
+[2025-07-16 08:18:41] Not Found: /cmi/forum/RzRw0kmTCIDt/like/
+[2025-07-16 08:18:46] Not Found: /cmi/forum/RzRw0kmTCIDt/like/
+[2025-07-16 08:18:48] Not Found: /cmi/forum/RzRw0kmTCIDt/like/
+[2025-07-16 08:18:49] Not Found: /cmi/forum/RzRw0kmTCIDt/like/
+[2025-07-16 12:49:10] Loading faiss with AVX2 support.
+[2025-07-16 12:49:10] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 12:49:10] Loading faiss.
+[2025-07-16 12:49:10] Successfully loaded faiss.
+[2025-07-16 12:49:10] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 12:49:11] Use pytorch device: cpu
+[2025-07-16 12:49:11] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-16 12:49:12] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-16 12:49:12] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 12:49:27] Loading faiss with AVX2 support.
+[2025-07-16 12:49:27] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 12:49:27] Loading faiss.
+[2025-07-16 12:49:27] Successfully loaded faiss.
+[2025-07-16 12:49:27] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 12:49:27] Watching for file changes with StatReloader
+[2025-07-16 12:49:29] Use pytorch device: cpu
+[2025-07-16 12:49:29] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-16 12:49:29] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-16 12:49:29] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 12:57:46] Loading faiss with AVX2 support.
+[2025-07-16 12:57:46] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 12:57:46] Loading faiss.
+[2025-07-16 12:57:46] Successfully loaded faiss.
+[2025-07-16 12:57:46] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 12:57:47] Use pytorch device: cpu
+[2025-07-16 12:57:47] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-16 12:57:47] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-16 12:57:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 13:01:35] Backend wasn't recognised (``)
+[2025-07-16 13:01:36] Internal Server Error: /cmis/about-km/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 880, in _resolve_lookup
+    current = current[bit]
+              ~~~~~~~^^^^^
+TypeError: 'ImageFieldFile' object is not subscriptable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\appCmi\views\cmi_about_view.py", line 24, in about
+    return render(request, "pages/cmi-about.html", context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\defaulttags.py", line 238, in render
+    nodelist.append(node.render_annotated(context))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 715, in resolve
+    obj = self.var.resolve(context)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 847, in resolve
+    value = self._resolve_lookup(context)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\template\base.py", line 890, in _resolve_lookup
+    current = getattr(current, bit)
+              ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\db\models\fields\files.py", line 66, in url
+    self._require_file()
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\db\models\fields\files.py", line 41, in _require_file
+    raise ValueError(
+ValueError: The 'cmi_image' attribute has no file associated with it.
+[2025-07-16 13:01:36] Not Found: /favicon.ico
+[2025-07-16 13:02:20] Backend wasn't recognised (``)
+[2025-07-16 15:05:12] Loading faiss with AVX2 support.
+[2025-07-16 15:05:12] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 15:05:12] Loading faiss.
+[2025-07-16 15:05:12] Successfully loaded faiss.
+[2025-07-16 15:05:12] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 15:05:56] Loading faiss with AVX2 support.
+[2025-07-16 15:05:56] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 15:05:56] Loading faiss.
+[2025-07-16 15:05:56] Successfully loaded faiss.
+[2025-07-16 15:05:56] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 15:05:57] Use pytorch device: cpu
+[2025-07-16 15:05:57] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-16 15:05:58] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-16 15:05:58] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 15:06:12] Loading faiss with AVX2 support.
+[2025-07-16 15:06:12] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 15:06:12] Loading faiss.
+[2025-07-16 15:06:12] Successfully loaded faiss.
+[2025-07-16 15:06:12] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 15:06:13] Watching for file changes with StatReloader
+[2025-07-16 15:06:13] Use pytorch device: cpu
+[2025-07-16 15:06:13] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-16 15:06:14] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-16 15:06:14] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 15:09:17] Not Found: /favicon.ico
+[2025-07-16 15:21:42] Loading faiss with AVX2 support.
+[2025-07-16 15:21:42] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 15:21:42] Loading faiss.
+[2025-07-16 15:21:42] Successfully loaded faiss.
+[2025-07-16 15:21:42] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 15:21:44] Use pytorch device: cpu
+[2025-07-16 15:21:44] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-16 15:21:45] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-16 15:21:45] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 15:23:44] Loading faiss with AVX2 support.
+[2025-07-16 15:23:44] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-16 15:23:44] Loading faiss.
+[2025-07-16 15:23:44] Successfully loaded faiss.
+[2025-07-16 15:23:44] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-16 15:23:47] Use pytorch device: cpu
+[2025-07-16 15:23:47] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-16 15:23:52] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-16 15:23:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-16 15:28:32] Backend wasn't recognised (``)
+[2025-07-16 15:42:18] Backend wasn't recognised (``)

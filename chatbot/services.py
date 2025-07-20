@@ -22,7 +22,7 @@ from .spell_corrector import (
 # Import for local AI and FAISS
 try:
     from sentence_transformers import SentenceTransformer
-    from transformers import pipeline
+    from transformers import pipeline       
     import torch
     import faiss
     TRANSFORMERS_AVAILABLE = True

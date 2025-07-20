@@ -136,8 +136,7 @@ class IntelligentChatbot {
             // Add initial welcome message with AI branding
             this.addMessage(`
                 🤖 Hello! I'm your <strong>AI assistant</strong> for AANR Knowledge Hub.<br>
-                <em>✨ Powered by local AI models - your data stays secure!</em><br>
-                I can intelligently help you with:<br>
+                I can help you with:<br>
                 🌾 Agriculture & Farming Resources<br>
                 🐟 Aquatic & Natural Resources<br>
                 💬 Forum Discussions & Expert Advice<br>
