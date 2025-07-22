@@ -1,80 +1,276 @@
-{% extends 'base/admin-index.html' %} {% load embed_video_tags %} {% load static %}
+{% extends 'base/admin-index.html' %}
+{% load embed_video_tags %}
+{% load static %}
 {% block title %} Admin About {% endblock %} {% block stylesheet %}
 <link rel="stylesheet" href="{% static 'style/css/admin.about.css' %}" />
-<!-- CSS -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+{% load custom_tags %}
+
 <link
   href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css"
   rel="stylesheet"
 />
+<style>
+  .about-table thead th {
+    font-size: 13px;
+    font-weight: bolder;
+    background-color: #343a40;
+    color: white;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .about-table tbody td {
+    font-size: 12px;
+    vertical-align: middle;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .about-table img {
+    max-width: 50px;
+    max-height: 50px;
+    display: block;
+    margin: 0 auto;
+  }
+
+  .about-table .action-buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+  }
+
+  .about-table .btn {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+
+  .table-container {
+    max-height: 500px;
+    overflow-y: auto;
+  }
+
+  .modal .form-group label {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .modal .form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+    transition: border-color 0.3s;
+    font-size: 14px;
+  }
+
+  .modal .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.1rem rgba(0, 123, 255, 0.25);
+  }
+
+  .modal .modal-title {
+    font-weight: 600;
+    color: #0C356A;
+  }
+
+  .modal-footer .btn-success {
+    background-color: #198754;
+    border: none;
+  }
+
+  .modal-footer .btn-secondary {
+    background-color: #6c757d;
+    border: none;
+  }
+
+  .modal-footer .btn:hover {
+    opacity: 0.9;
+  }
+</style>
 {% endblock %} {% block content %}
 <br />
 <div class="masonry-item col-12">
   <div class="bd bgc-white">
     <div class="peers fxw-nw@lg+ ai-s">
       <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="button-container-head">
-              <button type="button" id="about-page-btn" style="background-color: #0C356A; color: #fff; border: 0; border-radius: 3px; padding: 5px; font-weight: bold;">About Page Component</button>
-              <button type="button" id="about-footer-btn" style="background-color: #0C356A; color: #fff; border: 0; border-radius: 3px; padding: 5px; font-weight: bold;">About Footer Component</button>
-              <button type="button" id="video-btn" style="background-color: #0C356A; color: #fff; border: 0; border-radius: 3px; padding: 5px; font-weight: bold;">"How To Use (Video)" Component</button>
-            </div>
-          </div>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h3>About Projects</h3>
+          <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addAboutModal">
+            <i class="fa fa-plus"></i> Add New
+          </a>
         </div>
-        <hr style="color: black;" />
-  
-        <div class="about-page" id="about-page">
-          <h3 style="font-weight:bold;">ADMIN 'ABOUT PAGE'</h3>
-  
-          <div class="row">
-            <div class="col-lg-12" style="margin-top:20px; width: 100%;">
-              <form action="{{ form_action }}" method="post">
-                {% csrf_token %}
-                <textarea name="content" id="about-page-textarea">
-                  {% if about_content %}
-                    {{ about_content.0.content }}
+
+        {% load custom_filters %}
+
+        <div class="table-container">
+          <table class="about-table table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>About ID</th>
+                <th>Project Name</th>
+                <th>Image</th>
+                <th>Project Details</th>
+                <th>Project Rationale</th>
+                <th>Date Created</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in about_content %}
+              <tr>
+                <td>{{ item.about_id }}</td>
+                <td>{{ item.project_name }}</td>
+                <td class="text-center">
+                  {% if item.image %}
+                    <img src="{{ item.image.url }}" alt="Profile" width="50" height="50">
                   {% else %}
-                    <span>No content</span>
+                    <i class="fa-solid fa-image"></i>
                   {% endif %}
-                </textarea>
-                <button type="submit" class="btn btn-success" style="float:right; margin-top:20px;">Update</button>
-              </form>
-            </div>
+                </td>
+                <td>{{ item.project_details|safe }}</td>
+                <td>{{ item.project_rationale_desc|safe }}</td>
+                <td>{{ item.date_created }}</td>
+                <td>
+                  <div class="action-buttons">
+                    <a href="{% url 'appAdmin:about-objective' item.about_id %}" class="btn btn-info" title="View">
+                      <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <button type="button" class="btn btn-warning" data-toggle="modal"
+                      data-target="#editAboutModal{{ item.about_id }}" title="Edit">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <form action="{% url 'appAdmin:about-delete' item.about_id %}" method="post" 
+                          style="display:inline;" class="delete-about-form">
+                      {% csrf_token %}
+                      <button type="submit" class="btn btn-danger" title="Delete">
+                        <i class="fa-solid fa-trash"></i>
+                      </button>
+                    </form>
+                  </div>
+                </td>
+              </tr>
+              <!-- Edit Modal -->
+              <div class="modal fade" id="editAboutModal{{ item.about_id }}" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                  <form method="post" enctype="multipart/form-data" 
+                        action="{% url 'appAdmin:about-edit' item.about_id %}">
+                    {% csrf_token %}
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Edit Project - {{ item.project_name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                        {% with form=edit_forms|get_item:item.about_id %}
+                          <div class="form-group">
+                            <label for="project_name_{{ item.about_id }}">Project Name</label>
+                            {{ form.project_name }}
+                            {% if form.project_name.errors %}
+                              <div class="text-danger">{{ form.project_name.errors }}</div>
+                            {% endif %}
+                          </div>
+
+                          <div class="form-group">
+                            <label for="image_{{ item.about_id }}">Project Image</label><br/>
+                            {% if item.image %}
+                              <img src="{{ item.image.url }}" alt="Current Image" width="80" height="80" class="mb-2" style="object-fit: cover; border-radius: 6px;">
+                            {% endif %}
+                            {{ form.image }}
+                            {% if form.image.errors %}
+                              <div class="text-danger">{{ form.image.errors }}</div>
+                            {% endif %}
+                          </div>
+
+                          <div class="form-group">
+                            <label for="project_details_{{ item.about_id }}">Project Details</label>
+                            {{ form.project_details }}
+                            {% if form.project_details.errors %}
+                              <div class="text-danger">{{ form.project_details.errors }}</div>
+                            {% endif %}
+                          </div>
+
+                          <div class="form-group">
+                            <label for="project_rationale_desc_{{ item.about_id }}">Project Rationale</label>
+                            {{ form.project_rationale_desc }}
+                            {% if form.project_rationale_desc.errors %}
+                              <div class="text-danger">{{ form.project_rationale_desc.errors }}</div>
+                            {% endif %}
+                          </div>
+                        {% endwith %}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Update</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+
+              {% empty %}
+              <tr>
+                <td colspan="7" class="text-center text-muted">
+                  <i class="fa-solid fa-circle-info"></i> No about project records found.
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Add Modal -->
+        <div class="modal fade" id="addAboutModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg" role="document">
+            <form method="post" enctype="multipart/form-data" action="{% url 'appAdmin:about-add' %}">
+              {% csrf_token %}
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add Project</h5>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label for="{{ form.project_name.id_for_label }}">Project Name</label>
+                    {{ form.project_name }}
+                    {% if form.project_name.errors %}
+                      <div class="text-danger">{{ form.project_name.errors }}</div>
+                    {% endif %}
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="{{ form.image.id_for_label }}">Project Image</label>
+                    {{ form.image }}
+                    {% if form.image.errors %}
+                      <div class="text-danger">{{ form.image.errors }}</div>
+                    {% endif %}
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="{{ form.project_details.id_for_label }}">Project Details</label>
+                    {{ form.project_details }}
+                    {% if form.project_details.errors %}
+                      <div class="text-danger">{{ form.project_details.errors }}</div>
+                    {% endif %}
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="{{ form.project_rationale_desc.id_for_label }}">Project Rationale</label>
+                    {{ form.project_rationale_desc }}
+                    {% if form.project_rationale_desc.errors %}
+                      <div class="text-danger">{{ form.project_rationale_desc.errors }}</div>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success">Save</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-  
-        <div class="about-footer" id="about-footer">
-          <h3 style="font-weight:bold;">ADMIN 'ABOUT FOOTER'</h3>
-  
-          <div class="row">
-            <div class="col-lg-12" style="margin-top:20px; width: 100%;">
-              <form action="{{ form_action_footer }}" method="post">
-                {% csrf_token %}
-                <textarea name="content_footer" id="about-footer-textarea">
-                  {% if footer_content %}
-                    {{ footer_content.0.content_footer }}
-                  {% else %}
-                    <span>No content</span>
-                  {% endif %}
-                </textarea>
-                <button type="submit" class="btn btn-success" style="float:right; margin-top:20px;">Update</button>
-              </form>
-            </div>
-          </div>
-        </div>
-  
-        <div class="video-component" id="video-component">
-          <div class="header d-flex justify-content-between align-items-center">
-            <h3 style="font-weight:bold;">ADMIN 'HOW TO USE' VIDEO</h3>
-            <button type="button" title="Upload" style="background-color: #0C356A; color: #fff; border: 0; border-radius: 3px; padding: 5px; font-weight: bold;" data-toggle="modal" data-target="#uploadvideoModal">Upload Video</button>
-          </div>
-  
-          <div class="row">
-            <div class="col-lg-12" style="margin-top:20px; width: 100%;">
-              {% video videos.url '1000x700' %}
-            </div>
-          </div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -94,6 +290,12 @@
 {% endif %} {% endfor %} {% endif %}
 
 <script>
+  $(document).ready(function() {
+    $('.edit-about-form').on('submit', function() {
+      console.log('Edit form submitted');
+    });
+  });
+
   $(document).ready(function () {
     $("#about-page textarea").summernote({
       height: 300,
@@ -245,5 +447,25 @@
       });
     }
   });
+
+  document.querySelectorAll('.delete-about-form').forEach(form => {
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    Swal.fire({
+      title: 'Delete this About Project?',
+      text: "This action cannot be undone.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#d33',
+      cancelButtonColor: '#aaa',
+      confirmButtonText: 'Yes, delete it!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        form.submit();
+      }
+    });
+  });
+});
 </script>
 {% endblock %}

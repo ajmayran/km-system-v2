@@ -29,7 +29,27 @@
       <div class="navbar-center desktop-menu">
         <ul>
           <li><a href="{% url 'appCmi:home' %}">Home</a></li>
-          <li><a href="{% url 'appCmi:cmi-about' %}">About</a></li>
+           <li>
+            <div class="dropdown">
+              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
+                About
+                <i class="fa-solid fa-circle-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu" role="menu">
+                <a href="{% url 'appCmi:cmi-about' %}">RAISE Main Project</a>
+                {% if about_list %}
+                  {% for about in about_list %}
+                    <a href="/cmis/project/{{ about.about_id }}/" class="dropdown-item" role="menuitem">
+                      {{ about.project_name }}
+                    </a>
+                  {% endfor %}
+                {% else %}
+                  <a href="#" class="dropdown-item" role="menuitem">No Projects Yet</a>
+                {% endif %}
+              </div>
+
+            </div>
+          </li>
           
           <!-- Useful Links Dropdown -->
           <li>
@@ -113,7 +133,7 @@
       <a href="{% url 'appCmi:home' %}">
         <i class="fas fa-home"></i> Home
       </a>
-      <a href="{% url 'appCmi:cmi-about' %}">
+      <a href="">
         <i class="fas fa-info-circle"></i> About
       </a>
       

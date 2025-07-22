@@ -3,7 +3,6 @@ from appAdmin.models import ResourceMetadata, Event, InformationSystem, Map
 from utils.user_control import user_access_required
 
 
-@user_access_required(["admin", "cmi"], error_type=404)
 def cmi_display_post(request, slug):
     post = ResourceMetadata.objects.get(slug=slug)
     post_type = post.resource_type

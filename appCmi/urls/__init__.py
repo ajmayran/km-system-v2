@@ -26,6 +26,10 @@ from .cmi_faqs_url import (
     urlpatterns as faqs_url_urlpatterns,
 )
 
+from .project_url import (
+    urlpatterns as project_url_patterns,
+)
+
 urlpatterns = (
     home_url_urlpatterns
     + cmi_about_url_urlpatterns
@@ -36,4 +40,5 @@ urlpatterns = (
     + knowledge_resources_url_urlpatterns
     + display_post_url_urlpatterns
     + faqs_url_urlpatterns
+    + project_url_patterns  
 )

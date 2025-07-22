@@ -1,5 +1,5 @@
 from .home_view import home, get_input_from_search  # ✅ Import the home function
-from .cmi_about_view import about  # ✅ Import the about function
+from .cmi_about_view import cmi_about  # ✅ Import the about function
 from .cmi_forum_view import (
     cmi_forum,
     forum_post_question,

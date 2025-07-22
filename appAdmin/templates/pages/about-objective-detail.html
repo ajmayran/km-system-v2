@@ -1,0 +1,289 @@
+{% extends 'base/admin-index.html' %}
+{% load embed_video_tags %}
+{% load static %}
+{% load custom_tags %}
+
+{% block title %}{{ about.project_name }} Objective Detail{% endblock %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'style/css/admin.about.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet" />
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<br />
+<div class="masonry-item col-12">
+  <div class="bd bgc-white">
+    <div class="peers fxw-nw@lg+ ai-s">
+      <div class="peer peer-greed w-70p@lg+ w-100@lg- p-20">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+        <!-- Left Section -->
+        <div class="d-flex align-items-center">
+          <!-- Back Button -->
+          <a href="{% url 'appAdmin:about-page' %}" class="btn-back-gray">
+            <i class="fa fa-arrow-left"></i>
+            <span>Back</span>
+          </a>
+
+          <!-- Navigation Tabs -->
+          <div class="nav nav-pills nav-fill bg-light rounded p-1" role="tablist">
+            <a href="{% url 'appAdmin:about-rationale' about.about_id %}"
+              class="nav-link btn btn-sm {% if request.resolver_match.url_name == 'about-rationale' %}btn-primary active{% else %}btn-outline-primary{% endif %} mx-1"
+              role="tab">
+              <i class="fas fa-lightbulb me-1"></i>
+              Rationale
+            </a>
+
+            <a href="{% url 'appAdmin:about-objective' about.about_id %}"
+              class="nav-link btn btn-sm {% if request.resolver_match.url_name == 'about-objective' %}btn-primary active{% else %}btn-outline-primary{% endif %} mx-1"
+              role="tab">
+              <i class="fas fa-bullseye me-1"></i>
+              Objective
+            </a>
+
+            <a href="{% url 'appAdmin:about-activity' about.about_id %}"
+              class="nav-link btn btn-sm {% if request.resolver_match.url_name == 'about-activity' %}btn-primary active{% else %}btn-outline-primary{% endif %} mx-1"
+              role="tab">
+              <i class="fas fa-tasks me-1"></i>
+              Activities
+            </a>
+
+            <a href="{% url 'appAdmin:about-timeline' about.about_id %}"
+              class="nav-link btn btn-sm {% if request.resolver_match.url_name == 'about-timeline' %}btn-primary active{% else %}btn-outline-primary{% endif %} mx-1"
+              role="tab">
+              <i class="fas fa-calendar-alt me-1"></i>
+              Timeline
+            </a>
+
+            <a href="{% url 'appAdmin:about-team' about.about_id %}"
+              class="nav-link btn btn-sm {% if request.resolver_match.url_name == 'about-team' %}btn-primary active{% else %}btn-outline-primary{% endif %} mx-1"
+              role="tab">
+              <i class="fas fa-users me-1"></i>
+              Team
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Section -->
+        <div>
+          <button style="color: white;" class="btn btn-primary" data-toggle="modal" data-target="#addObjectiveModal">
+            <i class="fa fa-plus"></i> Add New
+          </button>
+        </div>
+      </div>
+
+      <!-- Title Below Navigation -->
+      <h3 class="mb-3">{{ about.project_name }} - Objective Detail</h3>
+
+
+        <style>
+          .about-table thead th {
+            font-size: 13px;
+            font-weight: bolder;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+          }
+
+          .about-table tbody td {
+            font-size: 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #ddd;
+          }
+
+          .about-table .action-buttons {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+          }
+
+          .about-table .btn {
+            padding: 4px 8px;
+            font-size: 12px;
+          }
+
+          .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+          }
+
+          .nav-pills .nav-link {
+            border-radius: 0.375rem;
+            transition: all 0.2s ease-in-out;
+            font-weight: 500;
+            text-decoration: none;
+            color: inherit;
+          }
+
+          .nav-pills .nav-link:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          }
+
+          .nav-pills .nav-link.active {
+            box-shadow: 0 2px 8px rgba(13, 110, 253, 0.3);
+          }
+
+          .nav-pills {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+          }
+          .btn-back-gray {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #f4f4f4;
+            color: #444;
+            border: 1.5px solid #bbb;
+            border-radius: 0.375rem; 
+            padding: 4px 16px;      
+            font-size: 12px;   
+            font-weight: 500;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(180,180,180,0.07);
+            margin-right: 20px;
+          }
+
+          .btn-back-gray i {
+            font-size: 1em;
+          }
+
+          .btn-back-gray:hover, .btn-back-gray:focus {
+            background: #e0e0e0;
+            color: #222;
+            border-color: #888;
+            box-shadow: 0 4px 16px rgba(180,180,180,0.15);
+            text-decoration: none;
+            outline: none;
+          }
+        </style>
+
+          <div class="table-container">
+            <table class="about-table table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Icon</th>
+                  <th>Title</th>
+                  <th>Details</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in objective_items %}
+                <tr>
+                  <td>{{ item.objective_id }}</td>
+                  <td class="text-center">
+                    {% if item.icon %}
+                    <i class="{{ item.icon }}"></i>
+                    {% else %}
+                    <i class="fa-solid fa-image"></i>
+                    {% endif %}
+                  </td>
+                  <td>{{ item.title }}</td>
+                  <td>{{ item.detail|safe }}</td>
+                  <td>
+                    <div class="action-buttons">
+                      <button type="button" class="btn btn-warning" data-toggle="modal"
+                        data-target="#editObjectiveModal{{ item.objective_id }}" title="Edit">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                      </button>
+
+                      <form action="{% url 'appAdmin:about-objective-delete' item.objective_id %}" method="post"
+                        style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')"
+                          title="Delete">
+                          <i class="fa-solid fa-trash"></i>
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+
+                <!-- Edit Modal -->
+                <div class="modal fade" id="editObjectiveModal{{ item.objective_id }}" tabindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <form method="post" enctype="multipart/form-data"
+                      action="{% url 'appAdmin:about-objective-edit' item.objective_id %}">
+                      {% csrf_token %}
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Edit Objective</h5>
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                          {% with edit_form=edit_forms|get_item:item.objective_id %}
+                          {{ edit_form.as_p }}
+                          {% endwith %}
+                        </div>
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-success">Save changes</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                {% empty %}
+                <tr>
+                  <td colspan="5" class="text-center text-muted">
+                    <i class="fa-solid fa-circle-info"></i> No objective records found.
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+
+        <!-- Add Modal -->
+        <div class="modal fade" id="addObjectiveModal" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <form method="post" enctype="multipart/form-data" action="{% url 'appAdmin:about-objective-add' about.about_id %}">
+              {% csrf_token %}
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Add Objective</h5>
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  {{ form.as_p }}
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-success">Save</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+{% if messages %}
+  {% for message in messages %}
+    <script>
+      Swal.fire({
+        icon: "{% if message.tags == 'success' %}success{% else %}error{% endif %}",
+        title: "{% if message.tags == 'success' %}Success!{% else %}Error{% endif %}",
+        text: "{{ message|striptags|escapejs }}",  
+      });
+    </script>
+  {% endfor %}
+{% endif %}
+<script>
+</script>
+{% endblock %}
+

@@ -1,438 +1,644 @@
 {% extends 'base/cmi-index.html' %}
-{% load embed_video_tags %}
-{% load static %}
 
-{% block title %}About | AANR Knowledge Hub{% endblock %}
+{% load static %}
+{% load text_filters %}
+
+
+{% block title %}
+  AANR Knowledge Hub | About
+{% endblock %}
 
 {% block stylesheet %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="{% static 'style/main.css' %}">
+  <link rel="stylesheet" href="{% static 'style/css/cmi-navbar.css' %}">
 <style>
-  :root {
-    --primary: #2c6e49;
-    --secondary: #4c956c;
-    --accent: #90e0c9;
-    --light: #f8f9fa;
-    --dark: #212529;
-    --navbar-bg: #2c6e49;
-    --text-color: #333;
-    --section-padding: 4rem 0;
-    --transition: all 0.3s ease;
+    .hidden {
+    display: none !important;
+  }.scrollable {
+    overflow-y: auto;
   }
-
-  .main-content {
-    padding-top: 2rem;
-    padding-bottom: 4rem;
-  }
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-
-  /* Page Header */
-  .page-header {
-    padding: 4rem 0;
-    margin-bottom: 3rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .page-header::after {
-    content: '';
-    position: absolute;
-    bottom: -50px;
-    left: 0;
+  .structure-img-container {
     width: 100%;
-    height: 100px;
-  }
-
-  .header-content {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     text-align: center;
-    position: relative;
-    z-index: 1;
   }
 
-  .page-title {
-    font-size: 2.8rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    position: relative;
-    display: inline-block;
-    color: var(--primary);
-
-  }
-
-  .page-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 80px;
-    height: 3px;
-    background-color: var(--accent);
-  }
-
-  .page-subtitle {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    max-width: 600px;
-    margin: 1.5rem auto 0;
-  }
-
-  /* Section Styling */
-  .section {
-    padding: var(--section-padding);
-  }
-
-  .section-title {
-    font-size: 2.2rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 1.5rem;
-    position: relative;
-    padding-bottom: 0.8rem;
-  }
-
-  .section-title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 60px;
-    height: 3px;
-    background-color: var(--accent);
-  }
-
-  .section-subtitle {
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-  }
-
-  /* About Content */
-  .about-container {
-    background-color: white;
-    border-radius: 10px;
-    padding: 2rem;
-    margin-bottom: 3rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    line-height: 1.8;
-    color: var(--text-color);
-  }
-
-  .about-container h1, 
-  .about-container h2, 
-  .about-container h3, 
-  .about-container h4 {
-    color: var(--primary);
-    margin-top: 1.5rem;
-    margin-bottom: 1rem;
-  }
-
-  .about-container p {
-    margin-bottom: 1.5rem;
-    line-height: 1.8;
-  }
-
-  .about-container ul, 
-  .about-container ol {
-    margin-bottom: 1.5rem;
-    padding-left: 2rem;
-  }
-
-  .about-container li {
-    margin-bottom: 0.5rem;
-  }
-
-  .about-container img {
-    max-width: 100%;
+  .structure-img {
+    width: 100%;
+    aspect-ratio: 16/9;
     height: auto;
-    border-radius: 8px;
-    margin: 1.5rem 0;
-  }
-
-  .about-container a {
-    color: var(--primary);
-    text-decoration: none;
-    transition: var(--transition);
-  }
-
-  .about-container a:hover {
-    color: var(--secondary);
-    text-decoration: underline;
-  }
-
-  /* Video Section */
-  .video-section {
-    padding: var(--section-padding);
-    margin: 3rem 0;
-    border-radius: 10px;
-  }
-
-  .video-content {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .video-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
-  }
-
-  .video-description {
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #555;
-  }
-
-  /* CMI Section */
-  .cmi-section {
-    padding: var(--section-padding);
-  }
-
-  .cmi-container {
-    background-color: white;
-    border-radius: 10px;
-    padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  }
-
-  .cmi-description {
-    margin-bottom: 2rem;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #555;
-  }
-
-  .cmi-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-
-  .cmi-item {
-    background-color: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: var(--transition);
-    text-align: center;
-    padding: 1.5rem;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .cmi-item:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  .cmi-item img {
-    max-width: 120px;
-    height: auto;
-    margin-bottom: 1rem;
-    transition: var(--transition);
-  }
-
-  .cmi-item:hover img {
-    transform: scale(1.05);
-  }
-
-  .cmi-details {
-    padding: 1rem 0;
-  }
-
-  .cmi-name {
-    font-weight: 600;
-    font-size: 1rem;
-    color: var(--primary);
+    object-fit: contain;
     display: block;
-    margin-top: 0.5rem;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    background: #fff;
+    
+    /* .carousel-caption h1 {
+    -webkit-text-stroke: 2px #2d5016; 
+    text-stroke: 2px #2d5016;
+    color: white; 
+    text-shadow: 2px 2px 4px rgba(45, 80, 22, 0.8);
   }
 
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .page-title {
-      font-size: 2.2rem;
-    }
-    
-    .section-title {
-      font-size: 1.8rem;
-    }
-    
-    .about-container,
-    .cmi-container {
-      padding: 1.5rem;
-    }
-    
-    .cmi-images {
-      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      gap: 1.5rem;
-    }
+  .carousel-caption p {
+    -webkit-text-stroke: 0.5px #2d5016; 
+    text-stroke: 0.5px #2d5016;
+    color: white;
+    text-shadow: 0.5px 0.5px 2px rgba(45, 80, 22, 0.8);
+  } */
   }
+    .description-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
 
-  @media (max-width: 576px) {
-    .page-title {
-      font-size: 1.8rem;
+    .description-modal {
+      background: white;
+      border-radius: 10px;
+      max-width: 80%;
+      max-height: 80%;
+      width: 500px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
     }
-    
-    .page-subtitle {
-      font-size: 1rem;
+
+    .description-header {
+      padding: 20px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
     }
-    
-    .section-title {
+
+    .description-title {
+      margin: 0;
+      color: #333;
       font-size: 1.5rem;
     }
-    
-    .cmi-images {
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 1rem;
+
+    .btn-close-description {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: #999;
+      cursor: pointer;
+      padding: 0;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s ease;
     }
-  }
 
-  /* Animation Classes */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
+    .btn-close-description:hover {
+      background: #f0f0f0;
+      color: #333;
+    }
 
-  .fade-up.animated {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    .description-content {
+      padding: 20px;
+      overflow-y: auto;
+      flex: 1;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .description-content p {
+      margin: 0;
+    }
+
+    .see-more-btn {
+      margin-top: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .see-more-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .description-modal {
+        max-width: 95%;
+        max-height: 90%;
+        margin: 10px;
+      }
+      
+      .description-header {
+        padding: 15px;
+      }
+      
+      .description-title {
+        font-size: 1.2rem;
+      }
+      
+      .description-content {
+        padding: 15px;
+      }
+    }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="main-content">
-  <!-- Page Header -->
-  <div class="page-header">
-    <div class="header-content" data-aos="fade-up">
-      <h1 class="page-title">About AANR Knowledge Hub</h1>
-      <p class="page-subtitle">Empowering communities through knowledge sharing and technological advancement in Agriculture, Aquatic, and Natural Resources sectors.</p>
+  <!-- Carousel Start -->
+  <div id="raiseCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
+    <div class="carousel-inner">
+      {% for img in images %}
+        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ img.image.url }}" class="d-block w-100" alt="{{ img.title }}">
+        <div class="carousel-caption">
+          <h1 style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">{{ img.title }}</h1>
+          <p style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">
+            {{ img.description|first_100_words }}
+          </p>
+          {% if img.description|wordcount > 100 %}
+          <button class="btn btn-outline-light btn-sm see-more-btn" 
+                  data-description="{{ img.description|escape }}" 
+                  data-title="{{ img.title|escape }}">
+            See More
+          </button>
+          {% endif %}
+        </div>
+        
+        <!-- Full description overlay -->
+        <div class="description-overlay" style="display: none;">
+          <div class="description-modal">
+            <div class="description-header">
+              <h3 class="description-title">{{ img.title }}</h3>
+              <button class="btn-close-description" aria-label="Close">&times;</button>
+            </div>
+            <div class="description-content">
+              <p>{{ img.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Handle See More button clicks
+        document.addEventListener('click', function(e) {
+          if (e.target.classList.contains('see-more-btn')) {
+            const overlay = e.target.closest('.carousel-item').querySelector('.description-overlay');
+            overlay.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+          }
+          
+          // Handle close button clicks
+          if (e.target.classList.contains('btn-close-description')) {
+            const overlay = e.target.closest('.description-overlay');
+            overlay.style.display = 'none';
+            document.body.style.overflow = ''; // Restore scrolling
+          }
+          
+          // Handle clicking outside the modal
+          if (e.target.classList.contains('description-overlay')) {
+            e.target.style.display = 'none';
+            document.body.style.overflow = ''; // Restore scrolling
+          }
+        });
+        
+        // Handle escape key
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape') {
+            const visibleOverlay = document.querySelector('.description-overlay[style*="flex"]');
+            if (visibleOverlay) {
+              visibleOverlay.style.display = 'none';
+              document.body.style.overflow = '';
+            }
+          }
+        });
+      });
+      </script>
+      {% empty %}
+        <div class="carousel-item active">
+          <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1400&q=80" class="d-block w-100" alt="Agricultural landscape">
+          <div class="carousel-caption">
+            <h1>RAISE WESMIN</h1>
+            <p>Empowering agricultural communities through innovation and sustainability.</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <a class="carousel-control-prev" href="#raiseCarousel" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#raiseCarousel" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+  <!-- Carousel End -->
+
+  <div class="project-rationale-objective d-flex flex-wrap">
+    <div class="section col-md-6" id="rationale" style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+      <div class="container" style="border:5px solid #4c956c; padding:20px; text-align:center; height:100%;">
+        <h2 class="section-title" data-aos="fade-up">RAISE Rationale</h2>
+        
+       <div class="rationale-container">
+          <div class="rationale-slider">
+            <div id="rationale-text" class="rationale-content" style="overflow-y:auto;">
+              <p>{{ main.project_rationale_desc|safe }}</p>
+            </div>
+          </div>
+
+          <div id="rationale-controls" class="rationale-nav hidden">
+            <button id="rationalePrev"><i class="fas fa-chevron-up"></i></button>
+            <button id="rationaleNext"><i class="fas fa-chevron-down"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section col-md-6" id="objectives" style="background-color: #2c6e49;">
+      <div class="" style="text-align: center; height:100%;">
+        <h2 class="section-title" data-aos="fade-up" style="color:white;">RAISE Objectives</h2>
+        
+        <div class="objectives-container">
+          <div class="objective-card">
+            <div class="objective-card-front">
+              <div id="objective-box" class="objective-lists" style="overflow-y:auto;">
+                <ul id="objectivesList">
+                  {% for obj in objectives %}
+                    <li><strong>{{ obj.title }}</strong></li>
+                  {% endfor %}
+                </ul>
+              </div>
+
+              <div id="objective-controls" class="nav-buttons hidden">
+                <button id="prevBtn"><i class="fas fa-chevron-up"></i></button>
+                <button id="nextBtn"><i class="fas fa-chevron-down"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="container">
-    <!-- About Section -->
-    <section class="section">
-      <h2 class="section-title" data-aos="fade-up">KNOWLEDGE MANAGEMENT SYSTEM HUB</h2>
-      <div class="about-container" id="summernote-content" data-aos="fade-up" data-aos-delay="100">
-        {% for content in contents %}
-          {% autoescape off %}
-            {{ content.content|safe }}
-          {% endautoescape %}
-        {% endfor %}
+  <div class="section" id="structure">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Organizational Structure</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Our streamlined structure ensures efficient implementation across all project components.</p>
+      <div class="structure-img-container" data-aos="zoom-in">
+        {% if main.org_struct_image %}
+          <img src="{{ main.org_struct_image.url }}" alt="Organizational Structure" class="structure-img">
+        {% else %}
+          <img src="{% static 'assets/images/org.jpg' %}" alt="Default Org Structure" class="structure-img">
+        {% endif %}
       </div>
-    </section>
-
-    <!-- Video Section -->
-    <section class="video-section" data-aos="fade-up">
-      <div class="video-content">
-        <h2 class="section-title">How KMS Hub Works</h2>
-        <p class="video-description">
-          KM4AANR is an online database dedicated to Agriculture, Aquatic and Natural Resources news, updates, and content from different platforms. This project is funded by DOST-PCAARRD. This is a short walkthrough of the system.
-        </p>
-        <div class="video-container" data-aos="fade-up" data-aos-delay="100">
-          {% video videos.url '1000x700'%}
-        </div>
-      </div>
-    </section>
-
-    <!-- CMI Section -->
-    <section class="cmi-section" data-aos="fade-up">
-      <div class="cmi-container">
-        <h2 class="section-title">Consortium Member Institutions</h2>
-        <p class="cmi-description">
-          These institutions are considered organic and/or regular members of the consortium. However, when appropriate, WESMAARRDEC may allow qualified research and development institutions, local government units, non-government organizations and private sectors in the region to become members as approved by the Regional Research and Development Coordinating Committee (RRDCC). The private sectors includes the companies and profit-organizations that may be willing to fund R&D activities.
-        </p>
-        
-        <!--CMI Images-->
-        <div class="cmi-images">
-          {% for img in cmis %}
-            <div class="cmi-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter|add:'50' }}">
-              <img src="{{ img.cmi_image.url }}" alt="{{ img.cmi_name }} Logo">
-              <div class="cmi-details">
-                <span class="cmi-name">{{ img.cmi_name }}</span>
-              </div>
-            </div>
-          {% endfor %}
-        </div>
-      </div>
-    </section>
+      
+    </div>
   </div>
-</div>
-{% endblock %}
 
-{% block script %}
-<!-- JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <div class="section" id="projects" style="text-align:center;"> 
+    <div class=""> 
+      <h2 class="section-title" data-aos="fade-up">RAISE Projects</h2> 
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">{{ main.raise_project_desc|safe }}</p> 
+       
+      <div class="projects-container"> 
+        {% if about_list and about_list|length >= 5 %}
+          <button class="slider-nav slider-prev" onclick="scrollProjects(-1)"> 
+            <i class="fas fa-chevron-left"></i> 
+          </button> 
+        {% endif %}
+         
+        <div class="projects-slider{% if about_list and about_list|length >= 5 %} scrollable{% endif %}" id="projectsSlider"> 
+          {% if about_list %} 
+            {% for about in about_list %} 
+              <div class="project-card" data-aos="fade-up" data-aos-delay="200"> 
+                {% if about.image %} 
+                  <img src="{{ about.image.url }}" alt="{{ about.project_name }}" class="img-fluid mb-3" style="max-height: 100px; object-fit: contain;"> 
+                {% else %} 
+                  <i class="fas fa-business-time"></i> 
+                {% endif %} 
+                <h4>{{ about.project_name }}</h4> 
+                <!-- <p>{{ about.project_details }}</p> --> 
+                <a href="/cmis/project/{{ about.about_id }}/" class="btn-see-more">See Details <i class="fas fa-arrow-right"></i></a> 
+              </div> 
+            {% endfor %} 
+          {% else %} 
+            <p>No project information available.</p> 
+          {% endif %} 
+        </div> 
+         
+        {% if about_list and about_list|length >= 5 %}
+          <button class="slider-nav slider-next" onclick="scrollProjects(1)"> 
+            <i class="fas fa-chevron-right"></i> 
+          </button> 
+        {% endif %}
+      </div> 
+    </div> 
+  </div>
+  {% endblock%}
+  {% block script %}
 <script>
-$(document).ready(function () {
-  // Initialize AOS (Animate On Scroll)
-  AOS.init({
-    duration: 800,
-    easing: 'ease-in-out',
-    once: true,
-    offset: 100
-  });
+function scrollProjects(direction) {
+  const slider = document.getElementById('projectsSlider');
+  const cardWidth = 300; // Card width + gap
+  const scrollAmount = cardWidth * 2; // Scroll 2 cards at a time
+  
+  if (direction === -1) {
+    slider.scrollLeft -= scrollAmount;
+  } else {
+    slider.scrollLeft += scrollAmount;
+  }
+}
+</script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>
+function checkScrollability() {
+  // Rationale section
+  const rationaleText = document.getElementById('rationale-text');
+  const rationaleControls = document.getElementById('rationale-controls');
+  const rationalePrev = document.getElementById('rationalePrev');
+  const rationaleNext = document.getElementById('rationaleNext');
 
-  // Wait for Summernote to be fully initialized
-  $('textarea[name="content"]').on('summernote.init', function () {
-    // Apply styles after Summernote is initialized
-    applyCustomStyles();
-  });
-  
-  // Initialize Summernote
-  $('textarea[name="content"]').summernote({
-    height: 300,
-    placeholder: 'Write here...',
-    toolbar: [
-      // Your toolbar configuration here
-    ],
-    // Other Summernote options
-  });
-  
-  // Function to apply custom styles
-  function applyCustomStyles() {
-    $('#summernote-content .note-editable').css({
-      'color': '#333',
-      'line-height': '1.8'
-    });
+  if (rationaleText && rationaleControls) {
+    if (rationaleText.scrollHeight > rationaleText.clientHeight) {
+      rationaleControls.classList.remove('hidden');
+      rationaleText.classList.add('scrollable');
+      
+      // Add scroll event listeners for rationale
+      if (rationalePrev && rationaleNext) {
+        // Remove existing listeners to prevent duplicates
+        rationalePrev.removeEventListener('click', scrollRationaleUp);
+        rationaleNext.removeEventListener('click', scrollRationaleDown);
+        
+        // Add new listeners
+        rationalePrev.addEventListener('click', scrollRationaleUp);
+        rationaleNext.addEventListener('click', scrollRationaleDown);
+      }
+    } else {
+      rationaleControls.classList.add('hidden');
+      rationaleText.classList.remove('scrollable');
+    }
   }
 
-  // Simple animation for elements
-  function animateElements() {
-    $('.fade-up').each(function() {
-      const elementTop = $(this).offset().top;
-      const viewportBottom = $(window).scrollTop() + $(window).height();
+  // Objectives section
+  const objectiveBox = document.getElementById('objective-box');
+  const objectiveControls = document.getElementById('objective-controls');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  if (objectiveBox && objectiveControls) {
+    if (objectiveBox.scrollHeight > objectiveBox.clientHeight) {
+      objectiveControls.classList.remove('hidden');
+      objectiveBox.classList.add('scrollable');
       
-      if (elementTop < viewportBottom - 100) {
-        $(this).addClass('animated');
+      // Add scroll event listeners for objectives
+      if (prevBtn && nextBtn) {
+        // Remove existing listeners to prevent duplicates
+        prevBtn.removeEventListener('click', scrollObjectivesUp);
+        nextBtn.removeEventListener('click', scrollObjectivesDown);
+        
+        // Add new listeners
+        prevBtn.addEventListener('click', scrollObjectivesUp);
+        nextBtn.addEventListener('click', scrollObjectivesDown);
+      }
+    } else {
+      objectiveControls.classList.add('hidden');
+      objectiveBox.classList.remove('scrollable');
+    }
+  }
+}
+
+// Scroll functions for rationale section
+function scrollRationaleUp() {
+  const rationaleText = document.getElementById('rationale-text');
+  if (rationaleText) {
+    rationaleText.scrollBy({
+      top: -50, // Scroll up by 50px
+      behavior: 'smooth'
+    });
+  }
+}
+
+function scrollRationaleDown() {
+  const rationaleText = document.getElementById('rationale-text');
+  if (rationaleText) {
+    rationaleText.scrollBy({
+      top: 50, // Scroll down by 50px
+      behavior: 'smooth'
+    });
+  }
+}
+
+// Scroll functions for objectives section
+function scrollObjectivesUp() {
+  const objectiveBox = document.getElementById('objective-box');
+  if (objectiveBox) {
+    objectiveBox.scrollBy({
+      top: -50, // Scroll up by 50px
+      behavior: 'smooth'
+    });
+  }
+}
+
+function scrollObjectivesDown() {
+  const objectiveBox = document.getElementById('objective-box');
+  if (objectiveBox) {
+    objectiveBox.scrollBy({
+      top: 50, // Scroll down by 50px
+      behavior: 'smooth'
+    });
+  }
+}
+
+// Enhanced version with dynamic scroll amount based on content
+function checkScrollabilityAdvanced() {
+  // Rationale section
+  const rationaleText = document.getElementById('rationale-text');
+  const rationaleControls = document.getElementById('rationale-controls');
+  const rationalePrev = document.getElementById('rationalePrev');
+  const rationaleNext = document.getElementById('rationaleNext');
+
+  if (rationaleText && rationaleControls) {
+    if (rationaleText.scrollHeight > rationaleText.clientHeight) {
+      rationaleControls.classList.remove('hidden');
+      rationaleText.classList.add('scrollable');
+      
+      // Calculate scroll amount based on container height
+      const scrollAmount = Math.floor(rationaleText.clientHeight * 0.3); // 30% of visible height
+      
+      if (rationalePrev && rationaleNext) {
+        rationalePrev.removeEventListener('click', rationalePrev.scrollHandler);
+        rationaleNext.removeEventListener('click', rationaleNext.scrollHandler);
+        
+        rationalePrev.scrollHandler = () => {
+          rationaleText.scrollBy({
+            top: -scrollAmount,
+            behavior: 'smooth'
+          });
+        };
+        
+        rationaleNext.scrollHandler = () => {
+          rationaleText.scrollBy({
+            top: scrollAmount,
+            behavior: 'smooth'
+          });
+        };
+        
+        rationalePrev.addEventListener('click', rationalePrev.scrollHandler);
+        rationaleNext.addEventListener('click', rationaleNext.scrollHandler);
+      }
+    } else {
+      rationaleControls.classList.add('hidden');
+      rationaleText.classList.remove('scrollable');
+    }
+  }
+
+  // Objectives section
+  const objectiveBox = document.getElementById('objective-box');
+  const objectiveControls = document.getElementById('objective-controls');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  if (objectiveBox && objectiveControls) {
+    if (objectiveBox.scrollHeight > objectiveBox.clientHeight) {
+      objectiveControls.classList.remove('hidden');
+      objectiveBox.classList.add('scrollable');
+      
+      // Calculate scroll amount based on list item height
+      const listItems = objectiveBox.querySelectorAll('li');
+      const itemHeight = listItems.length > 0 ? listItems[0].offsetHeight : 40;
+      const scrollAmount = itemHeight + 10; // Item height + some margin
+      
+      if (prevBtn && nextBtn) {
+        prevBtn.removeEventListener('click', prevBtn.scrollHandler);
+        nextBtn.removeEventListener('click', nextBtn.scrollHandler);
+        
+        prevBtn.scrollHandler = () => {
+          objectiveBox.scrollBy({
+            top: -scrollAmount,
+            behavior: 'smooth'
+          });
+        };
+        
+        nextBtn.scrollHandler = () => {
+          objectiveBox.scrollBy({
+            top: scrollAmount,
+            behavior: 'smooth'
+          });
+        };
+        
+        prevBtn.addEventListener('click', prevBtn.scrollHandler);
+        nextBtn.addEventListener('click', nextBtn.scrollHandler);
+      }
+    } else {
+      objectiveControls.classList.add('hidden');
+      objectiveBox.classList.remove('scrollable');
+    }
+  }
+}
+
+// Initialize the scrollability check
+window.addEventListener('load', checkScrollability);
+window.addEventListener('resize', checkScrollability);
+
+// Optional: Add scroll position indicators
+function addScrollIndicators() {
+  const rationaleText = document.getElementById('rationale-text');
+  const objectiveBox = document.getElementById('objective-box');
+  
+  function updateScrollIndicators(element, prevBtn, nextBtn) {
+    if (!element || !prevBtn || !nextBtn) return;
+    
+    const isAtTop = element.scrollTop === 0;
+    const isAtBottom = element.scrollTop + element.clientHeight >= element.scrollHeight - 1;
+    
+    prevBtn.style.opacity = isAtTop ? '0.3' : '1';
+    nextBtn.style.opacity = isAtBottom ? '0.3' : '1';
+    
+    prevBtn.style.cursor = isAtTop ? 'default' : 'pointer';
+    nextBtn.style.cursor = isAtBottom ? 'default' : 'pointer';
+  }
+  
+  if (rationaleText) {
+    rationaleText.addEventListener('scroll', () => {
+      updateScrollIndicators(
+        rationaleText,
+        document.getElementById('rationalePrev'),
+        document.getElementById('rationaleNext')
+      );
+    });
+  }
+  
+  if (objectiveBox) {
+    objectiveBox.addEventListener('scroll', () => {
+      updateScrollIndicators(
+        objectiveBox,
+        document.getElementById('prevBtn'),
+        document.getElementById('nextBtn')
+      );
+    });
+  }
+}
+
+// Call this after checkScrollability
+window.addEventListener('load', () => {
+  checkScrollability();
+  addScrollIndicators();
+});
+
+    // Initialize animations
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100
+    });
+
+    // Navbar scroll effect
+    $(window).scroll(function() {
+      if ($(this).scrollTop() > 50) {
+        $('.navbar').addClass('scrolled');
+      } else {
+        $('.navbar').removeClass('scrolled');
       }
     });
-  }
-  
-  // Run once on page load
-  animateElements();
-  
-  // Run on scroll
-  $(window).on('scroll', animateElements);
-});
-</script>
-{% endblock script %}
+
+    // Objectives slider navigation
+    function scrollObjectives(direction) {
+      const slider = document.getElementById('objectivesSlider');
+      const scrollAmount = 380; // Width of card + gap
+      slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+
+    // Projects slider navigation
+    function scrollProjects(direction) {
+      const slider = document.getElementById('projectsSlider');
+      const scrollAmount = 310; // Width of card + gap
+      slider.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+{% endblock %}

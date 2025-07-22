@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count, Q
 from utils.user_control import user_access_required
+from appAdmin.models import About
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +23,7 @@ def cmi_forum(request):
     useful_links = models.get("useful_links", [])
     commodities = models.get("commodities", [])
     knowledge_resources = models.get("knowledge_resources", [])
+    about_list = About.objects.all() 
 
     # Get all forums for display with annotations for counts
     forums = Forum.objects.annotate(
