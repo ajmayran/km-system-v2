@@ -23417,3 +23417,49 @@ ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 [2025-07-23 11:35:18] Loading faiss.
 [2025-07-23 11:35:18] Successfully loaded faiss.
 [2025-07-23 11:35:18] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 12:12:53] Internal Server Error: /chatbot/chat/
+[2025-07-23 12:16:23] Loading faiss with AVX2 support.
+[2025-07-23 12:16:23] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 12:16:23] Loading faiss.
+[2025-07-23 12:16:23] Successfully loaded faiss.
+[2025-07-23 12:16:23] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 12:16:24] Use pytorch device: cpu
+[2025-07-23 12:16:25] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 12:16:25] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 12:16:25] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-23 12:16:40] Loading faiss with AVX2 support.
+[2025-07-23 12:16:40] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 12:16:40] Loading faiss.
+[2025-07-23 12:16:40] Successfully loaded faiss.
+[2025-07-23 12:16:40] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 12:16:40] Watching for file changes with StatReloader
+[2025-07-23 12:16:41] Use pytorch device: cpu
+[2025-07-23 12:16:41] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 12:16:42] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 12:16:42] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-23 12:19:37] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-23 12:19:55] Loading faiss with AVX2 support.
+[2025-07-23 12:19:55] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 12:19:55] Loading faiss.
+[2025-07-23 12:19:55] Successfully loaded faiss.
+[2025-07-23 12:19:55] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 12:19:56] Watching for file changes with StatReloader
+[2025-07-23 12:19:57] Use pytorch device: cpu
+[2025-07-23 12:19:57] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 12:19:57] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 12:19:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-23 12:20:19] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-23 12:20:50] Loading faiss with AVX2 support.
+[2025-07-23 12:20:50] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 12:20:50] Loading faiss.
+[2025-07-23 12:20:50] Successfully loaded faiss.
+[2025-07-23 12:20:50] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 12:20:50] Watching for file changes with StatReloader
+[2025-07-23 12:20:52] Use pytorch device: cpu
+[2025-07-23 12:20:52] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 12:20:53] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 12:20:53] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0

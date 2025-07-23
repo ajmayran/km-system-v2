@@ -991,28 +991,29 @@ class IntelligentChatbotService:
         """Handle ANY about queries with focused responses"""
         query_lower = query.lower()
         
-        # Apply spell correction first
         corrected_query = correct_spelling_dynamic(query_lower)
         print(f"🔧 About query correction: '{query_lower}' → '{corrected_query}'")
         
-        # Get about content from knowledge base
         cache = get_knowledge_base_cache()
         knowledge_data = cache['knowledge_data']
-        
-        about_items = [item for item in knowledge_data if item['type'] == 'about']
+
+        about_types = ['about', 'rationale', 'objective', 'activity', 'timeline', 'team_member', 
+                    'sub_project', 'sub_rationale', 'sub_objective', 'sub_timeline', 'sub_team_member']
+                    
+        about_items = [item for item in knowledge_data if item['type'] in about_types]
         
         if not about_items:
             return []
         
-        # Enhanced keyword matching with fuzzy search
         about_keywords = [
             'mission', 'vision', 'goal', 'objective', 'feature', 'purpose',
             'history', 'background', 'overview', 'introduction', 'description',
             'what is', 'who are', 'how does', 'aanr', 'knowledge hub', 'km hub',
-            'agriculture', 'aquaculture', 'fisheries', 'research', 'innovation'
+            'agriculture', 'aquaculture', 'fisheries', 'research', 'innovation',
+            'team', 'member', 'project', 'activity', 'timeline', 'rationale',
+            'about us', 'contact', 'organization', 'structure', 'management'
         ]
-        
-        # Find fuzzy matches for keywords
+
         fuzzy_matched_keywords = fuzzy_match_keywords(corrected_query, about_keywords, threshold=75)
         print(f"🎯 Fuzzy matched keywords: {fuzzy_matched_keywords}")
         
@@ -1025,7 +1026,6 @@ class IntelligentChatbotService:
             
             score = 0
             
-            # Check direct keyword matches in corrected query
             for keyword in about_keywords:
                 if keyword in corrected_query:
                     if keyword in item['title'].lower():
@@ -1035,13 +1035,17 @@ class IntelligentChatbotService:
                     if keyword in content_sample.lower():
                         score += 1
                     
-                    if 'section' in item and keyword in item['section'].lower():
-                        score += 3
+                    if item['type'] == 'team_member' and any(k in keyword for k in ['team', 'member', 'who']):
+                        score += 2
+                    elif item['type'] == 'timeline' and any(k in keyword for k in ['when', 'history', 'timeline']):
+                        score += 2
+                    elif item['type'] in ['objective', 'sub_objective'] and any(k in keyword for k in ['goal', 'objective', 'aim']):
+                        score += 2
+                    elif item['type'] in ['rationale', 'sub_rationale'] and any(k in keyword for k in ['why', 'reason', 'purpose']):
+                        score += 2
             
-            # Check fuzzy keyword matches
             for keyword, match_ratio in fuzzy_matched_keywords:
                 if match_ratio >= 75:
-                    # Apply fuzzy matching to content
                     content_sample = item.get('content', item.get('description', ''))
                     
                     if fuzz.partial_ratio(keyword, item['title'].lower()) >= 75:
@@ -1050,49 +1054,40 @@ class IntelligentChatbotService:
                     if fuzz.partial_ratio(keyword, content_sample.lower()) >= 75:
                         score += 1
                     
-                    if 'section' in item and fuzz.partial_ratio(keyword, item['section'].lower()) >= 75:
+                    if item['type'] == keyword:
                         score += 2
             
-            # Enhanced semantic similarity using word overlap
             item_text = f"{item['title']} {item.get('content', item.get('description', ''))}"
             similarity_score = self._calculate_semantic_similarity(corrected_query, item_text)
-            score += similarity_score
-            
-            # General about queries with fuzzy matching
-            about_triggers = ['about', 'what is', 'tell me about', 'describe', 'explain']
-            for trigger in about_triggers:
-                if fuzz.partial_ratio(trigger, corrected_query) >= 80:
-                    score += 1
-                    break
+            score += similarity_score * 2
+
+            if 'name' in item and any(term in corrected_query for term in ['who', 'team', 'member', 'contact']):
+                score += 2
+            if 'date' in item and any(term in corrected_query for term in ['when', 'date', 'timeline']):
+                score += 2
+            if 'role' in item and 'role' in corrected_query:
+                score += 2
             
             if score > 0:
-                full_content = item.get('content', item.get('description', ''))
-                clean_content = re.sub(r'<[^>]+>', '', full_content)
+                clean_content = re.sub(r'<[^>]+>', '', item.get('description', ''))
                 clean_content = re.sub(r'\s+', ' ', clean_content).strip()
                 
                 cleaned_item = {
                     **item,
-                    'description': clean_content
+                    'description': clean_content[:500] + ('...' if len(clean_content) > 500 else '')
                 }
                 
                 best_matches.append({
                     'resource': cleaned_item,
-                    'similarity_score': min(score / 6.0, 1.0),
-                    'confidence': 'high' if score >= 4 else 'medium' if score >= 2 else 'low'
+                    'similarity_score': min(score / 8.0, 1.0),
+                    'confidence': 'high' if score >= 6 else 'medium' if score >= 3 else 'low'
                 })
                 
                 seen_titles.add(item['title'])
         
         best_matches.sort(key=lambda x: x['similarity_score'], reverse=True)
-        
-        return best_matches[:1] if best_matches else [{
-            'resource': {
-                **about_items[0],
-                'description': re.sub(r'<[^>]+>', '', about_items[0].get('content', about_items[0].get('description', '')))
-            },
-            'similarity_score': 0.5,
-            'confidence': 'medium'
-        }]
+
+        return self._apply_diversity_filter(best_matches, 3)
 
     def generate_intelligent_response(self, query):
         """Main method for generating intelligent responses"""
