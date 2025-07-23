@@ -33,3 +33,6 @@ from .cmi_faqs_view import (
     toggle_faq_reaction,
     get_faq_data,
 )
+
+from .project_view import project_detail, project_view, project_sub_view
+from .project_sub_view import project_sub_detail
