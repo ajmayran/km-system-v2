@@ -30,7 +30,7 @@ def load_knowledge_base_from_db():
             ResourceMetadata, KnowledgeResources, Commodity, Event,
             InformationSystem, Map, Media, News, Policy, Project,
             Publication, Technology, TrainingSeminar, Webinar, Product,
-            CMI, AboutRationale, AboutObjective, AboutActivity, AboutTimeline, AboutTeamMember
+            CMI, AboutRationale, AboutObjective, AboutActivity, AboutTimeline, AboutTeamMember, AboutSubProject, AboutSubProjectRationale, AboutSubProjectObjective, AboutSubProjectTeamMember, AboutSubProjectTimeline
         )
         from appCmi.models import Forum, FAQ
         
@@ -716,6 +716,131 @@ def load_knowledge_base_from_db():
                 document_texts.append(combined_text)
 
             print(f"✅ Loaded {len([item for item in knowledge_data if item['type'] == 'team_member'])} team members")
+
+        print("📂 Loading Sub Projects...")
+        sub_projects = AboutSubProject.objects.all()
+        print(f"Found {sub_projects.count()} sub projects")
+
+        for sub_project in sub_projects:
+            combined_text = f"{sub_project.project_name} {sub_project.project_details} {sub_project.project_rationale_desc}"
+
+            knowledge_item = {
+                'id': f"sub_project_{sub_project.sub_id}",
+                'actual_id': sub_project.sub_id,
+                'title': sub_project.project_name,
+                'description': sub_project.project_details,
+                'type': 'sub_project',
+                'about_id': sub_project.about.about_id,
+                'rationale_desc': sub_project.project_rationale_desc,
+                'date_created': sub_project.date_created.strftime('%Y-%m-%d') if sub_project.date_created else None,
+                'raw_text': combined_text
+            }
+
+            knowledge_data.append(knowledge_item)
+            document_texts.append(combined_text)
+
+        print(f"✅ Loaded {len([item for item in knowledge_data if item['type'] == 'sub_project'])} sub projects")
+
+        # 25. Load Sub Project Rationales
+        print("💡 Loading Sub Project Rationales...")
+        sub_rationales = AboutSubProjectRationale.objects.all()
+        print(f"Found {sub_rationales.count()} sub project rationales")
+
+        for rationale in sub_rationales:
+            combined_text = f"{rationale.title} {rationale.detail}"
+
+            knowledge_item = {
+                'id': f"sub_rationale_{rationale.rationale_id}",
+                'actual_id': rationale.rationale_id,
+                'title': rationale.title,
+                'description': rationale.detail,
+                'type': 'sub_rationale',
+                'about_id': rationale.about.sub_id,
+                'raw_text': combined_text
+            }
+
+            knowledge_data.append(knowledge_item)
+            document_texts.append(combined_text)
+
+        print(f"✅ Loaded {len([item for item in knowledge_data if item['type'] == 'sub_rationale'])} sub project rationales")
+
+        # 26. Load Sub Project Objectives
+        print("🎯 Loading Sub Project Objectives...")
+        sub_objectives = AboutSubProjectObjective.objects.prefetch_related('details').all()
+        print(f"Found {sub_objectives.count()} sub project objectives")
+
+        for objective in sub_objectives:
+            details = [detail.detail for detail in objective.get_details()]
+            combined_text = f"{objective.title} {' '.join(details)}"
+
+            knowledge_item = {
+                'id': f"sub_objective_{objective.objective_id}",
+                'actual_id': objective.objective_id,
+                'title': objective.title,
+                'details': details,
+                'type': 'sub_objective',
+                'about_id': objective.about.sub_id,
+                'raw_text': combined_text
+            }
+
+            knowledge_data.append(knowledge_item)
+            document_texts.append(combined_text)
+
+        print(f"✅ Loaded {len([item for item in knowledge_data if item['type'] == 'sub_objective'])} sub project objectives")
+
+        # 27. Load Sub Project Timelines
+        print("📅 Loading Sub Project Timelines...")
+        sub_timelines = AboutSubProjectTimeline.objects.prefetch_related('bullets', 'images').all()
+        print(f"Found {sub_timelines.count()} sub project timelines")
+
+        for timeline in sub_timelines:
+            bullets = [bullet.details for bullet in timeline.bullets.all()]
+            combined_text = f"{timeline.title} {timeline.description} {' '.join(bullets)}"
+
+            knowledge_item = {
+                'id': f"sub_timeline_{timeline.timeline_id}",
+                'actual_id': timeline.timeline_id,
+                'title': timeline.title,
+                'description': timeline.description,
+                'bullets': bullets,
+                'type': 'sub_timeline',
+                'about_id': timeline.about.sub_id,
+                'start_date': timeline.date_start.strftime('%Y-%m-%d') if timeline.date_start else None,
+                'end_date': timeline.date_end.strftime('%Y-%m-%d') if timeline.date_end else None,
+                'raw_text': combined_text
+            }
+
+            knowledge_data.append(knowledge_item)
+            document_texts.append(combined_text)
+
+        print(f"✅ Loaded {len([item for item in knowledge_data if item['type'] == 'sub_timeline'])} sub project timelines")
+
+        # 28. Load Sub Project Team Members
+        print("👥 Loading Sub Project Team Members...")
+        sub_team_members = AboutSubProjectTeamMember.objects.prefetch_related('socials').all()
+        print(f"Found {sub_team_members.count()} sub project team members")
+
+        for member in sub_team_members:
+            name = f"{member.first_name or ''} {member.mid_name or ''} {member.last_name or ''}".strip()
+            combined_text = f"{name} {member.role} {member.description} {member.email or ''}"
+
+            knowledge_item = {
+                'id': f"sub_team_member_{member.member_id}",
+                'actual_id': member.member_id,
+                'name': name,
+                'role': member.role,
+                'description': member.description,
+                'email': member.email,
+                'type': 'sub_team_member',
+                'about_id': member.about.sub_id,
+                'social_links': [{'platform': social.platform, 'link': social.link} for social in member.socials.all()],
+                'raw_text': combined_text
+            }
+
+            knowledge_data.append(knowledge_item)
+            document_texts.append(combined_text)
+
+        print(f"✅ Loaded {len([item for item in knowledge_data if item['type'] == 'sub_team_member'])} sub project team members")
 
         print(f"🎉 Successfully loaded {len(knowledge_data)} total items into knowledge base")
         

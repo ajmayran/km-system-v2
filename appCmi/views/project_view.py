@@ -9,7 +9,7 @@ from appAdmin.models import (
 from utils.get_models import get_active_models
 from utils.user_control import user_access_required
 
-@user_access_required(["admin", "cmi"], error_type=404)
+
 def project_detail(request, about_id):
     models = get_active_models()
     about = About.objects.all()
@@ -40,7 +40,6 @@ def project_detail(request, about_id):
         'timeline_items': timeline_items,
     })
 
-@user_access_required(["admin", "cmi"], error_type=404)
 def project_sub_view(request, sub_id):
     """
     View for displaying subproject details
@@ -93,7 +92,6 @@ def project_sub_view(request, sub_id):
 #         'timeline_items': timeline_items,
 #     })
 
-@user_access_required(["admin", "cmi"], error_type=404)
 def project_view(request, about_id):
     project = get_object_or_404(About, pk=about_id)
 

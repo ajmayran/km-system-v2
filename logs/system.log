@@ -23118,3 +23118,96 @@ Traceback (most recent call last):
     raise self.error(
 django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 561: 'endblock'. Did you forget to register or load this tag?
 [2025-07-23 01:32:09] Not Found: /favicon.ico
+[2025-07-23 08:30:55] Loading faiss with AVX2 support.
+[2025-07-23 08:30:55] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 08:30:55] Loading faiss.
+[2025-07-23 08:30:55] Successfully loaded faiss.
+[2025-07-23 08:30:55] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 08:30:56] Use pytorch device: cpu
+[2025-07-23 08:30:56] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 08:30:56] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 08:30:56] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-23 08:31:08] Loading faiss with AVX2 support.
+[2025-07-23 08:31:08] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 08:31:08] Loading faiss.
+[2025-07-23 08:31:09] Successfully loaded faiss.
+[2025-07-23 08:31:09] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 08:31:09] Watching for file changes with StatReloader
+[2025-07-23 08:31:10] Use pytorch device: cpu
+[2025-07-23 08:31:10] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 08:31:10] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 08:31:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-23 08:31:38] Internal Server Error: /cmis/project/2/
+Traceback (most recent call last):
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\utils\user_control.py", line 34, in wrapper
+    return redirect("login")  # Redirect to login page if not authenticated
+           ^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 48, in redirect
+    return redirect_class(resolve_url(to, *args, **kwargs))
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\shortcuts.py", line 145, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\rosem\Documents\AJ\km-system-v2\km-env\Lib\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+[2025-07-23 08:31:38] Not Found: /favicon.ico
+[2025-07-23 08:32:35] C:\Users\rosem\Documents\AJ\km-system-v2\appCmi\views\project_view.py changed, reloading.
+[2025-07-23 08:32:53] Loading faiss with AVX2 support.
+[2025-07-23 08:32:53] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 08:32:53] Loading faiss.
+[2025-07-23 08:32:53] Successfully loaded faiss.
+[2025-07-23 08:32:53] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 08:32:53] Watching for file changes with StatReloader
+[2025-07-23 08:32:54] Use pytorch device: cpu
+[2025-07-23 08:32:54] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 08:32:55] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 08:32:55] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-23 09:45:28] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-23 09:45:45] Loading faiss with AVX2 support.
+[2025-07-23 09:45:45] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 09:45:45] Loading faiss.
+[2025-07-23 09:45:45] Successfully loaded faiss.
+[2025-07-23 09:45:45] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 09:45:45] Watching for file changes with StatReloader
+[2025-07-23 09:45:46] Use pytorch device: cpu
+[2025-07-23 09:45:46] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 09:45:47] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 09:45:47] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-23 09:50:18] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-23 09:50:33] Loading faiss with AVX2 support.
+[2025-07-23 09:50:33] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 09:50:33] Loading faiss.
+[2025-07-23 09:50:33] Successfully loaded faiss.
+[2025-07-23 09:50:33] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 09:50:34] Watching for file changes with StatReloader
+[2025-07-23 09:50:34] Use pytorch device: cpu
+[2025-07-23 09:50:34] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 09:50:35] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 09:50:35] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-23 09:57:33] C:\Users\rosem\Documents\AJ\km-system-v2\chatbot\services.py changed, reloading.
+[2025-07-23 09:58:33] Loading faiss with AVX2 support.
+[2025-07-23 09:58:33] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-23 09:58:33] Loading faiss.
+[2025-07-23 09:58:33] Successfully loaded faiss.
+[2025-07-23 09:58:33] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-23 09:58:33] Watching for file changes with StatReloader
+[2025-07-23 09:58:36] Use pytorch device: cpu
+[2025-07-23 09:58:36] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-23 09:58:37] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-23 09:58:37] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
