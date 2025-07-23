@@ -1,0 +1,121 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "generated_at": "2025-07-23T11:35:19.432699",
+    "total_items": 6,
+    "document_count": 6,
+    "source": "database_export",
+    "generator": "build_knowledge_base_command",
+    "database_stats": {
+      "resources": 0,
+      "knowledge_resources": 0,
+      "forums": 0,
+      "faqs": 1,
+      "total_approved": 1,
+      "last_updated": null,
+      "errors": []
+    }
+  },
+  "knowledge_data": [
+    {
+      "id": "faq_1",
+      "actual_id": 1,
+      "title": "<h1><strong>What is ANNR?</strong></h1>",
+      "description": "<p><span style=\"font-size:11pt\"><span style=\"line-height:115%\"><span style=\"font-family:Arial,sans-serif\">AANR stands for Agriculture, Aquatic, and Natural Resources. It is a strategic sector that encompasses food production systems (crops, livestock, fisheries), natural resource management, biodiversity conservation, and climate-resilient innovations. In the Philippines, the AANR sector plays a crucial role in food security, rural development, and sustainable environmental stewardship.</span></span></span></p>",
+      "question": "<h1><strong>What is ANNR?</strong></h1>",
+      "answer": "<p><span style=\"font-size:11pt\"><span style=\"line-height:115%\"><span style=\"font-family:Arial,sans-serif\">AANR stands for Agriculture, Aquatic, and Natural Resources. It is a strategic sector that encompasses food production systems (crops, livestock, fisheries), natural resource management, biodiversity conservation, and climate-resilient innovations. In the Philippines, the AANR sector plays a crucial role in food security, rural development, and sustainable environmental stewardship.</span></span></span></p>",
+      "type": "faq",
+      "slug": "zE3MpowD9TQg",
+      "url": "/cmis/faqs/",
+      "created_by": "Test Admin",
+      "created_at": "2025-07-23",
+      "total_reactions": 0,
+      "anonymous_reactions": 0,
+      "is_active": true,
+      "raw_text": "<h1><strong>What is ANNR?</strong></h1> <p><span style=\"font-size:11pt\"><span style=\"line-height:115%\"><span style=\"font-family:Arial,sans-serif\">AANR stands for Agriculture, Aquatic, and Natural Resources. It is a strategic sector that encompasses food production systems (crops, livestock, fisheries), natural resource management, biodiversity conservation, and climate-resilient innovations. In the Philippines, the AANR sector plays a crucial role in food security, rural development, and sustainable environmental stewardship.</span></span></span></p>"
+    },
+    {
+      "id": "sub_project_1",
+      "actual_id": 1,
+      "title": "Digital Library Module",
+      "description": "Electronic repository of agricultural publications and resources",
+      "type": "sub_project",
+      "about_id": 1,
+      "rationale_desc": "To provide easy access to digital agricultural resources",
+      "date_created": "2024-01-01",
+      "raw_text": "Digital Library Module Electronic repository of agricultural publications and resources To provide easy access to digital agricultural resources"
+    },
+    {
+      "id": "sub_rationale_1",
+      "actual_id": 1,
+      "title": "Digital Access",
+      "description": "Improve accessibility of agricultural resources through digital means",
+      "type": "sub_rationale",
+      "about_id": 1,
+      "raw_text": "Digital Access Improve accessibility of agricultural resources through digital means"
+    },
+    {
+      "id": "objective_1",
+      "actual_id": 1,
+      "title": "Resource Digitization",
+      "description": "Resource Digitization Convert physical resources into digital format for easy access",
+      "type": "objective",
+      "about_id": 1,
+      "raw_text": "Resource Digitization Convert physical resources into digital format for easy access"
+    },
+    {
+      "id": "sub_timeline_1",
+      "actual_id": 1,
+      "title": "Module Development",
+      "description": "Development phase of the digital library module",
+      "bullets": [
+        "Initial system architecture design"
+      ],
+      "type": "sub_timeline",
+      "about_id": 1,
+      "start_date": "2024-01-01",
+      "end_date": "2024-06-30",
+      "raw_text": "Module Development Development phase of the digital library module Initial system architecture design"
+    },
+    {
+      "id": "sub_team_member_1",
+      "actual_id": 1,
+      "title": "Jane A Smith",
+      "name": "Jane A Smith",
+      "role": "Module Lead",
+      "description": "Digital library systems specialist",
+      "email": "jane.smith@example.com",
+      "type": "sub_team_member",
+      "about_id": 1,
+      "social_links": [
+        {
+          "platform": "LinkedIn",
+          "link": "https://linkedin.com/in/janesmith"
+        }
+      ],
+      "raw_text": "Jane A Smith Module Lead Digital library systems specialist jane.smith@example.com"
+    }
+  ],
+  "document_texts": [
+    "<h1><strong>What is ANNR?</strong></h1> <p><span style=\"font-size:11pt\"><span style=\"line-height:115%\"><span style=\"font-family:Arial,sans-serif\">AANR stands for Agriculture, Aquatic, and Natural Resources. It is a strategic sector that encompasses food production systems (crops, livestock, fisheries), natural resource management, biodiversity conservation, and climate-resilient innovations. In the Philippines, the AANR sector plays a crucial role in food security, rural development, and sustainable environmental stewardship.</span></span></span></p>",
+    "Digital Library Module Electronic repository of agricultural publications and resources To provide easy access to digital agricultural resources",
+    "Digital Access Improve accessibility of agricultural resources through digital means",
+    "Resource Digitization Convert physical resources into digital format for easy access",
+    "Module Development Development phase of the digital library module Initial system architecture design",
+    "Jane A Smith Module Lead Digital library systems specialist jane.smith@example.com"
+  ],
+  "statistics": {
+    "content_types": {
+      "faq": 1,
+      "sub_project": 1,
+      "sub_rationale": 1,
+      "objective": 1,
+      "sub_timeline": 1,
+      "sub_team_member": 1
+    },
+    "total_text_size": 940,
+    "categories": {
+      "uncategorized": 6
+    }
+  }
+}

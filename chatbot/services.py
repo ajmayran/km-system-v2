@@ -988,7 +988,7 @@ class IntelligentChatbotService:
         return (jaccard_sim + fuzzy_sim) / 2
     
     def _handle_about_query(self, query, intent_info):
-        """Handle ANY about queries with focused responses using all About models"""
+        """Handle ANY about queries with focused responses"""
         query_lower = query.lower()
         
         # Apply spell correction first
@@ -999,35 +999,17 @@ class IntelligentChatbotService:
         cache = get_knowledge_base_cache()
         knowledge_data = cache['knowledge_data']
         
-        # Get all about-related content types
-        about_types = [
-            'about', 'rationale', 'objective', 'activity', 
-            'timeline', 'team_member',
-            'sub_project', 'sub_rationale', 'sub_objective',
-            'sub_timeline', 'sub_team_member'
-        ]
-        
-        about_items = [item for item in knowledge_data if item['type'] in about_types]
+        about_items = [item for item in knowledge_data if item['type'] == 'about']
         
         if not about_items:
             return []
         
-        # Enhanced keyword matching with expanded keywords
+        # Enhanced keyword matching with fuzzy search
         about_keywords = [
-            # General about keywords
             'mission', 'vision', 'goal', 'objective', 'feature', 'purpose',
             'history', 'background', 'overview', 'introduction', 'description',
             'what is', 'who are', 'how does', 'aanr', 'knowledge hub', 'km hub',
-            # Domain specific
-            'agriculture', 'aquaculture', 'fisheries', 'research', 'innovation',
-            # Team related
-            'team', 'member', 'staff', 'personnel', 'contact',
-            # Timeline related
-            'timeline', 'history', 'milestone', 'achievement',
-            # Project related
-            'project', 'initiative', 'program', 'activity',
-            # Rationale related
-            'rationale', 'reason', 'purpose', 'goal'
+            'agriculture', 'aquaculture', 'fisheries', 'research', 'innovation'
         ]
         
         # Find fuzzy matches for keywords
@@ -1040,7 +1022,7 @@ class IntelligentChatbotService:
         for item in about_items:
             if item['title'] in seen_titles:
                 continue
-                
+            
             score = 0
             
             # Check direct keyword matches in corrected query
@@ -1049,85 +1031,71 @@ class IntelligentChatbotService:
                     if keyword in item['title'].lower():
                         score += 2
                     
-                    if keyword in item.get('description', '').lower():
+                    content_sample = item.get('content', item.get('description', ''))
+                    if keyword in content_sample.lower():
                         score += 1
                     
-                    # Check additional fields based on type
-                    if item['type'] == 'team_member':
-                        if keyword in item.get('role', '').lower():
-                            score += 1.5
-                    elif item['type'] in ['timeline', 'sub_timeline']:
-                        if item.get('start_date') or item.get('end_date'):
-                            score += 1
-                    elif item['type'] in ['objective', 'sub_objective']:
-                        if 'details' in item and any(keyword in detail.lower() for detail in item['details']):
-                            score += 1.5
+                    if 'section' in item and keyword in item['section'].lower():
+                        score += 3
             
             # Check fuzzy keyword matches
             for keyword, match_ratio in fuzzy_matched_keywords:
                 if match_ratio >= 75:
+                    # Apply fuzzy matching to content
+                    content_sample = item.get('content', item.get('description', ''))
+                    
                     if fuzz.partial_ratio(keyword, item['title'].lower()) >= 75:
                         score += 1.5
                     
-                    if fuzz.partial_ratio(keyword, item.get('description', '').lower()) >= 75:
+                    if fuzz.partial_ratio(keyword, content_sample.lower()) >= 75:
                         score += 1
                     
-                    # Type-specific scoring
-                    if item['type'] in ['sub_project', 'sub_rationale']:
-                        if 'rationale_desc' in item and fuzz.partial_ratio(keyword, item['rationale_desc'].lower()) >= 75:
-                            score += 1.5
+                    if 'section' in item and fuzz.partial_ratio(keyword, item['section'].lower()) >= 75:
+                        score += 2
             
-            # Enhanced semantic similarity
-            similarity_score = self._calculate_semantic_similarity(
-                corrected_query,
-                f"{item['title']} {item.get('description', '')} {item.get('rationale_desc', '')}"
-            )
-            score += similarity_score * 2
+            # Enhanced semantic similarity using word overlap
+            item_text = f"{item['title']} {item.get('content', item.get('description', ''))}"
+            similarity_score = self._calculate_semantic_similarity(corrected_query, item_text)
+            score += similarity_score
+            
+            # General about queries with fuzzy matching
+            about_triggers = ['about', 'what is', 'tell me about', 'describe', 'explain']
+            for trigger in about_triggers:
+                if fuzz.partial_ratio(trigger, corrected_query) >= 80:
+                    score += 1
+                    break
             
             if score > 0:
-                # Clean and prepare content
-                description = item.get('description', '')
-                if item['type'] in ['objective', 'sub_objective'] and 'details' in item:
-                    details = "\n".join([f"• {detail}" for detail in item['details']])
-                    description = f"{description}\n\n{details}"
+                full_content = item.get('content', item.get('description', ''))
+                clean_content = re.sub(r'<[^>]+>', '', full_content)
+                clean_content = re.sub(r'\s+', ' ', clean_content).strip()
                 
-                # Add type-specific information
-                if item['type'] in ['team_member', 'sub_team_member']:
-                    social_links = item.get('social_links', [])
-                    if social_links:
-                        social_info = "\n\nConnect:\n" + "\n".join([f"• {link['platform']}: {link['link']}" for link in social_links])
-                        description += social_info
+                cleaned_item = {
+                    **item,
+                    'description': clean_content
+                }
                 
                 best_matches.append({
-                    'resource': {
-                        **item,
-                        'description': description
-                    },
-                    'similarity_score': min(score / 8.0, 1.0),
-                    'confidence': 'high' if score >= 5 else 'medium' if score >= 3 else 'low'
+                    'resource': cleaned_item,
+                    'similarity_score': min(score / 6.0, 1.0),
+                    'confidence': 'high' if score >= 4 else 'medium' if score >= 2 else 'low'
                 })
                 
                 seen_titles.add(item['title'])
         
-        # Sort by score and type priority
-        type_priority = {
-            'about': 1,
-            'sub_project': 2,
-            'objective': 3,
-            'sub_objective': 4,
-            'team_member': 5,
-            'sub_team_member': 6
-        }
+        best_matches.sort(key=lambda x: x['similarity_score'], reverse=True)
         
-        best_matches.sort(key=lambda x: (
-            -x['similarity_score'],
-            type_priority.get(x['resource']['type'], 99)
-        ))
-        
-        return best_matches[:3] if best_matches else []
+        return best_matches[:1] if best_matches else [{
+            'resource': {
+                **about_items[0],
+                'description': re.sub(r'<[^>]+>', '', about_items[0].get('content', about_items[0].get('description', '')))
+            },
+            'similarity_score': 0.5,
+            'confidence': 'medium'
+        }]
 
     def generate_intelligent_response(self, query):
-        """Main method for generating intelligent responses with enhanced about query handling"""
+        """Main method for generating intelligent responses"""
         query = query.strip()
         original_query_lower = query.lower()
         
@@ -1137,58 +1105,34 @@ class IntelligentChatbotService:
         if basic_intent:
             return self._generate_basic_response(basic_intent)
 
-        # Enhanced about query detection
         about_triggers = [
-            'about', 'tell me about', 'what is', 'describe', 'explain',
-            'mission', 'vision', 'goal', 'objective', 'purpose',
-            'aanr', 'knowledge hub', 'km hub', 'overview', 'introduction',
-            'who are', 'how does', 'what does', 'background', 
-            'rationale', 'team', 'members', 'projects', 'timeline'
+            'about', 'tell me about', 'mission', 'vision', 
+            'goal', 'objective', 'purpose', 'aanr', 'knowledge hub', 
+            'km hub', 'who are', 'how does', 'background', 'overview'
         ]
         
-        # System-specific terms that should trigger about handling
-        hub_specific_terms = [
-            'aanr', 'knowledge hub', 'km hub', 'knowledge management',
-            'system', 'platform', 'program', 'initiative', 'project'
-        ]
+        hub_specific_terms = ['aanr', 'knowledge hub', 'km hub', 'knowledge management', 'system']
         
         about_query_detected = False
         corrected_lower = corrected_query.lower()
         
-        # Check for direct matches first
         for trigger in about_triggers:
-            if trigger in corrected_lower:
+            if fuzz.partial_ratio(trigger, corrected_lower) >= 80:
                 about_query_detected = True
                 break
         
-        # If no direct match, try fuzzy matching
-        if not about_query_detected:
-            for trigger in about_triggers:
-                if fuzz.partial_ratio(trigger, corrected_lower) >= 80:
-                    about_query_detected = True
-                    break
-        
-        # Special case for "what is" questions about the system
-        if not about_query_detected and corrected_lower.startswith(('what is', 'what are')):
+        if not about_query_detected and corrected_lower.startswith('what is'):
             if any(term in corrected_lower for term in hub_specific_terms):
                 about_query_detected = True
         
-        # Handle about queries with dedicated method
         if about_query_detected:
-            print(f"🎯 Detected about query: '{corrected_query}'")
-            matched_resources = self._handle_about_query(corrected_query, {
-                'intent': 'about_query',
-                'is_about': True,
-                'query_type': 'about'
-            })
+            matched_resources = self._handle_about_query(corrected_query, {'intent': 'about_query'})
             if matched_resources:
                 return self._generate_about_response(corrected_query, matched_resources)
 
-        # Continue with existing conversation cache check and other handling
         if corrected_query.lower() in self._conversation_cache:
             return self._conversation_cache[corrected_query.lower()]
         
-        # Proceed with normal intent classification and handling
         intent_info = self._classify_user_intent(corrected_query)
         
         if intent_info.get('skip_ai') or intent_info.get('is_basic'):
@@ -1204,8 +1148,12 @@ class IntelligentChatbotService:
             return self._generate_topic_content_response(corrected_query, matched_resources, intent_info)
         else:
             matched_resources = self._enhanced_semantic_search_with_faiss(corrected_query, intent_info, top_k=5)
-            return self._generate_detailed_response(corrected_query, matched_resources) if matched_resources else self._generate_no_results_response(corrected_query)
-        
+            
+            if matched_resources:
+                return self._generate_detailed_response(corrected_query, matched_resources)
+            else:
+                return self._generate_no_results_response(corrected_query)
+
     def _generate_sample_response(self, query, matched_resources, intent_info):
         """Generate response for sample requests"""
         if not matched_resources:

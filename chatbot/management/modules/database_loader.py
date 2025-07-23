@@ -703,9 +703,10 @@ def load_knowledge_base_from_db():
                 knowledge_item = {
                     'id': f"team_member_{member.member_id}",
                     'actual_id': member.member_id,
+                    'title': f"{member.first_name} {member.last_name}" or "Unnamed Member",
                     'name': f"{member.first_name} {member.last_name}".strip(),
                     'role': member.role,
-                    'description': member.description,
+                    'description': member.description or "No description available",
                     'type': 'team_member',
                     'about_id': member.about.about_id,
                     'social_links': [{'platform': social.platform, 'link': social.link} for social in member.socials.all()],
@@ -774,13 +775,13 @@ def load_knowledge_base_from_db():
             combined_text = f"{objective.title} {' '.join(details)}"
 
             knowledge_item = {
-                'id': f"sub_objective_{objective.objective_id}",
+                'id': f"objective_{objective.objective_id}",
                 'actual_id': objective.objective_id,
                 'title': objective.title,
-                'details': details,
-                'type': 'sub_objective',
-                'about_id': objective.about.sub_id,
-                'raw_text': combined_text
+                'description': combined_text or "No description available", 
+                'type': 'objective',
+                'about_id': objective.about.about_id,
+                'raw_text': combined_text or "" 
             }
 
             knowledge_data.append(knowledge_item)
@@ -827,9 +828,10 @@ def load_knowledge_base_from_db():
             knowledge_item = {
                 'id': f"sub_team_member_{member.member_id}",
                 'actual_id': member.member_id,
+                'title': name or "Unnamed Member",
                 'name': name,
                 'role': member.role,
-                'description': member.description,
+                'description': member.description or "No description available",
                 'email': member.email,
                 'type': 'sub_team_member',
                 'about_id': member.about.sub_id,
