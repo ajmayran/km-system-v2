@@ -46,7 +46,7 @@ class Chatbot {
                 if (e.target.classList.contains('suggestion-chip')) {
                     e.preventDefault();
                     e.stopPropagation();
-                    
+
                     const message = e.target.dataset.message;
                     if (message) {
                         this.input.value = message;
@@ -130,18 +130,19 @@ class Chatbot {
             });
 
             const data = await response.json();
-            
+
             this.hideTyping();
-            
+
             if (response.ok) {
                 this.sessionId = data.session_id;
-                this.addMessage(data.response, 'bot', data);
-                
+                const cleanResponse = this.handleRTFContent(data.response);
+                this.addMessage(cleanResponse, 'bot', data);
+
                 // Show new suggestions
                 if (data.suggestions && data.suggestions.length > 0) {
                     this.showSuggestions(data.suggestions);
                 }
-                
+
                 // Add matched resources
                 if (data.matched_resources && data.matched_resources.length > 0) {
                     this.addResourceLinks(data.matched_resources);
@@ -161,7 +162,7 @@ class Chatbot {
     addMessage(text, sender, data = {}) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `chatbot-message ${sender}-message`;
-        
+
         // Add confidence class if available
         if (data.confidence) {
             messageDiv.classList.add(`confidence-${data.confidence}`);
@@ -173,18 +174,53 @@ class Chatbot {
 
         const content = document.createElement('div');
         content.className = 'message-content';
-        
-        const p = document.createElement('p');
-        p.style.whiteSpace = 'pre-wrap'; // Preserve line breaks
-        p.textContent = text;
-        content.appendChild(p);
 
+        const p = document.createElement('p');
+        p.style.whiteSpace = 'pre-wrap';
+
+        const cleanText = this.stripRTF(text);
+        p.textContent = cleanText;
+
+        content.appendChild(p);
         messageDiv.appendChild(avatar);
         messageDiv.appendChild(content);
-        
+
         this.messages.appendChild(messageDiv);
         this.scrollToBottom();
     }
+
+    stripRTF(text) {
+        // Remove RTF formatting tags
+        if (!text) return '';
+        return text
+            .replace(/<\/?(h1|h2|h3|h4|h5|h6|p|div|span|strong|em|b|i|u)[^>]*>/gi, '')
+            .replace(/\{\\[^}]+\}/g, '')
+            .replace(/\\[a-z]+\s?/g, '')
+            .replace(/\\cf\d+/g, '')
+            .replace(/\\highlight\d+/g, '')
+            .replace(/\s+/g, ' ')
+            .replace(/&nbsp;/g, ' ')
+            .replace(/<br\s*\/?>/gi, '\n')
+            .trim();
+    }
+
+    handleRTFContent(text) {
+        if (text.startsWith('{\\rtf1') || text.includes('\\par') || text.includes('\\pard')) {
+            return this.stripRTF(text);
+        }
+
+        if (text.includes('<') && text.includes('>')) {
+            return this.stripHTML(text);
+        }   
+
+        return text;
+    }
+
+    stripHTML(text) {
+        const div = document.createElement('div');
+        div.innerHTML = text;
+        return div.textContent || div.innerText || '';
+    } 
 
     addResourceLinks(resources) {
         const resourceDiv = document.createElement('div');
@@ -221,16 +257,16 @@ class Chatbot {
 
         resourceDiv.appendChild(avatar);
         resourceDiv.appendChild(content);
-        
+
         this.messages.appendChild(resourceDiv);
         this.scrollToBottom();
     }
 
     showSuggestions(suggestions) {
         this.clearSuggestions(); // Clear existing suggestions first
-        
+
         if (!suggestions || suggestions.length === 0) return;
-        
+
         suggestions.forEach(suggestion => {
             const chip = document.createElement('div');
             chip.className = 'suggestion-chip';
@@ -269,11 +305,11 @@ class Chatbot {
     getCSRFToken() {
         const token = document.querySelector('[name=csrfmiddlewaretoken]');
         if (token) return token.value;
-        
+
         // Try to get from meta tag
         const metaToken = document.querySelector('meta[name="csrf-token"]');
         if (metaToken) return metaToken.getAttribute('content');
-        
+
         // Try to get from cookie
         const cookies = document.cookie.split(';');
         for (let cookie of cookies) {
@@ -282,7 +318,7 @@ class Chatbot {
                 return value;
             }
         }
-        
+
         return '';
     }
 
@@ -305,7 +341,7 @@ class Chatbot {
             if (saved) {
                 const state = JSON.parse(saved);
                 this.sessionId = state.sessionId;
-                
+
                 if (state.isOpen) {
                     this.openChatbot();
                     if (state.isMinimized) {
@@ -320,7 +356,7 @@ class Chatbot {
 }
 
 // Initialize chatbot when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Only initialize if chatbot container exists
     if (document.getElementById('chatbot-container')) {
         try {
