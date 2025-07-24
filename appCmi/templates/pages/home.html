@@ -101,8 +101,8 @@
             <div class="faqs-list">
               {% for faq in top_faqs %}
                 <div class="faq-item" data-faq-id="{{ faq.faq_id }}">
-                  <div class="faq-question-text">{{ faq.question|safe }}</div>
-                  <div class="faq-answer-text">{{ faq.answer|safe }}</div>
+                  <div class="faq-question-text">{{ faq.question|striptags }}</div>
+                  <div class="faq-answer-text">{{ faq.answer|striptags }}</div>
                   <!-- Add counts below the answer -->
                   <div class="faq-stats">
                     <div class="faq-stat-item">

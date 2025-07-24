@@ -399,8 +399,10 @@ class IntelligentChatbot {
                     timestamp: new Date()
                 });
 
+                const cleanResponse = this.cleanTextContent(data.response);
+
                 // Add bot message with typing animation and AI indicators
-                this.addBotMessageWithTyping(data.response, data, () => {
+                this.addBotMessageWithTyping(cleanResponse, data, () => {
                     // Show AI status if available
                     if (data.ai_powered) {
                         this.addAIStatusIndicator(data);
@@ -438,18 +440,14 @@ class IntelligentChatbot {
         const messageDiv = document.createElement('div');
         messageDiv.className = `chatbot-message ${sender}-message`;
 
+        // Add confidence and message type classes
         if (sender === 'bot' && data.confidence) {
             messageDiv.classList.add(`confidence-${data.confidence}`);
         }
+        if (data.system_message) messageDiv.classList.add('system-message');
+        if (data.restored) messageDiv.classList.add('restored-message');
 
-        if (data.system_message) {
-            messageDiv.classList.add('system-message');
-        }
-
-        if (data.restored) {
-            messageDiv.classList.add('restored-message');
-        }
-
+        // Create message structure
         const avatar = document.createElement('div');
         avatar.className = 'message-avatar';
         avatar.innerHTML = sender === 'user' ?
@@ -458,52 +456,66 @@ class IntelligentChatbot {
 
         const content = document.createElement('div');
         content.className = 'message-content';
-        
-        // REMOVE ANY HEIGHT RESTRICTIONS
-        content.style.maxHeight = 'none';
-        content.style.height = 'auto';
 
-        const p = document.createElement('div');
-        
-        // Ensure full content is displayed
-        if (text.includes('\n') || text.includes('**') || text.includes('<br>') || text.includes('<strong>')) {
-            let formattedText = text
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                .replace(/\n\n/g, '<br><br>')
-                .replace(/\n/g, '<br>')
-                .replace(/^(\s+)/gm, (match) => '&nbsp;'.repeat(match.length));
+        const messageText = document.createElement('div');
+        messageText.className = 'message-text';
+        messageText.style.whiteSpace = 'pre-wrap';
+        messageText.style.wordWrap = 'break-word';
 
-            p.innerHTML = formattedText;
+        // Clean and format the text content
+        let cleanText = this.cleanTextContent(text);
+
+        // Handle special formatting if needed
+        if (this.hasFormatting(cleanText)) {
+            messageText.innerHTML = this.formatText(cleanText);
         } else {
-            p.style.whiteSpace = 'pre-wrap';
-            p.textContent = text;
+            messageText.textContent = cleanText;
         }
 
-        // ENSURE NO OVERFLOW HIDDEN
-        p.style.overflow = 'visible';
-        p.style.wordWrap = 'break-word';
-        p.style.maxHeight = 'none';
-
-        content.appendChild(p);
-
-        if (data.matched_resources && data.matched_resources.length > 0) {
-            this.addClickableSources(content, data.matched_resources);
-        }
-
+        // Assemble the message
+        content.appendChild(messageText);
         messageDiv.appendChild(avatar);
         messageDiv.appendChild(content);
 
+        // Add resource links if available
+        if (data.matched_resources?.length > 0) {
+            this.addClickableSources(content, data.matched_resources);
+        }
+
         this.messages.appendChild(messageDiv);
-        
-        // FORCE SCROLL TO BOTTOM TO SEE FULL CONTENT
-        setTimeout(() => {
-            this.scrollToBottom();
-        }, 100);
-        
+        this.scrollToBottom();
+
         if (saveToStorage) {
             this.saveToStorage();
         }
+    }
+
+    cleanTextContent(text) {
+        if (!text) return '';
+        // Remove RTF codes
+        let cleaned = text
+            .replace(/\{\\[^}]+\}/g, '')
+            .replace(/\\[a-z]+\s?/g, '')
+            .replace(/\s+/g, ' ')
+            .trim();
+        cleaned = cleaned.replace(/<[^>]*>/g, '');
+        return cleaned;
+    }
+
+    hasFormatting(text) {
+        return text.includes('\n') ||
+            text.includes('**') ||
+            text.includes('<br>') ||
+            text.includes('<strong>');
+    }
+
+    formatText(text) {
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/\n\n/g, '<br><br>')
+            .replace(/\n/g, '<br>')
+            .replace(/^(\s+)/gm, match => '&nbsp;'.repeat(match.length));
     }
 
     addClickableSources(contentElement, resources) {
@@ -563,14 +575,14 @@ class IntelligentChatbot {
                 'media': '🎥'
             };
 
+
             const icon = typeIcons[resource.type] || '📋';
-            const title = resource.title.length > 40 ?
-                resource.title.substring(0, 40) + '...' :
-                resource.title;
+            const cleanTitle = this.cleanTextContent(resource.title || '');
+            const displayTitle = cleanTitle.length > 40 ? cleanTitle.substring(0, 40) + '...' : cleanTitle;
 
             sourceLink.innerHTML = `
             <span style="font-size: 1.1em;">${icon}</span>
-            <span style="flex: 1; color: #2c6e49; font-weight: 500;">${title}</span>
+            <span style="flex: 1; color: #2c6e49; font-weight: 500;">${displayTitle}</span>
             <span style="color: #999; font-size: 0.8em; text-transform: capitalize;">${resource.type}</span>
         `;
 
@@ -595,7 +607,7 @@ class IntelligentChatbot {
             });
 
             // Add tooltip
-            sourceLink.title = `Click to learn more about: ${resource.title}`;
+            sourceLink.title = `Click to learn more about: ${cleanTitle}`;
 
             sourcesContainer.appendChild(sourceLink);
         });
@@ -735,8 +747,8 @@ class IntelligentChatbot {
         this.typeText(p, text, () => {
             p.classList.remove('typing');
 
-                // Add URL link if available
-            if (data.url || (data.matched_resources && data.matched_resources[0] && 
+            // Add URL link if available
+            if (data.url || (data.matched_resources && data.matched_resources[0] &&
                 (data.matched_resources[0].url || data.matched_resources[0].link))) {
                 this.addUrlLink(content, data);
             }

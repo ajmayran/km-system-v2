@@ -24075,3 +24075,99 @@ ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
 [2025-07-23 18:43:35] Starting new HTTPS connection (1): huggingface.co:443
 [2025-07-23 18:43:36] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
 [2025-07-23 18:43:36] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-23 18:47:19] Not Found: /media/team_profiles/proj-raise-3.jpg
+[2025-07-23 18:47:19] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_WjxCszi.jpg
+[2025-07-23 18:47:21] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_jYC7Ot5.jpg
+[2025-07-23 18:47:21] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:48:30] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_WjxCszi.jpg
+[2025-07-23 18:48:30] Not Found: /media/team_profiles/proj-raise-3.jpg
+[2025-07-23 18:48:30] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:48:30] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_jYC7Ot5.jpg
+[2025-07-23 18:49:32] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_XGkv5hN.jpg
+[2025-07-23 18:49:32] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_jYC7Ot5.jpg
+[2025-07-23 18:49:32] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_WjxCszi.jpg
+[2025-07-23 18:49:32] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_XGkv5hN.jpg
+[2025-07-23 18:49:32] Not Found: /media/team_profiles/proj-raise-3.jpg
+[2025-07-23 18:49:32] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_jYC7Ot5.jpg
+[2025-07-23 18:49:36] Not Found: /media/team_profiles/proj-raise-3.jpg
+[2025-07-23 18:49:36] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_jYC7Ot5.jpg
+[2025-07-23 18:49:40] Not Found: /media/team_profiles/518114076_1554115198976512_7928952819433915913_n_jYC7Ot5.jpg
+[2025-07-23 18:49:53] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:49:53] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:50:07] Importing BlpImagePlugin
+[2025-07-23 18:50:07] Importing BmpImagePlugin
+[2025-07-23 18:50:07] Importing BufrStubImagePlugin
+[2025-07-23 18:50:07] Importing CurImagePlugin
+[2025-07-23 18:50:07] Importing DcxImagePlugin
+[2025-07-23 18:50:07] Importing DdsImagePlugin
+[2025-07-23 18:50:07] Importing EpsImagePlugin
+[2025-07-23 18:50:07] Importing FitsImagePlugin
+[2025-07-23 18:50:07] Importing FliImagePlugin
+[2025-07-23 18:50:07] Importing FpxImagePlugin
+[2025-07-23 18:50:07] Image: failed to import FpxImagePlugin: No module named 'olefile'
+[2025-07-23 18:50:07] Importing FtexImagePlugin
+[2025-07-23 18:50:07] Importing GbrImagePlugin
+[2025-07-23 18:50:07] Importing GifImagePlugin
+[2025-07-23 18:50:07] Importing GribStubImagePlugin
+[2025-07-23 18:50:07] Importing Hdf5StubImagePlugin
+[2025-07-23 18:50:07] Importing IcnsImagePlugin
+[2025-07-23 18:50:07] Importing IcoImagePlugin
+[2025-07-23 18:50:07] Importing ImImagePlugin
+[2025-07-23 18:50:07] Importing ImtImagePlugin
+[2025-07-23 18:50:07] Importing IptcImagePlugin
+[2025-07-23 18:50:07] Importing JpegImagePlugin
+[2025-07-23 18:50:07] Importing Jpeg2KImagePlugin
+[2025-07-23 18:50:07] Importing McIdasImagePlugin
+[2025-07-23 18:50:07] Importing MicImagePlugin
+[2025-07-23 18:50:07] Image: failed to import MicImagePlugin: No module named 'olefile'
+[2025-07-23 18:50:07] Importing MpegImagePlugin
+[2025-07-23 18:50:07] Importing MpoImagePlugin
+[2025-07-23 18:50:07] Importing MspImagePlugin
+[2025-07-23 18:50:07] Importing PalmImagePlugin
+[2025-07-23 18:50:07] Importing PcdImagePlugin
+[2025-07-23 18:50:07] Importing PcxImagePlugin
+[2025-07-23 18:50:07] Importing PdfImagePlugin
+[2025-07-23 18:50:07] Importing PixarImagePlugin
+[2025-07-23 18:50:07] Importing PngImagePlugin
+[2025-07-23 18:50:07] Importing PpmImagePlugin
+[2025-07-23 18:50:07] Importing PsdImagePlugin
+[2025-07-23 18:50:07] Importing QoiImagePlugin
+[2025-07-23 18:50:07] Importing SgiImagePlugin
+[2025-07-23 18:50:07] Importing SpiderImagePlugin
+[2025-07-23 18:50:07] Importing SunImagePlugin
+[2025-07-23 18:50:07] Importing TgaImagePlugin
+[2025-07-23 18:50:07] Importing TiffImagePlugin
+[2025-07-23 18:50:07] Importing WebPImagePlugin
+[2025-07-23 18:50:07] Importing WmfImagePlugin
+[2025-07-23 18:50:07] Importing XbmImagePlugin
+[2025-07-23 18:50:07] Importing XpmImagePlugin
+[2025-07-23 18:50:07] Importing XVThumbImagePlugin
+[2025-07-23 18:50:35] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:50:53] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:50:53] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:51:02] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:51:10] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:51:16] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-23 18:51:16] Not Found: /media/team_profiles/123_k4BuMCP.png
+[2025-07-23 18:51:55] Not Found: /media/about_images/518114076_1554115198976512_7928952819433915913_n.jpg
+[2025-07-24 23:43:55] Loading faiss with AVX2 support.
+[2025-07-24 23:43:55] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-24 23:43:55] Loading faiss.
+[2025-07-24 23:43:55] Successfully loaded faiss.
+[2025-07-24 23:43:55] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-24 23:43:56] Use pytorch device: cpu
+[2025-07-24 23:43:56] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-24 23:43:57] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-24 23:43:57] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
+[2025-07-24 23:44:07] Loading faiss with AVX2 support.
+[2025-07-24 23:44:07] Could not load library with AVX2 support due to:
+ModuleNotFoundError("No module named 'faiss.swigfaiss_avx2'")
+[2025-07-24 23:44:07] Loading faiss.
+[2025-07-24 23:44:07] Successfully loaded faiss.
+[2025-07-24 23:44:07] Load pretrained SentenceTransformer: all-MiniLM-L6-v2
+[2025-07-24 23:44:07] Watching for file changes with StatReloader
+[2025-07-24 23:44:09] Use pytorch device: cpu
+[2025-07-24 23:44:09] Starting new HTTPS connection (1): huggingface.co:443
+[2025-07-24 23:44:10] https://huggingface.co:443 "HEAD /facebook/bart-large-mnli/resolve/main/config.json HTTP/1.1" 307 0
+[2025-07-24 23:44:10] https://huggingface.co:443 "HEAD /api/resolve-cache/models/facebook/bart-large-mnli/d7645e127eaf1aefc7862fd59a17a5aa8558b8ce/config.json HTTP/1.1" 200 0
