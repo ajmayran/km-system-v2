@@ -1,164 +1,226 @@
-{% extends 'base/cmi-index.html' %}
-
 {% load static %}
 {% load text_filters %}
 
-
-{% block title %}
-  AANR Knowledge Hub | About
-{% endblock %}
-
-{% block stylesheet %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About | AANR Knowledge Hub</title>
+  <link rel="icon" href="{% static 'assets/images/logo.png' %}" type="image/x-icon" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
   <link rel="stylesheet" href="{% static 'style/main.css' %}">
   <link rel="stylesheet" href="{% static 'style/css/cmi-navbar.css' %}">
+</head>
+<body>
 <style>
-    .hidden {
-    display: none !important;
-  }.scrollable {
-    overflow-y: auto;
-  }
-  .structure-img-container {
-    width: 100%;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
+  .hidden {
+  display: none !important;
+}.scrollable {
+  overflow-y: auto;
+}
 
-  .structure-img {
-    width: 100%;
-    aspect-ratio: 16/9;
-    height: auto;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    background: #fff;
-    
-    /* .carousel-caption h1 {
-    -webkit-text-stroke: 2px #2d5016; 
-    text-stroke: 2px #2d5016;
-    color: white; 
-    text-shadow: 2px 2px 4px rgba(45, 80, 22, 0.8);
-  }
-
-  .carousel-caption p {
-    -webkit-text-stroke: 0.5px #2d5016; 
-    text-stroke: 0.5px #2d5016;
-    color: white;
-    text-shadow: 0.5px 0.5px 2px rgba(45, 80, 22, 0.8);
-  } */
-  }
-    .description-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .description-modal {
-      background: white;
-      border-radius: 10px;
-      max-width: 80%;
-      max-height: 80%;
-      width: 500px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-    }
-
-    .description-header {
-      padding: 20px;
-      border-bottom: 1px solid #eee;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .description-title {
-      margin: 0;
-      color: #333;
-      font-size: 1.5rem;
-    }
-
-    .btn-close-description {
-      background: none;
-      border: none;
-      font-size: 2rem;
-      color: #999;
-      cursor: pointer;
-      padding: 0;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      transition: all 0.2s ease;
-    }
-
-    .btn-close-description:hover {
-      background: #f0f0f0;
-      color: #333;
-    }
-
-    .description-content {
-      padding: 20px;
-      overflow-y: auto;
-      flex: 1;
-      color: #333;
-      line-height: 1.6;
-    }
-
-    .description-content p {
-      margin: 0;
-    }
-
-    .see-more-btn {
-      margin-top: 10px;
-      transition: all 0.3s ease;
-    }
-
-    .see-more-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
-      border-color: rgba(255, 255, 255, 0.5);
-    }
-
-    /* Mobile responsiveness */
-    @media (max-width: 768px) {
-      .description-modal {
-        max-width: 95%;
-        max-height: 90%;
-        margin: 10px;
-      }
-      
-      .description-header {
-        padding: 15px;
-      }
-      
-      .description-title {
-        font-size: 1.2rem;
-      }
-      
-      .description-content {
-        padding: 15px;
-      }
-    }
 </style>
-{% endblock %}
+<header>
+  <nav class="navbar">
+    <div class="inner_navbar">
+      <!-- Desktop Logo (visible only on desktop) -->
+      <a href="{% url 'appCmi:home' %}" class="desktop-logo desktop-menu">
+        <img src="{% static 'assets/images/RAISE-Logo.png' %}" alt="RAISE Logo" class="navbar-logo-raise" />
+        <div class="text-container">
+          <h1 class="t1">km4aanr</h1>
+          <h3 class="t2">in WESTERN MINDANAO</h3>
+        </div>
+      </a>
 
-{% block content %}
+      <!-- Mobile Header (visible only on mobile) -->
+      <div class="mobile-header">
+        <a href="{% url 'appCmi:home' %}" class="logo-container">
+          <img src="{% static 'assets/images/RAISE-Logo.png' %}" alt="RAISE Logo" class="navbar-logo-raise" />
+          <div class="text-container">
+            <h1 class="t1">km4aanr</h1>
+            <h3 class="t2">in WESTERN MINDANAO</h3>
+          </div>
+        </a>
+        <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="navbar-center desktop-menu">
+        <ul>
+          <li><a href="{% url 'appCmi:home' %}">Home</a></li>
+          <li>
+            <div class="dropdown">
+              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
+                About
+                <i class="fa-solid fa-circle-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu" role="menu">
+                <a href="{% url 'appCmi:cmi-about' %}">RAISE Main Project</a>
+                {% if about_list %}
+                  {% for about in about_list %}
+                    <a href="/cmis/project/{{ about.about_id }}/" class="dropdown-item" role="menuitem">
+                      {{ about.project_name }}
+                    </a>
+                  {% endfor %}
+                {% else %}
+                  <a href="#" class="dropdown-item" role="menuitem">No Projects Yet</a>
+                {% endif %}
+              </div>
+
+            </div>
+          </li>
+          <!-- Useful Links Dropdown -->
+          <li>
+            <div class="dropdown">
+              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
+                Useful Links 
+                <i class="fa-solid fa-circle-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu" role="menu">
+                {% if useful_links %}
+                  {% for link in useful_links %}
+                    <a href="{{ link.link }}" class="dropdown-item" target="_blank" rel="noopener noreferrer" role="menuitem">{{ link.link_title }}</a>
+                  {% endfor %}
+                {% else %}
+                  <a href="#" class="dropdown-item" role="menuitem">No Links Yet</a>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+          
+          <!-- Commodities Dropdown -->
+          <li>
+            <div class="dropdown">
+              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
+                Commodities 
+                <i class="fa-solid fa-circle-chevron-down"></i>
+              </a>
+              <div class="dropdown-menu" role="menu">
+                <a href="{% url 'appCmi:all-commodities' %}" class="dropdown-item" role="menuitem">All Commodities</a>
+                {% if commodities %}
+                  {% for commodity in commodities %}
+                    <a href="{% url 'appCmi:display-commodity' commodity.slug %}" class="dropdown-item" role="menuitem">{{ commodity.commodity_name }}</a>
+                  {% endfor %}
+                {% else %}
+                  <a href="#" class="dropdown-item" role="menuitem">No Commodities Yet</a>
+                {% endif %}
+              </div>
+            </div>
+          </li>
+          
+          <li><a href="{% url 'appCmi:cmi-forum' %}">Forum</a></li>
+          <li><a href="{% url 'appCmi:all-knowledge-resources' %}">Knowledge Resources</a></li>
+        </ul>
+      </div>
+
+      <!-- Profile Dropdown (Desktop) -->
+      <div class="navbar-right desktop-menu">
+        <div class="dropdown">
+          <a href="#" class="profile-toggle" role="button" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
+            <img src="{% static 'assets/images/default_profile.png' %}" alt="Profile" class="profile-image" />
+          </a>
+          <div class="dropdown-menu" role="menu">
+            <a class="dropdown-item" href="{% url 'appCmi:cmi-profile' %}" role="menuitem">
+              <i class="fas fa-user"></i> Profile
+            </a>
+            {% if user.user_type == 'admin' %}
+              <a class="dropdown-item" href="{% url 'appAdmin:dashboard' %}" role="menuitem">
+                <i class="fas fa-shield-alt"></i> Admin Dashboard
+              </a>
+            {% endif %}
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="{% url 'appAccounts:logout' %}" role="menuitem">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" role="navigation" aria-label="Mobile navigation">
+      <a href="{% url 'appCmi:home' %}">
+        <i class="fas fa-home"></i> Home
+      </a>
+      <a href="">
+        <i class="fas fa-info-circle"></i> About
+      </a>
+      
+      <!-- Mobile Useful Links Dropdown -->
+      <div class="mobile-dropdown">
+        <button class="mobile-dropdown-toggle" aria-expanded="false" aria-controls="mobile-useful-links">
+          <span><i class="fas fa-link"></i> Useful Links</span>
+          <i class="fas fa-chevron-down mobile-dropdown-icon"></i>
+        </button>
+        <div class="mobile-dropdown-content" id="mobile-useful-links">
+          {% if useful_links %}
+            {% for link in useful_links %}
+              <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">{{ link.link_title }}</a>
+            {% endfor %}
+          {% else %}
+            <a href="#">No Links Yet</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Mobile Commodities Dropdown -->
+      <div class="mobile-dropdown">
+        <button class="mobile-dropdown-toggle" aria-expanded="false" aria-controls="mobile-commodities">
+          <span><i class="fas fa-seedling"></i> Commodities</span>
+          <i class="fas fa-chevron-down mobile-dropdown-icon"></i>
+        </button>
+        <div class="mobile-dropdown-content" id="mobile-commodities">
+          <a href="{% url 'appCmi:all-commodities' %}">All Commodities</a>
+          {% if commodities %}
+            {% for commodity in commodities %}
+              <a href="{% url 'appCmi:display-commodity' commodity.slug %}">{{ commodity.commodity_name }}</a>
+            {% endfor %}
+          {% else %}
+            <a href="#">No Commodities Yet</a>
+          {% endif %}
+        </div>
+      </div>
+
+      <a href="{% url 'appCmi:cmi-forum' %}">
+        <i class="fas fa-comments"></i> Forum
+      </a>
+      <a href="{% url 'appCmi:all-knowledge-resources' %}">
+        <i class="fas fa-book"></i> Knowledge Resources
+      </a>
+      <a href="{% url 'appCmi:cmi-profile' %}">
+        <i class="fas fa-user"></i> Profile
+      </a>
+      {% if user.user_type == 'admin' %}
+        <a href="{% url 'appAdmin:dashboard' %}">
+          <i class="fas fa-shield-alt"></i> Admin Dashboard
+        </a>
+      {% endif %}
+      <a href="{% url 'appAccounts:logout' %}">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </nav>
+  </nav>
+</header>
+<style>
+  /* .carousel-caption h1 {
+  -webkit-text-stroke: 2px #2d5016; 
+  text-stroke: 2px #2d5016;
+  color: white; 
+  text-shadow: 2px 2px 4px rgba(45, 80, 22, 0.8);
+}
+
+.carousel-caption p {
+  -webkit-text-stroke: 0.5px #2d5016; 
+  text-stroke: 0.5px #2d5016;
+  color: white;
+  text-shadow: 0.5px 0.5px 2px rgba(45, 80, 22, 0.8);
+} */
+</style>
   <!-- Carousel Start -->
   <div id="raiseCarousel" class="carousel slide" data-ride="carousel" data-interval="5000">
     <div class="carousel-inner">
@@ -192,6 +254,112 @@
           </div>
         </div>
       </div>
+
+      <style>
+      .description-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .description-modal {
+        background: white;
+        border-radius: 10px;
+        max-width: 80%;
+        max-height: 80%;
+        width: 500px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .description-header {
+        padding: 20px;
+        border-bottom: 1px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      .description-title {
+        margin: 0;
+        color: #333;
+        font-size: 1.5rem;
+      }
+
+      .btn-close-description {
+        background: none;
+        border: none;
+        font-size: 2rem;
+        color: #999;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+      }
+
+      .btn-close-description:hover {
+        background: #f0f0f0;
+        color: #333;
+      }
+
+      .description-content {
+        padding: 20px;
+        overflow-y: auto;
+        flex: 1;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .description-content p {
+        margin: 0;
+      }
+
+      .see-more-btn {
+        margin-top: 10px;
+        transition: all 0.3s ease;
+      }
+
+      .see-more-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Mobile responsiveness */
+      @media (max-width: 768px) {
+        .description-modal {
+          max-width: 95%;
+          max-height: 90%;
+          margin: 10px;
+        }
+        
+        .description-header {
+          padding: 15px;
+        }
+        
+        .description-title {
+          font-size: 1.2rem;
+        }
+        
+        .description-content {
+          padding: 15px;
+        }
+      }
+      </style>
 
       <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -301,11 +469,12 @@
     <div class="container">
       <h2 class="section-title" data-aos="fade-up">Organizational Structure</h2>
       <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Our streamlined structure ensures efficient implementation across all project components.</p>
+      
       <div class="structure-img-container" data-aos="zoom-in">
         {% if main.org_struct_image %}
           <img src="{{ main.org_struct_image.url }}" alt="Organizational Structure" class="structure-img">
         {% else %}
-          <img src="{% static 'assets/images/org.jpg' %}" alt="Default Org Structure" class="structure-img">
+          <img src="{% static 'assets/images/org.png' %}" alt="Default Org Structure" class="structure-img">
         {% endif %}
       </div>
       
@@ -351,8 +520,6 @@
       </div> 
     </div> 
   </div>
-  {% endblock%}
-  {% block script %}
 <script>
 function scrollProjects(direction) {
   const slider = document.getElementById('projectsSlider');
@@ -641,4 +808,7 @@ window.addEventListener('load', () => {
       });
     }
   </script>
-{% endblock %}
+
+   {% include 'base/footer.html' %}
+</body>
+</html>

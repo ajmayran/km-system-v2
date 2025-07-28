@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title> AANR Knowledge Hub | {{ featured_about.project_name|default:"Project" }}</title>
+  <title>{{ featured_about.project_name|default:"Project" }} | AANR Knowledge Hub</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -295,193 +295,7 @@
 
 <body>
   
-<header>
-  <nav class="navbar">
-    <div class="inner_navbar">
-      <!-- Desktop Logo (visible only on desktop) -->
-      <a href="{% url 'appCmi:home' %}" class="desktop-logo desktop-menu">
-        <img src="{% static 'assets/images/RAISE-Logo.png' %}" alt="RAISE Logo" class="navbar-logo-raise" />
-        <div class="text-container">
-          <h1 class="t1">km4aanr</h1>
-          <h3 class="t2">in WESTERN MINDANAO</h3>
-        </div>
-      </a>
-
-      <!-- Mobile Header (visible only on mobile) -->
-      <div class="mobile-header">
-        <a href="{% url 'appCmi:home' %}" class="logo-container">
-          <img src="{% static 'assets/images/RAISE-Logo.png' %}" alt="RAISE Logo" class="navbar-logo-raise" />
-          <div class="text-container">
-            <h1 class="t1">km4aanr</h1>
-            <h3 class="t2">in WESTERN MINDANAO</h3>
-          </div>
-        </a>
-        <button class="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
-          <i class="fas fa-bars"></i>
-        </button>
-      </div>
-
-      <!-- Desktop Menu -->
-      <div class="navbar-center desktop-menu">
-        <ul>
-          <li><a href="{% url 'appCmi:home' %}">Home</a></li>
-            <li>
-            <div class="dropdown">
-              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
-                About
-                <i class="fa-solid fa-circle-chevron-down"></i>
-              </a>
-              <div class="dropdown-menu" role="menu">
-                <a href="{% url 'appCmi:cmi-about' %}">RAISE Main Project</a>
-                {% if about_list %}
-                  {% for about in about_list %}
-                    <a href="/cmis/project/{{ about.about_id }}/" class="dropdown-item" role="menuitem">
-                      {{ about.project_name }}
-                    </a>
-                  {% endfor %}
-                {% else %}
-                  <a href="#" class="dropdown-item" role="menuitem">No Projects Yet</a>
-                {% endif %}
-              </div>
-
-            </div>
-          </li>
-          <!-- Useful Links Dropdown -->
-          <li>
-            <div class="dropdown">
-              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
-                Useful Links 
-                <i class="fa-solid fa-circle-chevron-down"></i>
-              </a>
-              <div class="dropdown-menu" role="menu">
-                {% if useful_links %}
-                  {% for link in useful_links %}
-                    <a href="{{ link.link }}" class="dropdown-item" target="_blank" rel="noopener noreferrer" role="menuitem">{{ link.link_title }}</a>
-                  {% endfor %}
-                {% else %}
-                  <a href="#" class="dropdown-item" role="menuitem">No Links Yet</a>
-                {% endif %}
-              </div>
-            </div>
-          </li>
-          
-          <!-- Commodities Dropdown -->
-          <li>
-            <div class="dropdown">
-              <a href="#" class="dropdown-fa-toggle-down" role="button" aria-haspopup="true" aria-expanded="false">
-                Commodities 
-                <i class="fa-solid fa-circle-chevron-down"></i>
-              </a>
-              <div class="dropdown-menu" role="menu">
-                <a href="{% url 'appCmi:all-commodities' %}" class="dropdown-item" role="menuitem">All Commodities</a>
-                {% if commodities %}
-                  {% for commodity in commodities %}
-                    <a href="{% url 'appCmi:display-commodity' commodity.slug %}" class="dropdown-item" role="menuitem">{{ commodity.commodity_name }}</a>
-                  {% endfor %}
-                {% else %}
-                  <a href="#" class="dropdown-item" role="menuitem">No Commodities Yet</a>
-                {% endif %}
-              </div>
-            </div>
-          </li>
-          
-          <li><a href="{% url 'appCmi:cmi-forum' %}">Forum</a></li>
-          <li><a href="{% url 'appCmi:faqs' %}">FAQs</a></li>
-          <li><a href="{% url 'appCmi:all-knowledge-resources' %}">Knowledge Resources</a></li>
-        </ul>
-      </div>
-
-      <!-- Profile Dropdown (Desktop) -->
-      <div class="navbar-right desktop-menu">
-        <div class="dropdown">
-          <a href="#" class="profile-toggle" role="button" aria-haspopup="true" aria-expanded="false" aria-label="User profile menu">
-            <img src="{% static 'assets/images/default_profile.png' %}" alt="Profile" class="profile-image" />
-          </a>
-          <div class="dropdown-menu" role="menu">
-            <a class="dropdown-item" href="{% url 'appCmi:cmi-profile' %}" role="menuitem">
-              <i class="fas fa-user"></i> Profile
-            </a>
-            {% if user.user_type == 'admin' %}
-              <a class="dropdown-item" href="{% url 'appAdmin:dashboard' %}" role="menuitem">
-                <i class="fas fa-shield-alt"></i> Admin Dashboard
-              </a>
-            {% endif %}
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="{% url 'appAccounts:logout' %}" role="menuitem">
-              <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    <nav class="mobile-menu" role="navigation" aria-label="Mobile navigation">
-      <a href="{% url 'appCmi:home' %}">
-        <i class="fas fa-home"></i> Home
-      </a>
-      <a href="">
-        <i class="fas fa-info-circle"></i> About
-      </a>
-      
-      <!-- Mobile Useful Links Dropdown -->
-      <div class="mobile-dropdown">
-        <button class="mobile-dropdown-toggle" aria-expanded="false" aria-controls="mobile-useful-links">
-          <span><i class="fas fa-link"></i> Useful Links</span>
-          <i class="fas fa-chevron-down mobile-dropdown-icon"></i>
-        </button>
-        <div class="mobile-dropdown-content" id="mobile-useful-links">
-          {% if useful_links %}
-            {% for link in useful_links %}
-              <a href="{{ link.link }}" target="_blank" rel="noopener noreferrer">{{ link.link_title }}</a>
-            {% endfor %}
-          {% else %}
-            <a href="#">No Links Yet</a>
-          {% endif %}
-        </div>
-      </div>
-
-      <!-- Mobile Commodities Dropdown -->
-      <div class="mobile-dropdown">
-        <button class="mobile-dropdown-toggle" aria-expanded="false" aria-controls="mobile-commodities">
-          <span><i class="fas fa-seedling"></i> Commodities</span>
-          <i class="fas fa-chevron-down mobile-dropdown-icon"></i>
-        </button>
-        <div class="mobile-dropdown-content" id="mobile-commodities">
-          <a href="{% url 'appCmi:all-commodities' %}">All Commodities</a>
-          {% if commodities %}
-            {% for commodity in commodities %}
-              <a href="{% url 'appCmi:display-commodity' commodity.slug %}">{{ commodity.commodity_name }}</a>
-            {% endfor %}
-          {% else %}
-            <a href="#">No Commodities Yet</a>
-          {% endif %}
-        </div>
-      </div>
-
-      <a href="{% url 'appCmi:cmi-forum' %}">
-        <i class="fas fa-comments"></i> Forum
-      </a>
-      <a href="{% url 'appCmi:faqs' %}">
-        <i class="fas fa-question-circle"></i> FAQs
-      </a>
-      <a href="{% url 'appCmi:all-knowledge-resources' %}">
-        <i class="fas fa-book"></i> Knowledge Resources
-      </a>
-      <a href="{% url 'appCmi:cmi-profile' %}">
-        <i class="fas fa-user"></i> Profile
-      </a>
-      {% if user.user_type == 'admin' %}
-        <a href="{% url 'appAdmin:dashboard' %}">
-          <i class="fas fa-shield-alt"></i> Admin Dashboard
-        </a>
-      {% endif %}
-      <a href="{% url 'appAccounts:logout' %}">
-        <i class="fas fa-sign-out-alt"></i> Logout
-      </a>
-    </nav>
-  </nav>
-</header>
+{% include 'base/cmi-navbar.html' %}
 
   <style>
     .hero-slide {
@@ -1512,21 +1326,7 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 
-  <footer class="py-4 bg-dark text-white">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <p class="mb-0">&copy; 2025 RAISE Program - Project ABH. All rights reserved.</p>
-        </div>
-        <div class="col-md-6 text-md-end">
-          <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-white me-3"><i class="fab fa-linkedin-in"></i></a>
-          <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
-        </div>
-      </div>
-    </div>
-  </footer>
+  {% include 'base/footer.html' %}
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
